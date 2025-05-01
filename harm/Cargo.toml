@@ -1,0 +1,10 @@
+[package]
+name = "harm"
+version = "0.1.0"
+edition = "2024"
+description = "AArch64 (ARM64) Assembler"
+license = "MIT"
+authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
+
+[dependencies]
+aarchmrs-types = { workspace = true }
