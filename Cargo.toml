@@ -3,9 +3,10 @@
 members = [
    "aarchmrs-gen",
    "aarchmrs-parser",
+   "aarchmrs-types",
 ]
 
 [workspace.dependencies]
 aarchmrs-gen = { path = "aarchmrs-gen", version = "0.1.0" }
 aarchmrs-parser = { path = "aarchmrs-parser", version = "0.1.0" }
-harm = { path = "harm", version = "0.1.0" }
+aarchmrs-types = { path = "aarchmrs-types", version = "0.1.0" }
