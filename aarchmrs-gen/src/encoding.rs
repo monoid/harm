@@ -1,10 +1,10 @@
 use std::rc::Rc;
 
-use aarchmrs_parser::Encodeset;
+use aarchmrs_parser::{Encodeset, Range};
 
 const INSTRUCTION_BIT_WIDTH: usize = 32;
 
-type InstructionBits = [Option<Bit>; INSTRUCTION_BIT_WIDTH];
+type InstructionBits = [Option<Bits>; INSTRUCTION_BIT_WIDTH];
 
 /// This function combines the definitions from root (first element) to child (last element),
 /// producing a new `Encodeset`.
@@ -12,7 +12,7 @@ type InstructionBits = [Option<Bit>; INSTRUCTION_BIT_WIDTH];
 /// The AARCHMRS provides tree-like definition of Encodesets where a parent node defines
 /// common fields, and a child defines more specific fields (sometimes overriding parent's
 /// bits).
-pub fn flatten_encodeset(encodings: &[&Encodeset]) -> Encodeset {
+pub fn flatten_encodeset(encodings: &[&Encodeset]) -> Vec<Bits> {
     use aarchmrs_parser::Encode;
 
     let mut instruction_bits: InstructionBits = [const { None }; INSTRUCTION_BIT_WIDTH];
@@ -26,20 +26,69 @@ pub fn flatten_encodeset(encodings: &[&Encodeset]) -> Encodeset {
         }
     }
 
-    group_back(&instruction_bits)
+    regroup_back(&instruction_bits)
 }
 
-fn group_back(instruction_bits: &InstructionBits) -> Encodeset {
-    use itertools::Itertools as _;
-    let empty: Rc<str> = <_>::from("");
+fn regroup_back(instruction_bits: &InstructionBits) -> Vec<Bits> {
+    let mut last_encode: Option<Bits> = None;
+    let mut values: Vec<Bits> = vec![];
 
-    let groups = instruction_bits.iter().chunk_by(|item| match item {
-        None => (0, empty.clone()),
-        Some(Bit::Bit(_)) => (1, empty.clone()),
-        Some(Bit::Field { name }) => (2, name.clone()),
-    });
+    for src in instruction_bits.into_iter() {
+        match (src, last_encode.take()) {
+            (None, None) => {}
+            (None, Some(enc)) => {
+                values.push(enc);
+            }
+            (Some(bit), None) => {
+                last_encode = Some(bit.clone());
+            }
+            (
+                Some(Bits::Bit { bits: src_bits, .. }),
+                Some(Bits::Bit {
+                    mut bits,
+                    mut range,
+                }),
+            ) => {
+                bits |= src_bits << range.width;
+                range.width += 1;
+                last_encode = Some(Bits::Bit { bits, range });
+            }
+            (Some(Bits::Bit { .. }), Some(Bits::Field { name, range })) => {
+                values.push(Bits::Field { name, range });
+                last_encode = src.clone();
+            }
+            (
+                Some(Bits::Field {
+                    name: src_name,
+                    range: src_range,
+                }),
+                Some(Bits::Field { name, mut range }),
+            ) => {
+                if src_name == &name {
+                    // combine
+                    range.width += 1;
+                    last_encode = Some(Bits::Field { name, range });
+                } else {
+                    // evict older value
+                    values.push(Bits::Field { name, range });
+                    last_encode = Some(Bits::Field {
+                        name: src_name.clone(),
+                        range: *src_range,
+                    });
+                }
+            }
+            (Some(Bits::Field { .. }), Some(Bits::Bit { bits, range })) => {
+                values.push(Bits::Bit { bits, range });
+                last_encode = src.clone();
+            }
+        }
+    }
 
-    todo!()
+    if let Some(last) = last_encode {
+        values.push(last);
+    }
+
+    values
 }
 
 fn fill_bits(instruction_bits: &mut InstructionBits, bits: &aarchmrs_parser::Bits) {
@@ -51,12 +100,17 @@ fn fill_bits(instruction_bits: &mut InstructionBits, bits: &aarchmrs_parser::Bit
         .rev()
         .zip(bits.range)
     {
-        match bit_char {
-            '0' => instruction_bits[bit_idx as usize] = Some(Bit::Bit(false)),
-            '1' => instruction_bits[bit_idx as usize] = Some(Bit::Bit(true)),
-            'x' => {}
+        let range = Range {
+            start: bit_idx,
+            width: 1,
+        };
+        let bit = match bit_char {
+            '0' => Some(Bits::Bit { bits: 0, range }),
+            '1' => Some(Bits::Bit { bits: 1, range }),
+            'x' => None,
             _ => panic!("unexpected char {bit_char:?}"),
-        }
+        };
+        instruction_bits[bit_idx as usize] = bit;
     }
 }
 
@@ -70,15 +124,20 @@ fn fill_field(instruction_bits: &mut InstructionBits, field: &aarchmrs_parser::F
             .all(|c| c == 'x')
     );
     let name: Rc<str> = field.name.as_str().into();
-    let bit = Some(Bit::Field { name: name.clone() });
 
     for pos_idx in field.range {
-        instruction_bits[pos_idx as usize] = bit.clone();
+        instruction_bits[pos_idx as usize] = Some(Bits::Field {
+            name: name.clone(),
+            range: Range {
+                start: pos_idx,
+                width: 1,
+            },
+        });
     }
 }
 
 #[derive(Debug, Clone)]
-enum Bit {
-    Bit(bool),
-    Field { name: Rc<str> },
+pub enum Bits {
+    Bit { bits: u32, range: Range },
+    Field { name: Rc<str>, range: Range },
 }

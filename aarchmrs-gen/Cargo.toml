@@ -8,7 +8,11 @@ authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
 
 [dependencies]
 aarchmrs-parser = { workspace = true }
-itertools = "0.14.0"
 
-prettyplease = "0.2.32"
+itertools = "0.14.0"
+proc-macro2 = "1.0.95"
 quote = "1.0.40"
+syn = { version = "2.0.101", features = ["full"] }
+
+[dev-dependencies]
+prettyplease = "0.2.32"

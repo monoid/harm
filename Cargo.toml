@@ -6,6 +6,8 @@ members = [
    "aarchmrs-types",
 ]
 
+resolver = "3"
+
 [workspace.dependencies]
 aarchmrs-gen = { path = "aarchmrs-gen", version = "0.1.0" }
 aarchmrs-parser = { path = "aarchmrs-parser", version = "0.1.0" }
