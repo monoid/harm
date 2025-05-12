@@ -60,7 +60,7 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
 
 #[cfg(test)]
 mod tests {
-    use aarchmrs_parser::Range;
+    use aarchmrs_parser::instructions::Range;
 
     use super::*;
 
