@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use aarchmrs_parser::{Encodeset, Range};
+use aarchmrs_parser::instructions::{Encodeset, Range};
 
 const INSTRUCTION_BIT_WIDTH: usize = 32;
 
@@ -13,7 +13,7 @@ type InstructionBits = [Option<Bits>; INSTRUCTION_BIT_WIDTH];
 /// common fields, and a child defines more specific fields (sometimes overriding parent's
 /// bits).
 pub fn flatten_encodeset(encodings: &[&Encodeset]) -> Vec<Bits> {
-    use aarchmrs_parser::Encode;
+    use aarchmrs_parser::instructions::Encode;
 
     let mut instruction_bits: InstructionBits = [const { None }; INSTRUCTION_BIT_WIDTH];
 
@@ -91,7 +91,7 @@ fn regroup_back(instruction_bits: &InstructionBits) -> Vec<Bits> {
     values
 }
 
-fn fill_bits(instruction_bits: &mut InstructionBits, bits: &aarchmrs_parser::Bits) {
+fn fill_bits(instruction_bits: &mut InstructionBits, bits: &aarchmrs_parser::instructions::Bits) {
     for (bit_char, bit_idx) in bits
         .value
         .as_str()
@@ -114,7 +114,10 @@ fn fill_bits(instruction_bits: &mut InstructionBits, bits: &aarchmrs_parser::Bit
     }
 }
 
-fn fill_field(instruction_bits: &mut InstructionBits, field: &aarchmrs_parser::Field) {
+fn fill_field(
+    instruction_bits: &mut InstructionBits,
+    field: &aarchmrs_parser::instructions::Field,
+) {
     assert!(
         field
             .value
