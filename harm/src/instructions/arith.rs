@@ -2,10 +2,18 @@ use aarchmrs_instructions::A64::dpreg::addsub_shift::ADD_64_addsub_shift::ADD_64
 use aarchmrs_types::InstructionCode;
 
 use super::Instruction;
-use crate::register::{IntoCode, RegistersAndZero64};
+use crate::register::{GeneralRegister64, IntoCode, RegistersAndZero64};
 
-pub fn add<T, U>(dst: T, src1: T, src2: U) -> Add<T, U> {
-    Add { dst, src1, src2 }
+pub fn add<T1, T, U1, U>(dst: T, src1: T, src2: U) -> Add<T1, U1>
+where
+    T: Into<T1>,
+    U: Into<U1>,
+{
+    Add {
+        dst: dst.into(),
+        src1: src1.into(),
+        src2: src2.into(),
+    }
 }
 
 pub struct Add<T, U> {
@@ -48,6 +56,15 @@ pub struct ShiftedReg<T> {
     shift: Shift,
 }
 
+impl Into<ShiftedReg<RegistersAndZero64>> for GeneralRegister64 {
+    fn into(self) -> ShiftedReg<RegistersAndZero64> {
+        ShiftedReg {
+            reg: self.into(),
+            shift: <_>::default(),
+        }
+    }
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 pub struct Shift {
     mode: ShiftMode,
@@ -61,4 +78,24 @@ pub enum ShiftMode {
     LSL = 0b00,
     LSR = 0b01,
     ASR = 0b10,
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::register::GeneralRegister64;
+
+    use super::*;
+
+    #[test]
+    fn test_add() {
+        use GeneralRegister64::*;
+
+        let codes: Vec<_> = add(X1, X2, X12)
+            .shift(ShiftMode::LSR, 4)
+            .reprsent()
+            .collect();
+
+        assert_eq!(codes.len(), 1);
+        assert_eq!(codes[0].0, [0x41, 0x10, 0x4c, 0x8b]); // 0x8b4c1041
+    }
 }
