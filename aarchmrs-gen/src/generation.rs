@@ -51,7 +51,7 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
             Bits::Field { name, range } => {
                 let name = format_ident!("{}", name.as_ref());
                 let offset = range.start;
-                parse_quote!(#name.into() << #offset)
+                parse_quote!(u32::from(#name) << #offset)
             }
         })
         .reduce(|e1: Expr, e2: Expr| parse_quote!(#e1 | #e2))
@@ -160,9 +160,9 @@ mod tests {
                 "    Rd: ::aarchmrs_types::BitValue<5>,\n",
                 ") -> ::aarchmrs_types::InstructionCode {\n",
                 "    ::aarchmrs_types::InstructionCode::from_u32(\n",
-                "        s.into() << 31u32 | 0b1011001u32 << 21u32 | Rm.into() << 16u32\n",
-                "            | option.into() << 13u32 | im3.into() << 10u32 | Rn.into() << 5u32\n",
-                "            | Rd.into() << 0u32,\n",
+                "        u32::from(s) << 31u32 | 0b1011001u32 << 21u32 | u32::from(Rm) << 16u32\n",
+                "            | u32::from(option) << 13u32 | u32::from(im3) << 10u32\n",
+                "            | u32::from(Rn) << 5u32 | u32::from(Rd) << 0u32,\n",
                 "    )\n",
                 "}\n",
             )

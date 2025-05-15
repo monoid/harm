@@ -35,6 +35,48 @@ impl<const BITS: u32> From<BitValue<BITS>> for u32 {
     }
 }
 
+impl<const BITS: u32> From<u32> for BitValue<BITS> {
+    #[inline]
+    fn from(value: u32) -> Self {
+        Self::new_u32(value)
+    }
+}
+
+impl<const BITS: u32> From<i32> for BitValue<BITS> {
+    #[inline]
+    fn from(value: i32) -> Self {
+        Self::new_i32(value)
+    }
+}
+
+impl<const BITS: u32> From<u16> for BitValue<BITS> {
+    #[inline]
+    fn from(value: u16) -> Self {
+        Self::new_u32(value as _)
+    }
+}
+
+impl<const BITS: u32> From<i16> for BitValue<BITS> {
+    #[inline]
+    fn from(value: i16) -> Self {
+        Self::new_i32(value as _)
+    }
+}
+
+impl<const BITS: u32> From<u8> for BitValue<BITS> {
+    #[inline]
+    fn from(value: u8) -> Self {
+        Self::new_u32(value as _)
+    }
+}
+
+impl<const BITS: u32> From<i8> for BitValue<BITS> {
+    #[inline]
+    fn from(value: i8) -> Self {
+        Self::new_i32(value as _)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
