@@ -32,8 +32,11 @@ fn gen_constructor_args(desc: &[Bits]) -> impl Iterator<Item = syn::FnArg> {
                 subpat: None,
             })),
             colon_token: <_>::default(),
-            ty: syn::parse_str(&format!("::aarchmrs_types::BitValue::<{}>", range.width))
-                .expect("internal error: malformed type"),
+            ty: syn::parse_str(&format!(
+                "impl Into<::aarchmrs_types::BitValue::<{}>>",
+                range.width
+            ))
+            .expect("internal error: malformed type"),
         })),
     });
     args
@@ -52,7 +55,7 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
             Bits::Field { name, range } => {
                 let name = format_ident!("{}", name.as_ref());
                 let offset = range.start;
-                parse_quote!(u32::from(#name) << #offset)
+                parse_quote!(u32::from(#name.into()) << #offset)
             }
         })
         .reduce(|e1: Expr, e2: Expr| parse_quote!(#e1 | #e2))
@@ -62,6 +65,7 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
 #[cfg(test)]
 mod tests {
     use aarchmrs_parser::instructions::Range;
+    use pretty_assertions::assert_eq;
 
     use super::*;
 
@@ -153,17 +157,18 @@ mod tests {
             concat!(
                 "#[inline]\n",
                 "pub fn ADD_64_addsub_shift(\n",
-                "    s: ::aarchmrs_types::BitValue<1>,\n",
-                "    Rm: ::aarchmrs_types::BitValue<5>,\n",
-                "    option: ::aarchmrs_types::BitValue<3>,\n",
-                "    im3: ::aarchmrs_types::BitValue<3>,\n",
-                "    Rn: ::aarchmrs_types::BitValue<5>,\n",
-                "    Rd: ::aarchmrs_types::BitValue<5>,\n",
+                "    s: impl Into<::aarchmrs_types::BitValue<1>>,\n",
+                "    Rm: impl Into<::aarchmrs_types::BitValue<5>>,\n",
+                "    option: impl Into<::aarchmrs_types::BitValue<3>>,\n",
+                "    im3: impl Into<::aarchmrs_types::BitValue<3>>,\n",
+                "    Rn: impl Into<::aarchmrs_types::BitValue<5>>,\n",
+                "    Rd: impl Into<::aarchmrs_types::BitValue<5>>,\n",
                 ") -> ::aarchmrs_types::InstructionCode {\n",
                 "    ::aarchmrs_types::InstructionCode::from_u32(\n",
-                "        u32::from(s) << 31u32 | 0b1011001u32 << 21u32 | u32::from(Rm) << 16u32\n",
-                "            | u32::from(option) << 13u32 | u32::from(im3) << 10u32\n",
-                "            | u32::from(Rn) << 5u32 | u32::from(Rd) << 0u32,\n",
+                "        u32::from(s.into()) << 31u32 | 0b0001011001u32 << 21u32\n",
+                "            | u32::from(Rm.into()) << 16u32 | u32::from(option.into()) << 13u32\n",
+                "            | u32::from(im3.into()) << 10u32 | u32::from(Rn.into()) << 5u32\n",
+                "            | u32::from(Rd.into()) << 0u32,\n",
                 "    )\n",
                 "}\n",
             )

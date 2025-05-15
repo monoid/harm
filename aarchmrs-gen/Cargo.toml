@@ -21,3 +21,6 @@ syn = { version = "2.0.101", features = ["full"] }
 tar = "0.4.44"
 thiserror = "2.0.12"
 ureq = "3.0.11"
+
+[dev-dependencies]
+pretty_assertions = "1.4.1"
