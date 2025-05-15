@@ -1,0 +1,10 @@
+[package]
+name = "aarchmrs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aarchmrs-types = { workspace = true }
+
+[build-dependencies]
+aarchmrs-gen = { workspace = true }

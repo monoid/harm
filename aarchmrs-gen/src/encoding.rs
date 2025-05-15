@@ -33,7 +33,7 @@ fn regroup_back(instruction_bits: &InstructionBits) -> Vec<Bits> {
     let mut last_encode: Option<Bits> = None;
     let mut values: Vec<Bits> = vec![];
 
-    for src in instruction_bits.into_iter() {
+    for src in instruction_bits {
         match (src, last_encode.take()) {
             (None, None) => {}
             (None, Some(enc)) => {

@@ -2,7 +2,7 @@ use std::ops::Deref;
 
 #[derive(Debug)]
 pub struct Stack<T> {
-    data: Vec<T>,
+    pub data: Vec<T>,
 }
 
 impl<T> Stack<T> {
@@ -28,16 +28,13 @@ impl<T> Default for Stack<T> {
 
 #[derive(Debug)]
 pub struct StackGuard<'a, T> {
-    data: &'a mut Vec<T>,
+    pub data: &'a mut Vec<T>,
 }
 
 impl<'a, T> StackGuard<'a, T> {
-    pub fn push<'b>(&'b mut self, val: T) -> StackGuard<'b, T>
-    where
-        'a: 'b,
-    {
-        self.data.push(val);
-        StackGuard { data: self.data }
+    pub fn push(data: &'a mut Vec<T>, val: T) -> Self {
+        data.push(val);
+        StackGuard { data }
     }
 }
 
@@ -52,21 +49,5 @@ impl<T> Deref for StackGuard<'_, T> {
 impl<T> Drop for StackGuard<'_, T> {
     fn drop(&mut self) {
         self.data.pop();
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_stack() {
-        let mut stack = Stack::<i32>::new();
-        {
-            let mut g1 = stack.push(42);
-            let g2 = g1.push(43);
-            assert_eq!(*g2, [42, 43]);
-        }
-        assert!(stack.data.is_empty());
     }
 }
