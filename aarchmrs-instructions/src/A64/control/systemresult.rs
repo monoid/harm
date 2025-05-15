@@ -1,0 +1,25 @@
+/* Copyright (c) 2010-2025 Arm Limited or its affiliates. All rights reserved.
+ *
+ * This document is Non-confidential and licensed under the BSD 3-clause license.
+ */
+
+pub mod TSTART_BR_systemresult {
+    #[inline]
+    pub fn TSTART_BR_systemresult(
+        Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b110101010010001100110000011u32 << 5u32 | u32::from(Rt.into()) << 0u32,
+        )
+    }
+}
+pub mod TTEST_BR_systemresult {
+    #[inline]
+    pub fn TTEST_BR_systemresult(
+        Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b110101010010001100110001011u32 << 5u32 | u32::from(Rt.into()) << 0u32,
+        )
+    }
+}
