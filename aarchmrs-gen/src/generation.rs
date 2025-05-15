@@ -43,8 +43,9 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
     desc.iter()
         .map(|bits| match bits {
             Bits::Bit { bits, range } => {
-                let bits: syn::Expr = syn::parse_str(&format!("0b{:b}u32", bits))
-                    .expect("internal error: malformed integer");
+                let bits: syn::Expr =
+                    syn::parse_str(&format!("0b{:0w$b}u32", bits, w = range.width as usize))
+                        .expect("internal error: malformed integer");
                 let offset = range.start;
                 parse_quote!(#bits << #offset)
             }
