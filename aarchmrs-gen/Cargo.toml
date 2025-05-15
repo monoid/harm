@@ -9,9 +9,15 @@ authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
 [dependencies]
 aarchmrs-parser = { workspace = true }
 
+flate2 = "1.1.1"
+hex-literal = "1.0.0"
 itertools = "0.14.0"
+md-5 = "0.10.6"
 prettyplease = "0.2.32"
 proc-macro2 = "1.0.95"
 quote = "1.0.40"
 serde_json = "1.0.140"
 syn = { version = "2.0.101", features = ["full"] }
+tar = "0.4.44"
+thiserror = "2.0.12"
+ureq = "3.0.11"
