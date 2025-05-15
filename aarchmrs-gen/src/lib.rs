@@ -1,7 +1,9 @@
 use std::io;
 use std::path::Path;
 
-use aarchmrs_parser::instructions::{Encodeset, InstructionGroup, InstructionGroupOrInstruction};
+use aarchmrs_parser::instructions::{
+    Encodeset, InstructionGroup, InstructionGroupOrInstruction, License,
+};
 use proc_macro2::TokenStream;
 
 use crate::downloads::{DownloadError, ensure_archive};
@@ -62,14 +64,18 @@ pub fn gen_data(dest_dir: &Path, cache_dir: &Path) -> Result<(), DownloadError> 
             let mod_path = nested_dir.join(format!("{group_name}.rs"));
             let subnested_dir = nested_dir.join(group_name);
 
-            let mods =
-                walk_instructions_children(guard.data, &inst_group.children, &subnested_dir)?;
-            write_mod(&mod_path, &mods, &<_>::default())?;
+            let mods = walk_instructions_children(
+                guard.data,
+                &inst_group.children,
+                &subnested_dir,
+                &data._meta.license,
+            )?;
+            write_mod(&mod_path, &mods, &<_>::default(), &data._meta.license)?;
         }
 
         let mod_path = dest_dir.join(format!("{inst_name}.rs"));
         std::fs::create_dir_all(dest_dir)?;
-        write_mod(&mod_path, &child_mods, &<_>::default())?;
+        write_mod(&mod_path, &child_mods, &<_>::default(), &data._meta.license)?;
     }
 
     std::fs::create_dir_all(dest_dir)?;
@@ -82,6 +88,7 @@ pub fn gen_data(dest_dir: &Path, cache_dir: &Path) -> Result<(), DownloadError> 
         &lib_path,
         &lib_mods,
         &clippy_allow_pragma,
+        &data._meta.license,
     )?;
 
     Ok(())
@@ -91,12 +98,13 @@ fn walk_instructions_children<'a, 'b: 'a>(
     stack: &'a mut Vec<&'b Encodeset>,
     children: &'b [InstructionGroupOrInstruction],
     dest_dir: &Path,
+    license: &License,
 ) -> io::Result<Vec<TokenStream>> {
     let mut mods = vec![];
     for child in children {
         match child {
             InstructionGroupOrInstruction::InstructionGroup(instruction_group) => {
-                let tokens = walk_group(stack, dest_dir, instruction_group)?;
+                let tokens = walk_group(stack, dest_dir, instruction_group, license)?;
                 mods.push(tokens);
             }
             InstructionGroupOrInstruction::Instruction(instruction) => {
@@ -115,17 +123,22 @@ fn walk_group<'a, 'b: 'a>(
     stack: &'a mut Vec<&'b Encodeset>,
     dest_dir: &Path,
     instruction_group: &'b InstructionGroup,
+    license: &License,
 ) -> io::Result<TokenStream> {
     let group_name = &instruction_group.name;
     let group_file = dest_dir.join(format!("{group_name}.rs"));
 
     let group_dir = dest_dir.join(group_name);
     let stack2 = StackGuard::push(stack, &instruction_group.encoding);
-    let child_mods =
-        walk_instructions_children(stack2.data, &instruction_group.children, &group_dir)?;
+    let child_mods = walk_instructions_children(
+        stack2.data,
+        &instruction_group.children,
+        &group_dir,
+        license,
+    )?;
 
     std::fs::create_dir_all(dest_dir)?;
-    write_mod(&group_file, &child_mods, &<_>::default())?;
+    write_mod(&group_file, &child_mods, &<_>::default(), license)?;
 
     let group_id = quote::format_ident!("{group_name}");
     Ok(quote::quote! { pub mod #group_id; })
@@ -148,13 +161,19 @@ fn walk_instruction<'a, 'b: 'a>(
     })
 }
 
-fn write_mod(path: &Path, mods: &[TokenStream], header: &TokenStream) -> io::Result<()> {
+fn write_mod(
+    path: &Path,
+    mods: &[TokenStream],
+    header: &TokenStream,
+    license: &License,
+) -> io::Result<()> {
     let contents: syn::File = syn::parse_quote! {
         #header
         #(#mods)*
     };
 
     let contents = prettyplease::unparse(&contents);
-    std::fs::write(path, contents)?;
+    let header = format!("/* {}\n *\n * {}\n */\n", license.copyright, license.info,);
+    std::fs::write(path, format!("{header}\n{contents}"))?;
     Ok(())
 }

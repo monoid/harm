@@ -8,6 +8,18 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize)]
 pub struct Instructions {
     pub instructions: Vec<InstructionSet>,
+    pub _meta: Meta,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Meta {
+    pub license: License,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct License {
+    pub copyright: String,
+    pub info: String,
 }
 
 #[derive(Debug, Deserialize)]
