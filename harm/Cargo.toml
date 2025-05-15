@@ -5,6 +5,7 @@ edition = "2024"
 description = "AArch64 (ARM64) Assembler"
 license = "MIT"
 authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
+publish = false
 
 [dependencies]
 aarchmrs-types = { workspace = true }
