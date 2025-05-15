@@ -1,0 +1,29 @@
+/* Copyright (c) 2010-2025 Arm Limited or its affiliates. All rights reserved.
+ *
+ * This document is Non-confidential and licensed under the BSD 3-clause license.
+ */
+
+pub mod SETF8_only_setf {
+    #[inline]
+    pub fn SETF8_only_setf(
+        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b0011101000000000000010u32 << 10u32
+                | u32::from(Rn.into()) << 5u32
+                | 0b01101u32 << 0u32,
+        )
+    }
+}
+pub mod SETF16_only_setf {
+    #[inline]
+    pub fn SETF16_only_setf(
+        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b0011101000000000010010u32 << 10u32
+                | u32::from(Rn.into()) << 5u32
+                | 0b01101u32 << 0u32,
+        )
+    }
+}
