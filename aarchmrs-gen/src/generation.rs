@@ -20,7 +20,7 @@ pub fn gen_constructor(name: &str, desc: &[Bits]) -> TokenStream {
 }
 
 fn gen_constructor_args(desc: &[Bits]) -> impl Iterator<Item = syn::FnArg> {
-    let args = desc.iter().filter_map(|bits| match bits {
+    let args = desc.iter().rev().filter_map(|bits| match bits {
         Bits::Bit { .. } => None,
         Bits::Field { name, range } => Some(syn::FnArg::Typed(PatType {
             attrs: vec![],
@@ -58,6 +58,7 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
                 parse_quote!(u32::from(#name.into()) << #offset)
             }
         })
+        .rev()
         .reduce(|e1: Expr, e2: Expr| parse_quote!(#e1 | #e2))
         .unwrap_or(parse_quote!(0))
 }
@@ -105,24 +106,18 @@ mod tests {
         let add = 0b0001011001;
         let nop_bits = vec![
             Bits::Field {
-                name: "s".into(),
-                range: Range {
-                    start: 31,
-                    width: 1,
-                },
-            },
-            Bits::Bit {
-                bits: add,
-                range: Range {
-                    start: 21,
-                    width: 10,
-                },
+                name: "Rd".into(),
+                range: Range { start: 0, width: 5 },
             },
             Bits::Field {
-                name: "Rm".into(),
+                name: "Rn".into(),
+                range: Range { start: 5, width: 5 },
+            },
+            Bits::Field {
+                name: "im3".into(),
                 range: Range {
-                    start: 16,
-                    width: 5,
+                    start: 10,
+                    width: 3,
                 },
             },
             Bits::Field {
@@ -133,19 +128,25 @@ mod tests {
                 },
             },
             Bits::Field {
-                name: "im3".into(),
+                name: "Rm".into(),
                 range: Range {
-                    start: 10,
-                    width: 3,
+                    start: 16,
+                    width: 5,
+                },
+            },
+            Bits::Bit {
+                bits: add,
+                range: Range {
+                    start: 21,
+                    width: 10,
                 },
             },
             Bits::Field {
-                name: "Rn".into(),
-                range: Range { start: 5, width: 5 },
-            },
-            Bits::Field {
-                name: "Rd".into(),
-                range: Range { start: 0, width: 5 },
+                name: "s".into(),
+                range: Range {
+                    start: 31,
+                    width: 1,
+                },
             },
         ];
 
