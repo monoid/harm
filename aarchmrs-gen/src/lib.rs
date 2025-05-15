@@ -49,29 +49,15 @@ pub fn gen_instructions(dest_dir: &Path, cache_dir: &Path) -> Result<(), Downloa
         let inst_id = quote::format_ident!("{inst_name}");
         lib_mods.push(quote::quote! { pub mod #inst_id; });
 
-        let mut child_mods = vec![];
-
         let nested_dir = dest_dir.join(inst_name);
         std::fs::create_dir_all(&nested_dir)?;
 
-        for inst_group in &inst_set.children {
-            // examples: "sve", "sme", "reserved", "dpimm", "control", "ldst", "dpreg", "simd_dp"
-            let group_name = &inst_group.name;
-            let group_id = quote::format_ident!("{group_name}");
-            child_mods.push(quote::quote! { pub mod #group_id; });
-
-            let guard = StackGuard::push(&mut encoding_stack, &inst_group.encoding);
-            let mod_path = nested_dir.join(format!("{group_name}.rs"));
-            let subnested_dir = nested_dir.join(group_name);
-
-            let mods = walk_instructions_children(
-                guard.data,
-                &inst_group.children,
-                &subnested_dir,
-                &data._meta.license,
-            )?;
-            write_mod(&mod_path, &mods, &<_>::default(), &data._meta.license)?;
-        }
+        let child_mods = walk_instructions_children(
+            &mut encoding_stack,
+            &inst_set.children,
+            &nested_dir,
+            &data._meta.license,
+        )?;
 
         let mod_path = dest_dir.join(format!("{inst_name}.rs"));
         std::fs::create_dir_all(dest_dir)?;
