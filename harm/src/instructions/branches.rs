@@ -1,7 +1,11 @@
-use crate::register::{GeneralRegister64, IntoCode as _, RegistersAndZero64};
+use aarchmrs_instructions::A64::control::{
+    branch_imm::B_only_branch_imm::B_only_branch_imm,
+    condbranch::B_only_condbranch::B_only_condbranch,
+};
 use aarchmrs_types::InstructionCode;
 
 use super::{BranchCond, Instruction};
+use crate::register::{GeneralRegister64, IntoCode as _, RegistersAndZero64};
 
 #[inline]
 pub fn b(offset: PcOffset) -> Branch<PcDst> {
@@ -57,19 +61,17 @@ impl Instruction for Branch<PcDst> {
 }
 
 fn branch_cond(offset: PcOffset, cond: BranchCond) -> InstructionCode {
-    const COND_BRANCH_PREFIX: u32 = 0b01010100 << 24;
     // TODO validate alignment and size
     let imm19 = (offset as u32 / 4) & ((1 << 20) - 1);
     let cond = cond as u32;
 
-    InstructionCode::from_u32(COND_BRANCH_PREFIX | (imm19 << 5) | (cond << 0))
+    B_only_condbranch(imm19, cond)
 }
 
 fn branch_nocond(offset: PcOffset) -> InstructionCode {
-    const SIMPLE_BRANCH_PREFIX: u32 = 0b000101 << 26;
     // TODO validate alignment and size
     let imm26 = (offset as u32 / 4) & ((1 << 27) - 1);
-    InstructionCode::from_u32(SIMPLE_BRANCH_PREFIX | (imm26 << 0))
+    B_only_branch_imm(imm26)
 }
 
 // TODO return from a register

@@ -8,3 +8,4 @@ authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
 
 [dependencies]
 aarchmrs-types = { workspace = true }
+aarchmrs-instructions = { workspace = true }

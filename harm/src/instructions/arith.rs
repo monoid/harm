@@ -1,7 +1,8 @@
-use crate::register::{IntoCode, RegistersAndZero64};
+use aarchmrs_instructions::A64::dpreg::addsub_shift::ADD_64_addsub_shift::ADD_64_addsub_shift;
 use aarchmrs_types::InstructionCode;
 
 use super::Instruction;
+use crate::register::{IntoCode, RegistersAndZero64};
 
 pub fn add<T, U>(dst: T, src1: T, src2: U) -> Add<T, U> {
     Add { dst, src1, src2 }
@@ -20,31 +21,22 @@ impl Add<RegistersAndZero64, ShiftedReg<RegistersAndZero64>> {
         self
     }
 
-    fn add_opcode(&self, sf: bool) -> InstructionCode {
-        let sf = (sf as u32) << 31;
-        const REG_ADD_PREFIX: u32 = 0b0001011;
-        let shift = self.src2.shift.mode as u32;
-        let rm = self.src2.reg.code() as u32;
-        let shift_amount_imm6 = self.src2.shift.amount as u32;
-        let rn = self.src1.code() as u32;
-        let rd = self.dst.code() as u32;
+    #[inline]
+    fn add_opcode(&self) -> InstructionCode {
+        let shift = self.src2.shift.mode as u8;
+        let rm = self.src2.reg.code();
+        let shift_amount_imm6 = self.src2.shift.amount;
+        let rn = self.src1.code();
+        let rd = self.dst.code();
 
-        InstructionCode::from_u32(
-            sf | (REG_ADD_PREFIX << 24)
-                | (shift << 22)
-                | (rm << 16)
-                | (shift_amount_imm6 << 10)
-                | (rn << 5)
-                | (rd << 0),
-        )
+        ADD_64_addsub_shift(shift, rm, shift_amount_imm6, rn, rd)
     }
 }
 
 impl Instruction for Add<RegistersAndZero64, ShiftedReg<RegistersAndZero64>> {
     #[inline]
     fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
-        let sf = true;
-        let opcode = self.add_opcode(sf);
+        let opcode = self.add_opcode();
 
         std::iter::once(opcode)
     }
@@ -63,6 +55,7 @@ pub struct Shift {
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
+#[repr(u8)]
 pub enum ShiftMode {
     #[default]
     LSL = 0b00,
