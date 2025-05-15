@@ -24,7 +24,7 @@ pub struct License {
 
 #[derive(Debug, Deserialize)]
 pub struct InstructionSet {
-    pub children: Vec<InstructionGroup>,
+    pub children: Vec<InstructionGroupOrInstruction>,
     pub encoding: Encodeset,
     pub name: String,
 }
