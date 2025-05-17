@@ -50,7 +50,7 @@ pub enum RegistersAndSp64 {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum RegistersAndZero64 {
     General(GeneralRegister64),
-    Zero64,
+    XZR,
 }
 
 impl From<GeneralRegister64> for RegistersAndSp64 {
@@ -110,7 +110,7 @@ pub enum RegistersAndSp32 {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum RegistersAndZero32 {
     General(GeneralRegister32),
-    Zero32,
+    WZR,
 }
 
 impl From<GeneralRegister32> for RegistersAndSp32 {
@@ -146,7 +146,7 @@ impl IntoCode for RegistersAndZero64 {
     fn code(&self) -> u8 {
         match self {
             Self::General(general_register64) => *general_register64 as _,
-            Self::Zero64 => 31,
+            Self::XZR => 31,
         }
     }
 }
@@ -166,7 +166,7 @@ impl IntoCode for RegistersAndZero32 {
     fn code(&self) -> u8 {
         match self {
             Self::General(general_register32) => *general_register32 as _,
-            Self::Zero32 => 31,
+            Self::WZR => 31,
         }
     }
 }
