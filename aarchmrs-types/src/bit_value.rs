@@ -7,6 +7,7 @@
 ///
 /// The idea is to make it validate in debug only, in the release it is zero-cost, and the caller is responsible
 /// for the validity of values.
+#[derive(Copy, Clone, Debug, Hash, PartialEq, Eq)]
 pub struct BitValue<const BITS: u32>(pub u32);
 
 impl<const BITS: u32> BitValue<BITS> {
