@@ -10,7 +10,7 @@ use aarchmrs_instructions::A64::control::{
 use aarchmrs_types::InstructionCode;
 
 use super::{BranchCond, Instruction};
-use crate::register::{GeneralRegister64, IntoCode as _, RegistersAndZero64};
+use crate::register::{IntoCode as _, Reg64, RegOrZero64};
 
 #[inline]
 pub fn b(offset: PcOffset) -> Branch<PcDst> {
@@ -34,7 +34,7 @@ pub type PcOffset = i32;
 pub struct PcDst(pub PcOffset);
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub struct RegDst(pub GeneralRegister64);
+pub struct RegDst(pub Reg64);
 
 impl<T> Branch<T> {
     #[inline]
@@ -90,7 +90,7 @@ pub struct Ret;
 
 impl Instruction for Ret {
     fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
-        let reg = RegistersAndZero64::General(GeneralRegister64::LR);
+        let reg = RegOrZero64::Reg(Reg64::LR);
         let reg_code = reg.code() as u32;
         let code = InstructionCode::from_u32((0b110101100101111100000 << 9) | (reg_code << 5));
         std::iter::once(code)

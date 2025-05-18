@@ -9,9 +9,7 @@ use aarchmrs_instructions::A64::dpreg::addsub_shift::{
 use aarchmrs_types::InstructionCode;
 
 use super::Instruction;
-use crate::register::{
-    GeneralRegister32, GeneralRegister64, IntoCode, RegistersAndZero32, RegistersAndZero64,
-};
+use crate::register::{IntoCode as _, Reg32, Reg64, RegOrZero32, RegOrZero64};
 
 pub fn add<T, U>(dst: T, src1: T, src2: U) -> Add<T, U> {
     Add { dst, src1, src2 }
@@ -23,7 +21,7 @@ pub struct Add<T, U> {
     pub src2: U,
 }
 
-impl Add<RegistersAndZero64, ShiftedReg<RegistersAndZero64>> {
+impl Add<RegOrZero64, ShiftedReg<RegOrZero64>> {
     #[inline]
     pub fn shift(mut self, mode: ShiftMode, amount: u8) -> Self {
         self.src2.shift = Shift { mode, amount };
@@ -49,7 +47,7 @@ impl Add<RegistersAndZero64, ShiftedReg<RegistersAndZero64>> {
     }
 }
 
-impl Instruction for Add<RegistersAndZero64, ShiftedReg<RegistersAndZero64>> {
+impl Instruction for Add<RegOrZero64, ShiftedReg<RegOrZero64>> {
     #[inline]
     fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
         let opcode = self.add_opcode();
@@ -58,7 +56,7 @@ impl Instruction for Add<RegistersAndZero64, ShiftedReg<RegistersAndZero64>> {
     }
 }
 
-impl Add<RegistersAndZero32, ShiftedReg<RegistersAndZero32>> {
+impl Add<RegOrZero32, ShiftedReg<RegOrZero32>> {
     #[inline]
     pub fn shift(mut self, mode: ShiftMode, amount: u8) -> Self {
         self.src2.shift = Shift { mode, amount };
@@ -84,7 +82,7 @@ impl Add<RegistersAndZero32, ShiftedReg<RegistersAndZero32>> {
     }
 }
 
-impl Instruction for Add<RegistersAndZero32, ShiftedReg<RegistersAndZero32>> {
+impl Instruction for Add<RegOrZero32, ShiftedReg<RegOrZero32>> {
     #[inline]
     fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
         let opcode = self.add_opcode();
@@ -113,14 +111,14 @@ impl<T> ShiftedReg<T> {
     }
 }
 
-impl From<GeneralRegister64> for ShiftedReg<RegistersAndZero64> {
-    fn from(value: GeneralRegister64) -> Self {
+impl From<Reg64> for ShiftedReg<RegOrZero64> {
+    fn from(value: Reg64) -> Self {
         Self::new(value.into())
     }
 }
 
-impl From<GeneralRegister32> for ShiftedReg<RegistersAndZero32> {
-    fn from(value: GeneralRegister32) -> Self {
+impl From<Reg32> for ShiftedReg<RegOrZero32> {
+    fn from(value: Reg32) -> Self {
         Self::new(value.into())
     }
 }
@@ -146,7 +144,7 @@ mod tests {
 
     #[test]
     fn test_add_64() {
-        use GeneralRegister64::*;
+        use Reg64::*;
 
         let codes: Vec<_> = add(X1.into(), X2.into(), ShiftedReg::from(X12))
             .shift(ShiftMode::LSR, 4)
@@ -159,8 +157,8 @@ mod tests {
 
     #[test]
     fn test_add_64_zero() {
-        use GeneralRegister64::*;
-        use RegistersAndZero64::*;
+        use Reg64::*;
+        use RegOrZero64::*;
 
         let codes: Vec<_> = add(
             X1.into(),
@@ -176,7 +174,7 @@ mod tests {
 
     #[test]
     fn test_add_32() {
-        use GeneralRegister32::*;
+        use Reg32::*;
 
         let codes: Vec<_> = add(W1.into(), W2.into(), ShiftedReg::from(W12))
             .shift(ShiftMode::LSR, 4)
@@ -189,8 +187,8 @@ mod tests {
 
     #[test]
     fn test_add_32_zero() {
-        use GeneralRegister32::*;
-        use RegistersAndZero32::*;
+        use Reg32::*;
+        use RegOrZero32::*;
 
         let codes: Vec<_> = add(
             W1.into(),

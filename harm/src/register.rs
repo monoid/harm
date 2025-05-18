@@ -7,7 +7,7 @@
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[repr(u8)]
-pub enum GeneralRegister64 {
+pub enum Reg64 {
     X0 = 0,
     X1 = 1,
     X2 = 2,
@@ -42,32 +42,32 @@ pub enum GeneralRegister64 {
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub enum RegistersAndSp64 {
-    General(GeneralRegister64),
+pub enum RegOrSp64 {
+    Reg(Reg64),
     SP,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub enum RegistersAndZero64 {
-    General(GeneralRegister64),
+pub enum RegOrZero64 {
+    Reg(Reg64),
     XZR,
 }
 
-impl From<GeneralRegister64> for RegistersAndSp64 {
-    fn from(value: GeneralRegister64) -> Self {
-        Self::General(value)
+impl From<Reg64> for RegOrSp64 {
+    fn from(value: Reg64) -> Self {
+        Self::Reg(value)
     }
 }
 
-impl From<GeneralRegister64> for RegistersAndZero64 {
-    fn from(value: GeneralRegister64) -> Self {
-        Self::General(value)
+impl From<Reg64> for RegOrZero64 {
+    fn from(value: Reg64) -> Self {
+        Self::Reg(value)
     }
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[repr(u8)]
-pub enum GeneralRegister32 {
+pub enum Reg32 {
     W0 = 0,
     W1 = 1,
     W2 = 2,
@@ -102,28 +102,28 @@ pub enum GeneralRegister32 {
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub enum RegistersAndSp32 {
-    General(GeneralRegister32),
+pub enum RegOrSp32 {
+    Reg(Reg32),
     WSP,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
-pub enum RegistersAndZero32 {
-    General(GeneralRegister32),
+pub enum RegOrZero32 {
+    Reg(Reg32),
     WZR,
 }
 
-impl From<GeneralRegister32> for RegistersAndSp32 {
+impl From<Reg32> for RegOrSp32 {
     #[inline]
-    fn from(value: GeneralRegister32) -> Self {
-        Self::General(value)
+    fn from(value: Reg32) -> Self {
+        Self::Reg(value)
     }
 }
 
-impl From<GeneralRegister32> for RegistersAndZero32 {
+impl From<Reg32> for RegOrZero32 {
     #[inline]
-    fn from(value: GeneralRegister32) -> Self {
-        Self::General(value)
+    fn from(value: Reg32) -> Self {
+        Self::Reg(value)
     }
 }
 
@@ -131,41 +131,41 @@ pub trait IntoCode {
     fn code(&self) -> u8;
 }
 
-impl IntoCode for RegistersAndSp64 {
+impl IntoCode for RegOrSp64 {
     #[inline]
     fn code(&self) -> u8 {
         match self {
-            Self::General(general_register64) => *general_register64 as _,
+            Self::Reg(general_register64) => *general_register64 as _,
             Self::SP => 31,
         }
     }
 }
 
-impl IntoCode for RegistersAndZero64 {
+impl IntoCode for RegOrZero64 {
     #[inline]
     fn code(&self) -> u8 {
         match self {
-            Self::General(general_register64) => *general_register64 as _,
+            Self::Reg(general_register64) => *general_register64 as _,
             Self::XZR => 31,
         }
     }
 }
 
-impl IntoCode for RegistersAndSp32 {
+impl IntoCode for RegOrSp32 {
     #[inline]
     fn code(&self) -> u8 {
         match self {
-            Self::General(general_register32) => *general_register32 as _,
+            Self::Reg(general_register32) => *general_register32 as _,
             Self::WSP => 31,
         }
     }
 }
 
-impl IntoCode for RegistersAndZero32 {
+impl IntoCode for RegOrZero32 {
     #[inline]
     fn code(&self) -> u8 {
         match self {
-            Self::General(general_register32) => *general_register32 as _,
+            Self::Reg(general_register32) => *general_register32 as _,
             Self::WZR => 31,
         }
     }
