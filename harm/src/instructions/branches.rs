@@ -3,14 +3,17 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+pub mod ret;
+
 use aarchmrs_instructions::A64::control::{
     branch_imm::B_only_branch_imm::B_only_branch_imm,
     condbranch::B_only_condbranch::B_only_condbranch,
 };
 use aarchmrs_types::InstructionCode;
 
+pub use self::ret::*;
 use super::{BranchCond, Instruction};
-use crate::register::{IntoCode as _, Reg64, RegOrZero64};
+use crate::register::Reg64;
 
 #[inline]
 pub fn b(offset: PcOffset) -> Branch<PcDst> {
@@ -77,22 +80,4 @@ fn branch_nocond(offset: PcOffset) -> InstructionCode {
     // TODO validate alignment and size
     let imm26 = (offset as u32 / 4) & ((1 << 27) - 1);
     B_only_branch_imm::new(imm26.into()).build()
-}
-
-// TODO return from a register
-#[inline]
-pub fn ret() -> Ret {
-    Ret
-}
-
-#[derive(Debug, Copy, Clone)]
-pub struct Ret;
-
-impl Instruction for Ret {
-    fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
-        let reg = RegOrZero64::Reg(Reg64::LR);
-        let reg_code = reg.code() as u32;
-        let code = InstructionCode::from_u32((0b110101100101111100000 << 9) | (reg_code << 5));
-        std::iter::once(code)
-    }
 }
