@@ -1,3 +1,8 @@
+/* Copyright (C) 2025 Ivan Boldyrev
+ *
+ * This document is licensed under the BSD 3-clause license.
+ */
+
 /// A wrapper for restricted bit-sized value with debug assert.
 ///
 /// The idea is to make it validate in debug only, in the release it is zero-cost, and the caller is responsible

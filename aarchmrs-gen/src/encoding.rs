@@ -1,3 +1,8 @@
+/* Copyright (C) 2025 Ivan Boldyrev
+ *
+ * This document is licensed under the BSD 3-clause license.
+ */
+
 use std::rc::Rc;
 
 use aarchmrs_parser::instructions::{Encodeset, Range};

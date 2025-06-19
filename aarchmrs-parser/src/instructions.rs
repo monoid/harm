@@ -1,3 +1,8 @@
+/* Copyright (C) 2025 Ivan Boldyrev
+ *
+ * This document is licensed under the BSD 3-clause license.
+ */
+
 //! Simple AARCHMRS parser for `Instructions.json`.
 //!
 //! It extracts ARM instruction info (`Instructions.json`) from the ARM's AARCHMRS open source archive.
