@@ -1,0 +1,14 @@
+[package]
+name = "aarchmrs-gen"
+version = "0.1.0"
+edition = "2024"
+description = "AARCHMRS generator"
+license = "MIT"
+authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
+
+[dependencies]
+aarchmrs-parser = { workspace = true }
+itertools = "0.14.0"
+
+prettyplease = "0.2.32"
+quote = "1.0.40"
