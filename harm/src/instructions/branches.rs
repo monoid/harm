@@ -70,13 +70,13 @@ fn branch_cond(offset: PcOffset, cond: BranchCond) -> InstructionCode {
     let imm19 = (offset as u32 / 4) & ((1 << 20) - 1);
     let cond = cond as u32;
 
-    B_only_condbranch(imm19, cond)
+    B_only_condbranch::new(imm19, cond).build()
 }
 
 fn branch_nocond(offset: PcOffset) -> InstructionCode {
     // TODO validate alignment and size
     let imm26 = (offset as u32 / 4) & ((1 << 27) - 1);
-    B_only_branch_imm(imm26)
+    B_only_branch_imm::new(imm26).build()
 }
 
 // TODO return from a register
