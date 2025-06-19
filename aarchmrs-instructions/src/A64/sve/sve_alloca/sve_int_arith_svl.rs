@@ -4,34 +4,66 @@
  */
 
 pub mod addsvl_r_ri_ {
-    #[inline]
-    pub fn addsvl_r_ri_(
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-        Rd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b00000100001u32 << 21u32
-                | u32::from(Rn.into()) << 16u32
-                | 0b01011u32 << 11u32
-                | u32::from(imm6.into()) << 5u32
-                | u32::from(Rd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct addsvl_r_ri_ {
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub imm6: ::aarchmrs_types::BitValue<6>,
+        pub Rd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl addsvl_r_ri_ {
+        #[inline]
+        pub fn new(
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
+            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Rn: Rn.into(),
+                imm6: imm6.into(),
+                Rd: Rd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b00000100001u32 << 21u32
+                    | u32::from(self.Rn) << 16u32
+                    | 0b01011u32 << 11u32
+                    | u32::from(self.imm6) << 5u32
+                    | u32::from(self.Rd) << 0u32,
+            )
+        }
     }
 }
 pub mod addspl_r_ri_ {
-    #[inline]
-    pub fn addspl_r_ri_(
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-        Rd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b00000100011u32 << 21u32
-                | u32::from(Rn.into()) << 16u32
-                | 0b01011u32 << 11u32
-                | u32::from(imm6.into()) << 5u32
-                | u32::from(Rd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct addspl_r_ri_ {
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub imm6: ::aarchmrs_types::BitValue<6>,
+        pub Rd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl addspl_r_ri_ {
+        #[inline]
+        pub fn new(
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
+            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Rn: Rn.into(),
+                imm6: imm6.into(),
+                Rd: Rd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b00000100011u32 << 21u32
+                    | u32::from(self.Rn) << 16u32
+                    | 0b01011u32 << 11u32
+                    | u32::from(self.imm6) << 5u32
+                    | u32::from(self.Rd) << 0u32,
+            )
+        }
     }
 }

@@ -10,14 +10,28 @@ use quote::{format_ident, quote};
 use syn::{Expr, Pat, PatIdent, PatType, parse_quote};
 
 pub fn gen_constructor(name: &str, desc: &[Bits]) -> TokenStream {
-    let args = gen_constructor_args(desc);
+    let args: Vec<_> = gen_constructor_args(desc).collect();
+    let (fields, inits) = gen_fields(desc);
     let expr = gen_expr(desc);
 
     let fn_name = format_ident!("{}", name);
     let expanded = quote! {
-        #[inline]
-        pub fn #fn_name(#(#args),*) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(#expr)
+        #[derive(Copy, Clone, Debug, Default)]
+        pub struct #fn_name {
+            #(#fields),*
+        }
+
+        impl #fn_name {
+            #[inline]
+            pub fn new(#(#args),*) -> Self {
+                Self { #(#inits),* }
+            }
+
+            #[inline]
+            pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+                ::aarchmrs_types::InstructionCode::from_u32(#expr)
+            }
+
         }
     };
 
@@ -47,6 +61,27 @@ fn gen_constructor_args(desc: &[Bits]) -> impl Iterator<Item = syn::FnArg> {
     args
 }
 
+fn gen_fields(desc: &[Bits]) -> (Vec<syn::Field>, Vec<syn::FieldValue>) {
+    let mut fields = vec![];
+    let mut inits = vec![];
+    for bits in desc.iter().rev() {
+        match bits {
+            Bits::Bit { .. } => {}
+            Bits::Field { name, range } => {
+                let field = format_ident!("{}", **name);
+                let ty: syn::Type =
+                    syn::parse_str(&format!("::aarchmrs_types::BitValue::<{}>", range.width))
+                        .expect("internal error: malformed type");
+                fields.push(parse_quote!(
+                    pub #field: #ty
+                ));
+                inits.push(parse_quote!(#field: #field.into()));
+            }
+        }
+    }
+    (fields, inits)
+}
+
 fn gen_expr(desc: &[Bits]) -> syn::Expr {
     desc.iter()
         .map(|bits| match bits {
@@ -60,7 +95,7 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
             Bits::Field { name, range } => {
                 let name = format_ident!("{}", name.as_ref());
                 let offset = range.start;
-                parse_quote!(u32::from(#name.into()) << #offset)
+                parse_quote!(u32::from(self.#name) << #offset)
             }
         })
         .rev()
@@ -96,11 +131,19 @@ mod tests {
         assert_eq!(
             code,
             concat!(
-                "#[inline]\n",
-                "pub fn NOP_HI_hints() -> ::aarchmrs_types::InstructionCode {\n",
-                "    ::aarchmrs_types::InstructionCode::from_u32(\n",
-                "        0b11010101000000110010000000011111u32 << 0u32,\n",
-                "    )\n",
+                "#[derive(Copy, Clone, Debug, Default)]\n",
+                "pub struct NOP_HI_hints {}\n",
+                "impl NOP_HI_hints {\n",
+                "    #[inline]\n",
+                "    pub fn new() -> Self {\n",
+                "        Self {}\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub fn build(&self) -> ::aarchmrs_types::InstructionCode {\n",
+                "        ::aarchmrs_types::InstructionCode::from_u32(\n",
+                "            0b11010101000000110010000000011111u32 << 0u32,\n",
+                "        )\n",
+                "    }\n",
                 "}\n",
             )
         );
@@ -161,21 +204,43 @@ mod tests {
         assert_eq!(
             code,
             concat!(
-                "#[inline]\n",
-                "pub fn ADD_64_addsub_shift(\n",
-                "    s: impl Into<::aarchmrs_types::BitValue<1>>,\n",
-                "    Rm: impl Into<::aarchmrs_types::BitValue<5>>,\n",
-                "    option: impl Into<::aarchmrs_types::BitValue<3>>,\n",
-                "    im3: impl Into<::aarchmrs_types::BitValue<3>>,\n",
-                "    Rn: impl Into<::aarchmrs_types::BitValue<5>>,\n",
-                "    Rd: impl Into<::aarchmrs_types::BitValue<5>>,\n",
-                ") -> ::aarchmrs_types::InstructionCode {\n",
-                "    ::aarchmrs_types::InstructionCode::from_u32(\n",
-                "        u32::from(s.into()) << 31u32 | 0b0001011001u32 << 21u32\n",
-                "            | u32::from(Rm.into()) << 16u32 | u32::from(option.into()) << 13u32\n",
-                "            | u32::from(im3.into()) << 10u32 | u32::from(Rn.into()) << 5u32\n",
-                "            | u32::from(Rd.into()) << 0u32,\n",
-                "    )\n",
+                "#[derive(Copy, Clone, Debug, Default)]\n",
+                "pub struct ADD_64_addsub_shift {\n",
+                "    pub s: ::aarchmrs_types::BitValue<1>,\n",
+                "    pub Rm: ::aarchmrs_types::BitValue<5>,\n",
+                "    pub option: ::aarchmrs_types::BitValue<3>,\n",
+                "    pub im3: ::aarchmrs_types::BitValue<3>,\n",
+                "    pub Rn: ::aarchmrs_types::BitValue<5>,\n",
+                "    pub Rd: ::aarchmrs_types::BitValue<5>,\n",
+                "}\n",
+                "impl ADD_64_addsub_shift {\n",
+                "    #[inline]\n",
+                "    pub fn new(\n",
+                "        s: impl Into<::aarchmrs_types::BitValue<1>>,\n",
+                "        Rm: impl Into<::aarchmrs_types::BitValue<5>>,\n",
+                "        option: impl Into<::aarchmrs_types::BitValue<3>>,\n",
+                "        im3: impl Into<::aarchmrs_types::BitValue<3>>,\n",
+                "        Rn: impl Into<::aarchmrs_types::BitValue<5>>,\n",
+                "        Rd: impl Into<::aarchmrs_types::BitValue<5>>,\n",
+                "    ) -> Self {\n",
+                "        Self {\n",
+                "            s: s.into(),\n",
+                "            Rm: Rm.into(),\n",
+                "            option: option.into(),\n",
+                "            im3: im3.into(),\n",
+                "            Rn: Rn.into(),\n",
+                "            Rd: Rd.into(),\n",
+                "        }\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub fn build(&self) -> ::aarchmrs_types::InstructionCode {\n",
+                "        ::aarchmrs_types::InstructionCode::from_u32(\n",
+                "            u32::from(self.s) << 31u32 | 0b0001011001u32 << 21u32\n",
+                "                | u32::from(self.Rm) << 16u32 | u32::from(self.option) << 13u32\n",
+                "                | u32::from(self.im3) << 10u32 | u32::from(self.Rn) << 5u32\n",
+                "                | u32::from(self.Rd) << 0u32,\n",
+                "        )\n",
+                "    }\n",
                 "}\n",
             )
         );

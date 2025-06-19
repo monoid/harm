@@ -4,218 +4,434 @@
  */
 
 pub mod ld1sh_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ld1sh_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        U: impl Into<::aarchmrs_types::BitValue<1>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000100111u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b1u32 << 15u32
-                | u32::from(U.into()) << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ld1sh_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub U: ::aarchmrs_types::BitValue<1>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ld1sh_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            U: impl Into<::aarchmrs_types::BitValue<1>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                U: U.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000100111u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b1u32 << 15u32
+                    | u32::from(self.U) << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ld1sw_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ld1sw_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        U: impl Into<::aarchmrs_types::BitValue<1>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000101011u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b1u32 << 15u32
-                | u32::from(U.into()) << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ld1sw_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub U: ::aarchmrs_types::BitValue<1>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ld1sw_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            U: impl Into<::aarchmrs_types::BitValue<1>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                U: U.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000101011u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b1u32 << 15u32
+                    | u32::from(self.U) << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ld1d_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ld1d_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000101111u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b11u32 << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ld1d_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ld1d_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000101111u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b11u32 << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ld1h_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ld1h_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        U: impl Into<::aarchmrs_types::BitValue<1>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000100111u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b1u32 << 15u32
-                | u32::from(U.into()) << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ld1h_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub U: ::aarchmrs_types::BitValue<1>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ld1h_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            U: impl Into<::aarchmrs_types::BitValue<1>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                U: U.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000100111u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b1u32 << 15u32
+                    | u32::from(self.U) << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ld1w_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ld1w_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        U: impl Into<::aarchmrs_types::BitValue<1>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000101011u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b1u32 << 15u32
-                | u32::from(U.into()) << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ld1w_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub U: ::aarchmrs_types::BitValue<1>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ld1w_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            U: impl Into<::aarchmrs_types::BitValue<1>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                U: U.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000101011u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b1u32 << 15u32
+                    | u32::from(self.U) << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ldff1sh_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ldff1sh_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        U: impl Into<::aarchmrs_types::BitValue<1>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000100111u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b1u32 << 15u32
-                | u32::from(U.into()) << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ldff1sh_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub U: ::aarchmrs_types::BitValue<1>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ldff1sh_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            U: impl Into<::aarchmrs_types::BitValue<1>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                U: U.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000100111u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b1u32 << 15u32
+                    | u32::from(self.U) << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ldff1sw_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ldff1sw_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        U: impl Into<::aarchmrs_types::BitValue<1>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000101011u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b1u32 << 15u32
-                | u32::from(U.into()) << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ldff1sw_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub U: ::aarchmrs_types::BitValue<1>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ldff1sw_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            U: impl Into<::aarchmrs_types::BitValue<1>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                U: U.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000101011u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b1u32 << 15u32
+                    | u32::from(self.U) << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ldff1d_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ldff1d_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000101111u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b11u32 << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ldff1d_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ldff1d_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000101111u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b11u32 << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ldff1h_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ldff1h_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        U: impl Into<::aarchmrs_types::BitValue<1>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000100111u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b1u32 << 15u32
-                | u32::from(U.into()) << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ldff1h_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub U: ::aarchmrs_types::BitValue<1>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ldff1h_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            U: impl Into<::aarchmrs_types::BitValue<1>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                U: U.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000100111u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b1u32 << 15u32
+                    | u32::from(self.U) << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }
 pub mod ldff1w_z_p_bz_d_64_scaled {
-    #[inline]
-    pub fn ldff1w_z_p_bz_d_64_scaled(
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        U: impl Into<::aarchmrs_types::BitValue<1>>,
-        ff: impl Into<::aarchmrs_types::BitValue<1>>,
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zt: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000101011u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b1u32 << 15u32
-                | u32::from(U.into()) << 14u32
-                | u32::from(ff.into()) << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zt.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ldff1w_z_p_bz_d_64_scaled {
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub U: ::aarchmrs_types::BitValue<1>,
+        pub ff: ::aarchmrs_types::BitValue<1>,
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zt: ::aarchmrs_types::BitValue<5>,
+    }
+    impl ldff1w_z_p_bz_d_64_scaled {
+        #[inline]
+        pub fn new(
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            U: impl Into<::aarchmrs_types::BitValue<1>>,
+            ff: impl Into<::aarchmrs_types::BitValue<1>>,
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Zm: Zm.into(),
+                U: U.into(),
+                ff: ff.into(),
+                Pg: Pg.into(),
+                Rn: Rn.into(),
+                Zt: Zt.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000101011u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b1u32 << 15u32
+                    | u32::from(self.U) << 14u32
+                    | u32::from(self.ff) << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zt) << 0u32,
+            )
+        }
     }
 }

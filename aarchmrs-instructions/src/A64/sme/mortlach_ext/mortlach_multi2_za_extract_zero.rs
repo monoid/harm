@@ -4,19 +4,35 @@
  */
 
 pub mod movaz_mz_za2_1 {
-    #[inline]
-    pub fn movaz_mz_za2_1(
-        Rv: impl Into<::aarchmrs_types::BitValue<2>>,
-        off3: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<4>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11000000000001100u32 << 15u32
-                | u32::from(Rv.into()) << 13u32
-                | 0b01010u32 << 8u32
-                | u32::from(off3.into()) << 5u32
-                | u32::from(Zd.into()) << 1u32
-                | 0b0u32 << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct movaz_mz_za2_1 {
+        pub Rv: ::aarchmrs_types::BitValue<2>,
+        pub off3: ::aarchmrs_types::BitValue<3>,
+        pub Zd: ::aarchmrs_types::BitValue<4>,
+    }
+    impl movaz_mz_za2_1 {
+        #[inline]
+        pub fn new(
+            Rv: impl Into<::aarchmrs_types::BitValue<2>>,
+            off3: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<4>>,
+        ) -> Self {
+            Self {
+                Rv: Rv.into(),
+                off3: off3.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000000000001100u32 << 15u32
+                    | u32::from(self.Rv) << 13u32
+                    | 0b01010u32 << 8u32
+                    | u32::from(self.off3) << 5u32
+                    | u32::from(self.Zd) << 1u32
+                    | 0b0u32 << 0u32,
+            )
+        }
     }
 }

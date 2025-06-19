@@ -4,14 +4,22 @@
  */
 
 pub mod wrffr_f_p_ {
-    #[inline]
-    pub fn wrffr_f_p_(
-        Pn: impl Into<::aarchmrs_types::BitValue<4>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b00100101001010001001000u32 << 9u32
-                | u32::from(Pn.into()) << 5u32
-                | 0b00000u32 << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct wrffr_f_p_ {
+        pub Pn: ::aarchmrs_types::BitValue<4>,
+    }
+    impl wrffr_f_p_ {
+        #[inline]
+        pub fn new(Pn: impl Into<::aarchmrs_types::BitValue<4>>) -> Self {
+            Self { Pn: Pn.into() }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b00100101001010001001000u32 << 9u32
+                    | u32::from(self.Pn) << 5u32
+                    | 0b00000u32 << 0u32,
+            )
+        }
     }
 }
