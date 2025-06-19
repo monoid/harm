@@ -11,8 +11,8 @@ pub fn gen_constructor(name: &str, desc: &[Bits]) -> TokenStream {
     let fn_name = format_ident!("{}", name);
     let expanded = quote! {
         #[inline]
-        pub fn #fn_name(#(#args),*) -> u32 {
-            #expr
+        pub fn #fn_name(#(#args),*) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(#expr)
         }
     };
 
@@ -33,7 +33,7 @@ fn gen_constructor_args(desc: &[Bits]) -> impl Iterator<Item = syn::FnArg> {
             })),
             colon_token: <_>::default(),
             ty: syn::parse_str(&format!("::aarchmrs_types::BitValue::<{}>", range.width))
-                .expect("invalid type"),
+                .expect("internal error: malformed type"),
         })),
     });
     args
@@ -43,9 +43,9 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
     desc.iter()
         .map(|bits| match bits {
             Bits::Bit { bits, range } => {
-                let offset = range.start;
                 let bits: syn::Expr = syn::parse_str(&format!("0b{:b}u32", bits))
                     .expect("internal error: malformed integer");
+                let offset = range.start;
                 parse_quote!(#bits << #offset)
             }
             Bits::Field { name, range } => {
@@ -86,9 +86,11 @@ mod tests {
             code,
             concat!(
                 "#[inline]\n",
-                "pub fn NOP_HI_hints() -> u32 {\n",
-                "    0b11010101000000110010000000011111u32 << 0u32",
-                "\n}\n",
+                "pub fn NOP_HI_hints() -> ::aarchmrs_types::InstructionCode {\n",
+                "    ::aarchmrs_types::InstructionCode::from_u32(\n",
+                "        0b11010101000000110010000000011111u32 << 0u32,\n",
+                "    )\n",
+                "}\n",
             )
         );
     }
@@ -156,10 +158,12 @@ mod tests {
                 "    im3: ::aarchmrs_types::BitValue<3>,\n",
                 "    Rn: ::aarchmrs_types::BitValue<5>,\n",
                 "    Rd: ::aarchmrs_types::BitValue<5>,\n",
-                ") -> u32 {\n",
-                "    s.into() << 31u32 | 0b1011001u32 << 21u32 | Rm.into() << 16u32\n",
-                "        | option.into() << 13u32 | im3.into() << 10u32 | Rn.into() << 5u32\n",
-                "        | Rd.into() << 0u32\n",
+                ") -> ::aarchmrs_types::InstructionCode {\n",
+                "    ::aarchmrs_types::InstructionCode::from_u32(\n",
+                "        s.into() << 31u32 | 0b1011001u32 << 21u32 | Rm.into() << 16u32\n",
+                "            | option.into() << 13u32 | im3.into() << 10u32 | Rn.into() << 5u32\n",
+                "            | Rd.into() << 0u32,\n",
+                "    )\n",
                 "}\n",
             )
         );
