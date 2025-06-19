@@ -1,3 +1,8 @@
+/* Copyright (C) 2025 Ivan Boldyrev
+ *
+ * This document is licensed under the BSD 3-clause license.
+ */
+
 use aarchmrs_instructions::A64::control::{
     branch_imm::B_only_branch_imm::B_only_branch_imm,
     condbranch::B_only_condbranch::B_only_condbranch,

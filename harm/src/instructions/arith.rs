@@ -1,3 +1,8 @@
+/* Copyright (C) 2025 Ivan Boldyrev
+ *
+ * This document is licensed under the BSD 3-clause license.
+ */
+
 use aarchmrs_instructions::A64::dpreg::addsub_shift::ADD_64_addsub_shift::ADD_64_addsub_shift;
 use aarchmrs_types::InstructionCode;
 
