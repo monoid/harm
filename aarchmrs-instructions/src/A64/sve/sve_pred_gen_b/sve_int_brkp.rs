@@ -15,36 +15,36 @@ pub mod brkpa_p_p_pp_ {
     }
     impl brkpa_p_p_pp_ {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<4>>,
-            B: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pd: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            Pm: ::aarchmrs_types::BitValue<4>,
+            Pg: ::aarchmrs_types::BitValue<4>,
+            Pn: ::aarchmrs_types::BitValue<4>,
+            B: ::aarchmrs_types::BitValue<1>,
+            Pd: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                S: S.into(),
-                Pm: Pm.into(),
-                Pg: Pg.into(),
-                Pn: Pn.into(),
-                B: B.into(),
-                Pd: Pd.into(),
+                S,
+                Pm,
+                Pg,
+                Pn,
+                B,
+                Pd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b001001010u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b00u32 << 20u32
-                    | u32::from(self.Pm) << 16u32
+                    | self.Pm.into_inner() << 16u32
                     | 0b11u32 << 14u32
-                    | u32::from(self.Pg) << 10u32
+                    | self.Pg.into_inner() << 10u32
                     | 0b0u32 << 9u32
-                    | u32::from(self.Pn) << 5u32
-                    | u32::from(self.B) << 4u32
-                    | u32::from(self.Pd) << 0u32,
+                    | self.Pn.into_inner() << 5u32
+                    | self.B.into_inner() << 4u32
+                    | self.Pd.into_inner() << 0u32,
             )
         }
     }
@@ -61,36 +61,36 @@ pub mod brkpas_p_p_pp_ {
     }
     impl brkpas_p_p_pp_ {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<4>>,
-            B: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pd: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            Pm: ::aarchmrs_types::BitValue<4>,
+            Pg: ::aarchmrs_types::BitValue<4>,
+            Pn: ::aarchmrs_types::BitValue<4>,
+            B: ::aarchmrs_types::BitValue<1>,
+            Pd: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                S: S.into(),
-                Pm: Pm.into(),
-                Pg: Pg.into(),
-                Pn: Pn.into(),
-                B: B.into(),
-                Pd: Pd.into(),
+                S,
+                Pm,
+                Pg,
+                Pn,
+                B,
+                Pd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b001001010u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b00u32 << 20u32
-                    | u32::from(self.Pm) << 16u32
+                    | self.Pm.into_inner() << 16u32
                     | 0b11u32 << 14u32
-                    | u32::from(self.Pg) << 10u32
+                    | self.Pg.into_inner() << 10u32
                     | 0b0u32 << 9u32
-                    | u32::from(self.Pn) << 5u32
-                    | u32::from(self.B) << 4u32
-                    | u32::from(self.Pd) << 0u32,
+                    | self.Pn.into_inner() << 5u32
+                    | self.B.into_inner() << 4u32
+                    | self.Pd.into_inner() << 0u32,
             )
         }
     }
@@ -107,36 +107,36 @@ pub mod brkpb_p_p_pp_ {
     }
     impl brkpb_p_p_pp_ {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<4>>,
-            B: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pd: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            Pm: ::aarchmrs_types::BitValue<4>,
+            Pg: ::aarchmrs_types::BitValue<4>,
+            Pn: ::aarchmrs_types::BitValue<4>,
+            B: ::aarchmrs_types::BitValue<1>,
+            Pd: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                S: S.into(),
-                Pm: Pm.into(),
-                Pg: Pg.into(),
-                Pn: Pn.into(),
-                B: B.into(),
-                Pd: Pd.into(),
+                S,
+                Pm,
+                Pg,
+                Pn,
+                B,
+                Pd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b001001010u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b00u32 << 20u32
-                    | u32::from(self.Pm) << 16u32
+                    | self.Pm.into_inner() << 16u32
                     | 0b11u32 << 14u32
-                    | u32::from(self.Pg) << 10u32
+                    | self.Pg.into_inner() << 10u32
                     | 0b0u32 << 9u32
-                    | u32::from(self.Pn) << 5u32
-                    | u32::from(self.B) << 4u32
-                    | u32::from(self.Pd) << 0u32,
+                    | self.Pn.into_inner() << 5u32
+                    | self.B.into_inner() << 4u32
+                    | self.Pd.into_inner() << 0u32,
             )
         }
     }
@@ -153,36 +153,36 @@ pub mod brkpbs_p_p_pp_ {
     }
     impl brkpbs_p_p_pp_ {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<4>>,
-            B: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pd: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            Pm: ::aarchmrs_types::BitValue<4>,
+            Pg: ::aarchmrs_types::BitValue<4>,
+            Pn: ::aarchmrs_types::BitValue<4>,
+            B: ::aarchmrs_types::BitValue<1>,
+            Pd: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                S: S.into(),
-                Pm: Pm.into(),
-                Pg: Pg.into(),
-                Pn: Pn.into(),
-                B: B.into(),
-                Pd: Pd.into(),
+                S,
+                Pm,
+                Pg,
+                Pn,
+                B,
+                Pd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b001001010u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b00u32 << 20u32
-                    | u32::from(self.Pm) << 16u32
+                    | self.Pm.into_inner() << 16u32
                     | 0b11u32 << 14u32
-                    | u32::from(self.Pg) << 10u32
+                    | self.Pg.into_inner() << 10u32
                     | 0b0u32 << 9u32
-                    | u32::from(self.Pn) << 5u32
-                    | u32::from(self.B) << 4u32
-                    | u32::from(self.Pd) << 0u32,
+                    | self.Pn.into_inner() << 5u32
+                    | self.B.into_inner() << 4u32
+                    | self.Pd.into_inner() << 0u32,
             )
         }
     }

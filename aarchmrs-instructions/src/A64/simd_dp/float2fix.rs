@@ -12,24 +12,20 @@ pub mod SCVTF_S32_float2fix {
     }
     impl SCVTF_S32_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000000010u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -43,24 +39,20 @@ pub mod UCVTF_S32_float2fix {
     }
     impl UCVTF_S32_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000000011u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -74,24 +66,20 @@ pub mod FCVTZS_32S_float2fix {
     }
     impl FCVTZS_32S_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000011000u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -105,24 +93,20 @@ pub mod FCVTZU_32S_float2fix {
     }
     impl FCVTZU_32S_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000011001u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -136,24 +120,20 @@ pub mod SCVTF_D32_float2fix {
     }
     impl SCVTF_D32_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001000010u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -167,24 +147,20 @@ pub mod UCVTF_D32_float2fix {
     }
     impl UCVTF_D32_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001000011u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -198,24 +174,20 @@ pub mod FCVTZS_32D_float2fix {
     }
     impl FCVTZS_32D_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001011000u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -229,24 +201,20 @@ pub mod FCVTZU_32D_float2fix {
     }
     impl FCVTZU_32D_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001011001u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -260,24 +228,20 @@ pub mod SCVTF_H32_float2fix {
     }
     impl SCVTF_H32_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011000010u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -291,24 +255,20 @@ pub mod UCVTF_H32_float2fix {
     }
     impl UCVTF_H32_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011000011u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -322,24 +282,20 @@ pub mod FCVTZS_32H_float2fix {
     }
     impl FCVTZS_32H_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011011000u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -353,24 +309,20 @@ pub mod FCVTZU_32H_float2fix {
     }
     impl FCVTZU_32H_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011011001u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -384,24 +336,20 @@ pub mod SCVTF_S64_float2fix {
     }
     impl SCVTF_S64_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000000010u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -415,24 +363,20 @@ pub mod UCVTF_S64_float2fix {
     }
     impl UCVTF_S64_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000000011u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -446,24 +390,20 @@ pub mod FCVTZS_64S_float2fix {
     }
     impl FCVTZS_64S_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000011000u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -477,24 +417,20 @@ pub mod FCVTZU_64S_float2fix {
     }
     impl FCVTZU_64S_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000011001u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -508,24 +444,20 @@ pub mod SCVTF_D64_float2fix {
     }
     impl SCVTF_D64_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001000010u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -539,24 +471,20 @@ pub mod UCVTF_D64_float2fix {
     }
     impl UCVTF_D64_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001000011u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -570,24 +498,20 @@ pub mod FCVTZS_64D_float2fix {
     }
     impl FCVTZS_64D_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001011000u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -601,24 +525,20 @@ pub mod FCVTZU_64D_float2fix {
     }
     impl FCVTZU_64D_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001011001u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -632,24 +552,20 @@ pub mod SCVTF_H64_float2fix {
     }
     impl SCVTF_H64_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011000010u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -663,24 +579,20 @@ pub mod UCVTF_H64_float2fix {
     }
     impl UCVTF_H64_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011000011u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -694,24 +606,20 @@ pub mod FCVTZS_64H_float2fix {
     }
     impl FCVTZS_64H_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011011000u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -725,24 +633,20 @@ pub mod FCVTZU_64H_float2fix {
     }
     impl FCVTZU_64H_float2fix {
         #[inline]
-        pub fn new(
-            scale: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            scale: ::aarchmrs_types::BitValue<6>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                scale: scale.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { scale, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011011001u32 << 16u32
-                    | u32::from(self.scale) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.scale.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

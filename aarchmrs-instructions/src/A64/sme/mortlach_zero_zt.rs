@@ -8,11 +8,11 @@ pub mod zero_zt_i_ {
     pub struct zero_zt_i_ {}
     impl zero_zt_i_ {
         #[inline]
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self {}
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11000000010010000000000000000001u32 << 0u32,
             )

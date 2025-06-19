@@ -13,27 +13,22 @@ pub mod TBZ_only_testbranch {
     }
     impl TBZ_only_testbranch {
         #[inline]
-        pub fn new(
-            b5: impl Into<::aarchmrs_types::BitValue<1>>,
-            b40: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm14: impl Into<::aarchmrs_types::BitValue<14>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            b5: ::aarchmrs_types::BitValue<1>,
+            b40: ::aarchmrs_types::BitValue<5>,
+            imm14: ::aarchmrs_types::BitValue<14>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                b5: b5.into(),
-                b40: b40.into(),
-                imm14: imm14.into(),
-                Rt: Rt.into(),
-            }
+            Self { b5, b40, imm14, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.b5) << 31u32
+                self.b5.into_inner() << 31u32
                     | 0b0110110u32 << 24u32
-                    | u32::from(self.b40) << 19u32
-                    | u32::from(self.imm14) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.b40.into_inner() << 19u32
+                    | self.imm14.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -48,27 +43,22 @@ pub mod TBNZ_only_testbranch {
     }
     impl TBNZ_only_testbranch {
         #[inline]
-        pub fn new(
-            b5: impl Into<::aarchmrs_types::BitValue<1>>,
-            b40: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm14: impl Into<::aarchmrs_types::BitValue<14>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            b5: ::aarchmrs_types::BitValue<1>,
+            b40: ::aarchmrs_types::BitValue<5>,
+            imm14: ::aarchmrs_types::BitValue<14>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                b5: b5.into(),
-                b40: b40.into(),
-                imm14: imm14.into(),
-                Rt: Rt.into(),
-            }
+            Self { b5, b40, imm14, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.b5) << 31u32
+                self.b5.into_inner() << 31u32
                     | 0b0110111u32 << 24u32
-                    | u32::from(self.b40) << 19u32
-                    | u32::from(self.imm14) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.b40.into_inner() << 19u32
+                    | self.imm14.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }

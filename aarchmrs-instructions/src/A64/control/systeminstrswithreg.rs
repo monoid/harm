@@ -10,13 +10,13 @@ pub mod WFET_only_systeminstrswithreg {
     }
     impl WFET_only_systeminstrswithreg {
         #[inline]
-        pub fn new(Rd: impl Into<::aarchmrs_types::BitValue<5>>) -> Self {
-            Self { Rd: Rd.into() }
+        pub const fn new(Rd: ::aarchmrs_types::BitValue<5>) -> Self {
+            Self { Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b110101010000001100010000000u32 << 5u32 | u32::from(self.Rd) << 0u32,
+                0b110101010000001100010000000u32 << 5u32 | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -28,13 +28,13 @@ pub mod WFIT_only_systeminstrswithreg {
     }
     impl WFIT_only_systeminstrswithreg {
         #[inline]
-        pub fn new(Rd: impl Into<::aarchmrs_types::BitValue<5>>) -> Self {
-            Self { Rd: Rd.into() }
+        pub const fn new(Rd: ::aarchmrs_types::BitValue<5>) -> Self {
+            Self { Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b110101010000001100010000001u32 << 5u32 | u32::from(self.Rd) << 0u32,
+                0b110101010000001100010000001u32 << 5u32 | self.Rd.into_inner() << 0u32,
             )
         }
     }

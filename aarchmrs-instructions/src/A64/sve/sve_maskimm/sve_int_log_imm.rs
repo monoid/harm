@@ -11,21 +11,18 @@ pub mod orr_z_zi_ {
     }
     impl orr_z_zi_ {
         #[inline]
-        pub fn new(
-            imm13: impl Into<::aarchmrs_types::BitValue<13>>,
-            Zdn: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm13: ::aarchmrs_types::BitValue<13>,
+            Zdn: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm13: imm13.into(),
-                Zdn: Zdn.into(),
-            }
+            Self { imm13, Zdn }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00000101000000u32 << 18u32
-                    | u32::from(self.imm13) << 5u32
-                    | u32::from(self.Zdn) << 0u32,
+                    | self.imm13.into_inner() << 5u32
+                    | self.Zdn.into_inner() << 0u32,
             )
         }
     }
@@ -38,21 +35,18 @@ pub mod eor_z_zi_ {
     }
     impl eor_z_zi_ {
         #[inline]
-        pub fn new(
-            imm13: impl Into<::aarchmrs_types::BitValue<13>>,
-            Zdn: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm13: ::aarchmrs_types::BitValue<13>,
+            Zdn: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm13: imm13.into(),
-                Zdn: Zdn.into(),
-            }
+            Self { imm13, Zdn }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00000101010000u32 << 18u32
-                    | u32::from(self.imm13) << 5u32
-                    | u32::from(self.Zdn) << 0u32,
+                    | self.imm13.into_inner() << 5u32
+                    | self.Zdn.into_inner() << 0u32,
             )
         }
     }
@@ -65,21 +59,18 @@ pub mod and_z_zi_ {
     }
     impl and_z_zi_ {
         #[inline]
-        pub fn new(
-            imm13: impl Into<::aarchmrs_types::BitValue<13>>,
-            Zdn: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm13: ::aarchmrs_types::BitValue<13>,
+            Zdn: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm13: imm13.into(),
-                Zdn: Zdn.into(),
-            }
+            Self { imm13, Zdn }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00000101100000u32 << 18u32
-                    | u32::from(self.imm13) << 5u32
-                    | u32::from(self.Zdn) << 0u32,
+                    | self.imm13.into_inner() << 5u32
+                    | self.Zdn.into_inner() << 0u32,
             )
         }
     }

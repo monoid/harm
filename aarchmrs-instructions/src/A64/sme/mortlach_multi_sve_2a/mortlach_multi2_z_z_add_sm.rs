@@ -12,26 +12,22 @@ pub mod add_mz_zzv_2x1 {
     }
     impl add_mz_zzv_2x1 {
         #[inline]
-        pub fn new(
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Zdn: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            size: ::aarchmrs_types::BitValue<2>,
+            Zm: ::aarchmrs_types::BitValue<4>,
+            Zdn: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
-            Self {
-                size: size.into(),
-                Zm: Zm.into(),
-                Zdn: Zdn.into(),
-            }
+            Self { size, Zm, Zdn }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11000001u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b10u32 << 20u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b10100011000u32 << 5u32
-                    | u32::from(self.Zdn) << 1u32
+                    | self.Zdn.into_inner() << 1u32
                     | 0b0u32 << 0u32,
             )
         }

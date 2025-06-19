@@ -13,28 +13,23 @@ pub mod luti2_z_ztz_ {
     }
     impl luti2_z_ztz_ {
         #[inline]
-        pub fn new(
-            i4: impl Into<::aarchmrs_types::BitValue<4>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            i4: ::aarchmrs_types::BitValue<4>,
+            size: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            Zd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                i4: i4.into(),
-                size: size.into(),
-                Zn: Zn.into(),
-                Zd: Zd.into(),
-            }
+            Self { i4, size, Zn, Zd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11000000110011u32 << 18u32
-                    | u32::from(self.i4) << 14u32
-                    | u32::from(self.size) << 12u32
+                    | self.i4.into_inner() << 14u32
+                    | self.size.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Zn) << 5u32
-                    | u32::from(self.Zd) << 0u32,
+                    | self.Zn.into_inner() << 5u32
+                    | self.Zd.into_inner() << 0u32,
             )
         }
     }
@@ -49,28 +44,23 @@ pub mod luti4_z_ztz_ {
     }
     impl luti4_z_ztz_ {
         #[inline]
-        pub fn new(
-            i3: impl Into<::aarchmrs_types::BitValue<3>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            i3: ::aarchmrs_types::BitValue<3>,
+            size: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            Zd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                i3: i3.into(),
-                size: size.into(),
-                Zn: Zn.into(),
-                Zd: Zd.into(),
-            }
+            Self { i3, size, Zn, Zd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110000001100101u32 << 17u32
-                    | u32::from(self.i3) << 14u32
-                    | u32::from(self.size) << 12u32
+                    | self.i3.into_inner() << 14u32
+                    | self.size.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Zn) << 5u32
-                    | u32::from(self.Zd) << 0u32,
+                    | self.Zn.into_inner() << 5u32
+                    | self.Zd.into_inner() << 0u32,
             )
         }
     }

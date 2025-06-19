@@ -13,28 +13,28 @@ pub mod ext_z_zi_des {
     }
     impl ext_z_zi_des {
         #[inline]
-        pub fn new(
-            imm8h: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm8l: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zdn: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm8h: ::aarchmrs_types::BitValue<5>,
+            imm8l: ::aarchmrs_types::BitValue<3>,
+            Zm: ::aarchmrs_types::BitValue<5>,
+            Zdn: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                imm8h: imm8h.into(),
-                imm8l: imm8l.into(),
-                Zm: Zm.into(),
-                Zdn: Zdn.into(),
+                imm8h,
+                imm8l,
+                Zm,
+                Zdn,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00000101001u32 << 21u32
-                    | u32::from(self.imm8h) << 16u32
+                    | self.imm8h.into_inner() << 16u32
                     | 0b000u32 << 13u32
-                    | u32::from(self.imm8l) << 10u32
-                    | u32::from(self.Zm) << 5u32
-                    | u32::from(self.Zdn) << 0u32,
+                    | self.imm8l.into_inner() << 10u32
+                    | self.Zm.into_inner() << 5u32
+                    | self.Zdn.into_inner() << 0u32,
             )
         }
     }

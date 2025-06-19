@@ -12,25 +12,21 @@ pub mod movaz_mz_za4_1 {
     }
     impl movaz_mz_za4_1 {
         #[inline]
-        pub fn new(
-            Rv: impl Into<::aarchmrs_types::BitValue<2>>,
-            off3: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zd: impl Into<::aarchmrs_types::BitValue<3>>,
+        pub const fn new(
+            Rv: ::aarchmrs_types::BitValue<2>,
+            off3: ::aarchmrs_types::BitValue<3>,
+            Zd: ::aarchmrs_types::BitValue<3>,
         ) -> Self {
-            Self {
-                Rv: Rv.into(),
-                off3: off3.into(),
-                Zd: Zd.into(),
-            }
+            Self { Rv, off3, Zd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11000000000001100u32 << 15u32
-                    | u32::from(self.Rv) << 13u32
+                    | self.Rv.into_inner() << 13u32
                     | 0b01110u32 << 8u32
-                    | u32::from(self.off3) << 5u32
-                    | u32::from(self.Zd) << 2u32
+                    | self.off3.into_inner() << 5u32
+                    | self.Zd.into_inner() << 2u32
                     | 0b00u32 << 0u32,
             )
         }

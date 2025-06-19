@@ -13,28 +13,23 @@ pub mod addha_za_pp_z_32 {
     }
     impl addha_za_pp_z_32 {
         #[inline]
-        pub fn new(
-            Pm: impl Into<::aarchmrs_types::BitValue<3>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            ZAda: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Pm: ::aarchmrs_types::BitValue<3>,
+            Pn: ::aarchmrs_types::BitValue<3>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            ZAda: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Pm: Pm.into(),
-                Pn: Pn.into(),
-                Zn: Zn.into(),
-                ZAda: ZAda.into(),
-            }
+            Self { Pm, Pn, Zn, ZAda }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1100000010010000u32 << 16u32
-                    | u32::from(self.Pm) << 13u32
-                    | u32::from(self.Pn) << 10u32
-                    | u32::from(self.Zn) << 5u32
+                    | self.Pm.into_inner() << 13u32
+                    | self.Pn.into_inner() << 10u32
+                    | self.Zn.into_inner() << 5u32
                     | 0b000u32 << 2u32
-                    | u32::from(self.ZAda) << 0u32,
+                    | self.ZAda.into_inner() << 0u32,
             )
         }
     }
@@ -49,28 +44,23 @@ pub mod addha_za_pp_z_64 {
     }
     impl addha_za_pp_z_64 {
         #[inline]
-        pub fn new(
-            Pm: impl Into<::aarchmrs_types::BitValue<3>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            ZAda: impl Into<::aarchmrs_types::BitValue<3>>,
+        pub const fn new(
+            Pm: ::aarchmrs_types::BitValue<3>,
+            Pn: ::aarchmrs_types::BitValue<3>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            ZAda: ::aarchmrs_types::BitValue<3>,
         ) -> Self {
-            Self {
-                Pm: Pm.into(),
-                Pn: Pn.into(),
-                Zn: Zn.into(),
-                ZAda: ZAda.into(),
-            }
+            Self { Pm, Pn, Zn, ZAda }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1100000011010000u32 << 16u32
-                    | u32::from(self.Pm) << 13u32
-                    | u32::from(self.Pn) << 10u32
-                    | u32::from(self.Zn) << 5u32
+                    | self.Pm.into_inner() << 13u32
+                    | self.Pn.into_inner() << 10u32
+                    | self.Zn.into_inner() << 5u32
                     | 0b00u32 << 3u32
-                    | u32::from(self.ZAda) << 0u32,
+                    | self.ZAda.into_inner() << 0u32,
             )
         }
     }
@@ -85,28 +75,23 @@ pub mod addva_za_pp_z_32 {
     }
     impl addva_za_pp_z_32 {
         #[inline]
-        pub fn new(
-            Pm: impl Into<::aarchmrs_types::BitValue<3>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            ZAda: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Pm: ::aarchmrs_types::BitValue<3>,
+            Pn: ::aarchmrs_types::BitValue<3>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            ZAda: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Pm: Pm.into(),
-                Pn: Pn.into(),
-                Zn: Zn.into(),
-                ZAda: ZAda.into(),
-            }
+            Self { Pm, Pn, Zn, ZAda }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1100000010010001u32 << 16u32
-                    | u32::from(self.Pm) << 13u32
-                    | u32::from(self.Pn) << 10u32
-                    | u32::from(self.Zn) << 5u32
+                    | self.Pm.into_inner() << 13u32
+                    | self.Pn.into_inner() << 10u32
+                    | self.Zn.into_inner() << 5u32
                     | 0b000u32 << 2u32
-                    | u32::from(self.ZAda) << 0u32,
+                    | self.ZAda.into_inner() << 0u32,
             )
         }
     }
@@ -121,28 +106,23 @@ pub mod addva_za_pp_z_64 {
     }
     impl addva_za_pp_z_64 {
         #[inline]
-        pub fn new(
-            Pm: impl Into<::aarchmrs_types::BitValue<3>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            ZAda: impl Into<::aarchmrs_types::BitValue<3>>,
+        pub const fn new(
+            Pm: ::aarchmrs_types::BitValue<3>,
+            Pn: ::aarchmrs_types::BitValue<3>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            ZAda: ::aarchmrs_types::BitValue<3>,
         ) -> Self {
-            Self {
-                Pm: Pm.into(),
-                Pn: Pn.into(),
-                Zn: Zn.into(),
-                ZAda: ZAda.into(),
-            }
+            Self { Pm, Pn, Zn, ZAda }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1100000011010001u32 << 16u32
-                    | u32::from(self.Pm) << 13u32
-                    | u32::from(self.Pn) << 10u32
-                    | u32::from(self.Zn) << 5u32
+                    | self.Pm.into_inner() << 13u32
+                    | self.Pn.into_inner() << 10u32
+                    | self.Zn.into_inner() << 5u32
                     | 0b00u32 << 3u32
-                    | u32::from(self.ZAda) << 0u32,
+                    | self.ZAda.into_inner() << 0u32,
             )
         }
     }

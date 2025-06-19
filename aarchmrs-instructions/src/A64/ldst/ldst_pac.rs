@@ -13,29 +13,24 @@ pub mod LDRAA_64_ldst_pac {
     }
     impl LDRAA_64_ldst_pac {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                S: S.into(),
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { S, imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b111110000u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b1u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b01u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -50,29 +45,24 @@ pub mod LDRAA_64W_ldst_pac {
     }
     impl LDRAA_64W_ldst_pac {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                S: S.into(),
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { S, imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b111110000u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b1u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b11u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -87,29 +77,24 @@ pub mod LDRAB_64_ldst_pac {
     }
     impl LDRAB_64_ldst_pac {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                S: S.into(),
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { S, imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b111110001u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b1u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b01u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -124,29 +109,24 @@ pub mod LDRAB_64W_ldst_pac {
     }
     impl LDRAB_64W_ldst_pac {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                S: S.into(),
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { S, imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b111110001u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b1u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b11u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }

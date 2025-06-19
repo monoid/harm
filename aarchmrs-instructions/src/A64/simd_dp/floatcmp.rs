@@ -12,25 +12,21 @@ pub mod FCMP_S_floatcmp {
     }
     impl FCMP_S_floatcmp {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rm, Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110001u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -44,21 +40,18 @@ pub mod FCMP_SZ_floatcmp {
     }
     impl FCMP_SZ_floatcmp {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100000001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -73,25 +66,21 @@ pub mod FCMPE_S_floatcmp {
     }
     impl FCMPE_S_floatcmp {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rm, Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110001u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -105,21 +94,18 @@ pub mod FCMPE_SZ_floatcmp {
     }
     impl FCMPE_SZ_floatcmp {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100000001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -134,25 +120,21 @@ pub mod FCMP_D_floatcmp {
     }
     impl FCMP_D_floatcmp {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rm, Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110011u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -166,21 +148,18 @@ pub mod FCMP_DZ_floatcmp {
     }
     impl FCMP_DZ_floatcmp {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001100000001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -195,25 +174,21 @@ pub mod FCMPE_D_floatcmp {
     }
     impl FCMPE_D_floatcmp {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rm, Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110011u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -227,21 +202,18 @@ pub mod FCMPE_DZ_floatcmp {
     }
     impl FCMPE_DZ_floatcmp {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001100000001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -256,25 +228,21 @@ pub mod FCMP_H_floatcmp {
     }
     impl FCMP_H_floatcmp {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rm, Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110111u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -288,21 +256,18 @@ pub mod FCMP_HZ_floatcmp {
     }
     impl FCMP_HZ_floatcmp {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100000001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -317,25 +282,21 @@ pub mod FCMPE_H_floatcmp {
     }
     impl FCMPE_H_floatcmp {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rm, Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110111u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }
@@ -349,21 +310,18 @@ pub mod FCMPE_HZ_floatcmp {
     }
     impl FCMPE_HZ_floatcmp {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                opc: opc.into(),
-            }
+            Self { Rn, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100000001000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.opc) << 3u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.opc.into_inner() << 3u32
                     | 0b000u32 << 0u32,
             )
         }

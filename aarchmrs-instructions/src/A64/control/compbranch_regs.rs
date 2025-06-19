@@ -12,25 +12,21 @@ pub mod CBGT_32_regs {
     }
     impl CBGT_32_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01110100000u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -44,25 +40,21 @@ pub mod CBGE_32_regs {
     }
     impl CBGE_32_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01110100001u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -76,25 +68,21 @@ pub mod CBHI_32_regs {
     }
     impl CBHI_32_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01110100010u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -108,25 +96,21 @@ pub mod CBHS_32_regs {
     }
     impl CBHS_32_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01110100011u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -140,25 +124,21 @@ pub mod CBEQ_32_regs {
     }
     impl CBEQ_32_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01110100110u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -172,25 +152,21 @@ pub mod CBNE_32_regs {
     }
     impl CBNE_32_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01110100111u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -204,25 +180,21 @@ pub mod CBGT_64_regs {
     }
     impl CBGT_64_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11110100000u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -236,25 +208,21 @@ pub mod CBGE_64_regs {
     }
     impl CBGE_64_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11110100001u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -268,25 +236,21 @@ pub mod CBHI_64_regs {
     }
     impl CBHI_64_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11110100010u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -300,25 +264,21 @@ pub mod CBHS_64_regs {
     }
     impl CBHS_64_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11110100011u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -332,25 +292,21 @@ pub mod CBEQ_64_regs {
     }
     impl CBEQ_64_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11110100110u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -364,25 +320,21 @@ pub mod CBNE_64_regs {
     }
     impl CBNE_64_regs {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rm: Rm.into(),
-                imm9: imm9.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rm, imm9, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11110100111u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
+                    | self.Rm.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm9) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.imm9.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }

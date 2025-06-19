@@ -11,21 +11,18 @@ pub mod rdsvl_r_i_ {
     }
     impl rdsvl_r_i_ {
         #[inline]
-        pub fn new(
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm6: ::aarchmrs_types::BitValue<6>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm6: imm6.into(),
-                Rd: Rd.into(),
-            }
+            Self { imm6, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b000001001011111101011u32 << 11u32
-                    | u32::from(self.imm6) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.imm6.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

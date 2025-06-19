@@ -15,35 +15,35 @@ pub mod BR_64_branch_reg {
     }
     impl BR_64_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -60,35 +60,35 @@ pub mod BRAAZ_64_branch_reg {
     }
     impl BRAAZ_64_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -105,35 +105,35 @@ pub mod BRABZ_64_branch_reg {
     }
     impl BRABZ_64_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -150,35 +150,35 @@ pub mod BLR_64_branch_reg {
     }
     impl BLR_64_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -195,35 +195,35 @@ pub mod BLRAAZ_64_branch_reg {
     }
     impl BLRAAZ_64_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -240,35 +240,35 @@ pub mod BLRABZ_64_branch_reg {
     }
     impl BLRABZ_64_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -285,35 +285,35 @@ pub mod RET_64R_branch_reg {
     }
     impl RET_64R_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -326,22 +326,19 @@ pub mod RETAASPPCR_64M_branch_reg {
     }
     impl RETAASPPCR_64M_branch_reg {
         #[inline]
-        pub fn new(
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            M: ::aarchmrs_types::BitValue<1>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                M: M.into(),
-                Rm: Rm.into(),
-            }
+            Self { M, Rm }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110101100101111100001u32 << 11u32
-                    | u32::from(self.M) << 10u32
+                    | self.M.into_inner() << 10u32
                     | 0b11111u32 << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -357,33 +354,27 @@ pub mod RETAA_64E_branch_reg {
     }
     impl RETAA_64E_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rm: Rm.into(),
-            }
+            Self { Z, op, A, M, Rm }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
                     | 0b11111u32 << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -396,22 +387,19 @@ pub mod RETABSPPCR_64M_branch_reg {
     }
     impl RETABSPPCR_64M_branch_reg {
         #[inline]
-        pub fn new(
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            M: ::aarchmrs_types::BitValue<1>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                M: M.into(),
-                Rm: Rm.into(),
-            }
+            Self { M, Rm }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110101100101111100001u32 << 11u32
-                    | u32::from(self.M) << 10u32
+                    | self.M.into_inner() << 10u32
                     | 0b11111u32 << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -427,33 +415,27 @@ pub mod RETAB_64E_branch_reg {
     }
     impl RETAB_64E_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rm: Rm.into(),
-            }
+            Self { Z, op, A, M, Rm }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
                     | 0b11111u32 << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -466,21 +448,18 @@ pub mod ERET_64E_branch_reg {
     }
     impl ERET_64E_branch_reg {
         #[inline]
-        pub fn new(
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
-            Self {
-                A: A.into(),
-                M: M.into(),
-            }
+            Self { A, M }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010110100111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
                     | 0b1111100000u32 << 0u32,
             )
         }
@@ -494,21 +473,18 @@ pub mod ERETAA_64E_branch_reg {
     }
     impl ERETAA_64E_branch_reg {
         #[inline]
-        pub fn new(
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
-            Self {
-                A: A.into(),
-                M: M.into(),
-            }
+            Self { A, M }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010110100111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
                     | 0b1111111111u32 << 0u32,
             )
         }
@@ -522,21 +498,18 @@ pub mod ERETAB_64E_branch_reg {
     }
     impl ERETAB_64E_branch_reg {
         #[inline]
-        pub fn new(
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
-            Self {
-                A: A.into(),
-                M: M.into(),
-            }
+            Self { A, M }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010110100111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
                     | 0b1111111111u32 << 0u32,
             )
         }
@@ -547,11 +520,11 @@ pub mod DRPS_64E_branch_reg {
     pub struct DRPS_64E_branch_reg {}
     impl DRPS_64E_branch_reg {
         #[inline]
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self {}
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010110101111110000001111100000u32 << 0u32,
             )
@@ -570,35 +543,35 @@ pub mod BRAA_64P_branch_reg {
     }
     impl BRAA_64P_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -615,35 +588,35 @@ pub mod BRAB_64P_branch_reg {
     }
     impl BRAB_64P_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -660,35 +633,35 @@ pub mod BLRAA_64P_branch_reg {
     }
     impl BLRAA_64P_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }
@@ -705,35 +678,35 @@ pub mod BLRAB_64P_branch_reg {
     }
     impl BLRAB_64P_branch_reg {
         #[inline]
-        pub fn new(
-            Z: impl Into<::aarchmrs_types::BitValue<1>>,
-            op: impl Into<::aarchmrs_types::BitValue<2>>,
-            A: impl Into<::aarchmrs_types::BitValue<1>>,
-            M: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Z: ::aarchmrs_types::BitValue<1>,
+            op: ::aarchmrs_types::BitValue<2>,
+            A: ::aarchmrs_types::BitValue<1>,
+            M: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rm: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Z: Z.into(),
-                op: op.into(),
-                A: A.into(),
-                M: M.into(),
-                Rn: Rn.into(),
-                Rm: Rm.into(),
+                Z,
+                op,
+                A,
+                M,
+                Rn,
+                Rm,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101011u32 << 25u32
-                    | u32::from(self.Z) << 24u32
+                    | self.Z.into_inner() << 24u32
                     | 0b0u32 << 23u32
-                    | u32::from(self.op) << 21u32
+                    | self.op.into_inner() << 21u32
                     | 0b111110000u32 << 12u32
-                    | u32::from(self.A) << 11u32
-                    | u32::from(self.M) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rm) << 0u32,
+                    | self.A.into_inner() << 11u32
+                    | self.M.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rm.into_inner() << 0u32,
             )
         }
     }

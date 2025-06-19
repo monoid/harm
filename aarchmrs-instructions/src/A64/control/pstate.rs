@@ -12,25 +12,21 @@ pub mod MSR_SI_pstate {
     }
     impl MSR_SI_pstate {
         #[inline]
-        pub fn new(
-            op1: impl Into<::aarchmrs_types::BitValue<3>>,
-            CRm: impl Into<::aarchmrs_types::BitValue<4>>,
-            op2: impl Into<::aarchmrs_types::BitValue<3>>,
+        pub const fn new(
+            op1: ::aarchmrs_types::BitValue<3>,
+            CRm: ::aarchmrs_types::BitValue<4>,
+            op2: ::aarchmrs_types::BitValue<3>,
         ) -> Self {
-            Self {
-                op1: op1.into(),
-                CRm: CRm.into(),
-                op2: op2.into(),
-            }
+            Self { op1, CRm, op2 }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101010100000u32 << 19u32
-                    | u32::from(self.op1) << 16u32
+                    | self.op1.into_inner() << 16u32
                     | 0b0100u32 << 12u32
-                    | u32::from(self.CRm) << 8u32
-                    | u32::from(self.op2) << 5u32
+                    | self.CRm.into_inner() << 8u32
+                    | self.op2.into_inner() << 5u32
                     | 0b11111u32 << 0u32,
             )
         }
@@ -41,11 +37,11 @@ pub mod CFINV_M_pstate {
     pub struct CFINV_M_pstate {}
     impl CFINV_M_pstate {
         #[inline]
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self {}
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000000100000000011111u32 << 0u32,
             )
@@ -57,11 +53,11 @@ pub mod XAFLAG_M_pstate {
     pub struct XAFLAG_M_pstate {}
     impl XAFLAG_M_pstate {
         #[inline]
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self {}
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000000100000000111111u32 << 0u32,
             )
@@ -73,11 +69,11 @@ pub mod AXFLAG_M_pstate {
     pub struct AXFLAG_M_pstate {}
     impl AXFLAG_M_pstate {
         #[inline]
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self {}
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000000100000001011111u32 << 0u32,
             )

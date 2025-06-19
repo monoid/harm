@@ -12,25 +12,21 @@ pub mod RCWCASP_C64_rcwcomswappr {
     }
     impl RCWCASP_C64_rcwcomswappr {
         #[inline]
-        pub fn new(
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rs, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011001001u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000011u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -44,25 +40,21 @@ pub mod RCWCASPL_C64_rcwcomswappr {
     }
     impl RCWCASPL_C64_rcwcomswappr {
         #[inline]
-        pub fn new(
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rs, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011001011u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000011u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -76,25 +68,21 @@ pub mod RCWCASPA_C64_rcwcomswappr {
     }
     impl RCWCASPA_C64_rcwcomswappr {
         #[inline]
-        pub fn new(
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rs, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011001101u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000011u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -108,25 +96,21 @@ pub mod RCWCASPAL_C64_rcwcomswappr {
     }
     impl RCWCASPAL_C64_rcwcomswappr {
         #[inline]
-        pub fn new(
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rs, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011001111u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000011u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -140,25 +124,21 @@ pub mod RCWSCASP_C64_rcwcomswappr {
     }
     impl RCWSCASP_C64_rcwcomswappr {
         #[inline]
-        pub fn new(
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rs, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01011001001u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000011u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -172,25 +152,21 @@ pub mod RCWSCASPL_C64_rcwcomswappr {
     }
     impl RCWSCASPL_C64_rcwcomswappr {
         #[inline]
-        pub fn new(
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rs, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01011001011u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000011u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -204,25 +180,21 @@ pub mod RCWSCASPA_C64_rcwcomswappr {
     }
     impl RCWSCASPA_C64_rcwcomswappr {
         #[inline]
-        pub fn new(
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rs, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01011001101u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000011u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -236,25 +208,21 @@ pub mod RCWSCASPAL_C64_rcwcomswappr {
     }
     impl RCWSCASPAL_C64_rcwcomswappr {
         #[inline]
-        pub fn new(
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rs, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01011001111u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000011u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }

@@ -13,29 +13,29 @@ pub mod CCMN_32_condcmp_imm {
     }
     impl CCMN_32_condcmp_imm {
         #[inline]
-        pub fn new(
-            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            nzcv: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            imm5: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            nzcv: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                imm5: imm5.into(),
-                cond: cond.into(),
-                Rn: Rn.into(),
-                nzcv: nzcv.into(),
+                imm5,
+                cond,
+                Rn,
+                nzcv,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111010010u32 << 21u32
-                    | u32::from(self.imm5) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.imm5.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
+                    | self.Rn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.nzcv) << 0u32,
+                    | self.nzcv.into_inner() << 0u32,
             )
         }
     }
@@ -50,29 +50,29 @@ pub mod CCMP_32_condcmp_imm {
     }
     impl CCMP_32_condcmp_imm {
         #[inline]
-        pub fn new(
-            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            nzcv: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            imm5: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            nzcv: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                imm5: imm5.into(),
-                cond: cond.into(),
-                Rn: Rn.into(),
-                nzcv: nzcv.into(),
+                imm5,
+                cond,
+                Rn,
+                nzcv,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01111010010u32 << 21u32
-                    | u32::from(self.imm5) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.imm5.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
+                    | self.Rn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.nzcv) << 0u32,
+                    | self.nzcv.into_inner() << 0u32,
             )
         }
     }
@@ -87,29 +87,29 @@ pub mod CCMN_64_condcmp_imm {
     }
     impl CCMN_64_condcmp_imm {
         #[inline]
-        pub fn new(
-            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            nzcv: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            imm5: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            nzcv: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                imm5: imm5.into(),
-                cond: cond.into(),
-                Rn: Rn.into(),
-                nzcv: nzcv.into(),
+                imm5,
+                cond,
+                Rn,
+                nzcv,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10111010010u32 << 21u32
-                    | u32::from(self.imm5) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.imm5.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
+                    | self.Rn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.nzcv) << 0u32,
+                    | self.nzcv.into_inner() << 0u32,
             )
         }
     }
@@ -124,29 +124,29 @@ pub mod CCMP_64_condcmp_imm {
     }
     impl CCMP_64_condcmp_imm {
         #[inline]
-        pub fn new(
-            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            nzcv: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            imm5: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            nzcv: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                imm5: imm5.into(),
-                cond: cond.into(),
-                Rn: Rn.into(),
-                nzcv: nzcv.into(),
+                imm5,
+                cond,
+                Rn,
+                nzcv,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11111010010u32 << 21u32
-                    | u32::from(self.imm5) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.imm5.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
+                    | self.Rn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.nzcv) << 0u32,
+                    | self.nzcv.into_inner() << 0u32,
             )
         }
     }

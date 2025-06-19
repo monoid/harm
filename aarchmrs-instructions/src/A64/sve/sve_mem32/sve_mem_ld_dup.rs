@@ -15,35 +15,35 @@ pub mod ld1rb_z_p_bi_u8 {
     }
     impl ld1rb_z_p_bi_u8 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -60,35 +60,35 @@ pub mod ld1rb_z_p_bi_u16 {
     }
     impl ld1rb_z_p_bi_u16 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -105,35 +105,35 @@ pub mod ld1rb_z_p_bi_u32 {
     }
     impl ld1rb_z_p_bi_u32 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -150,35 +150,35 @@ pub mod ld1rb_z_p_bi_u64 {
     }
     impl ld1rb_z_p_bi_u64 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -195,35 +195,35 @@ pub mod ld1rsw_z_p_bi_s64 {
     }
     impl ld1rsw_z_p_bi_s64 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -240,35 +240,35 @@ pub mod ld1rh_z_p_bi_u16 {
     }
     impl ld1rh_z_p_bi_u16 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -285,35 +285,35 @@ pub mod ld1rh_z_p_bi_u32 {
     }
     impl ld1rh_z_p_bi_u32 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -330,35 +330,35 @@ pub mod ld1rh_z_p_bi_u64 {
     }
     impl ld1rh_z_p_bi_u64 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -375,35 +375,35 @@ pub mod ld1rsh_z_p_bi_s64 {
     }
     impl ld1rsh_z_p_bi_s64 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -420,35 +420,35 @@ pub mod ld1rsh_z_p_bi_s32 {
     }
     impl ld1rsh_z_p_bi_s32 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -465,35 +465,35 @@ pub mod ld1rw_z_p_bi_u32 {
     }
     impl ld1rw_z_p_bi_u32 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -510,35 +510,35 @@ pub mod ld1rw_z_p_bi_u64 {
     }
     impl ld1rw_z_p_bi_u64 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -555,35 +555,35 @@ pub mod ld1rsb_z_p_bi_s64 {
     }
     impl ld1rsb_z_p_bi_s64 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -600,35 +600,35 @@ pub mod ld1rsb_z_p_bi_s32 {
     }
     impl ld1rsb_z_p_bi_s32 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -645,35 +645,35 @@ pub mod ld1rsb_z_p_bi_s16 {
     }
     impl ld1rsb_z_p_bi_s16 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -690,35 +690,35 @@ pub mod ld1rd_z_p_bi_u64 {
     }
     impl ld1rd_z_p_bi_u64 {
         #[inline]
-        pub fn new(
-            dtypeh: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            dtypel: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            dtypeh: ::aarchmrs_types::BitValue<2>,
+            imm6: ::aarchmrs_types::BitValue<6>,
+            dtypel: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                dtypeh: dtypeh.into(),
-                imm6: imm6.into(),
-                dtypel: dtypel.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
+                dtypeh,
+                imm6,
+                dtypel,
+                Pg,
+                Rn,
+                Zt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1000010u32 << 25u32
-                    | u32::from(self.dtypeh) << 23u32
+                    | self.dtypeh.into_inner() << 23u32
                     | 0b1u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.dtypel) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.dtypel.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }

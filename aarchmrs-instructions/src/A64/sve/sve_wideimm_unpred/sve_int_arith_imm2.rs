@@ -12,25 +12,21 @@ pub mod mul_z_zi_ {
     }
     impl mul_z_zi_ {
         #[inline]
-        pub fn new(
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm8: impl Into<::aarchmrs_types::BitValue<8>>,
-            Zdn: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            size: ::aarchmrs_types::BitValue<2>,
+            imm8: ::aarchmrs_types::BitValue<8>,
+            Zdn: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                size: size.into(),
-                imm8: imm8.into(),
-                Zdn: Zdn.into(),
-            }
+            Self { size, imm8, Zdn }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00100101u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b110000110u32 << 13u32
-                    | u32::from(self.imm8) << 5u32
-                    | u32::from(self.Zdn) << 0u32,
+                    | self.imm8.into_inner() << 5u32
+                    | self.Zdn.into_inner() << 0u32,
             )
         }
     }

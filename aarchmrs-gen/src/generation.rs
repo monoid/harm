@@ -23,12 +23,12 @@ pub fn gen_constructor(name: &str, desc: &[Bits]) -> TokenStream {
 
         impl #fn_name {
             #[inline]
-            pub fn new(#(#args),*) -> Self {
+            pub const fn new(#(#args),*) -> Self {
                 Self { #(#inits),* }
             }
 
             #[inline]
-            pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
                 ::aarchmrs_types::InstructionCode::from_u32(#expr)
             }
 
@@ -51,11 +51,8 @@ fn gen_constructor_args(desc: &[Bits]) -> impl Iterator<Item = syn::FnArg> {
                 subpat: None,
             })),
             colon_token: <_>::default(),
-            ty: syn::parse_str(&format!(
-                "impl Into<::aarchmrs_types::BitValue::<{}>>",
-                range.width
-            ))
-            .expect("internal error: malformed type"),
+            ty: syn::parse_str(&format!("::aarchmrs_types::BitValue::<{}>", range.width))
+                .expect("internal error: malformed type"),
         })),
     });
     args
@@ -75,7 +72,7 @@ fn gen_fields(desc: &[Bits]) -> (Vec<syn::Field>, Vec<syn::FieldValue>) {
                 fields.push(parse_quote!(
                     pub #field: #ty
                 ));
-                inits.push(parse_quote!(#field: #field.into()));
+                inits.push(parse_quote!(#field));
             }
         }
     }
@@ -95,7 +92,7 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
             Bits::Field { name, range } => {
                 let name = format_ident!("{}", name.as_ref());
                 let offset = range.start;
-                parse_quote!(u32::from(self.#name) << #offset)
+                parse_quote!(self.#name.into_inner() << #offset)
             }
         })
         .rev()
@@ -135,11 +132,11 @@ mod tests {
                 "pub struct NOP_HI_hints {}\n",
                 "impl NOP_HI_hints {\n",
                 "    #[inline]\n",
-                "    pub fn new() -> Self {\n",
+                "    pub const fn new() -> Self {\n",
                 "        Self {}\n",
                 "    }\n",
                 "    #[inline]\n",
-                "    pub fn build(&self) -> ::aarchmrs_types::InstructionCode {\n",
+                "    pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {\n",
                 "        ::aarchmrs_types::InstructionCode::from_u32(\n",
                 "            0b11010101000000110010000000011111u32 << 0u32,\n",
                 "        )\n",
@@ -215,30 +212,23 @@ mod tests {
                 "}\n",
                 "impl ADD_64_addsub_shift {\n",
                 "    #[inline]\n",
-                "    pub fn new(\n",
-                "        s: impl Into<::aarchmrs_types::BitValue<1>>,\n",
-                "        Rm: impl Into<::aarchmrs_types::BitValue<5>>,\n",
-                "        option: impl Into<::aarchmrs_types::BitValue<3>>,\n",
-                "        im3: impl Into<::aarchmrs_types::BitValue<3>>,\n",
-                "        Rn: impl Into<::aarchmrs_types::BitValue<5>>,\n",
-                "        Rd: impl Into<::aarchmrs_types::BitValue<5>>,\n",
+                "    pub const fn new(\n",
+                "        s: ::aarchmrs_types::BitValue<1>,\n",
+                "        Rm: ::aarchmrs_types::BitValue<5>,\n",
+                "        option: ::aarchmrs_types::BitValue<3>,\n",
+                "        im3: ::aarchmrs_types::BitValue<3>,\n",
+                "        Rn: ::aarchmrs_types::BitValue<5>,\n",
+                "        Rd: ::aarchmrs_types::BitValue<5>,\n",
                 "    ) -> Self {\n",
-                "        Self {\n",
-                "            s: s.into(),\n",
-                "            Rm: Rm.into(),\n",
-                "            option: option.into(),\n",
-                "            im3: im3.into(),\n",
-                "            Rn: Rn.into(),\n",
-                "            Rd: Rd.into(),\n",
-                "        }\n",
+                "        Self { s, Rm, option, im3, Rn, Rd }\n",
                 "    }\n",
                 "    #[inline]\n",
-                "    pub fn build(&self) -> ::aarchmrs_types::InstructionCode {\n",
+                "    pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {\n",
                 "        ::aarchmrs_types::InstructionCode::from_u32(\n",
-                "            u32::from(self.s) << 31u32 | 0b0001011001u32 << 21u32\n",
-                "                | u32::from(self.Rm) << 16u32 | u32::from(self.option) << 13u32\n",
-                "                | u32::from(self.im3) << 10u32 | u32::from(self.Rn) << 5u32\n",
-                "                | u32::from(self.Rd) << 0u32,\n",
+                "            self.s.into_inner() << 31u32 | 0b0001011001u32 << 21u32\n",
+                "                | self.Rm.into_inner() << 16u32 | self.option.into_inner() << 13u32\n",
+                "                | self.im3.into_inner() << 10u32 | self.Rn.into_inner() << 5u32\n",
+                "                | self.Rd.into_inner() << 0u32,\n",
                 "        )\n",
                 "    }\n",
                 "}\n",

@@ -12,25 +12,21 @@ pub mod STILP_32SE_ldiappstilp {
     }
     impl STILP_32SE_ldiappstilp {
         #[inline]
-        pub fn new(
-            Rt2: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rt2: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rt2: Rt2.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rt2, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10011001000u32 << 21u32
-                    | u32::from(self.Rt2) << 16u32
+                    | self.Rt2.into_inner() << 16u32
                     | 0b000010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -44,25 +40,21 @@ pub mod STILP_32S_ldiappstilp {
     }
     impl STILP_32S_ldiappstilp {
         #[inline]
-        pub fn new(
-            Rt2: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rt2: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rt2: Rt2.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rt2, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10011001000u32 << 21u32
-                    | u32::from(self.Rt2) << 16u32
+                    | self.Rt2.into_inner() << 16u32
                     | 0b000110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -76,25 +68,21 @@ pub mod LDIAPP_32LE_ldiappstilp {
     }
     impl LDIAPP_32LE_ldiappstilp {
         #[inline]
-        pub fn new(
-            Rt2: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rt2: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rt2: Rt2.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rt2, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10011001010u32 << 21u32
-                    | u32::from(self.Rt2) << 16u32
+                    | self.Rt2.into_inner() << 16u32
                     | 0b000010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -108,25 +96,21 @@ pub mod LDIAPP_32L_ldiappstilp {
     }
     impl LDIAPP_32L_ldiappstilp {
         #[inline]
-        pub fn new(
-            Rt2: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rt2: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rt2: Rt2.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rt2, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10011001010u32 << 21u32
-                    | u32::from(self.Rt2) << 16u32
+                    | self.Rt2.into_inner() << 16u32
                     | 0b000110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -140,25 +124,21 @@ pub mod STILP_64SS_ldiappstilp {
     }
     impl STILP_64SS_ldiappstilp {
         #[inline]
-        pub fn new(
-            Rt2: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rt2: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rt2: Rt2.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rt2, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11011001000u32 << 21u32
-                    | u32::from(self.Rt2) << 16u32
+                    | self.Rt2.into_inner() << 16u32
                     | 0b000010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -172,25 +152,21 @@ pub mod STILP_64S_ldiappstilp {
     }
     impl STILP_64S_ldiappstilp {
         #[inline]
-        pub fn new(
-            Rt2: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rt2: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rt2: Rt2.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rt2, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11011001000u32 << 21u32
-                    | u32::from(self.Rt2) << 16u32
+                    | self.Rt2.into_inner() << 16u32
                     | 0b000110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -204,25 +180,21 @@ pub mod LDIAPP_64LS_ldiappstilp {
     }
     impl LDIAPP_64LS_ldiappstilp {
         #[inline]
-        pub fn new(
-            Rt2: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rt2: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rt2: Rt2.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rt2, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11011001010u32 << 21u32
-                    | u32::from(self.Rt2) << 16u32
+                    | self.Rt2.into_inner() << 16u32
                     | 0b000010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -236,25 +208,21 @@ pub mod LDIAPP_64L_ldiappstilp {
     }
     impl LDIAPP_64L_ldiappstilp {
         #[inline]
-        pub fn new(
-            Rt2: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rt2: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rt2: Rt2.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { Rt2, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11011001010u32 << 21u32
-                    | u32::from(self.Rt2) << 16u32
+                    | self.Rt2.into_inner() << 16u32
                     | 0b000110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }

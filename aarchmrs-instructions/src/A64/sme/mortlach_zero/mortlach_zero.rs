@@ -10,13 +10,13 @@ pub mod zero_za_i_ {
     }
     impl zero_za_i_ {
         #[inline]
-        pub fn new(imm8: impl Into<::aarchmrs_types::BitValue<8>>) -> Self {
-            Self { imm8: imm8.into() }
+        pub const fn new(imm8: ::aarchmrs_types::BitValue<8>) -> Self {
+            Self { imm8 }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b110000000000100000000000u32 << 8u32 | u32::from(self.imm8) << 0u32,
+                0b110000000000100000000000u32 << 8u32 | self.imm8.into_inner() << 0u32,
             )
         }
     }

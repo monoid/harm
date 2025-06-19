@@ -10,13 +10,13 @@ pub mod rdffr_p_f_ {
     }
     impl rdffr_p_f_ {
         #[inline]
-        pub fn new(Pd: impl Into<::aarchmrs_types::BitValue<4>>) -> Self {
-            Self { Pd: Pd.into() }
+        pub const fn new(Pd: ::aarchmrs_types::BitValue<4>) -> Self {
+            Self { Pd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b0010010100011001111100000000u32 << 4u32 | u32::from(self.Pd) << 0u32,
+                0b0010010100011001111100000000u32 << 4u32 | self.Pd.into_inner() << 0u32,
             )
         }
     }

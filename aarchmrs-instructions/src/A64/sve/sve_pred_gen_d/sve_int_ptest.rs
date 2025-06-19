@@ -11,22 +11,19 @@ pub mod ptest__p_p_ {
     }
     impl ptest__p_p_ {
         #[inline]
-        pub fn new(
-            Pg: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pn: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            Pg: ::aarchmrs_types::BitValue<4>,
+            Pn: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
-            Self {
-                Pg: Pg.into(),
-                Pn: Pn.into(),
-            }
+            Self { Pg, Pn }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b001001010101000011u32 << 14u32
-                    | u32::from(self.Pg) << 10u32
+                    | self.Pg.into_inner() << 10u32
                     | 0b0u32 << 9u32
-                    | u32::from(self.Pn) << 5u32
+                    | self.Pn.into_inner() << 5u32
                     | 0b00000u32 << 0u32,
             )
         }

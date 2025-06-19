@@ -13,28 +13,23 @@ pub mod ADDG_64_addsub_immtags {
     }
     impl ADDG_64_addsub_immtags {
         #[inline]
-        pub fn new(
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            imm4: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm6: ::aarchmrs_types::BitValue<6>,
+            imm4: ::aarchmrs_types::BitValue<4>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm6: imm6.into(),
-                imm4: imm4.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { imm6, imm4, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001000110u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm4) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.imm4.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -49,28 +44,23 @@ pub mod SUBG_64_addsub_immtags {
     }
     impl SUBG_64_addsub_immtags {
         #[inline]
-        pub fn new(
-            imm6: impl Into<::aarchmrs_types::BitValue<6>>,
-            imm4: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm6: ::aarchmrs_types::BitValue<6>,
+            imm4: ::aarchmrs_types::BitValue<4>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm6: imm6.into(),
-                imm4: imm4.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { imm6, imm4, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101000110u32 << 22u32
-                    | u32::from(self.imm6) << 16u32
+                    | self.imm6.into_inner() << 16u32
                     | 0b00u32 << 14u32
-                    | u32::from(self.imm4) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.imm4.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
