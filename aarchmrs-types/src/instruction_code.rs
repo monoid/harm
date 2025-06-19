@@ -1,3 +1,8 @@
+/* Copyright (C) 2025 Ivan Boldyrev
+ *
+ * This document is licensed under the BSD 3-clause license.
+ */
+
 #[derive(Copy, Clone, PartialEq, Eq, Hash)]
 #[repr(align(4))]
 pub struct InstructionCode(pub [u8; 4]);
