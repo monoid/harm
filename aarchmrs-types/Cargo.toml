@@ -2,5 +2,8 @@
 name = "aarchmrs-types"
 version = "0.1.0"
 edition = "2024"
+description = "AARCHMRS common types"
+license = "MIT"
+authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
 
 [dependencies]
