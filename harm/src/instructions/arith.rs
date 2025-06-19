@@ -38,7 +38,14 @@ impl Add<RegistersAndZero64, ShiftedReg<RegistersAndZero64>> {
         let rn = self.src1.code();
         let rd = self.dst.code();
 
-        ADD_64_addsub_shift::new(shift, rm, shift_amount_imm6, rn, rd).build()
+        ADD_64_addsub_shift::new(
+            shift.into(),
+            rm.into(),
+            shift_amount_imm6.into(),
+            rn.into(),
+            rd.into(),
+        )
+        .build()
     }
 }
 
@@ -66,7 +73,14 @@ impl Add<RegistersAndZero32, ShiftedReg<RegistersAndZero32>> {
         let rn = self.src1.code();
         let rd = self.dst.code();
 
-        ADD_32_addsub_shift::new(shift, rm, shift_amount_imm6, rn, rd).build()
+        ADD_32_addsub_shift::new(
+            shift.into(),
+            rm.into(),
+            shift_amount_imm6.into(),
+            rn.into(),
+            rd.into(),
+        )
+        .build()
     }
 }
 
