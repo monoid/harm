@@ -4,21 +4,39 @@
  */
 
 pub mod index_z_ri_ {
-    #[inline]
-    pub fn index_z_ri_(
-        size: impl Into<::aarchmrs_types::BitValue<2>>,
-        imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b00000100u32 << 24u32
-                | u32::from(size.into()) << 22u32
-                | 0b1u32 << 21u32
-                | u32::from(imm5.into()) << 16u32
-                | 0b010001u32 << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct index_z_ri_ {
+        pub size: ::aarchmrs_types::BitValue<2>,
+        pub imm5: ::aarchmrs_types::BitValue<5>,
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl index_z_ri_ {
+        #[inline]
+        pub fn new(
+            size: impl Into<::aarchmrs_types::BitValue<2>>,
+            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                size: size.into(),
+                imm5: imm5.into(),
+                Rn: Rn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b00000100u32 << 24u32
+                    | u32::from(self.size) << 22u32
+                    | 0b1u32 << 21u32
+                    | u32::from(self.imm5) << 16u32
+                    | 0b010001u32 << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }

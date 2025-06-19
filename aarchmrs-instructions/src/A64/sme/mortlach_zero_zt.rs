@@ -4,8 +4,18 @@
  */
 
 pub mod zero_zt_i_ {
-    #[inline]
-    pub fn zero_zt_i_() -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(0b11000000010010000000000000000001u32 << 0u32)
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct zero_zt_i_ {}
+    impl zero_zt_i_ {
+        #[inline]
+        pub fn new() -> Self {
+            Self {}
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b11000000010010000000000000000001u32 << 0u32,
+            )
+        }
     }
 }

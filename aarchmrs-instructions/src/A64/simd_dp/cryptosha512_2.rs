@@ -4,28 +4,56 @@
  */
 
 pub mod SHA512SU0_VV2_cryptosha512_2 {
-    #[inline]
-    pub fn SHA512SU0_VV2_cryptosha512_2(
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Rd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b1100111011000000100000u32 << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Rd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct SHA512SU0_VV2_cryptosha512_2 {
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Rd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl SHA512SU0_VV2_cryptosha512_2 {
+        #[inline]
+        pub fn new(
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Rn: Rn.into(),
+                Rd: Rd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b1100111011000000100000u32 << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Rd) << 0u32,
+            )
+        }
     }
 }
 pub mod SM4E_VV4_cryptosha512_2 {
-    #[inline]
-    pub fn SM4E_VV4_cryptosha512_2(
-        Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Rd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b1100111011000000100001u32 << 10u32
-                | u32::from(Rn.into()) << 5u32
-                | u32::from(Rd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct SM4E_VV4_cryptosha512_2 {
+        pub Rn: ::aarchmrs_types::BitValue<5>,
+        pub Rd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl SM4E_VV4_cryptosha512_2 {
+        #[inline]
+        pub fn new(
+            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Rn: Rn.into(),
+                Rd: Rd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b1100111011000000100001u32 << 10u32
+                    | u32::from(self.Rn) << 5u32
+                    | u32::from(self.Rd) << 0u32,
+            )
+        }
     }
 }

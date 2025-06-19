@@ -4,122 +4,250 @@
  */
 
 pub mod fcvtx_z_p_z_d2s {
-    #[inline]
-    pub fn fcvtx_z_p_z_d2s(
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b0110010100001010101u32 << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct fcvtx_z_p_z_d2s {
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl fcvtx_z_p_z_d2s {
+        #[inline]
+        pub fn new(
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Pg: Pg.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b0110010100001010101u32 << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }
 pub mod fcvt_z_p_z_s2h {
-    #[inline]
-    pub fn fcvt_z_p_z_s2h(
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b0110010110001000101u32 << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct fcvt_z_p_z_s2h {
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl fcvt_z_p_z_s2h {
+        #[inline]
+        pub fn new(
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Pg: Pg.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b0110010110001000101u32 << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }
 pub mod fcvt_z_p_z_h2s {
-    #[inline]
-    pub fn fcvt_z_p_z_h2s(
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b0110010110001001101u32 << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct fcvt_z_p_z_h2s {
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl fcvt_z_p_z_h2s {
+        #[inline]
+        pub fn new(
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Pg: Pg.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b0110010110001001101u32 << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }
 pub mod bfcvt_z_p_z_s2bf {
-    #[inline]
-    pub fn bfcvt_z_p_z_s2bf(
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b0110010110001010101u32 << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct bfcvt_z_p_z_s2bf {
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl bfcvt_z_p_z_s2bf {
+        #[inline]
+        pub fn new(
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Pg: Pg.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b0110010110001010101u32 << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }
 pub mod fcvt_z_p_z_d2h {
-    #[inline]
-    pub fn fcvt_z_p_z_d2h(
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b0110010111001000101u32 << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct fcvt_z_p_z_d2h {
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl fcvt_z_p_z_d2h {
+        #[inline]
+        pub fn new(
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Pg: Pg.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b0110010111001000101u32 << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }
 pub mod fcvt_z_p_z_h2d {
-    #[inline]
-    pub fn fcvt_z_p_z_h2d(
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b0110010111001001101u32 << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct fcvt_z_p_z_h2d {
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl fcvt_z_p_z_h2d {
+        #[inline]
+        pub fn new(
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Pg: Pg.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b0110010111001001101u32 << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }
 pub mod fcvt_z_p_z_d2s {
-    #[inline]
-    pub fn fcvt_z_p_z_d2s(
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b0110010111001010101u32 << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct fcvt_z_p_z_d2s {
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl fcvt_z_p_z_d2s {
+        #[inline]
+        pub fn new(
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Pg: Pg.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b0110010111001010101u32 << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }
 pub mod fcvt_z_p_z_s2d {
-    #[inline]
-    pub fn fcvt_z_p_z_s2d(
-        Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b0110010111001011101u32 << 13u32
-                | u32::from(Pg.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct fcvt_z_p_z_s2d {
+        pub Pg: ::aarchmrs_types::BitValue<3>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl fcvt_z_p_z_s2d {
+        #[inline]
+        pub fn new(
+            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                Pg: Pg.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b0110010111001011101u32 << 13u32
+                    | u32::from(self.Pg) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }

@@ -4,194 +4,386 @@
  */
 
 pub mod sqdmlalb_z_zzzi_s {
-    #[inline]
-    pub fn sqdmlalb_z_zzzi_s(
-        i3h: impl Into<::aarchmrs_types::BitValue<2>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<3>>,
-        S: impl Into<::aarchmrs_types::BitValue<1>>,
-        i3l: impl Into<::aarchmrs_types::BitValue<1>>,
-        T: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zda: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000100101u32 << 21u32
-                | u32::from(i3h.into()) << 19u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b001u32 << 13u32
-                | u32::from(S.into()) << 12u32
-                | u32::from(i3l.into()) << 11u32
-                | u32::from(T.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zda.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct sqdmlalb_z_zzzi_s {
+        pub i3h: ::aarchmrs_types::BitValue<2>,
+        pub Zm: ::aarchmrs_types::BitValue<3>,
+        pub S: ::aarchmrs_types::BitValue<1>,
+        pub i3l: ::aarchmrs_types::BitValue<1>,
+        pub T: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zda: ::aarchmrs_types::BitValue<5>,
+    }
+    impl sqdmlalb_z_zzzi_s {
+        #[inline]
+        pub fn new(
+            i3h: impl Into<::aarchmrs_types::BitValue<2>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<3>>,
+            S: impl Into<::aarchmrs_types::BitValue<1>>,
+            i3l: impl Into<::aarchmrs_types::BitValue<1>>,
+            T: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zda: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i3h: i3h.into(),
+                Zm: Zm.into(),
+                S: S.into(),
+                i3l: i3l.into(),
+                T: T.into(),
+                Zn: Zn.into(),
+                Zda: Zda.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000100101u32 << 21u32
+                    | u32::from(self.i3h) << 19u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b001u32 << 13u32
+                    | u32::from(self.S) << 12u32
+                    | u32::from(self.i3l) << 11u32
+                    | u32::from(self.T) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zda) << 0u32,
+            )
+        }
     }
 }
 pub mod sqdmlalb_z_zzzi_d {
-    #[inline]
-    pub fn sqdmlalb_z_zzzi_d(
-        i2h: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-        S: impl Into<::aarchmrs_types::BitValue<1>>,
-        i2l: impl Into<::aarchmrs_types::BitValue<1>>,
-        T: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zda: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000100111u32 << 21u32
-                | u32::from(i2h.into()) << 20u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b001u32 << 13u32
-                | u32::from(S.into()) << 12u32
-                | u32::from(i2l.into()) << 11u32
-                | u32::from(T.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zda.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct sqdmlalb_z_zzzi_d {
+        pub i2h: ::aarchmrs_types::BitValue<1>,
+        pub Zm: ::aarchmrs_types::BitValue<4>,
+        pub S: ::aarchmrs_types::BitValue<1>,
+        pub i2l: ::aarchmrs_types::BitValue<1>,
+        pub T: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zda: ::aarchmrs_types::BitValue<5>,
+    }
+    impl sqdmlalb_z_zzzi_d {
+        #[inline]
+        pub fn new(
+            i2h: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
+            S: impl Into<::aarchmrs_types::BitValue<1>>,
+            i2l: impl Into<::aarchmrs_types::BitValue<1>>,
+            T: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zda: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i2h: i2h.into(),
+                Zm: Zm.into(),
+                S: S.into(),
+                i2l: i2l.into(),
+                T: T.into(),
+                Zn: Zn.into(),
+                Zda: Zda.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000100111u32 << 21u32
+                    | u32::from(self.i2h) << 20u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b001u32 << 13u32
+                    | u32::from(self.S) << 12u32
+                    | u32::from(self.i2l) << 11u32
+                    | u32::from(self.T) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zda) << 0u32,
+            )
+        }
     }
 }
 pub mod sqdmlslb_z_zzzi_s {
-    #[inline]
-    pub fn sqdmlslb_z_zzzi_s(
-        i3h: impl Into<::aarchmrs_types::BitValue<2>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<3>>,
-        S: impl Into<::aarchmrs_types::BitValue<1>>,
-        i3l: impl Into<::aarchmrs_types::BitValue<1>>,
-        T: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zda: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000100101u32 << 21u32
-                | u32::from(i3h.into()) << 19u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b001u32 << 13u32
-                | u32::from(S.into()) << 12u32
-                | u32::from(i3l.into()) << 11u32
-                | u32::from(T.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zda.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct sqdmlslb_z_zzzi_s {
+        pub i3h: ::aarchmrs_types::BitValue<2>,
+        pub Zm: ::aarchmrs_types::BitValue<3>,
+        pub S: ::aarchmrs_types::BitValue<1>,
+        pub i3l: ::aarchmrs_types::BitValue<1>,
+        pub T: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zda: ::aarchmrs_types::BitValue<5>,
+    }
+    impl sqdmlslb_z_zzzi_s {
+        #[inline]
+        pub fn new(
+            i3h: impl Into<::aarchmrs_types::BitValue<2>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<3>>,
+            S: impl Into<::aarchmrs_types::BitValue<1>>,
+            i3l: impl Into<::aarchmrs_types::BitValue<1>>,
+            T: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zda: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i3h: i3h.into(),
+                Zm: Zm.into(),
+                S: S.into(),
+                i3l: i3l.into(),
+                T: T.into(),
+                Zn: Zn.into(),
+                Zda: Zda.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000100101u32 << 21u32
+                    | u32::from(self.i3h) << 19u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b001u32 << 13u32
+                    | u32::from(self.S) << 12u32
+                    | u32::from(self.i3l) << 11u32
+                    | u32::from(self.T) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zda) << 0u32,
+            )
+        }
     }
 }
 pub mod sqdmlslb_z_zzzi_d {
-    #[inline]
-    pub fn sqdmlslb_z_zzzi_d(
-        i2h: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-        S: impl Into<::aarchmrs_types::BitValue<1>>,
-        i2l: impl Into<::aarchmrs_types::BitValue<1>>,
-        T: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zda: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000100111u32 << 21u32
-                | u32::from(i2h.into()) << 20u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b001u32 << 13u32
-                | u32::from(S.into()) << 12u32
-                | u32::from(i2l.into()) << 11u32
-                | u32::from(T.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zda.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct sqdmlslb_z_zzzi_d {
+        pub i2h: ::aarchmrs_types::BitValue<1>,
+        pub Zm: ::aarchmrs_types::BitValue<4>,
+        pub S: ::aarchmrs_types::BitValue<1>,
+        pub i2l: ::aarchmrs_types::BitValue<1>,
+        pub T: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zda: ::aarchmrs_types::BitValue<5>,
+    }
+    impl sqdmlslb_z_zzzi_d {
+        #[inline]
+        pub fn new(
+            i2h: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
+            S: impl Into<::aarchmrs_types::BitValue<1>>,
+            i2l: impl Into<::aarchmrs_types::BitValue<1>>,
+            T: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zda: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i2h: i2h.into(),
+                Zm: Zm.into(),
+                S: S.into(),
+                i2l: i2l.into(),
+                T: T.into(),
+                Zn: Zn.into(),
+                Zda: Zda.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000100111u32 << 21u32
+                    | u32::from(self.i2h) << 20u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b001u32 << 13u32
+                    | u32::from(self.S) << 12u32
+                    | u32::from(self.i2l) << 11u32
+                    | u32::from(self.T) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zda) << 0u32,
+            )
+        }
     }
 }
 pub mod sqdmlalt_z_zzzi_s {
-    #[inline]
-    pub fn sqdmlalt_z_zzzi_s(
-        i3h: impl Into<::aarchmrs_types::BitValue<2>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<3>>,
-        S: impl Into<::aarchmrs_types::BitValue<1>>,
-        i3l: impl Into<::aarchmrs_types::BitValue<1>>,
-        T: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zda: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000100101u32 << 21u32
-                | u32::from(i3h.into()) << 19u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b001u32 << 13u32
-                | u32::from(S.into()) << 12u32
-                | u32::from(i3l.into()) << 11u32
-                | u32::from(T.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zda.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct sqdmlalt_z_zzzi_s {
+        pub i3h: ::aarchmrs_types::BitValue<2>,
+        pub Zm: ::aarchmrs_types::BitValue<3>,
+        pub S: ::aarchmrs_types::BitValue<1>,
+        pub i3l: ::aarchmrs_types::BitValue<1>,
+        pub T: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zda: ::aarchmrs_types::BitValue<5>,
+    }
+    impl sqdmlalt_z_zzzi_s {
+        #[inline]
+        pub fn new(
+            i3h: impl Into<::aarchmrs_types::BitValue<2>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<3>>,
+            S: impl Into<::aarchmrs_types::BitValue<1>>,
+            i3l: impl Into<::aarchmrs_types::BitValue<1>>,
+            T: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zda: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i3h: i3h.into(),
+                Zm: Zm.into(),
+                S: S.into(),
+                i3l: i3l.into(),
+                T: T.into(),
+                Zn: Zn.into(),
+                Zda: Zda.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000100101u32 << 21u32
+                    | u32::from(self.i3h) << 19u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b001u32 << 13u32
+                    | u32::from(self.S) << 12u32
+                    | u32::from(self.i3l) << 11u32
+                    | u32::from(self.T) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zda) << 0u32,
+            )
+        }
     }
 }
 pub mod sqdmlalt_z_zzzi_d {
-    #[inline]
-    pub fn sqdmlalt_z_zzzi_d(
-        i2h: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-        S: impl Into<::aarchmrs_types::BitValue<1>>,
-        i2l: impl Into<::aarchmrs_types::BitValue<1>>,
-        T: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zda: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000100111u32 << 21u32
-                | u32::from(i2h.into()) << 20u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b001u32 << 13u32
-                | u32::from(S.into()) << 12u32
-                | u32::from(i2l.into()) << 11u32
-                | u32::from(T.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zda.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct sqdmlalt_z_zzzi_d {
+        pub i2h: ::aarchmrs_types::BitValue<1>,
+        pub Zm: ::aarchmrs_types::BitValue<4>,
+        pub S: ::aarchmrs_types::BitValue<1>,
+        pub i2l: ::aarchmrs_types::BitValue<1>,
+        pub T: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zda: ::aarchmrs_types::BitValue<5>,
+    }
+    impl sqdmlalt_z_zzzi_d {
+        #[inline]
+        pub fn new(
+            i2h: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
+            S: impl Into<::aarchmrs_types::BitValue<1>>,
+            i2l: impl Into<::aarchmrs_types::BitValue<1>>,
+            T: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zda: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i2h: i2h.into(),
+                Zm: Zm.into(),
+                S: S.into(),
+                i2l: i2l.into(),
+                T: T.into(),
+                Zn: Zn.into(),
+                Zda: Zda.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000100111u32 << 21u32
+                    | u32::from(self.i2h) << 20u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b001u32 << 13u32
+                    | u32::from(self.S) << 12u32
+                    | u32::from(self.i2l) << 11u32
+                    | u32::from(self.T) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zda) << 0u32,
+            )
+        }
     }
 }
 pub mod sqdmlslt_z_zzzi_s {
-    #[inline]
-    pub fn sqdmlslt_z_zzzi_s(
-        i3h: impl Into<::aarchmrs_types::BitValue<2>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<3>>,
-        S: impl Into<::aarchmrs_types::BitValue<1>>,
-        i3l: impl Into<::aarchmrs_types::BitValue<1>>,
-        T: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zda: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000100101u32 << 21u32
-                | u32::from(i3h.into()) << 19u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b001u32 << 13u32
-                | u32::from(S.into()) << 12u32
-                | u32::from(i3l.into()) << 11u32
-                | u32::from(T.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zda.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct sqdmlslt_z_zzzi_s {
+        pub i3h: ::aarchmrs_types::BitValue<2>,
+        pub Zm: ::aarchmrs_types::BitValue<3>,
+        pub S: ::aarchmrs_types::BitValue<1>,
+        pub i3l: ::aarchmrs_types::BitValue<1>,
+        pub T: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zda: ::aarchmrs_types::BitValue<5>,
+    }
+    impl sqdmlslt_z_zzzi_s {
+        #[inline]
+        pub fn new(
+            i3h: impl Into<::aarchmrs_types::BitValue<2>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<3>>,
+            S: impl Into<::aarchmrs_types::BitValue<1>>,
+            i3l: impl Into<::aarchmrs_types::BitValue<1>>,
+            T: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zda: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i3h: i3h.into(),
+                Zm: Zm.into(),
+                S: S.into(),
+                i3l: i3l.into(),
+                T: T.into(),
+                Zn: Zn.into(),
+                Zda: Zda.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000100101u32 << 21u32
+                    | u32::from(self.i3h) << 19u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b001u32 << 13u32
+                    | u32::from(self.S) << 12u32
+                    | u32::from(self.i3l) << 11u32
+                    | u32::from(self.T) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zda) << 0u32,
+            )
+        }
     }
 }
 pub mod sqdmlslt_z_zzzi_d {
-    #[inline]
-    pub fn sqdmlslt_z_zzzi_d(
-        i2h: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-        S: impl Into<::aarchmrs_types::BitValue<1>>,
-        i2l: impl Into<::aarchmrs_types::BitValue<1>>,
-        T: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zda: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000100111u32 << 21u32
-                | u32::from(i2h.into()) << 20u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b001u32 << 13u32
-                | u32::from(S.into()) << 12u32
-                | u32::from(i2l.into()) << 11u32
-                | u32::from(T.into()) << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zda.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct sqdmlslt_z_zzzi_d {
+        pub i2h: ::aarchmrs_types::BitValue<1>,
+        pub Zm: ::aarchmrs_types::BitValue<4>,
+        pub S: ::aarchmrs_types::BitValue<1>,
+        pub i2l: ::aarchmrs_types::BitValue<1>,
+        pub T: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zda: ::aarchmrs_types::BitValue<5>,
+    }
+    impl sqdmlslt_z_zzzi_d {
+        #[inline]
+        pub fn new(
+            i2h: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
+            S: impl Into<::aarchmrs_types::BitValue<1>>,
+            i2l: impl Into<::aarchmrs_types::BitValue<1>>,
+            T: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zda: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i2h: i2h.into(),
+                Zm: Zm.into(),
+                S: S.into(),
+                i2l: i2l.into(),
+                T: T.into(),
+                Zn: Zn.into(),
+                Zda: Zda.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000100111u32 << 21u32
+                    | u32::from(self.i2h) << 20u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b001u32 << 13u32
+                    | u32::from(self.S) << 12u32
+                    | u32::from(self.i2l) << 11u32
+                    | u32::from(self.T) << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zda) << 0u32,
+            )
+        }
     }
 }

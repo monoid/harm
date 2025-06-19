@@ -4,16 +4,30 @@
  */
 
 pub mod ptrue_pn_i_ {
-    #[inline]
-    pub fn ptrue_pn_i_(
-        size: impl Into<::aarchmrs_types::BitValue<2>>,
-        PNd: impl Into<::aarchmrs_types::BitValue<3>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b00100101u32 << 24u32
-                | u32::from(size.into()) << 22u32
-                | 0b1000000111100000010u32 << 3u32
-                | u32::from(PNd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct ptrue_pn_i_ {
+        pub size: ::aarchmrs_types::BitValue<2>,
+        pub PNd: ::aarchmrs_types::BitValue<3>,
+    }
+    impl ptrue_pn_i_ {
+        #[inline]
+        pub fn new(
+            size: impl Into<::aarchmrs_types::BitValue<2>>,
+            PNd: impl Into<::aarchmrs_types::BitValue<3>>,
+        ) -> Self {
+            Self {
+                size: size.into(),
+                PNd: PNd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b00100101u32 << 24u32
+                    | u32::from(self.size) << 22u32
+                    | 0b1000000111100000010u32 << 3u32
+                    | u32::from(self.PNd) << 0u32,
+            )
+        }
     }
 }

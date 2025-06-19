@@ -73,7 +73,7 @@ pub fn gen_instructions(dest_dir: &Path, cache_dir: &Path) -> Result<(), Downloa
 
     let lib_path = dest_dir.join("lib.rs");
     let clippy_allow_pragma = quote::quote! { #[allow(
-        non_snake_case, clippy::identity_op, clippy::too_many_arguments, clippy::module_inception
+        non_snake_case, non_camel_case_types, clippy::identity_op, clippy::too_many_arguments, clippy::module_inception
     )]};
     write_mod(
         &lib_path,
@@ -164,7 +164,7 @@ fn write_mod(
     };
 
     let contents = prettyplease::unparse(&contents);
-    let header = format!("/* {}\n *\n * {}\n */\n", license.copyright, license.info,);
+    let header = format!("/* {}\n *\n * {}\n */\n", license.copyright, license.info);
     std::fs::write(path, format!("{header}\n{contents}"))?;
     Ok(())
 }

@@ -4,24 +4,44 @@
  */
 
 pub mod luti2_z_zz_16 {
-    #[inline]
-    pub fn luti2_z_zz_16(
-        i3h: impl Into<::aarchmrs_types::BitValue<2>>,
-        Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-        i3l: impl Into<::aarchmrs_types::BitValue<1>>,
-        Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-        Zd: impl Into<::aarchmrs_types::BitValue<5>>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000101u32 << 24u32
-                | u32::from(i3h.into()) << 22u32
-                | 0b1u32 << 21u32
-                | u32::from(Zm.into()) << 16u32
-                | 0b101u32 << 13u32
-                | u32::from(i3l.into()) << 12u32
-                | 0b10u32 << 10u32
-                | u32::from(Zn.into()) << 5u32
-                | u32::from(Zd.into()) << 0u32,
-        )
+    #[derive(Copy, Clone, Debug, Default)]
+    pub struct luti2_z_zz_16 {
+        pub i3h: ::aarchmrs_types::BitValue<2>,
+        pub Zm: ::aarchmrs_types::BitValue<5>,
+        pub i3l: ::aarchmrs_types::BitValue<1>,
+        pub Zn: ::aarchmrs_types::BitValue<5>,
+        pub Zd: ::aarchmrs_types::BitValue<5>,
+    }
+    impl luti2_z_zz_16 {
+        #[inline]
+        pub fn new(
+            i3h: impl Into<::aarchmrs_types::BitValue<2>>,
+            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
+            i3l: impl Into<::aarchmrs_types::BitValue<1>>,
+            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
+            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        ) -> Self {
+            Self {
+                i3h: i3h.into(),
+                Zm: Zm.into(),
+                i3l: i3l.into(),
+                Zn: Zn.into(),
+                Zd: Zd.into(),
+            }
+        }
+        #[inline]
+        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(
+                0b01000101u32 << 24u32
+                    | u32::from(self.i3h) << 22u32
+                    | 0b1u32 << 21u32
+                    | u32::from(self.Zm) << 16u32
+                    | 0b101u32 << 13u32
+                    | u32::from(self.i3l) << 12u32
+                    | 0b10u32 << 10u32
+                    | u32::from(self.Zn) << 5u32
+                    | u32::from(self.Zd) << 0u32,
+            )
+        }
     }
 }
