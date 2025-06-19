@@ -11,19 +11,18 @@ pub mod CBZ_32_compbranch {
     }
     impl CBZ_32_compbranch {
         #[inline]
-        pub fn new(
-            imm19: impl Into<::aarchmrs_types::BitValue<19>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm19: ::aarchmrs_types::BitValue<19>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm19: imm19.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm19, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b00110100u32 << 24u32 | u32::from(self.imm19) << 5u32 | u32::from(self.Rt) << 0u32,
+                0b00110100u32 << 24u32
+                    | self.imm19.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -36,19 +35,18 @@ pub mod CBNZ_32_compbranch {
     }
     impl CBNZ_32_compbranch {
         #[inline]
-        pub fn new(
-            imm19: impl Into<::aarchmrs_types::BitValue<19>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm19: ::aarchmrs_types::BitValue<19>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm19: imm19.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm19, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b00110101u32 << 24u32 | u32::from(self.imm19) << 5u32 | u32::from(self.Rt) << 0u32,
+                0b00110101u32 << 24u32
+                    | self.imm19.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -61,19 +59,18 @@ pub mod CBZ_64_compbranch {
     }
     impl CBZ_64_compbranch {
         #[inline]
-        pub fn new(
-            imm19: impl Into<::aarchmrs_types::BitValue<19>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm19: ::aarchmrs_types::BitValue<19>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm19: imm19.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm19, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b10110100u32 << 24u32 | u32::from(self.imm19) << 5u32 | u32::from(self.Rt) << 0u32,
+                0b10110100u32 << 24u32
+                    | self.imm19.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -86,19 +83,18 @@ pub mod CBNZ_64_compbranch {
     }
     impl CBNZ_64_compbranch {
         #[inline]
-        pub fn new(
-            imm19: impl Into<::aarchmrs_types::BitValue<19>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm19: ::aarchmrs_types::BitValue<19>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm19: imm19.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm19, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b10110101u32 << 24u32 | u32::from(self.imm19) << 5u32 | u32::from(self.Rt) << 0u32,
+                0b10110101u32 << 24u32
+                    | self.imm19.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }

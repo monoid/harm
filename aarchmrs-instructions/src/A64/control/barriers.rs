@@ -10,14 +10,14 @@ pub mod CLREX_BN_barriers {
     }
     impl CLREX_BN_barriers {
         #[inline]
-        pub fn new(CRm: impl Into<::aarchmrs_types::BitValue<4>>) -> Self {
-            Self { CRm: CRm.into() }
+        pub const fn new(CRm: ::aarchmrs_types::BitValue<4>) -> Self {
+            Self { CRm }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000110011u32 << 12u32
-                    | u32::from(self.CRm) << 8u32
+                    | self.CRm.into_inner() << 8u32
                     | 0b01011111u32 << 0u32,
             )
         }
@@ -31,22 +31,19 @@ pub mod DSB_BO_barriers {
     }
     impl DSB_BO_barriers {
         #[inline]
-        pub fn new(
-            CRm: impl Into<::aarchmrs_types::BitValue<4>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            CRm: ::aarchmrs_types::BitValue<4>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                CRm: CRm.into(),
-                opc: opc.into(),
-            }
+            Self { CRm, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000110011u32 << 12u32
-                    | u32::from(self.CRm) << 8u32
+                    | self.CRm.into_inner() << 8u32
                     | 0b1u32 << 7u32
-                    | u32::from(self.opc) << 5u32
+                    | self.opc.into_inner() << 5u32
                     | 0b11111u32 << 0u32,
             )
         }
@@ -60,22 +57,19 @@ pub mod DMB_BO_barriers {
     }
     impl DMB_BO_barriers {
         #[inline]
-        pub fn new(
-            CRm: impl Into<::aarchmrs_types::BitValue<4>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            CRm: ::aarchmrs_types::BitValue<4>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                CRm: CRm.into(),
-                opc: opc.into(),
-            }
+            Self { CRm, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000110011u32 << 12u32
-                    | u32::from(self.CRm) << 8u32
+                    | self.CRm.into_inner() << 8u32
                     | 0b1u32 << 7u32
-                    | u32::from(self.opc) << 5u32
+                    | self.opc.into_inner() << 5u32
                     | 0b11111u32 << 0u32,
             )
         }
@@ -89,22 +83,19 @@ pub mod ISB_BI_barriers {
     }
     impl ISB_BI_barriers {
         #[inline]
-        pub fn new(
-            CRm: impl Into<::aarchmrs_types::BitValue<4>>,
-            opc: impl Into<::aarchmrs_types::BitValue<2>>,
+        pub const fn new(
+            CRm: ::aarchmrs_types::BitValue<4>,
+            opc: ::aarchmrs_types::BitValue<2>,
         ) -> Self {
-            Self {
-                CRm: CRm.into(),
-                opc: opc.into(),
-            }
+            Self { CRm, opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000110011u32 << 12u32
-                    | u32::from(self.CRm) << 8u32
+                    | self.CRm.into_inner() << 8u32
                     | 0b1u32 << 7u32
-                    | u32::from(self.opc) << 5u32
+                    | self.opc.into_inner() << 5u32
                     | 0b11111u32 << 0u32,
             )
         }
@@ -117,14 +108,14 @@ pub mod SB_only_barriers {
     }
     impl SB_only_barriers {
         #[inline]
-        pub fn new(opc: impl Into<::aarchmrs_types::BitValue<2>>) -> Self {
-            Self { opc: opc.into() }
+        pub const fn new(opc: ::aarchmrs_types::BitValue<2>) -> Self {
+            Self { opc }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1101010100000011001100001u32 << 7u32
-                    | u32::from(self.opc) << 5u32
+                    | self.opc.into_inner() << 5u32
                     | 0b11111u32 << 0u32,
             )
         }
@@ -137,14 +128,14 @@ pub mod DSB_BOn_barriers {
     }
     impl DSB_BOn_barriers {
         #[inline]
-        pub fn new(imm2: impl Into<::aarchmrs_types::BitValue<2>>) -> Self {
-            Self { imm2: imm2.into() }
+        pub const fn new(imm2: ::aarchmrs_types::BitValue<2>) -> Self {
+            Self { imm2 }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000110011u32 << 12u32
-                    | u32::from(self.imm2) << 10u32
+                    | self.imm2.into_inner() << 10u32
                     | 0b1000111111u32 << 0u32,
             )
         }
@@ -155,11 +146,11 @@ pub mod TCOMMIT_only_barriers {
     pub struct TCOMMIT_only_barriers {}
     impl TCOMMIT_only_barriers {
         #[inline]
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self {}
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11010101000000110011000001111111u32 << 0u32,
             )

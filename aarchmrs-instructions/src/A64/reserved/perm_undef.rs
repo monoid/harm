@@ -10,15 +10,13 @@ pub mod UDF_only_perm_undef {
     }
     impl UDF_only_perm_undef {
         #[inline]
-        pub fn new(imm16: impl Into<::aarchmrs_types::BitValue<16>>) -> Self {
-            Self {
-                imm16: imm16.into(),
-            }
+        pub const fn new(imm16: ::aarchmrs_types::BitValue<16>) -> Self {
+            Self { imm16 }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b0000000000000000u32 << 16u32 | u32::from(self.imm16) << 0u32,
+                0b0000000000000000u32 << 16u32 | self.imm16.into_inner() << 0u32,
             )
         }
     }

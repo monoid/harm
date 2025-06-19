@@ -12,26 +12,22 @@ pub mod luti4_mz4_ztmz2_1 {
     }
     impl luti4_mz4_ztmz2_1 {
         #[inline]
-        pub fn new(
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<4>>,
-            Zd: impl Into<::aarchmrs_types::BitValue<3>>,
+        pub const fn new(
+            size: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<4>,
+            Zd: ::aarchmrs_types::BitValue<3>,
         ) -> Self {
-            Self {
-                size: size.into(),
-                Zn: Zn.into(),
-                Zd: Zd.into(),
-            }
+            Self { size, Zn, Zd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110000001000101100u32 << 14u32
-                    | u32::from(self.size) << 12u32
+                    | self.size.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Zn) << 6u32
+                    | self.Zn.into_inner() << 6u32
                     | 0b0u32 << 5u32
-                    | u32::from(self.Zd) << 2u32
+                    | self.Zd.into_inner() << 2u32
                     | 0b00u32 << 0u32,
             )
         }

@@ -10,13 +10,13 @@ pub mod TSTART_BR_systemresult {
     }
     impl TSTART_BR_systemresult {
         #[inline]
-        pub fn new(Rt: impl Into<::aarchmrs_types::BitValue<5>>) -> Self {
-            Self { Rt: Rt.into() }
+        pub const fn new(Rt: ::aarchmrs_types::BitValue<5>) -> Self {
+            Self { Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b110101010010001100110000011u32 << 5u32 | u32::from(self.Rt) << 0u32,
+                0b110101010010001100110000011u32 << 5u32 | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -28,13 +28,13 @@ pub mod TTEST_BR_systemresult {
     }
     impl TTEST_BR_systemresult {
         #[inline]
-        pub fn new(Rt: impl Into<::aarchmrs_types::BitValue<5>>) -> Self {
-            Self { Rt: Rt.into() }
+        pub const fn new(Rt: ::aarchmrs_types::BitValue<5>) -> Self {
+            Self { Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b110101010010001100110001011u32 << 5u32 | u32::from(self.Rt) << 0u32,
+                0b110101010010001100110001011u32 << 5u32 | self.Rt.into_inner() << 0u32,
             )
         }
     }

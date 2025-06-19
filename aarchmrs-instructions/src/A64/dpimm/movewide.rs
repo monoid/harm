@@ -12,24 +12,20 @@ pub mod MOVN_32_movewide {
     }
     impl MOVN_32_movewide {
         #[inline]
-        pub fn new(
-            hw: impl Into<::aarchmrs_types::BitValue<1>>,
-            imm16: impl Into<::aarchmrs_types::BitValue<16>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            hw: ::aarchmrs_types::BitValue<1>,
+            imm16: ::aarchmrs_types::BitValue<16>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                hw: hw.into(),
-                imm16: imm16.into(),
-                Rd: Rd.into(),
-            }
+            Self { hw, imm16, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001001010u32 << 22u32
-                    | u32::from(self.hw) << 21u32
-                    | u32::from(self.imm16) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.hw.into_inner() << 21u32
+                    | self.imm16.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -43,24 +39,20 @@ pub mod MOVZ_32_movewide {
     }
     impl MOVZ_32_movewide {
         #[inline]
-        pub fn new(
-            hw: impl Into<::aarchmrs_types::BitValue<1>>,
-            imm16: impl Into<::aarchmrs_types::BitValue<16>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            hw: ::aarchmrs_types::BitValue<1>,
+            imm16: ::aarchmrs_types::BitValue<16>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                hw: hw.into(),
-                imm16: imm16.into(),
-                Rd: Rd.into(),
-            }
+            Self { hw, imm16, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0101001010u32 << 22u32
-                    | u32::from(self.hw) << 21u32
-                    | u32::from(self.imm16) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.hw.into_inner() << 21u32
+                    | self.imm16.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -74,24 +66,20 @@ pub mod MOVK_32_movewide {
     }
     impl MOVK_32_movewide {
         #[inline]
-        pub fn new(
-            hw: impl Into<::aarchmrs_types::BitValue<1>>,
-            imm16: impl Into<::aarchmrs_types::BitValue<16>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            hw: ::aarchmrs_types::BitValue<1>,
+            imm16: ::aarchmrs_types::BitValue<16>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                hw: hw.into(),
-                imm16: imm16.into(),
-                Rd: Rd.into(),
-            }
+            Self { hw, imm16, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0111001010u32 << 22u32
-                    | u32::from(self.hw) << 21u32
-                    | u32::from(self.imm16) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.hw.into_inner() << 21u32
+                    | self.imm16.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -105,24 +93,20 @@ pub mod MOVN_64_movewide {
     }
     impl MOVN_64_movewide {
         #[inline]
-        pub fn new(
-            hw: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm16: impl Into<::aarchmrs_types::BitValue<16>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            hw: ::aarchmrs_types::BitValue<2>,
+            imm16: ::aarchmrs_types::BitValue<16>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                hw: hw.into(),
-                imm16: imm16.into(),
-                Rd: Rd.into(),
-            }
+            Self { hw, imm16, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b100100101u32 << 23u32
-                    | u32::from(self.hw) << 21u32
-                    | u32::from(self.imm16) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.hw.into_inner() << 21u32
+                    | self.imm16.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -136,24 +120,20 @@ pub mod MOVZ_64_movewide {
     }
     impl MOVZ_64_movewide {
         #[inline]
-        pub fn new(
-            hw: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm16: impl Into<::aarchmrs_types::BitValue<16>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            hw: ::aarchmrs_types::BitValue<2>,
+            imm16: ::aarchmrs_types::BitValue<16>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                hw: hw.into(),
-                imm16: imm16.into(),
-                Rd: Rd.into(),
-            }
+            Self { hw, imm16, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110100101u32 << 23u32
-                    | u32::from(self.hw) << 21u32
-                    | u32::from(self.imm16) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.hw.into_inner() << 21u32
+                    | self.imm16.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -167,24 +147,20 @@ pub mod MOVK_64_movewide {
     }
     impl MOVK_64_movewide {
         #[inline]
-        pub fn new(
-            hw: impl Into<::aarchmrs_types::BitValue<2>>,
-            imm16: impl Into<::aarchmrs_types::BitValue<16>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            hw: ::aarchmrs_types::BitValue<2>,
+            imm16: ::aarchmrs_types::BitValue<16>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                hw: hw.into(),
-                imm16: imm16.into(),
-                Rd: Rd.into(),
-            }
+            Self { hw, imm16, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b111100101u32 << 23u32
-                    | u32::from(self.hw) << 21u32
-                    | u32::from(self.imm16) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.hw.into_inner() << 21u32
+                    | self.imm16.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

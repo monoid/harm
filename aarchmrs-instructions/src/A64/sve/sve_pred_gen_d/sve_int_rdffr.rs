@@ -12,26 +12,22 @@ pub mod rdffr_p_p_f_ {
     }
     impl rdffr_p_p_f_ {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pd: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            Pg: ::aarchmrs_types::BitValue<4>,
+            Pd: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
-            Self {
-                S: S.into(),
-                Pg: Pg.into(),
-                Pd: Pd.into(),
-            }
+            Self { S, Pg, Pd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b001001010u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b0110001111000u32 << 9u32
-                    | u32::from(self.Pg) << 5u32
+                    | self.Pg.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.Pd) << 0u32,
+                    | self.Pd.into_inner() << 0u32,
             )
         }
     }
@@ -45,26 +41,22 @@ pub mod rdffrs_p_p_f_ {
     }
     impl rdffrs_p_p_f_ {
         #[inline]
-        pub fn new(
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<4>>,
-            Pd: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            S: ::aarchmrs_types::BitValue<1>,
+            Pg: ::aarchmrs_types::BitValue<4>,
+            Pd: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
-            Self {
-                S: S.into(),
-                Pg: Pg.into(),
-                Pd: Pd.into(),
-            }
+            Self { S, Pg, Pd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b001001010u32 << 23u32
-                    | u32::from(self.S) << 22u32
+                    | self.S.into_inner() << 22u32
                     | 0b0110001111000u32 << 9u32
-                    | u32::from(self.Pg) << 5u32
+                    | self.Pg.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.Pd) << 0u32,
+                    | self.Pd.into_inner() << 0u32,
             )
         }
     }

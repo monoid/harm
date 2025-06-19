@@ -11,21 +11,18 @@ pub mod SHA512SU0_VV2_cryptosha512_2 {
     }
     impl SHA512SU0_VV2_cryptosha512_2 {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1100111011000000100000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -38,21 +35,18 @@ pub mod SM4E_VV4_cryptosha512_2 {
     }
     impl SM4E_VV4_cryptosha512_2 {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1100111011000000100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

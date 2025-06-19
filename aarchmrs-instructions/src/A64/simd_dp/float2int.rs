@@ -11,21 +11,18 @@ pub mod FCVTNS_32S_float2int {
     }
     impl FCVTNS_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -38,21 +35,18 @@ pub mod FCVTNU_32S_float2int {
     }
     impl FCVTNU_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -65,21 +59,18 @@ pub mod SCVTF_S32_float2int {
     }
     impl SCVTF_S32_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -92,21 +83,18 @@ pub mod UCVTF_S32_float2int {
     }
     impl UCVTF_S32_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -119,21 +107,18 @@ pub mod FCVTAS_32S_float2int {
     }
     impl FCVTAS_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -146,21 +131,18 @@ pub mod FCVTAU_32S_float2int {
     }
     impl FCVTAU_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -173,21 +155,18 @@ pub mod FMOV_32S_float2int {
     }
     impl FMOV_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -200,21 +179,18 @@ pub mod FMOV_S32_float2int {
     }
     impl FMOV_S32_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000100111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -227,21 +203,18 @@ pub mod FCVTPS_32S_float2int {
     }
     impl FCVTPS_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000101000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -254,21 +227,18 @@ pub mod FCVTPU_32S_float2int {
     }
     impl FCVTPU_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000101001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -281,21 +251,18 @@ pub mod FCVTMS_32S_float2int {
     }
     impl FCVTMS_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000110000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -308,21 +275,18 @@ pub mod FCVTMU_32S_float2int {
     }
     impl FCVTMU_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000110001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -335,21 +299,18 @@ pub mod FCVTZS_32S_float2int {
     }
     impl FCVTZS_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000111000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -362,21 +323,18 @@ pub mod FCVTZU_32S_float2int {
     }
     impl FCVTZU_32S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111000111001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -389,21 +347,18 @@ pub mod FCVTNS_32D_float2int {
     }
     impl FCVTNS_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001100000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -416,21 +371,18 @@ pub mod FCVTNU_32D_float2int {
     }
     impl FCVTNU_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001100001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -443,21 +395,18 @@ pub mod SCVTF_D32_float2int {
     }
     impl SCVTF_D32_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001100010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -470,21 +419,18 @@ pub mod UCVTF_D32_float2int {
     }
     impl UCVTF_D32_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001100011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -497,21 +443,18 @@ pub mod FCVTAS_32D_float2int {
     }
     impl FCVTAS_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001100100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -524,21 +467,18 @@ pub mod FCVTAU_32D_float2int {
     }
     impl FCVTAU_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001100101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -551,21 +491,18 @@ pub mod FCVTPS_32D_float2int {
     }
     impl FCVTPS_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001101000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -578,21 +515,18 @@ pub mod FCVTPU_32D_float2int {
     }
     impl FCVTPU_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001101001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -605,21 +539,18 @@ pub mod FCVTMS_32D_float2int {
     }
     impl FCVTMS_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001110000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -632,21 +563,18 @@ pub mod FCVTMU_32D_float2int {
     }
     impl FCVTMU_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001110001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -659,21 +587,18 @@ pub mod FCVTZS_32D_float2int {
     }
     impl FCVTZS_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001111000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -686,21 +611,18 @@ pub mod FCVTZU_32D_float2int {
     }
     impl FCVTZU_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001111001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -713,21 +635,18 @@ pub mod FJCVTZS_32D_float2int {
     }
     impl FJCVTZS_32D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001111110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -740,21 +659,18 @@ pub mod FCVTNS_32H_float2int {
     }
     impl FCVTNS_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -767,21 +683,18 @@ pub mod FCVTNU_32H_float2int {
     }
     impl FCVTNU_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -794,21 +707,18 @@ pub mod SCVTF_H32_float2int {
     }
     impl SCVTF_H32_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -821,21 +731,18 @@ pub mod UCVTF_H32_float2int {
     }
     impl UCVTF_H32_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -848,21 +755,18 @@ pub mod FCVTAS_32H_float2int {
     }
     impl FCVTAS_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -875,21 +779,18 @@ pub mod FCVTAU_32H_float2int {
     }
     impl FCVTAU_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -902,21 +803,18 @@ pub mod FMOV_32H_float2int {
     }
     impl FMOV_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -929,21 +827,18 @@ pub mod FMOV_H32_float2int {
     }
     impl FMOV_H32_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011100111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -956,21 +851,18 @@ pub mod FCVTPS_32H_float2int {
     }
     impl FCVTPS_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011101000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -983,21 +875,18 @@ pub mod FCVTPU_32H_float2int {
     }
     impl FCVTPU_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011101001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1010,21 +899,18 @@ pub mod FCVTMS_32H_float2int {
     }
     impl FCVTMS_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011110000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1037,21 +923,18 @@ pub mod FCVTMU_32H_float2int {
     }
     impl FCVTMU_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011110001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1064,21 +947,18 @@ pub mod FCVTZS_32H_float2int {
     }
     impl FCVTZS_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011111000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1091,21 +971,18 @@ pub mod FCVTZU_32H_float2int {
     }
     impl FCVTZU_32H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011111001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1118,21 +995,18 @@ pub mod FCVTNS_64S_float2int {
     }
     impl FCVTNS_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000100000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1145,21 +1019,18 @@ pub mod FCVTNU_64S_float2int {
     }
     impl FCVTNU_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000100001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1172,21 +1043,18 @@ pub mod SCVTF_S64_float2int {
     }
     impl SCVTF_S64_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000100010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1199,21 +1067,18 @@ pub mod UCVTF_S64_float2int {
     }
     impl UCVTF_S64_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000100011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1226,21 +1091,18 @@ pub mod FCVTAS_64S_float2int {
     }
     impl FCVTAS_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000100100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1253,21 +1115,18 @@ pub mod FCVTAU_64S_float2int {
     }
     impl FCVTAU_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000100101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1280,21 +1139,18 @@ pub mod FCVTPS_64S_float2int {
     }
     impl FCVTPS_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000101000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1307,21 +1163,18 @@ pub mod FCVTPU_64S_float2int {
     }
     impl FCVTPU_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000101001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1334,21 +1187,18 @@ pub mod FCVTMS_64S_float2int {
     }
     impl FCVTMS_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000110000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1361,21 +1211,18 @@ pub mod FCVTMU_64S_float2int {
     }
     impl FCVTMU_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000110001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1388,21 +1235,18 @@ pub mod FCVTZS_64S_float2int {
     }
     impl FCVTZS_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000111000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1415,21 +1259,18 @@ pub mod FCVTZU_64S_float2int {
     }
     impl FCVTZU_64S_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000111001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1442,21 +1283,18 @@ pub mod FCVTNS_64D_float2int {
     }
     impl FCVTNS_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001100000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1469,21 +1307,18 @@ pub mod FCVTNU_64D_float2int {
     }
     impl FCVTNU_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001100001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1496,21 +1331,18 @@ pub mod SCVTF_D64_float2int {
     }
     impl SCVTF_D64_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001100010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1523,21 +1355,18 @@ pub mod UCVTF_D64_float2int {
     }
     impl UCVTF_D64_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001100011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1550,21 +1379,18 @@ pub mod FCVTAS_64D_float2int {
     }
     impl FCVTAS_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001100100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1577,21 +1403,18 @@ pub mod FCVTAU_64D_float2int {
     }
     impl FCVTAU_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001100101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1604,21 +1427,18 @@ pub mod FMOV_64D_float2int {
     }
     impl FMOV_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001100110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1631,21 +1451,18 @@ pub mod FMOV_D64_float2int {
     }
     impl FMOV_D64_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001100111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1658,21 +1475,18 @@ pub mod FCVTPS_64D_float2int {
     }
     impl FCVTPS_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001101000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1685,21 +1499,18 @@ pub mod FCVTPU_64D_float2int {
     }
     impl FCVTPU_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001101001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1712,21 +1523,18 @@ pub mod FCVTMS_64D_float2int {
     }
     impl FCVTMS_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001110000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1739,21 +1547,18 @@ pub mod FCVTMU_64D_float2int {
     }
     impl FCVTMU_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001110001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1766,21 +1571,18 @@ pub mod FCVTZS_64D_float2int {
     }
     impl FCVTZS_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001111000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1793,21 +1595,18 @@ pub mod FCVTZU_64D_float2int {
     }
     impl FCVTZU_64D_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111001111001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1820,21 +1619,18 @@ pub mod FMOV_64VX_float2int {
     }
     impl FMOV_64VX_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111010101110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1847,21 +1643,18 @@ pub mod FMOV_V64I_float2int {
     }
     impl FMOV_V64I_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111010101111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1874,21 +1667,18 @@ pub mod FCVTNS_64H_float2int {
     }
     impl FCVTNS_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011100000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1901,21 +1691,18 @@ pub mod FCVTNU_64H_float2int {
     }
     impl FCVTNU_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011100001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1928,21 +1715,18 @@ pub mod SCVTF_H64_float2int {
     }
     impl SCVTF_H64_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011100010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1955,21 +1739,18 @@ pub mod UCVTF_H64_float2int {
     }
     impl UCVTF_H64_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011100011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1982,21 +1763,18 @@ pub mod FCVTAS_64H_float2int {
     }
     impl FCVTAS_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011100100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2009,21 +1787,18 @@ pub mod FCVTAU_64H_float2int {
     }
     impl FCVTAU_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011100101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2036,21 +1811,18 @@ pub mod FMOV_64H_float2int {
     }
     impl FMOV_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011100110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2063,21 +1835,18 @@ pub mod FMOV_H64_float2int {
     }
     impl FMOV_H64_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011100111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2090,21 +1859,18 @@ pub mod FCVTPS_64H_float2int {
     }
     impl FCVTPS_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011101000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2117,21 +1883,18 @@ pub mod FCVTPU_64H_float2int {
     }
     impl FCVTPU_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011101001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2144,21 +1907,18 @@ pub mod FCVTMS_64H_float2int {
     }
     impl FCVTMS_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011110000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2171,21 +1931,18 @@ pub mod FCVTMU_64H_float2int {
     }
     impl FCVTMU_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011110001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2198,21 +1955,18 @@ pub mod FCVTZS_64H_float2int {
     }
     impl FCVTZS_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011111000000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2225,21 +1979,18 @@ pub mod FCVTZU_64H_float2int {
     }
     impl FCVTZU_64H_float2int {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011111001000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2252,21 +2003,18 @@ pub mod FCVTNS_sisd_32D {
     }
     impl FCVTNS_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001101010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2279,21 +2027,18 @@ pub mod FCVTAS_sisd_32D {
     }
     impl FCVTAS_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001111010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2306,21 +2051,18 @@ pub mod FCVTPS_sisd_32D {
     }
     impl FCVTPS_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001110010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2333,21 +2075,18 @@ pub mod FCVTMS_sisd_32D {
     }
     impl FCVTMS_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001110100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2360,21 +2099,18 @@ pub mod FCVTZS_sisd_32D {
     }
     impl FCVTZS_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001110110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2387,21 +2123,18 @@ pub mod SCVTF_sisd_32D {
     }
     impl SCVTF_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001111100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2414,21 +2147,18 @@ pub mod FCVTNU_sisd_32D {
     }
     impl FCVTNU_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001101011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2441,21 +2171,18 @@ pub mod FCVTAU_sisd_32D {
     }
     impl FCVTAU_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001111011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2468,21 +2195,18 @@ pub mod FCVTPU_sisd_32D {
     }
     impl FCVTPU_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001110011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2495,21 +2219,18 @@ pub mod FCVTMU_sisd_32D {
     }
     impl FCVTMU_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001110101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2522,21 +2243,18 @@ pub mod FCVTZU_sisd_32D {
     }
     impl FCVTZU_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001110111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2549,21 +2267,18 @@ pub mod UCVTF_sisd_32D {
     }
     impl UCVTF_sisd_32D {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111001111101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2576,21 +2291,18 @@ pub mod FCVTNS_sisd_32H {
     }
     impl FCVTNS_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011101010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2603,21 +2315,18 @@ pub mod FCVTAS_sisd_32H {
     }
     impl FCVTAS_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011111010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2630,21 +2339,18 @@ pub mod FCVTPS_sisd_32H {
     }
     impl FCVTPS_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011110010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2657,21 +2363,18 @@ pub mod FCVTMS_sisd_32H {
     }
     impl FCVTMS_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011110100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2684,21 +2387,18 @@ pub mod FCVTZS_sisd_32H {
     }
     impl FCVTZS_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011110110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2711,21 +2411,18 @@ pub mod SCVTF_sisd_32H {
     }
     impl SCVTF_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011111100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2738,21 +2435,18 @@ pub mod FCVTNU_sisd_32H {
     }
     impl FCVTNU_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011101011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2765,21 +2459,18 @@ pub mod FCVTAU_sisd_32H {
     }
     impl FCVTAU_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011111011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2792,21 +2483,18 @@ pub mod FCVTPU_sisd_32H {
     }
     impl FCVTPU_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011110011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2819,21 +2507,18 @@ pub mod FCVTMU_sisd_32H {
     }
     impl FCVTMU_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011110101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2846,21 +2531,18 @@ pub mod FCVTZU_sisd_32H {
     }
     impl FCVTZU_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011110111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2873,21 +2555,18 @@ pub mod UCVTF_sisd_32H {
     }
     impl UCVTF_sisd_32H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0001111011111101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2900,21 +2579,18 @@ pub mod FCVTNS_sisd_64H {
     }
     impl FCVTNS_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011101010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2927,21 +2603,18 @@ pub mod FCVTAS_sisd_64H {
     }
     impl FCVTAS_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011111010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2954,21 +2627,18 @@ pub mod FCVTPS_sisd_64H {
     }
     impl FCVTPS_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011110010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2981,21 +2651,18 @@ pub mod FCVTMS_sisd_64H {
     }
     impl FCVTMS_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011110100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3008,21 +2675,18 @@ pub mod FCVTZS_sisd_64H {
     }
     impl FCVTZS_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011110110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3035,21 +2699,18 @@ pub mod SCVTF_sisd_64H {
     }
     impl SCVTF_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011111100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3062,21 +2723,18 @@ pub mod FCVTNU_sisd_64H {
     }
     impl FCVTNU_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011101011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3089,21 +2747,18 @@ pub mod FCVTAU_sisd_64H {
     }
     impl FCVTAU_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011111011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3116,21 +2771,18 @@ pub mod FCVTPU_sisd_64H {
     }
     impl FCVTPU_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011110011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3143,21 +2795,18 @@ pub mod FCVTMU_sisd_64H {
     }
     impl FCVTMU_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011110101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3170,21 +2819,18 @@ pub mod FCVTZU_sisd_64H {
     }
     impl FCVTZU_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011110111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3197,21 +2843,18 @@ pub mod UCVTF_sisd_64H {
     }
     impl UCVTF_sisd_64H {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111011111101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3224,21 +2867,18 @@ pub mod FCVTNS_sisd_64S {
     }
     impl FCVTNS_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000101010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3251,21 +2891,18 @@ pub mod FCVTAS_sisd_64S {
     }
     impl FCVTAS_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000111010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3278,21 +2915,18 @@ pub mod FCVTPS_sisd_64S {
     }
     impl FCVTPS_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000110010000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3305,21 +2939,18 @@ pub mod FCVTMS_sisd_64S {
     }
     impl FCVTMS_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000110100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3332,21 +2963,18 @@ pub mod FCVTZS_sisd_64S {
     }
     impl FCVTZS_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000110110000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3359,21 +2987,18 @@ pub mod SCVTF_sisd_64S {
     }
     impl SCVTF_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000111100000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3386,21 +3011,18 @@ pub mod FCVTNU_sisd_64S {
     }
     impl FCVTNU_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000101011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3413,21 +3035,18 @@ pub mod FCVTAU_sisd_64S {
     }
     impl FCVTAU_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000111011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3440,21 +3059,18 @@ pub mod FCVTPU_sisd_64S {
     }
     impl FCVTPU_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000110011000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3467,21 +3083,18 @@ pub mod FCVTMU_sisd_64S {
     }
     impl FCVTMU_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000110101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3494,21 +3107,18 @@ pub mod FCVTZU_sisd_64S {
     }
     impl FCVTZU_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000110111000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3521,21 +3131,18 @@ pub mod UCVTF_sisd_64S {
     }
     impl UCVTF_sisd_64S {
         #[inline]
-        pub fn new(
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b1001111000111101000000u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

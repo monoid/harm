@@ -13,28 +13,23 @@ pub mod st1b_z_p_bz_d_64_unscaled {
     }
     impl st1b_z_p_bz_d_64_unscaled {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<5>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Zm: Zm.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
-            }
+            Self { Zm, Pg, Rn, Zt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11100100000u32 << 21u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b101u32 << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -49,28 +44,23 @@ pub mod st1h_z_p_bz_d_64_unscaled {
     }
     impl st1h_z_p_bz_d_64_unscaled {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<5>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Zm: Zm.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
-            }
+            Self { Zm, Pg, Rn, Zt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11100100100u32 << 21u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b101u32 << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -85,28 +75,23 @@ pub mod st1w_z_p_bz_d_64_unscaled {
     }
     impl st1w_z_p_bz_d_64_unscaled {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<5>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Zm: Zm.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
-            }
+            Self { Zm, Pg, Rn, Zt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11100101000u32 << 21u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b101u32 << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }
@@ -121,28 +106,23 @@ pub mod st1d_z_p_bz_d_64_unscaled {
     }
     impl st1d_z_p_bz_d_64_unscaled {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<5>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Zt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<5>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Zt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Zm: Zm.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                Zt: Zt.into(),
-            }
+            Self { Zm, Pg, Rn, Zt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11100101100u32 << 21u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b101u32 << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Zt) << 0u32,
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Zt.into_inner() << 0u32,
             )
         }
     }

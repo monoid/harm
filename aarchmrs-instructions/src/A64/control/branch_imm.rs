@@ -10,15 +10,13 @@ pub mod B_only_branch_imm {
     }
     impl B_only_branch_imm {
         #[inline]
-        pub fn new(imm26: impl Into<::aarchmrs_types::BitValue<26>>) -> Self {
-            Self {
-                imm26: imm26.into(),
-            }
+        pub const fn new(imm26: ::aarchmrs_types::BitValue<26>) -> Self {
+            Self { imm26 }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b000101u32 << 26u32 | u32::from(self.imm26) << 0u32,
+                0b000101u32 << 26u32 | self.imm26.into_inner() << 0u32,
             )
         }
     }
@@ -30,15 +28,13 @@ pub mod BL_only_branch_imm {
     }
     impl BL_only_branch_imm {
         #[inline]
-        pub fn new(imm26: impl Into<::aarchmrs_types::BitValue<26>>) -> Self {
-            Self {
-                imm26: imm26.into(),
-            }
+        pub const fn new(imm26: ::aarchmrs_types::BitValue<26>) -> Self {
+            Self { imm26 }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                0b100101u32 << 26u32 | u32::from(self.imm26) << 0u32,
+                0b100101u32 << 26u32 | self.imm26.into_inner() << 0u32,
             )
         }
     }

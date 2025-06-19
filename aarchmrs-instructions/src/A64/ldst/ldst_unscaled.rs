@@ -12,25 +12,21 @@ pub mod STURB_32_ldst_unscaled {
     }
     impl STURB_32_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111000000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -44,25 +40,21 @@ pub mod LDURB_32_ldst_unscaled {
     }
     impl LDURB_32_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111000010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -76,25 +68,21 @@ pub mod LDURSB_64_ldst_unscaled {
     }
     impl LDURSB_64_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111000100u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -108,25 +96,21 @@ pub mod LDURSB_32_ldst_unscaled {
     }
     impl LDURSB_32_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111000110u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -140,25 +124,21 @@ pub mod STUR_B_ldst_unscaled {
     }
     impl STUR_B_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111100000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -172,25 +152,21 @@ pub mod LDUR_B_ldst_unscaled {
     }
     impl LDUR_B_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111100010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -204,25 +180,21 @@ pub mod STUR_Q_ldst_unscaled {
     }
     impl STUR_Q_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111100100u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -236,25 +208,21 @@ pub mod LDUR_Q_ldst_unscaled {
     }
     impl LDUR_Q_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00111100110u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -268,25 +236,21 @@ pub mod STURH_32_ldst_unscaled {
     }
     impl STURH_32_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01111000000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -300,25 +264,21 @@ pub mod LDURH_32_ldst_unscaled {
     }
     impl LDURH_32_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01111000010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -332,25 +292,21 @@ pub mod LDURSH_64_ldst_unscaled {
     }
     impl LDURSH_64_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01111000100u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -364,25 +320,21 @@ pub mod LDURSH_32_ldst_unscaled {
     }
     impl LDURSH_32_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01111000110u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -396,25 +348,21 @@ pub mod STUR_H_ldst_unscaled {
     }
     impl STUR_H_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01111100000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -428,25 +376,21 @@ pub mod LDUR_H_ldst_unscaled {
     }
     impl LDUR_H_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01111100010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -460,25 +404,21 @@ pub mod STUR_32_ldst_unscaled {
     }
     impl STUR_32_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10111000000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -492,25 +432,21 @@ pub mod LDUR_32_ldst_unscaled {
     }
     impl LDUR_32_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10111000010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -524,25 +460,21 @@ pub mod LDURSW_64_ldst_unscaled {
     }
     impl LDURSW_64_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10111000100u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -556,25 +488,21 @@ pub mod STUR_S_ldst_unscaled {
     }
     impl STUR_S_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10111100000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -588,25 +516,21 @@ pub mod LDUR_S_ldst_unscaled {
     }
     impl LDUR_S_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10111100010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -620,25 +544,21 @@ pub mod STUR_64_ldst_unscaled {
     }
     impl STUR_64_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11111000000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -652,25 +572,21 @@ pub mod LDUR_64_ldst_unscaled {
     }
     impl LDUR_64_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11111000010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -684,25 +600,21 @@ pub mod PRFUM_P_ldst_unscaled {
     }
     impl PRFUM_P_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11111000100u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -716,25 +628,21 @@ pub mod STUR_D_ldst_unscaled {
     }
     impl STUR_D_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11111100000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -748,25 +656,21 @@ pub mod LDUR_D_ldst_unscaled {
     }
     impl LDUR_D_ldst_unscaled {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11111100010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b00u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }

@@ -8,11 +8,11 @@ pub mod setffr_f_ {
     pub struct setffr_f_ {}
     impl setffr_f_ {
         #[inline]
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self {}
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00100101001011001001000000000000u32 << 0u32,
             )

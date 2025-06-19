@@ -13,28 +13,23 @@ pub mod CPYFP_CPY_memcms {
     }
     impl CPYFP_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -49,28 +44,23 @@ pub mod CPYFPWT_CPY_memcms {
     }
     impl CPYFPWT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -85,28 +75,23 @@ pub mod CPYFPRT_CPY_memcms {
     }
     impl CPYFPRT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -121,28 +106,23 @@ pub mod CPYFPT_CPY_memcms {
     }
     impl CPYFPT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -157,28 +137,23 @@ pub mod CPYFPWN_CPY_memcms {
     }
     impl CPYFPWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -193,28 +168,23 @@ pub mod CPYFPWTWN_CPY_memcms {
     }
     impl CPYFPWTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -229,28 +199,23 @@ pub mod CPYFPRTWN_CPY_memcms {
     }
     impl CPYFPRTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -265,28 +230,23 @@ pub mod CPYFPTWN_CPY_memcms {
     }
     impl CPYFPTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -301,28 +261,23 @@ pub mod CPYFPRN_CPY_memcms {
     }
     impl CPYFPRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -337,28 +292,23 @@ pub mod CPYFPWTRN_CPY_memcms {
     }
     impl CPYFPWTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -373,28 +323,23 @@ pub mod CPYFPRTRN_CPY_memcms {
     }
     impl CPYFPRTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -409,28 +354,23 @@ pub mod CPYFPTRN_CPY_memcms {
     }
     impl CPYFPTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -445,28 +385,23 @@ pub mod CPYFPN_CPY_memcms {
     }
     impl CPYFPN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -481,28 +416,23 @@ pub mod CPYFPWTN_CPY_memcms {
     }
     impl CPYFPWTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -517,28 +447,23 @@ pub mod CPYFPRTN_CPY_memcms {
     }
     impl CPYFPRTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -553,28 +478,23 @@ pub mod CPYFPTN_CPY_memcms {
     }
     impl CPYFPTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -589,28 +509,23 @@ pub mod CPYFM_CPY_memcms {
     }
     impl CPYFM_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -625,28 +540,23 @@ pub mod CPYFMWT_CPY_memcms {
     }
     impl CPYFMWT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -661,28 +571,23 @@ pub mod CPYFMRT_CPY_memcms {
     }
     impl CPYFMRT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -697,28 +602,23 @@ pub mod CPYFMT_CPY_memcms {
     }
     impl CPYFMT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -733,28 +633,23 @@ pub mod CPYFMWN_CPY_memcms {
     }
     impl CPYFMWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -769,28 +664,23 @@ pub mod CPYFMWTWN_CPY_memcms {
     }
     impl CPYFMWTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -805,28 +695,23 @@ pub mod CPYFMRTWN_CPY_memcms {
     }
     impl CPYFMRTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -841,28 +726,23 @@ pub mod CPYFMTWN_CPY_memcms {
     }
     impl CPYFMTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -877,28 +757,23 @@ pub mod CPYFMRN_CPY_memcms {
     }
     impl CPYFMRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -913,28 +788,23 @@ pub mod CPYFMWTRN_CPY_memcms {
     }
     impl CPYFMWTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -949,28 +819,23 @@ pub mod CPYFMRTRN_CPY_memcms {
     }
     impl CPYFMRTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -985,28 +850,23 @@ pub mod CPYFMTRN_CPY_memcms {
     }
     impl CPYFMTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1021,28 +881,23 @@ pub mod CPYFMN_CPY_memcms {
     }
     impl CPYFMN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1057,28 +912,23 @@ pub mod CPYFMWTN_CPY_memcms {
     }
     impl CPYFMWTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1093,28 +943,23 @@ pub mod CPYFMRTN_CPY_memcms {
     }
     impl CPYFMRTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1129,28 +974,23 @@ pub mod CPYFMTN_CPY_memcms {
     }
     impl CPYFMTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1165,28 +1005,23 @@ pub mod CPYFE_CPY_memcms {
     }
     impl CPYFE_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1201,28 +1036,23 @@ pub mod CPYFEWT_CPY_memcms {
     }
     impl CPYFEWT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1237,28 +1067,23 @@ pub mod CPYFERT_CPY_memcms {
     }
     impl CPYFERT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1273,28 +1098,23 @@ pub mod CPYFET_CPY_memcms {
     }
     impl CPYFET_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1309,28 +1129,23 @@ pub mod CPYFEWN_CPY_memcms {
     }
     impl CPYFEWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1345,28 +1160,23 @@ pub mod CPYFEWTWN_CPY_memcms {
     }
     impl CPYFEWTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1381,28 +1191,23 @@ pub mod CPYFERTWN_CPY_memcms {
     }
     impl CPYFERTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1417,28 +1222,23 @@ pub mod CPYFETWN_CPY_memcms {
     }
     impl CPYFETWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1453,28 +1253,23 @@ pub mod CPYFERN_CPY_memcms {
     }
     impl CPYFERN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1489,28 +1284,23 @@ pub mod CPYFEWTRN_CPY_memcms {
     }
     impl CPYFEWTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1525,28 +1315,23 @@ pub mod CPYFERTRN_CPY_memcms {
     }
     impl CPYFERTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1561,28 +1346,23 @@ pub mod CPYFETRN_CPY_memcms {
     }
     impl CPYFETRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1597,28 +1377,23 @@ pub mod CPYFEN_CPY_memcms {
     }
     impl CPYFEN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1633,28 +1408,23 @@ pub mod CPYFEWTN_CPY_memcms {
     }
     impl CPYFEWTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1669,28 +1439,23 @@ pub mod CPYFERTN_CPY_memcms {
     }
     impl CPYFERTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1705,28 +1470,23 @@ pub mod CPYFETN_CPY_memcms {
     }
     impl CPYFETN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1741,28 +1501,23 @@ pub mod SETP_SET_memcms {
     }
     impl SETP_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1777,28 +1532,23 @@ pub mod SETPT_SET_memcms {
     }
     impl SETPT_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1813,28 +1563,23 @@ pub mod SETPN_SET_memcms {
     }
     impl SETPN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1849,28 +1594,23 @@ pub mod SETPTN_SET_memcms {
     }
     impl SETPTN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1885,28 +1625,23 @@ pub mod SETM_SET_memcms {
     }
     impl SETM_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1921,28 +1656,23 @@ pub mod SETMT_SET_memcms {
     }
     impl SETMT_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1957,28 +1687,23 @@ pub mod SETMN_SET_memcms {
     }
     impl SETMN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -1993,28 +1718,23 @@ pub mod SETMTN_SET_memcms {
     }
     impl SETMTN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2029,28 +1749,23 @@ pub mod SETE_SET_memcms {
     }
     impl SETE_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2065,28 +1780,23 @@ pub mod SETET_SET_memcms {
     }
     impl SETET_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2101,28 +1811,23 @@ pub mod SETEN_SET_memcms {
     }
     impl SETEN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2137,28 +1842,23 @@ pub mod SETETN_SET_memcms {
     }
     impl SETETN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011001110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2173,28 +1873,23 @@ pub mod CPYP_CPY_memcms {
     }
     impl CPYP_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2209,28 +1904,23 @@ pub mod CPYPWT_CPY_memcms {
     }
     impl CPYPWT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2245,28 +1935,23 @@ pub mod CPYPRT_CPY_memcms {
     }
     impl CPYPRT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2281,28 +1966,23 @@ pub mod CPYPT_CPY_memcms {
     }
     impl CPYPT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2317,28 +1997,23 @@ pub mod CPYPWN_CPY_memcms {
     }
     impl CPYPWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2353,28 +2028,23 @@ pub mod CPYPWTWN_CPY_memcms {
     }
     impl CPYPWTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2389,28 +2059,23 @@ pub mod CPYPRTWN_CPY_memcms {
     }
     impl CPYPRTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2425,28 +2090,23 @@ pub mod CPYPTWN_CPY_memcms {
     }
     impl CPYPTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2461,28 +2121,23 @@ pub mod CPYPRN_CPY_memcms {
     }
     impl CPYPRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2497,28 +2152,23 @@ pub mod CPYPWTRN_CPY_memcms {
     }
     impl CPYPWTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2533,28 +2183,23 @@ pub mod CPYPRTRN_CPY_memcms {
     }
     impl CPYPRTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2569,28 +2214,23 @@ pub mod CPYPTRN_CPY_memcms {
     }
     impl CPYPTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2605,28 +2245,23 @@ pub mod CPYPN_CPY_memcms {
     }
     impl CPYPN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2641,28 +2276,23 @@ pub mod CPYPWTN_CPY_memcms {
     }
     impl CPYPWTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2677,28 +2307,23 @@ pub mod CPYPRTN_CPY_memcms {
     }
     impl CPYPRTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2713,28 +2338,23 @@ pub mod CPYPTN_CPY_memcms {
     }
     impl CPYPTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101000u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2749,28 +2369,23 @@ pub mod CPYM_CPY_memcms {
     }
     impl CPYM_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2785,28 +2400,23 @@ pub mod CPYMWT_CPY_memcms {
     }
     impl CPYMWT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2821,28 +2431,23 @@ pub mod CPYMRT_CPY_memcms {
     }
     impl CPYMRT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2857,28 +2462,23 @@ pub mod CPYMT_CPY_memcms {
     }
     impl CPYMT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2893,28 +2493,23 @@ pub mod CPYMWN_CPY_memcms {
     }
     impl CPYMWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2929,28 +2524,23 @@ pub mod CPYMWTWN_CPY_memcms {
     }
     impl CPYMWTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -2965,28 +2555,23 @@ pub mod CPYMRTWN_CPY_memcms {
     }
     impl CPYMRTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3001,28 +2586,23 @@ pub mod CPYMTWN_CPY_memcms {
     }
     impl CPYMTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3037,28 +2617,23 @@ pub mod CPYMRN_CPY_memcms {
     }
     impl CPYMRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3073,28 +2648,23 @@ pub mod CPYMWTRN_CPY_memcms {
     }
     impl CPYMWTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3109,28 +2679,23 @@ pub mod CPYMRTRN_CPY_memcms {
     }
     impl CPYMRTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3145,28 +2710,23 @@ pub mod CPYMTRN_CPY_memcms {
     }
     impl CPYMTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3181,28 +2741,23 @@ pub mod CPYMN_CPY_memcms {
     }
     impl CPYMN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3217,28 +2772,23 @@ pub mod CPYMWTN_CPY_memcms {
     }
     impl CPYMWTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3253,28 +2803,23 @@ pub mod CPYMRTN_CPY_memcms {
     }
     impl CPYMRTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3289,28 +2834,23 @@ pub mod CPYMTN_CPY_memcms {
     }
     impl CPYMTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101010u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3325,28 +2865,23 @@ pub mod CPYE_CPY_memcms {
     }
     impl CPYE_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3361,28 +2896,23 @@ pub mod CPYEWT_CPY_memcms {
     }
     impl CPYEWT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3397,28 +2927,23 @@ pub mod CPYERT_CPY_memcms {
     }
     impl CPYERT_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3433,28 +2958,23 @@ pub mod CPYET_CPY_memcms {
     }
     impl CPYET_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3469,28 +2989,23 @@ pub mod CPYEWN_CPY_memcms {
     }
     impl CPYEWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3505,28 +3020,23 @@ pub mod CPYEWTWN_CPY_memcms {
     }
     impl CPYEWTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3541,28 +3051,23 @@ pub mod CPYERTWN_CPY_memcms {
     }
     impl CPYERTWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3577,28 +3082,23 @@ pub mod CPYETWN_CPY_memcms {
     }
     impl CPYETWN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3613,28 +3113,23 @@ pub mod CPYERN_CPY_memcms {
     }
     impl CPYERN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3649,28 +3144,23 @@ pub mod CPYEWTRN_CPY_memcms {
     }
     impl CPYEWTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3685,28 +3175,23 @@ pub mod CPYERTRN_CPY_memcms {
     }
     impl CPYERTRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3721,28 +3206,23 @@ pub mod CPYETRN_CPY_memcms {
     }
     impl CPYETRN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3757,28 +3237,23 @@ pub mod CPYEN_CPY_memcms {
     }
     impl CPYEN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3793,28 +3268,23 @@ pub mod CPYEWTN_CPY_memcms {
     }
     impl CPYEWTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b110101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3829,28 +3299,23 @@ pub mod CPYERTN_CPY_memcms {
     }
     impl CPYERTN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3865,28 +3330,23 @@ pub mod CPYETN_CPY_memcms {
     }
     impl CPYETN_CPY_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101100u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b111101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3901,28 +3361,23 @@ pub mod SETGP_SET_memcms {
     }
     impl SETGP_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3937,28 +3392,23 @@ pub mod SETGPT_SET_memcms {
     }
     impl SETGPT_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b000101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -3973,28 +3423,23 @@ pub mod SETGPN_SET_memcms {
     }
     impl SETGPN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4009,28 +3454,23 @@ pub mod SETGPTN_SET_memcms {
     }
     impl SETGPTN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b001101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4045,28 +3485,23 @@ pub mod SETGM_SET_memcms {
     }
     impl SETGM_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4081,28 +3516,23 @@ pub mod SETGMT_SET_memcms {
     }
     impl SETGMT_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b010101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4117,28 +3547,23 @@ pub mod SETGMN_SET_memcms {
     }
     impl SETGMN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4153,28 +3578,23 @@ pub mod SETGMTN_SET_memcms {
     }
     impl SETGMTN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b011101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4189,28 +3609,23 @@ pub mod SETGE_SET_memcms {
     }
     impl SETGE_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4225,28 +3640,23 @@ pub mod SETGET_SET_memcms {
     }
     impl SETGET_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b100101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4261,28 +3671,23 @@ pub mod SETGEN_SET_memcms {
     }
     impl SETGEN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101001u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -4297,28 +3702,23 @@ pub mod SETGETN_SET_memcms {
     }
     impl SETGETN_SET_memcms {
         #[inline]
-        pub fn new(
-            sz: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            sz: ::aarchmrs_types::BitValue<2>,
+            Rs: ::aarchmrs_types::BitValue<5>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                sz: sz.into(),
-                Rs: Rs.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { sz, Rs, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
-                u32::from(self.sz) << 30u32
+                self.sz.into_inner() << 30u32
                     | 0b011101110u32 << 21u32
-                    | u32::from(self.Rs) << 16u32
+                    | self.Rs.into_inner() << 16u32
                     | 0b101101u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

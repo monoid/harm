@@ -17,42 +17,42 @@ pub mod smlall_za_zzi_s4xi {
     }
     impl smlall_za_zzi_s4xi {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rv: impl Into<::aarchmrs_types::BitValue<2>>,
-            i4h: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<3>>,
-            U: impl Into<::aarchmrs_types::BitValue<1>>,
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            i4l: impl Into<::aarchmrs_types::BitValue<2>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<4>,
+            Rv: ::aarchmrs_types::BitValue<2>,
+            i4h: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<3>,
+            U: ::aarchmrs_types::BitValue<1>,
+            S: ::aarchmrs_types::BitValue<1>,
+            i4l: ::aarchmrs_types::BitValue<2>,
+            o1: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
             Self {
-                Zm: Zm.into(),
-                Rv: Rv.into(),
-                i4h: i4h.into(),
-                Zn: Zn.into(),
-                U: U.into(),
-                S: S.into(),
-                i4l: i4l.into(),
-                o1: o1.into(),
+                Zm,
+                Rv,
+                i4h,
+                Zn,
+                U,
+                S,
+                i4l,
+                o1,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110000010001u32 << 20u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.Rv) << 13u32
+                    | self.Rv.into_inner() << 13u32
                     | 0b0u32 << 12u32
-                    | u32::from(self.i4h) << 10u32
-                    | u32::from(self.Zn) << 7u32
+                    | self.i4h.into_inner() << 10u32
+                    | self.Zn.into_inner() << 7u32
                     | 0b00u32 << 5u32
-                    | u32::from(self.U) << 4u32
-                    | u32::from(self.S) << 3u32
-                    | u32::from(self.i4l) << 1u32
-                    | u32::from(self.o1) << 0u32,
+                    | self.U.into_inner() << 4u32
+                    | self.S.into_inner() << 3u32
+                    | self.i4l.into_inner() << 1u32
+                    | self.o1.into_inner() << 0u32,
             )
         }
     }
@@ -70,40 +70,40 @@ pub mod usmlall_za_zzi_s4xi {
     }
     impl usmlall_za_zzi_s4xi {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rv: impl Into<::aarchmrs_types::BitValue<2>>,
-            i4h: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<3>>,
-            U: impl Into<::aarchmrs_types::BitValue<1>>,
-            i4l: impl Into<::aarchmrs_types::BitValue<2>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<4>,
+            Rv: ::aarchmrs_types::BitValue<2>,
+            i4h: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<3>,
+            U: ::aarchmrs_types::BitValue<1>,
+            i4l: ::aarchmrs_types::BitValue<2>,
+            o1: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
             Self {
-                Zm: Zm.into(),
-                Rv: Rv.into(),
-                i4h: i4h.into(),
-                Zn: Zn.into(),
-                U: U.into(),
-                i4l: i4l.into(),
-                o1: o1.into(),
+                Zm,
+                Rv,
+                i4h,
+                Zn,
+                U,
+                i4l,
+                o1,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110000010001u32 << 20u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.Rv) << 13u32
+                    | self.Rv.into_inner() << 13u32
                     | 0b0u32 << 12u32
-                    | u32::from(self.i4h) << 10u32
-                    | u32::from(self.Zn) << 7u32
+                    | self.i4h.into_inner() << 10u32
+                    | self.Zn.into_inner() << 7u32
                     | 0b01u32 << 5u32
-                    | u32::from(self.U) << 4u32
+                    | self.U.into_inner() << 4u32
                     | 0b0u32 << 3u32
-                    | u32::from(self.i4l) << 1u32
-                    | u32::from(self.o1) << 0u32,
+                    | self.i4l.into_inner() << 1u32
+                    | self.o1.into_inner() << 0u32,
             )
         }
     }
@@ -122,42 +122,42 @@ pub mod smlsll_za_zzi_s4xi {
     }
     impl smlsll_za_zzi_s4xi {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rv: impl Into<::aarchmrs_types::BitValue<2>>,
-            i4h: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<3>>,
-            U: impl Into<::aarchmrs_types::BitValue<1>>,
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            i4l: impl Into<::aarchmrs_types::BitValue<2>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<4>,
+            Rv: ::aarchmrs_types::BitValue<2>,
+            i4h: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<3>,
+            U: ::aarchmrs_types::BitValue<1>,
+            S: ::aarchmrs_types::BitValue<1>,
+            i4l: ::aarchmrs_types::BitValue<2>,
+            o1: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
             Self {
-                Zm: Zm.into(),
-                Rv: Rv.into(),
-                i4h: i4h.into(),
-                Zn: Zn.into(),
-                U: U.into(),
-                S: S.into(),
-                i4l: i4l.into(),
-                o1: o1.into(),
+                Zm,
+                Rv,
+                i4h,
+                Zn,
+                U,
+                S,
+                i4l,
+                o1,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110000010001u32 << 20u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.Rv) << 13u32
+                    | self.Rv.into_inner() << 13u32
                     | 0b0u32 << 12u32
-                    | u32::from(self.i4h) << 10u32
-                    | u32::from(self.Zn) << 7u32
+                    | self.i4h.into_inner() << 10u32
+                    | self.Zn.into_inner() << 7u32
                     | 0b00u32 << 5u32
-                    | u32::from(self.U) << 4u32
-                    | u32::from(self.S) << 3u32
-                    | u32::from(self.i4l) << 1u32
-                    | u32::from(self.o1) << 0u32,
+                    | self.U.into_inner() << 4u32
+                    | self.S.into_inner() << 3u32
+                    | self.i4l.into_inner() << 1u32
+                    | self.o1.into_inner() << 0u32,
             )
         }
     }
@@ -176,42 +176,42 @@ pub mod umlall_za_zzi_s4xi {
     }
     impl umlall_za_zzi_s4xi {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rv: impl Into<::aarchmrs_types::BitValue<2>>,
-            i4h: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<3>>,
-            U: impl Into<::aarchmrs_types::BitValue<1>>,
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            i4l: impl Into<::aarchmrs_types::BitValue<2>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<4>,
+            Rv: ::aarchmrs_types::BitValue<2>,
+            i4h: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<3>,
+            U: ::aarchmrs_types::BitValue<1>,
+            S: ::aarchmrs_types::BitValue<1>,
+            i4l: ::aarchmrs_types::BitValue<2>,
+            o1: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
             Self {
-                Zm: Zm.into(),
-                Rv: Rv.into(),
-                i4h: i4h.into(),
-                Zn: Zn.into(),
-                U: U.into(),
-                S: S.into(),
-                i4l: i4l.into(),
-                o1: o1.into(),
+                Zm,
+                Rv,
+                i4h,
+                Zn,
+                U,
+                S,
+                i4l,
+                o1,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110000010001u32 << 20u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.Rv) << 13u32
+                    | self.Rv.into_inner() << 13u32
                     | 0b0u32 << 12u32
-                    | u32::from(self.i4h) << 10u32
-                    | u32::from(self.Zn) << 7u32
+                    | self.i4h.into_inner() << 10u32
+                    | self.Zn.into_inner() << 7u32
                     | 0b00u32 << 5u32
-                    | u32::from(self.U) << 4u32
-                    | u32::from(self.S) << 3u32
-                    | u32::from(self.i4l) << 1u32
-                    | u32::from(self.o1) << 0u32,
+                    | self.U.into_inner() << 4u32
+                    | self.S.into_inner() << 3u32
+                    | self.i4l.into_inner() << 1u32
+                    | self.o1.into_inner() << 0u32,
             )
         }
     }
@@ -229,40 +229,40 @@ pub mod sumlall_za_zzi_s4xi {
     }
     impl sumlall_za_zzi_s4xi {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rv: impl Into<::aarchmrs_types::BitValue<2>>,
-            i4h: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<3>>,
-            U: impl Into<::aarchmrs_types::BitValue<1>>,
-            i4l: impl Into<::aarchmrs_types::BitValue<2>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<4>,
+            Rv: ::aarchmrs_types::BitValue<2>,
+            i4h: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<3>,
+            U: ::aarchmrs_types::BitValue<1>,
+            i4l: ::aarchmrs_types::BitValue<2>,
+            o1: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
             Self {
-                Zm: Zm.into(),
-                Rv: Rv.into(),
-                i4h: i4h.into(),
-                Zn: Zn.into(),
-                U: U.into(),
-                i4l: i4l.into(),
-                o1: o1.into(),
+                Zm,
+                Rv,
+                i4h,
+                Zn,
+                U,
+                i4l,
+                o1,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110000010001u32 << 20u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.Rv) << 13u32
+                    | self.Rv.into_inner() << 13u32
                     | 0b0u32 << 12u32
-                    | u32::from(self.i4h) << 10u32
-                    | u32::from(self.Zn) << 7u32
+                    | self.i4h.into_inner() << 10u32
+                    | self.Zn.into_inner() << 7u32
                     | 0b01u32 << 5u32
-                    | u32::from(self.U) << 4u32
+                    | self.U.into_inner() << 4u32
                     | 0b0u32 << 3u32
-                    | u32::from(self.i4l) << 1u32
-                    | u32::from(self.o1) << 0u32,
+                    | self.i4l.into_inner() << 1u32
+                    | self.o1.into_inner() << 0u32,
             )
         }
     }
@@ -281,42 +281,42 @@ pub mod umlsll_za_zzi_s4xi {
     }
     impl umlsll_za_zzi_s4xi {
         #[inline]
-        pub fn new(
-            Zm: impl Into<::aarchmrs_types::BitValue<4>>,
-            Rv: impl Into<::aarchmrs_types::BitValue<2>>,
-            i4h: impl Into<::aarchmrs_types::BitValue<2>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<3>>,
-            U: impl Into<::aarchmrs_types::BitValue<1>>,
-            S: impl Into<::aarchmrs_types::BitValue<1>>,
-            i4l: impl Into<::aarchmrs_types::BitValue<2>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
+        pub const fn new(
+            Zm: ::aarchmrs_types::BitValue<4>,
+            Rv: ::aarchmrs_types::BitValue<2>,
+            i4h: ::aarchmrs_types::BitValue<2>,
+            Zn: ::aarchmrs_types::BitValue<3>,
+            U: ::aarchmrs_types::BitValue<1>,
+            S: ::aarchmrs_types::BitValue<1>,
+            i4l: ::aarchmrs_types::BitValue<2>,
+            o1: ::aarchmrs_types::BitValue<1>,
         ) -> Self {
             Self {
-                Zm: Zm.into(),
-                Rv: Rv.into(),
-                i4h: i4h.into(),
-                Zn: Zn.into(),
-                U: U.into(),
-                S: S.into(),
-                i4l: i4l.into(),
-                o1: o1.into(),
+                Zm,
+                Rv,
+                i4h,
+                Zn,
+                U,
+                S,
+                i4l,
+                o1,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b110000010001u32 << 20u32
-                    | u32::from(self.Zm) << 16u32
+                    | self.Zm.into_inner() << 16u32
                     | 0b1u32 << 15u32
-                    | u32::from(self.Rv) << 13u32
+                    | self.Rv.into_inner() << 13u32
                     | 0b0u32 << 12u32
-                    | u32::from(self.i4h) << 10u32
-                    | u32::from(self.Zn) << 7u32
+                    | self.i4h.into_inner() << 10u32
+                    | self.Zn.into_inner() << 7u32
                     | 0b00u32 << 5u32
-                    | u32::from(self.U) << 4u32
-                    | u32::from(self.S) << 3u32
-                    | u32::from(self.i4l) << 1u32
-                    | u32::from(self.o1) << 0u32,
+                    | self.U.into_inner() << 4u32
+                    | self.S.into_inner() << 3u32
+                    | self.i4l.into_inner() << 1u32
+                    | self.o1.into_inner() << 0u32,
             )
         }
     }

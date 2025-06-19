@@ -11,22 +11,19 @@ pub mod FMOV_S_floatimm {
     }
     impl FMOV_S_floatimm {
         #[inline]
-        pub fn new(
-            imm8: impl Into<::aarchmrs_types::BitValue<8>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm8: ::aarchmrs_types::BitValue<8>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm8: imm8.into(),
-                Rd: Rd.into(),
-            }
+            Self { imm8, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110001u32 << 21u32
-                    | u32::from(self.imm8) << 13u32
+                    | self.imm8.into_inner() << 13u32
                     | 0b10000000u32 << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -39,22 +36,19 @@ pub mod FMOV_D_floatimm {
     }
     impl FMOV_D_floatimm {
         #[inline]
-        pub fn new(
-            imm8: impl Into<::aarchmrs_types::BitValue<8>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm8: ::aarchmrs_types::BitValue<8>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm8: imm8.into(),
-                Rd: Rd.into(),
-            }
+            Self { imm8, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110011u32 << 21u32
-                    | u32::from(self.imm8) << 13u32
+                    | self.imm8.into_inner() << 13u32
                     | 0b10000000u32 << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -67,22 +61,19 @@ pub mod FMOV_H_floatimm {
     }
     impl FMOV_H_floatimm {
         #[inline]
-        pub fn new(
-            imm8: impl Into<::aarchmrs_types::BitValue<8>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm8: ::aarchmrs_types::BitValue<8>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm8: imm8.into(),
-                Rd: Rd.into(),
-            }
+            Self { imm8, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011110111u32 << 21u32
-                    | u32::from(self.imm8) << 13u32
+                    | self.imm8.into_inner() << 13u32
                     | 0b10000000u32 << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

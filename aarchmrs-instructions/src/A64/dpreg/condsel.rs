@@ -14,31 +14,31 @@ pub mod CSEL_32_condsel {
     }
     impl CSEL_32_condsel {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            o2: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            o2: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                cond: cond.into(),
-                o2: o2.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Rm,
+                cond,
+                o2,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011010100u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b0u32 << 11u32
-                    | u32::from(self.o2) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.o2.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -54,31 +54,31 @@ pub mod CSINC_32_condsel {
     }
     impl CSINC_32_condsel {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            o2: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            o2: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                cond: cond.into(),
-                o2: o2.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Rm,
+                cond,
+                o2,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011010100u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b0u32 << 11u32
-                    | u32::from(self.o2) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.o2.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -94,31 +94,31 @@ pub mod CSINV_32_condsel {
     }
     impl CSINV_32_condsel {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            o2: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            o2: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                cond: cond.into(),
-                o2: o2.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Rm,
+                cond,
+                o2,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01011010100u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b0u32 << 11u32
-                    | u32::from(self.o2) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.o2.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -134,31 +134,31 @@ pub mod CSNEG_32_condsel {
     }
     impl CSNEG_32_condsel {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            o2: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            o2: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                cond: cond.into(),
-                o2: o2.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Rm,
+                cond,
+                o2,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01011010100u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b0u32 << 11u32
-                    | u32::from(self.o2) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.o2.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -174,31 +174,31 @@ pub mod CSEL_64_condsel {
     }
     impl CSEL_64_condsel {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            o2: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            o2: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                cond: cond.into(),
-                o2: o2.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Rm,
+                cond,
+                o2,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10011010100u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b0u32 << 11u32
-                    | u32::from(self.o2) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.o2.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -214,31 +214,31 @@ pub mod CSINC_64_condsel {
     }
     impl CSINC_64_condsel {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            o2: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            o2: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                cond: cond.into(),
-                o2: o2.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Rm,
+                cond,
+                o2,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10011010100u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b0u32 << 11u32
-                    | u32::from(self.o2) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.o2.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -254,31 +254,31 @@ pub mod CSINV_64_condsel {
     }
     impl CSINV_64_condsel {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            o2: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            o2: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                cond: cond.into(),
-                o2: o2.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Rm,
+                cond,
+                o2,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11011010100u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b0u32 << 11u32
-                    | u32::from(self.o2) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.o2.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -294,31 +294,31 @@ pub mod CSNEG_64_condsel {
     }
     impl CSNEG_64_condsel {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            cond: impl Into<::aarchmrs_types::BitValue<4>>,
-            o2: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            cond: ::aarchmrs_types::BitValue<4>,
+            o2: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                cond: cond.into(),
-                o2: o2.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Rm,
+                cond,
+                o2,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11011010100u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.cond) << 12u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.cond.into_inner() << 12u32
                     | 0b0u32 << 11u32
-                    | u32::from(self.o2) << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.o2.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

@@ -8,9 +8,13 @@
 pub struct InstructionCode(pub [u8; 4]);
 
 impl InstructionCode {
-    pub fn from_u32(value: u32) -> Self {
+    pub const fn from_u32(value: u32) -> Self {
         // B2.6.2 Instruction endianness
         // A64 instructions have a fixed length of 32 bits and are always little-endian.
         Self(value.to_le_bytes())
+    }
+
+    pub const fn unpack(self) -> u32 {
+        u32::from_be_bytes(self.0)
     }
 }

@@ -13,29 +13,24 @@ pub mod SADDLV_asimdall_only {
     }
     impl SADDLV_asimdall_only {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            size: ::aarchmrs_types::BitValue<2>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                size: size.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, size, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b001110u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b110000001110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -51,33 +46,33 @@ pub mod SMAXV_asimdall_only {
     }
     impl SMAXV_asimdall_only {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            op: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            size: ::aarchmrs_types::BitValue<2>,
+            op: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Q: Q.into(),
-                size: size.into(),
-                op: op.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Q,
+                size,
+                op,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b001110u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b11000u32 << 17u32
-                    | u32::from(self.op) << 16u32
+                    | self.op.into_inner() << 16u32
                     | 0b101010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -93,33 +88,33 @@ pub mod SMINV_asimdall_only {
     }
     impl SMINV_asimdall_only {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            op: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            size: ::aarchmrs_types::BitValue<2>,
+            op: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Q: Q.into(),
-                size: size.into(),
-                op: op.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Q,
+                size,
+                op,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b001110u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b11000u32 << 17u32
-                    | u32::from(self.op) << 16u32
+                    | self.op.into_inner() << 16u32
                     | 0b101010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -134,29 +129,24 @@ pub mod ADDV_asimdall_only {
     }
     impl ADDV_asimdall_only {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            size: ::aarchmrs_types::BitValue<2>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                size: size.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, size, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b001110u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b110001101110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -171,29 +161,24 @@ pub mod FMAXNMV_asimdall_only_H {
     }
     impl FMAXNMV_asimdall_only_H {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            o1: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                o1: o1.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, o1, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b001110u32 << 24u32
-                    | u32::from(self.o1) << 23u32
+                    | self.o1.into_inner() << 23u32
                     | 0b0110000110010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -208,29 +193,24 @@ pub mod FMAXV_asimdall_only_H {
     }
     impl FMAXV_asimdall_only_H {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            o1: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                o1: o1.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, o1, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b001110u32 << 24u32
-                    | u32::from(self.o1) << 23u32
+                    | self.o1.into_inner() << 23u32
                     | 0b0110000111110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -245,29 +225,24 @@ pub mod FMINNMV_asimdall_only_H {
     }
     impl FMINNMV_asimdall_only_H {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            o1: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                o1: o1.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, o1, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b001110u32 << 24u32
-                    | u32::from(self.o1) << 23u32
+                    | self.o1.into_inner() << 23u32
                     | 0b0110000110010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -282,29 +257,24 @@ pub mod FMINV_asimdall_only_H {
     }
     impl FMINV_asimdall_only_H {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            o1: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                o1: o1.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, o1, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b001110u32 << 24u32
-                    | u32::from(self.o1) << 23u32
+                    | self.o1.into_inner() << 23u32
                     | 0b0110000111110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -319,29 +289,24 @@ pub mod UADDLV_asimdall_only {
     }
     impl UADDLV_asimdall_only {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            size: ::aarchmrs_types::BitValue<2>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                size: size.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, size, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b101110u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b110000001110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -357,33 +322,33 @@ pub mod UMAXV_asimdall_only {
     }
     impl UMAXV_asimdall_only {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            op: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            size: ::aarchmrs_types::BitValue<2>,
+            op: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Q: Q.into(),
-                size: size.into(),
-                op: op.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Q,
+                size,
+                op,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b101110u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b11000u32 << 17u32
-                    | u32::from(self.op) << 16u32
+                    | self.op.into_inner() << 16u32
                     | 0b101010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -399,33 +364,33 @@ pub mod UMINV_asimdall_only {
     }
     impl UMINV_asimdall_only {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            size: impl Into<::aarchmrs_types::BitValue<2>>,
-            op: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            size: ::aarchmrs_types::BitValue<2>,
+            op: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
             Self {
-                Q: Q.into(),
-                size: size.into(),
-                op: op.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
+                Q,
+                size,
+                op,
+                Rn,
+                Rd,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b101110u32 << 24u32
-                    | u32::from(self.size) << 22u32
+                    | self.size.into_inner() << 22u32
                     | 0b11000u32 << 17u32
-                    | u32::from(self.op) << 16u32
+                    | self.op.into_inner() << 16u32
                     | 0b101010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -441,32 +406,26 @@ pub mod FMAXNMV_asimdall_only_SD {
     }
     impl FMAXNMV_asimdall_only_SD {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
-            sz: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            o1: ::aarchmrs_types::BitValue<1>,
+            sz: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                o1: o1.into(),
-                sz: sz.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, o1, sz, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b101110u32 << 24u32
-                    | u32::from(self.o1) << 23u32
-                    | u32::from(self.sz) << 22u32
+                    | self.o1.into_inner() << 23u32
+                    | self.sz.into_inner() << 22u32
                     | 0b110000110010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -482,32 +441,26 @@ pub mod FMAXV_asimdall_only_SD {
     }
     impl FMAXV_asimdall_only_SD {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
-            sz: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            o1: ::aarchmrs_types::BitValue<1>,
+            sz: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                o1: o1.into(),
-                sz: sz.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, o1, sz, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b101110u32 << 24u32
-                    | u32::from(self.o1) << 23u32
-                    | u32::from(self.sz) << 22u32
+                    | self.o1.into_inner() << 23u32
+                    | self.sz.into_inner() << 22u32
                     | 0b110000111110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -523,32 +476,26 @@ pub mod FMINNMV_asimdall_only_SD {
     }
     impl FMINNMV_asimdall_only_SD {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
-            sz: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            o1: ::aarchmrs_types::BitValue<1>,
+            sz: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                o1: o1.into(),
-                sz: sz.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, o1, sz, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b101110u32 << 24u32
-                    | u32::from(self.o1) << 23u32
-                    | u32::from(self.sz) << 22u32
+                    | self.o1.into_inner() << 23u32
+                    | self.sz.into_inner() << 22u32
                     | 0b110000110010u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }
@@ -564,32 +511,26 @@ pub mod FMINV_asimdall_only_SD {
     }
     impl FMINV_asimdall_only_SD {
         #[inline]
-        pub fn new(
-            Q: impl Into<::aarchmrs_types::BitValue<1>>,
-            o1: impl Into<::aarchmrs_types::BitValue<1>>,
-            sz: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Q: ::aarchmrs_types::BitValue<1>,
+            o1: ::aarchmrs_types::BitValue<1>,
+            sz: ::aarchmrs_types::BitValue<1>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Q: Q.into(),
-                o1: o1.into(),
-                sz: sz.into(),
-                Rn: Rn.into(),
-                Rd: Rd.into(),
-            }
+            Self { Q, o1, sz, Rn, Rd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0u32 << 31u32
-                    | u32::from(self.Q) << 30u32
+                    | self.Q.into_inner() << 30u32
                     | 0b101110u32 << 24u32
-                    | u32::from(self.o1) << 23u32
-                    | u32::from(self.sz) << 22u32
+                    | self.o1.into_inner() << 23u32
+                    | self.sz.into_inner() << 22u32
                     | 0b110000111110u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rd) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rd.into_inner() << 0u32,
             )
         }
     }

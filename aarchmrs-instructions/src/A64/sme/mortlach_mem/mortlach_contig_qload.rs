@@ -15,34 +15,34 @@ pub mod ld1q_za_p_rrr_ {
     }
     impl ld1q_za_p_rrr_ {
         #[inline]
-        pub fn new(
-            Rm: impl Into<::aarchmrs_types::BitValue<5>>,
-            V: impl Into<::aarchmrs_types::BitValue<1>>,
-            Rs: impl Into<::aarchmrs_types::BitValue<2>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            ZAt: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            Rm: ::aarchmrs_types::BitValue<5>,
+            V: ::aarchmrs_types::BitValue<1>,
+            Rs: ::aarchmrs_types::BitValue<2>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            ZAt: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                Rm: Rm.into(),
-                V: V.into(),
-                Rs: Rs.into(),
-                Pg: Pg.into(),
-                Rn: Rn.into(),
-                ZAt: ZAt.into(),
+                Rm,
+                V,
+                Rs,
+                Pg,
+                Rn,
+                ZAt,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11100001110u32 << 21u32
-                    | u32::from(self.Rm) << 16u32
-                    | u32::from(self.V) << 15u32
-                    | u32::from(self.Rs) << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Rn) << 5u32
+                    | self.Rm.into_inner() << 16u32
+                    | self.V.into_inner() << 15u32
+                    | self.Rs.into_inner() << 13u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Rn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.ZAt) << 0u32,
+                    | self.ZAt.into_inner() << 0u32,
             )
         }
     }

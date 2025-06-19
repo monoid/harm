@@ -12,26 +12,22 @@ pub mod sqcvtn_z_mz2_ {
     }
     impl sqcvtn_z_mz2_ {
         #[inline]
-        pub fn new(
-            U: impl Into<::aarchmrs_types::BitValue<1>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<4>>,
-            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            U: ::aarchmrs_types::BitValue<1>,
+            Zn: ::aarchmrs_types::BitValue<4>,
+            Zd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                U: U.into(),
-                Zn: Zn.into(),
-                Zd: Zd.into(),
-            }
+            Self { U, Zn, Zd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01000101001100010100u32 << 12u32
-                    | u32::from(self.U) << 11u32
+                    | self.U.into_inner() << 11u32
                     | 0b0u32 << 10u32
-                    | u32::from(self.Zn) << 6u32
+                    | self.Zn.into_inner() << 6u32
                     | 0b0u32 << 5u32
-                    | u32::from(self.Zd) << 0u32,
+                    | self.Zd.into_inner() << 0u32,
             )
         }
     }
@@ -44,22 +40,19 @@ pub mod sqcvtun_z_mz2_ {
     }
     impl sqcvtun_z_mz2_ {
         #[inline]
-        pub fn new(
-            Zn: impl Into<::aarchmrs_types::BitValue<4>>,
-            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            Zn: ::aarchmrs_types::BitValue<4>,
+            Zd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                Zn: Zn.into(),
-                Zd: Zd.into(),
-            }
+            Self { Zn, Zd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b0100010100110001010100u32 << 10u32
-                    | u32::from(self.Zn) << 6u32
+                    | self.Zn.into_inner() << 6u32
                     | 0b0u32 << 5u32
-                    | u32::from(self.Zd) << 0u32,
+                    | self.Zd.into_inner() << 0u32,
             )
         }
     }
@@ -73,26 +66,22 @@ pub mod uqcvtn_z_mz2_ {
     }
     impl uqcvtn_z_mz2_ {
         #[inline]
-        pub fn new(
-            U: impl Into<::aarchmrs_types::BitValue<1>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<4>>,
-            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            U: ::aarchmrs_types::BitValue<1>,
+            Zn: ::aarchmrs_types::BitValue<4>,
+            Zd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                U: U.into(),
-                Zn: Zn.into(),
-                Zd: Zd.into(),
-            }
+            Self { U, Zn, Zd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01000101001100010100u32 << 12u32
-                    | u32::from(self.U) << 11u32
+                    | self.U.into_inner() << 11u32
                     | 0b0u32 << 10u32
-                    | u32::from(self.Zn) << 6u32
+                    | self.Zn.into_inner() << 6u32
                     | 0b0u32 << 5u32
-                    | u32::from(self.Zd) << 0u32,
+                    | self.Zd.into_inner() << 0u32,
             )
         }
     }

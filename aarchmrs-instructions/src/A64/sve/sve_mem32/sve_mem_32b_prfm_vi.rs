@@ -13,29 +13,29 @@ pub mod prfb_i_p_ai_s {
     }
     impl prfb_i_p_ai_s {
         #[inline]
-        pub fn new(
-            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            prfop: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            imm5: ::aarchmrs_types::BitValue<5>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            prfop: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                imm5: imm5.into(),
-                Pg: Pg.into(),
-                Zn: Zn.into(),
-                prfop: prfop.into(),
+                imm5,
+                Pg,
+                Zn,
+                prfop,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10000100000u32 << 21u32
-                    | u32::from(self.imm5) << 16u32
+                    | self.imm5.into_inner() << 16u32
                     | 0b111u32 << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Zn) << 5u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Zn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.prfop) << 0u32,
+                    | self.prfop.into_inner() << 0u32,
             )
         }
     }
@@ -50,29 +50,29 @@ pub mod prfh_i_p_ai_s {
     }
     impl prfh_i_p_ai_s {
         #[inline]
-        pub fn new(
-            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            prfop: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            imm5: ::aarchmrs_types::BitValue<5>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            prfop: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                imm5: imm5.into(),
-                Pg: Pg.into(),
-                Zn: Zn.into(),
-                prfop: prfop.into(),
+                imm5,
+                Pg,
+                Zn,
+                prfop,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10000100100u32 << 21u32
-                    | u32::from(self.imm5) << 16u32
+                    | self.imm5.into_inner() << 16u32
                     | 0b111u32 << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Zn) << 5u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Zn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.prfop) << 0u32,
+                    | self.prfop.into_inner() << 0u32,
             )
         }
     }
@@ -87,29 +87,29 @@ pub mod prfw_i_p_ai_s {
     }
     impl prfw_i_p_ai_s {
         #[inline]
-        pub fn new(
-            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            prfop: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            imm5: ::aarchmrs_types::BitValue<5>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            prfop: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                imm5: imm5.into(),
-                Pg: Pg.into(),
-                Zn: Zn.into(),
-                prfop: prfop.into(),
+                imm5,
+                Pg,
+                Zn,
+                prfop,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10000101000u32 << 21u32
-                    | u32::from(self.imm5) << 16u32
+                    | self.imm5.into_inner() << 16u32
                     | 0b111u32 << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Zn) << 5u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Zn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.prfop) << 0u32,
+                    | self.prfop.into_inner() << 0u32,
             )
         }
     }
@@ -124,29 +124,29 @@ pub mod prfd_i_p_ai_s {
     }
     impl prfd_i_p_ai_s {
         #[inline]
-        pub fn new(
-            imm5: impl Into<::aarchmrs_types::BitValue<5>>,
-            Pg: impl Into<::aarchmrs_types::BitValue<3>>,
-            Zn: impl Into<::aarchmrs_types::BitValue<5>>,
-            prfop: impl Into<::aarchmrs_types::BitValue<4>>,
+        pub const fn new(
+            imm5: ::aarchmrs_types::BitValue<5>,
+            Pg: ::aarchmrs_types::BitValue<3>,
+            Zn: ::aarchmrs_types::BitValue<5>,
+            prfop: ::aarchmrs_types::BitValue<4>,
         ) -> Self {
             Self {
-                imm5: imm5.into(),
-                Pg: Pg.into(),
-                Zn: Zn.into(),
-                prfop: prfop.into(),
+                imm5,
+                Pg,
+                Zn,
+                prfop,
             }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10000101100u32 << 21u32
-                    | u32::from(self.imm5) << 16u32
+                    | self.imm5.into_inner() << 16u32
                     | 0b111u32 << 13u32
-                    | u32::from(self.Pg) << 10u32
-                    | u32::from(self.Zn) << 5u32
+                    | self.Pg.into_inner() << 10u32
+                    | self.Zn.into_inner() << 5u32
                     | 0b0u32 << 4u32
-                    | u32::from(self.prfop) << 0u32,
+                    | self.prfop.into_inner() << 0u32,
             )
         }
     }

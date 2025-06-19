@@ -12,25 +12,21 @@ pub mod STLUR_B_ldapstl_simd {
     }
     impl STLUR_B_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011101000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -44,25 +40,21 @@ pub mod LDAPUR_B_ldapstl_simd {
     }
     impl LDAPUR_B_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011101010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -76,25 +68,21 @@ pub mod STLUR_Q_ldapstl_simd {
     }
     impl STLUR_Q_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011101100u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -108,25 +96,21 @@ pub mod LDAPUR_Q_ldapstl_simd {
     }
     impl LDAPUR_Q_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00011101110u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -140,25 +124,21 @@ pub mod STLUR_H_ldapstl_simd {
     }
     impl STLUR_H_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01011101000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -172,25 +152,21 @@ pub mod LDAPUR_H_ldapstl_simd {
     }
     impl LDAPUR_H_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b01011101010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -204,25 +180,21 @@ pub mod STLUR_S_ldapstl_simd {
     }
     impl STLUR_S_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10011101000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -236,25 +208,21 @@ pub mod LDAPUR_S_ldapstl_simd {
     }
     impl LDAPUR_S_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b10011101010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -268,25 +236,21 @@ pub mod STLUR_D_ldapstl_simd {
     }
     impl STLUR_D_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11011101000u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }
@@ -300,25 +264,21 @@ pub mod LDAPUR_D_ldapstl_simd {
     }
     impl LDAPUR_D_ldapstl_simd {
         #[inline]
-        pub fn new(
-            imm9: impl Into<::aarchmrs_types::BitValue<9>>,
-            Rn: impl Into<::aarchmrs_types::BitValue<5>>,
-            Rt: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm9: ::aarchmrs_types::BitValue<9>,
+            Rn: ::aarchmrs_types::BitValue<5>,
+            Rt: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm9: imm9.into(),
-                Rn: Rn.into(),
-                Rt: Rt.into(),
-            }
+            Self { imm9, Rn, Rt }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b11011101010u32 << 21u32
-                    | u32::from(self.imm9) << 12u32
+                    | self.imm9.into_inner() << 12u32
                     | 0b10u32 << 10u32
-                    | u32::from(self.Rn) << 5u32
-                    | u32::from(self.Rt) << 0u32,
+                    | self.Rn.into_inner() << 5u32
+                    | self.Rt.into_inner() << 0u32,
             )
         }
     }

@@ -11,21 +11,18 @@ pub mod dupm_z_i_ {
     }
     impl dupm_z_i_ {
         #[inline]
-        pub fn new(
-            imm13: impl Into<::aarchmrs_types::BitValue<13>>,
-            Zd: impl Into<::aarchmrs_types::BitValue<5>>,
+        pub const fn new(
+            imm13: ::aarchmrs_types::BitValue<13>,
+            Zd: ::aarchmrs_types::BitValue<5>,
         ) -> Self {
-            Self {
-                imm13: imm13.into(),
-                Zd: Zd.into(),
-            }
+            Self { imm13, Zd }
         }
         #[inline]
-        pub fn build(&self) -> ::aarchmrs_types::InstructionCode {
+        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
             ::aarchmrs_types::InstructionCode::from_u32(
                 0b00000101110000u32 << 18u32
-                    | u32::from(self.imm13) << 5u32
-                    | u32::from(self.Zd) << 0u32,
+                    | self.imm13.into_inner() << 5u32
+                    | self.Zd.into_inner() << 0u32,
             )
         }
     }
