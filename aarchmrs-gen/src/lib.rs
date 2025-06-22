@@ -143,8 +143,8 @@ fn walk_instruction<'a, 'b: 'a>(
 
     // TODO is it true that instruction's children are only aliases?
     let stack2 = StackGuard::push(stack, &instruction.encoding);
-    let inst_bits = crate::encoding::flatten_encodeset(stack2.data);
-    let inst_func = crate::generation::gen_constructor(inst_name, &inst_bits);
+    let (inst_bits, should_be) = crate::encoding::flatten_encodeset(stack2.data);
+    let inst_func = crate::generation::gen_constructor(inst_name, &inst_bits, should_be.mask);
 
     let inst_id = quote::format_ident!("{inst_name}");
     Ok(quote::quote! {
