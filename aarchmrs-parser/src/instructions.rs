@@ -109,8 +109,8 @@ impl IntoIterator for Range {
 
 #[derive(Debug, Deserialize)]
 pub struct Value {
-    // there is a "meaning" field, but it is always null.
     pub value: String,
+    // there is also a "meaning" field, but it is always null.
 }
 
 impl Value {

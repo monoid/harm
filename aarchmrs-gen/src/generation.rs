@@ -9,19 +9,38 @@ use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
 use syn::{Expr, Pat, PatIdent, PatType, parse_quote};
 
-pub fn gen_constructor(name: &str, desc: &[Bits]) -> TokenStream {
+struct Masks {
+    mask: u32,
+    opcode: u32,
+}
+
+pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenStream {
     let args: Vec<_> = gen_constructor_args(desc).collect();
     let (fields, inits) = gen_fields(desc);
     let expr = gen_expr(desc);
 
-    let fn_name = format_ident!("{}", name);
+    let Masks { mask, opcode } = gen_mask(desc);
+
+    let fmt_name = format_ident!("{}", name);
+    let mask: syn::LitInt = syn::parse_str(&format!("0b{:0w$b}u32", mask, w = 32))
+        .expect("internal error: malformed mask");
+    let opcode: syn::LitInt = syn::parse_str(&format!("0b{:0w$b}u32", opcode, w = 32))
+        .expect("internal error: malformed opcode");
+    let should_be_mask: syn::LitInt =
+        syn::parse_str(&format!("0b{:0w$b}u32", should_be_mask, w = 32))
+            .expect("internal error: malformed should_be_mask");
     let expanded = quote! {
+        pub const OPCODE_MASK: u32 = #mask;
+        pub const OPCODE: u32 = #opcode;
+        pub const SHOULD_BE_MASK: u32 = #should_be_mask;
+        pub const NAME: &str = #name;
+
         #[derive(Copy, Clone, Debug, Default)]
-        pub struct #fn_name {
+        pub struct #fmt_name {
             #(#fields),*
         }
 
-        impl #fn_name {
+        impl #fmt_name {
             #[inline]
             pub const fn new(#(#args),*) -> Self {
                 Self { #(#inits),* }
@@ -32,6 +51,31 @@ pub fn gen_constructor(name: &str, desc: &[Bits]) -> TokenStream {
                 ::aarchmrs_types::InstructionCode::from_u32(#expr)
             }
 
+            #[inline]
+            pub const fn opcode_mask() -> u32 {
+                self::OPCODE_MASK
+            }
+
+            #[inline]
+            pub const fn opcode() -> u32 {
+                self::OPCODE
+            }
+
+            #[inline]
+            pub const fn should_be_mask() -> u32 {
+                self::SHOULD_BE_MASK
+            }
+
+            #[inline]
+            pub const fn match_opcode(opcode: u32) -> bool {
+                let opcode = opcode & self::OPCODE_MASK;
+                opcode == self::OPCODE
+            }
+
+            #[inline]
+            pub const fn name() -> &'static str {
+                self::NAME
+            }
         }
     };
 
@@ -100,6 +144,26 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
         .unwrap_or(parse_quote!(0))
 }
 
+fn gen_mask(desc: &[Bits]) -> Masks {
+    let mut mask = 0u32;
+    let mut encoding = 0u32;
+
+    for bits in desc.iter() {
+        match bits {
+            Bits::Bit { bits, range } => {
+                eprintln!("width: {}, start: {}", range.width, range.start);
+                mask |= 1u32.unbounded_shl(range.width).wrapping_sub(1) << range.start;
+                encoding |= bits << range.start;
+            }
+            Bits::Field { .. } => {}
+        }
+    }
+    Masks {
+        mask,
+        opcode: encoding,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use aarchmrs_parser::instructions::Range;
@@ -124,10 +188,14 @@ mod tests {
             },
         }];
 
-        let code = pretty(gen_constructor("NOP_HI_hints", &nop_bits));
+        let code = pretty(gen_constructor("NOP_HI_hints", &nop_bits, 0));
         assert_eq!(
             code,
             concat!(
+                "pub const OPCODE_MASK: u32 = 0b11111111111111111111111111111111u32;\n",
+                "pub const OPCODE: u32 = 0b11010101000000110010000000011111u32;\n",
+                "pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;\n",
+                "pub const NAME: &str = \"NOP_HI_hints\";\n",
                 "#[derive(Copy, Clone, Debug, Default)]\n",
                 "pub struct NOP_HI_hints {}\n",
                 "impl NOP_HI_hints {\n",
@@ -140,6 +208,27 @@ mod tests {
                 "        ::aarchmrs_types::InstructionCode::from_u32(\n",
                 "            0b11010101000000110010000000011111u32 << 0u32,\n",
                 "        )\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn opcode_mask() -> u32 {\n",
+                "        self::OPCODE_MASK\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn opcode() -> u32 {\n",
+                "        self::OPCODE\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn should_be_mask() -> u32 {\n",
+                "        self::SHOULD_BE_MASK\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn match_opcode(opcode: u32) -> bool {\n",
+                "        let opcode = opcode & self::OPCODE_MASK;\n",
+                "        opcode == self::OPCODE\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn name() -> &'static str {\n",
+                "        self::NAME\n",
                 "    }\n",
                 "}\n",
             )
@@ -195,12 +284,16 @@ mod tests {
             },
         ];
 
-        let code = gen_constructor("ADD_64_addsub_shift", &nop_bits);
+        let code = gen_constructor("ADD_64_addsub_shift", &nop_bits, 0);
         let code = pretty(code);
 
         assert_eq!(
             code,
             concat!(
+                "pub const OPCODE_MASK: u32 = 0b01111111111000000000000000000000u32;\n",
+                "pub const OPCODE: u32 = 0b00001011001000000000000000000000u32;\n",
+                "pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;\n",
+                "pub const NAME: &str = \"ADD_64_addsub_shift\";\n",
                 "#[derive(Copy, Clone, Debug, Default)]\n",
                 "pub struct ADD_64_addsub_shift {\n",
                 "    pub s: ::aarchmrs_types::BitValue<1>,\n",
@@ -230,6 +323,27 @@ mod tests {
                 "                | self.im3.into_inner() << 10u32 | self.Rn.into_inner() << 5u32\n",
                 "                | self.Rd.into_inner() << 0u32,\n",
                 "        )\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn opcode_mask() -> u32 {\n",
+                "        self::OPCODE_MASK\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn opcode() -> u32 {\n",
+                "        self::OPCODE\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn should_be_mask() -> u32 {\n",
+                "        self::SHOULD_BE_MASK\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn match_opcode(opcode: u32) -> bool {\n",
+                "        let opcode = opcode & self::OPCODE_MASK;\n",
+                "        opcode == self::OPCODE\n",
+                "    }\n",
+                "    #[inline]\n",
+                "    pub const fn name() -> &'static str {\n",
+                "        self::NAME\n",
                 "    }\n",
                 "}\n",
             )

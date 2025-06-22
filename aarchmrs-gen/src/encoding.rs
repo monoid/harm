@@ -11,27 +11,45 @@ const INSTRUCTION_BIT_WIDTH: usize = 32;
 
 type InstructionBits = [Option<Bits>; INSTRUCTION_BIT_WIDTH];
 
+#[derive(Debug, Clone, Copy)]
+pub struct ShouldBeBits {
+    pub mask: u32,
+}
+
 /// This function combines the definitions from root (first element) to child (last element),
 /// producing a new `Encodeset`.
 ///
 /// The AARCHMRS provides tree-like definition of Encodesets where a parent node defines
 /// common fields, and a child defines more specific fields (sometimes overriding parent's
 /// bits).
-pub fn flatten_encodeset(encodings: &[&Encodeset]) -> Vec<Bits> {
+pub fn flatten_encodeset(encodings: &[&Encodeset]) -> (Vec<Bits>, ShouldBeBits) {
     use aarchmrs_parser::instructions::Encode;
 
     let mut instruction_bits: InstructionBits = [const { None }; INSTRUCTION_BIT_WIDTH];
+    let mut should_be_mask = 0;
 
     for encset in encodings {
         for enc in *encset {
             match enc {
-                Encode::Field(field) => fill_field(&mut instruction_bits, field),
-                Encode::Bits(bits) => fill_bits(&mut instruction_bits, bits),
+                Encode::Field(field) => {
+                    fill_field(&mut instruction_bits, field);
+                    should_be_mask |= get_should_be_mask(&field.should_be_mask, field.range.start);
+                }
+                Encode::Bits(bits) => {
+                    fill_bits(&mut instruction_bits, bits);
+                    should_be_mask |= get_should_be_mask(&bits.should_be_mask, bits.range.start);
+                }
             }
         }
     }
 
-    regroup_back(&instruction_bits)
+    let bits = regroup_back(&instruction_bits);
+    (
+        bits,
+        ShouldBeBits {
+            mask: should_be_mask,
+        },
+    )
 }
 
 fn regroup_back(instruction_bits: &InstructionBits) -> Vec<Bits> {
@@ -142,6 +160,11 @@ fn fill_field(
             },
         });
     }
+}
+
+fn get_should_be_mask(value: &aarchmrs_parser::instructions::Value, offset: u32) -> u32 {
+    let str_value = value.as_str().expect("should_be_mask is not a string");
+    u32::from_str_radix(str_value, 2).expect("internal error: malformed should_be_mask") << offset
 }
 
 #[derive(Debug, Clone)]
