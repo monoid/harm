@@ -4,6 +4,10 @@
  */
 
 pub mod FCVTNS_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111011111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01011110011110011010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTNS_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTNS_asisdmiscfp16_R {
         pub o2: ::aarchmrs_types::BitValue<1>,
@@ -33,9 +37,34 @@ pub mod FCVTNS_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTMS_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111011111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01011110011110011010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTMS_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTMS_asisdmiscfp16_R {
         pub o2: ::aarchmrs_types::BitValue<1>,
@@ -65,9 +94,34 @@ pub mod FCVTMS_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTAS_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01011110011110011100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTAS_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTAS_asisdmiscfp16_R {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -89,9 +143,34 @@ pub mod FCVTAS_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SCVTF_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01011110011110011101100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SCVTF_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SCVTF_asisdmiscfp16_R {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -113,9 +192,34 @@ pub mod SCVTF_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCMGT_asisdmiscfp16_FZ {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01011110111110001100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCMGT_asisdmiscfp16_FZ";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCMGT_asisdmiscfp16_FZ {
         pub op: ::aarchmrs_types::BitValue<1>,
@@ -141,9 +245,34 @@ pub mod FCMGT_asisdmiscfp16_FZ {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCMEQ_asisdmiscfp16_FZ {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01011110111110001100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCMEQ_asisdmiscfp16_FZ";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCMEQ_asisdmiscfp16_FZ {
         pub op: ::aarchmrs_types::BitValue<1>,
@@ -169,9 +298,34 @@ pub mod FCMEQ_asisdmiscfp16_FZ {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCMLT_asisdmiscfp16_FZ {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01011110111110001110100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCMLT_asisdmiscfp16_FZ";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCMLT_asisdmiscfp16_FZ {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -193,9 +347,34 @@ pub mod FCMLT_asisdmiscfp16_FZ {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTPS_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111011111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01011110011110011010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTPS_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTPS_asisdmiscfp16_R {
         pub o2: ::aarchmrs_types::BitValue<1>,
@@ -225,9 +404,34 @@ pub mod FCVTPS_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTZS_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111011111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01011110011110011010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTZS_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTZS_asisdmiscfp16_R {
         pub o2: ::aarchmrs_types::BitValue<1>,
@@ -257,9 +461,34 @@ pub mod FCVTZS_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FRECPE_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01011110111110011101100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FRECPE_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FRECPE_asisdmiscfp16_R {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -281,9 +510,34 @@ pub mod FRECPE_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FRECPX_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01011110111110011111100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FRECPX_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FRECPX_asisdmiscfp16_R {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -305,9 +559,34 @@ pub mod FRECPX_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTNU_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111011111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01111110011110011010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTNU_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTNU_asisdmiscfp16_R {
         pub o2: ::aarchmrs_types::BitValue<1>,
@@ -337,9 +616,34 @@ pub mod FCVTNU_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTMU_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111011111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01111110011110011010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTMU_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTMU_asisdmiscfp16_R {
         pub o2: ::aarchmrs_types::BitValue<1>,
@@ -369,9 +673,34 @@ pub mod FCVTMU_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTAU_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01111110011110011100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTAU_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTAU_asisdmiscfp16_R {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -393,9 +722,34 @@ pub mod FCVTAU_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod UCVTF_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01111110011110011101100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "UCVTF_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UCVTF_asisdmiscfp16_R {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -417,9 +771,34 @@ pub mod UCVTF_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCMGE_asisdmiscfp16_FZ {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01111110111110001100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCMGE_asisdmiscfp16_FZ";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCMGE_asisdmiscfp16_FZ {
         pub op: ::aarchmrs_types::BitValue<1>,
@@ -445,9 +824,34 @@ pub mod FCMGE_asisdmiscfp16_FZ {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCMLE_asisdmiscfp16_FZ {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01111110111110001100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCMLE_asisdmiscfp16_FZ";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCMLE_asisdmiscfp16_FZ {
         pub op: ::aarchmrs_types::BitValue<1>,
@@ -473,9 +877,34 @@ pub mod FCMLE_asisdmiscfp16_FZ {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTPU_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111011111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01111110011110011010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTPU_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTPU_asisdmiscfp16_R {
         pub o2: ::aarchmrs_types::BitValue<1>,
@@ -505,9 +934,34 @@ pub mod FCVTPU_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCVTZU_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111011111111110110000000000u32;
+    pub const OPCODE: u32 = 0b01111110011110011010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCVTZU_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCVTZU_asisdmiscfp16_R {
         pub o2: ::aarchmrs_types::BitValue<1>,
@@ -537,9 +991,34 @@ pub mod FCVTZU_asisdmiscfp16_R {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FRSQRTE_asisdmiscfp16_R {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01111110111110011101100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FRSQRTE_asisdmiscfp16_R";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FRSQRTE_asisdmiscfp16_R {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -560,6 +1039,27 @@ pub mod FRSQRTE_asisdmiscfp16_R {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

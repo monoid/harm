@@ -4,6 +4,10 @@
  */
 
 pub mod SADDLV_asimdall_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110001100000011100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SADDLV_asimdall_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SADDLV_asimdall_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -33,9 +37,34 @@ pub mod SADDLV_asimdall_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SMAXV_asimdall_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001111101111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110001100001010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SMAXV_asimdall_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SMAXV_asimdall_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -75,9 +104,34 @@ pub mod SMAXV_asimdall_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SMINV_asimdall_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001111101111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110001100001010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SMINV_asimdall_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SMINV_asimdall_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -117,9 +171,34 @@ pub mod SMINV_asimdall_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ADDV_asimdall_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110001100011011100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ADDV_asimdall_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ADDV_asimdall_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -149,9 +228,34 @@ pub mod ADDV_asimdall_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAXNMV_asimdall_only_H {
+    pub const OPCODE_MASK: u32 = 0b10111111011111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110001100001100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAXNMV_asimdall_only_H";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAXNMV_asimdall_only_H {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -181,9 +285,34 @@ pub mod FMAXNMV_asimdall_only_H {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAXV_asimdall_only_H {
+    pub const OPCODE_MASK: u32 = 0b10111111011111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110001100001111100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAXV_asimdall_only_H";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAXV_asimdall_only_H {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -213,9 +342,34 @@ pub mod FMAXV_asimdall_only_H {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMINNMV_asimdall_only_H {
+    pub const OPCODE_MASK: u32 = 0b10111111011111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110001100001100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMINNMV_asimdall_only_H";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMINNMV_asimdall_only_H {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -245,9 +399,34 @@ pub mod FMINNMV_asimdall_only_H {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMINV_asimdall_only_H {
+    pub const OPCODE_MASK: u32 = 0b10111111011111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110001100001111100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMINV_asimdall_only_H";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMINV_asimdall_only_H {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -277,9 +456,34 @@ pub mod FMINV_asimdall_only_H {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod UADDLV_asimdall_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00101110001100000011100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "UADDLV_asimdall_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UADDLV_asimdall_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -309,9 +513,34 @@ pub mod UADDLV_asimdall_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod UMAXV_asimdall_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001111101111110000000000u32;
+    pub const OPCODE: u32 = 0b00101110001100001010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "UMAXV_asimdall_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UMAXV_asimdall_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -351,9 +580,34 @@ pub mod UMAXV_asimdall_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod UMINV_asimdall_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001111101111110000000000u32;
+    pub const OPCODE: u32 = 0b00101110001100001010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "UMINV_asimdall_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UMINV_asimdall_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -393,9 +647,34 @@ pub mod UMINV_asimdall_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAXNMV_asimdall_only_SD {
+    pub const OPCODE_MASK: u32 = 0b10111111001111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00101110001100001100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAXNMV_asimdall_only_SD";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAXNMV_asimdall_only_SD {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -428,9 +707,34 @@ pub mod FMAXNMV_asimdall_only_SD {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAXV_asimdall_only_SD {
+    pub const OPCODE_MASK: u32 = 0b10111111001111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00101110001100001111100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAXV_asimdall_only_SD";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAXV_asimdall_only_SD {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -463,9 +767,34 @@ pub mod FMAXV_asimdall_only_SD {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMINNMV_asimdall_only_SD {
+    pub const OPCODE_MASK: u32 = 0b10111111001111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00101110001100001100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMINNMV_asimdall_only_SD";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMINNMV_asimdall_only_SD {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -498,9 +827,34 @@ pub mod FMINNMV_asimdall_only_SD {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMINV_asimdall_only_SD {
+    pub const OPCODE_MASK: u32 = 0b10111111001111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00101110001100001111100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMINV_asimdall_only_SD";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMINV_asimdall_only_SD {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -532,6 +886,27 @@ pub mod FMINV_asimdall_only_SD {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

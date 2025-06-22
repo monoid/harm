@@ -4,6 +4,10 @@
  */
 
 pub mod CAST_C64_comswap_unpriv {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b11001001100000000111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CAST_C64_comswap_unpriv";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CAST_C64_comswap_unpriv {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -29,9 +33,34 @@ pub mod CAST_C64_comswap_unpriv {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CASLT_C64_comswap_unpriv {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b11001001100000001111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CASLT_C64_comswap_unpriv";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CASLT_C64_comswap_unpriv {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -57,9 +86,34 @@ pub mod CASLT_C64_comswap_unpriv {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CASAT_C64_comswap_unpriv {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b11001001110000000111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CASAT_C64_comswap_unpriv";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CASAT_C64_comswap_unpriv {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -85,9 +139,34 @@ pub mod CASAT_C64_comswap_unpriv {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CASALT_C64_comswap_unpriv {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b11001001110000001111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CASALT_C64_comswap_unpriv";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CASALT_C64_comswap_unpriv {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -112,6 +191,27 @@ pub mod CASALT_C64_comswap_unpriv {
                     | self.Rn.into_inner() << 5u32
                     | self.Rt.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

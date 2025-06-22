@@ -4,6 +4,10 @@
  */
 
 pub mod ADD_32_addsub_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00001011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ADD_32_addsub_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ADD_32_addsub_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -41,9 +45,34 @@ pub mod ADD_32_addsub_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ADDS_32_addsub_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00101011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ADDS_32_addsub_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ADDS_32_addsub_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -81,9 +110,34 @@ pub mod ADDS_32_addsub_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SUB_32_addsub_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01001011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SUB_32_addsub_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SUB_32_addsub_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -121,9 +175,34 @@ pub mod SUB_32_addsub_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SUBS_32_addsub_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01101011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SUBS_32_addsub_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SUBS_32_addsub_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -161,9 +240,34 @@ pub mod SUBS_32_addsub_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ADD_64_addsub_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10001011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ADD_64_addsub_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ADD_64_addsub_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -201,9 +305,34 @@ pub mod ADD_64_addsub_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ADDS_64_addsub_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10101011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ADDS_64_addsub_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ADDS_64_addsub_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -241,9 +370,34 @@ pub mod ADDS_64_addsub_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SUB_64_addsub_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11001011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SUB_64_addsub_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SUB_64_addsub_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -281,9 +435,34 @@ pub mod SUB_64_addsub_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SUBS_64_addsub_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11101011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SUBS_64_addsub_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SUBS_64_addsub_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -320,6 +499,27 @@ pub mod SUBS_64_addsub_shift {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

@@ -4,6 +4,10 @@
  */
 
 pub mod sqincp_r_p_r_sx {
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111111000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010001000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "sqincp_r_p_r_sx";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct sqincp_r_p_r_sx {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -29,9 +33,34 @@ pub mod sqincp_r_p_r_sx {
                     | self.Rdn.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod uqincp_r_p_r_uw {
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111111000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010011000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "uqincp_r_p_r_uw";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct uqincp_r_p_r_uw {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -57,9 +86,34 @@ pub mod uqincp_r_p_r_uw {
                     | self.Rdn.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod sqdecp_r_p_r_sx {
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111111000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010101000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "sqdecp_r_p_r_sx";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct sqdecp_r_p_r_sx {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -85,9 +139,34 @@ pub mod sqdecp_r_p_r_sx {
                     | self.Rdn.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod uqdecp_r_p_r_uw {
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111111000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010111000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "uqdecp_r_p_r_uw";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct uqdecp_r_p_r_uw {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -113,9 +192,34 @@ pub mod uqdecp_r_p_r_uw {
                     | self.Rdn.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod sqincp_r_p_r_x {
+    pub const OPCODE_MASK: u32 = 0b11111111001111101111111000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010001000110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "sqincp_r_p_r_x";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct sqincp_r_p_r_x {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -145,9 +249,34 @@ pub mod sqincp_r_p_r_x {
                     | self.Rdn.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod sqdecp_r_p_r_x {
+    pub const OPCODE_MASK: u32 = 0b11111111001111101111111000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010101000110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "sqdecp_r_p_r_x";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct sqdecp_r_p_r_x {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -177,9 +306,34 @@ pub mod sqdecp_r_p_r_x {
                     | self.Rdn.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod uqincp_r_p_r_x {
+    pub const OPCODE_MASK: u32 = 0b11111111001111101111111000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010001000110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "uqincp_r_p_r_x";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct uqincp_r_p_r_x {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -209,9 +363,34 @@ pub mod uqincp_r_p_r_x {
                     | self.Rdn.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod uqdecp_r_p_r_x {
+    pub const OPCODE_MASK: u32 = 0b11111111001111101111111000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010101000110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "uqdecp_r_p_r_x";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct uqdecp_r_p_r_x {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -240,6 +419,27 @@ pub mod uqdecp_r_p_r_x {
                     | self.Pm.into_inner() << 5u32
                     | self.Rdn.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

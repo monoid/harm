@@ -4,6 +4,10 @@
  */
 
 pub mod TBL_asimdtbl_L1_1 {
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TBL_asimdtbl_L1_1";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TBL_asimdtbl_L1_1 {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -33,9 +37,34 @@ pub mod TBL_asimdtbl_L1_1 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TBX_asimdtbl_L1_1 {
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000001000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TBX_asimdtbl_L1_1";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TBX_asimdtbl_L1_1 {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -65,9 +94,34 @@ pub mod TBX_asimdtbl_L1_1 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TBL_asimdtbl_L2_2 {
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000010000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TBL_asimdtbl_L2_2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TBL_asimdtbl_L2_2 {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -97,9 +151,34 @@ pub mod TBL_asimdtbl_L2_2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TBX_asimdtbl_L2_2 {
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000011000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TBX_asimdtbl_L2_2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TBX_asimdtbl_L2_2 {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -129,9 +208,34 @@ pub mod TBX_asimdtbl_L2_2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TBL_asimdtbl_L3_3 {
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000100000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TBL_asimdtbl_L3_3";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TBL_asimdtbl_L3_3 {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -161,9 +265,34 @@ pub mod TBL_asimdtbl_L3_3 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TBX_asimdtbl_L3_3 {
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000101000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TBX_asimdtbl_L3_3";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TBX_asimdtbl_L3_3 {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -193,9 +322,34 @@ pub mod TBX_asimdtbl_L3_3 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TBL_asimdtbl_L4_4 {
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TBL_asimdtbl_L4_4";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TBL_asimdtbl_L4_4 {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -225,9 +379,34 @@ pub mod TBL_asimdtbl_L4_4 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TBX_asimdtbl_L4_4 {
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000111000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TBX_asimdtbl_L4_4";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TBX_asimdtbl_L4_4 {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -257,9 +436,34 @@ pub mod TBX_asimdtbl_L4_4 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LUTI4_asimdtbl_L7 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001001110000000000u32;
+    pub const OPCODE: u32 = 0b01001110010000000001000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LUTI4_asimdtbl_L7";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LUTI4_asimdtbl_L7 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -289,9 +493,34 @@ pub mod LUTI4_asimdtbl_L7 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LUTI4_asimdtbl_L5 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001011110000000000u32;
+    pub const OPCODE: u32 = 0b01001110010000000010000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LUTI4_asimdtbl_L5";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LUTI4_asimdtbl_L5 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -321,9 +550,34 @@ pub mod LUTI4_asimdtbl_L5 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LUTI2_asimdtbl_L5 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001001110000000000u32;
+    pub const OPCODE: u32 = 0b01001110100000000001000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LUTI2_asimdtbl_L5";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LUTI2_asimdtbl_L5 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -353,9 +607,34 @@ pub mod LUTI2_asimdtbl_L5 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LUTI2_asimdtbl_L6 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001000110000000000u32;
+    pub const OPCODE: u32 = 0b01001110110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LUTI2_asimdtbl_L6";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LUTI2_asimdtbl_L6 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -393,6 +672,27 @@ pub mod LUTI2_asimdtbl_L6 {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

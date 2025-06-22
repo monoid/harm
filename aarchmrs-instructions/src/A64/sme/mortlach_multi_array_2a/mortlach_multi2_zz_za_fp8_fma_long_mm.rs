@@ -4,6 +4,10 @@
  */
 
 pub mod fmlal_za_z8z8w_2x2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000011001110000111100u32;
+    pub const OPCODE: u32 = 0b11000001101000000000100000100000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "fmlal_za_z8z8w_2x2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct fmlal_za_z8z8w_2x2 {
         pub Zm: ::aarchmrs_types::BitValue<4>,
@@ -33,6 +37,27 @@ pub mod fmlal_za_z8z8w_2x2 {
                     | 0b1000u32 << 2u32
                     | self.off2.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }
