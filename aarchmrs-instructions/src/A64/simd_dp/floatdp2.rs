@@ -4,6 +4,10 @@
  */
 
 pub mod FMUL_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMUL_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMUL_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -32,9 +36,34 @@ pub mod FMUL_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FDIV_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000001100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FDIV_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FDIV_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -60,9 +89,34 @@ pub mod FDIV_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FADD_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FADD_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FADD_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -92,9 +146,34 @@ pub mod FADD_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FSUB_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FSUB_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FSUB_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -124,9 +203,34 @@ pub mod FSUB_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAX_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAX_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAX_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -156,9 +260,34 @@ pub mod FMAX_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMIN_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMIN_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMIN_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -188,9 +317,34 @@ pub mod FMIN_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAXNM_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAXNM_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAXNM_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -220,9 +374,34 @@ pub mod FMAXNM_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMINNM_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMINNM_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMINNM_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -252,9 +431,34 @@ pub mod FMINNM_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FNMUL_S_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FNMUL_S_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FNMUL_S_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -283,9 +487,34 @@ pub mod FNMUL_S_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMUL_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMUL_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMUL_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -314,9 +543,34 @@ pub mod FMUL_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FDIV_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000001100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FDIV_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FDIV_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -342,9 +596,34 @@ pub mod FDIV_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FADD_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FADD_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FADD_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -374,9 +653,34 @@ pub mod FADD_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FSUB_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FSUB_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FSUB_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -406,9 +710,34 @@ pub mod FSUB_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAX_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAX_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAX_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -438,9 +767,34 @@ pub mod FMAX_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMIN_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMIN_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMIN_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -470,9 +824,34 @@ pub mod FMIN_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAXNM_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAXNM_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAXNM_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -502,9 +881,34 @@ pub mod FMAXNM_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMINNM_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMINNM_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMINNM_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -534,9 +938,34 @@ pub mod FMINNM_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FNMUL_D_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FNMUL_D_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FNMUL_D_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -565,9 +994,34 @@ pub mod FNMUL_D_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMUL_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMUL_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMUL_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -596,9 +1050,34 @@ pub mod FMUL_H_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FDIV_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000001100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FDIV_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FDIV_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -624,9 +1103,34 @@ pub mod FDIV_H_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FADD_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FADD_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FADD_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -656,9 +1160,34 @@ pub mod FADD_H_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FSUB_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FSUB_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FSUB_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -688,9 +1217,34 @@ pub mod FSUB_H_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAX_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAX_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAX_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -720,9 +1274,34 @@ pub mod FMAX_H_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMIN_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMIN_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMIN_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -752,9 +1331,34 @@ pub mod FMIN_H_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMAXNM_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMAXNM_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMAXNM_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -784,9 +1388,34 @@ pub mod FMAXNM_H_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FMINNM_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000100100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FMINNM_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FMINNM_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -816,9 +1445,34 @@ pub mod FMINNM_H_floatdp2 {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FNMUL_H_floatdp2 {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000000100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FNMUL_H_floatdp2";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FNMUL_H_floatdp2 {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -846,6 +1500,27 @@ pub mod FNMUL_H_floatdp2 {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

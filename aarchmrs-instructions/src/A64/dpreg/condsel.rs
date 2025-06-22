@@ -4,6 +4,10 @@
  */
 
 pub mod CSEL_32_condsel {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b00011010100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CSEL_32_condsel";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CSEL_32_condsel {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -41,9 +45,34 @@ pub mod CSEL_32_condsel {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CSINC_32_condsel {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b00011010100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CSINC_32_condsel";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CSINC_32_condsel {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -81,9 +110,34 @@ pub mod CSINC_32_condsel {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CSINV_32_condsel {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b01011010100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CSINV_32_condsel";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CSINV_32_condsel {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -121,9 +175,34 @@ pub mod CSINV_32_condsel {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CSNEG_32_condsel {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b01011010100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CSNEG_32_condsel";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CSNEG_32_condsel {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -161,9 +240,34 @@ pub mod CSNEG_32_condsel {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CSEL_64_condsel {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b10011010100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CSEL_64_condsel";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CSEL_64_condsel {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -201,9 +305,34 @@ pub mod CSEL_64_condsel {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CSINC_64_condsel {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b10011010100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CSINC_64_condsel";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CSINC_64_condsel {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -241,9 +370,34 @@ pub mod CSINC_64_condsel {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CSINV_64_condsel {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b11011010100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CSINV_64_condsel";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CSINV_64_condsel {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -281,9 +435,34 @@ pub mod CSINV_64_condsel {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CSNEG_64_condsel {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b11011010100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CSNEG_64_condsel";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CSNEG_64_condsel {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -320,6 +499,27 @@ pub mod CSNEG_64_condsel {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

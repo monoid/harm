@@ -4,6 +4,10 @@
  */
 
 pub mod fmla_za_zzi_d4xi {
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100001101000u32;
+    pub const OPCODE: u32 = 0b11000001110100001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "fmla_za_zzi_d4xi";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct fmla_za_zzi_d4xi {
         pub Zm: ::aarchmrs_types::BitValue<4>,
@@ -48,9 +52,34 @@ pub mod fmla_za_zzi_d4xi {
                     | self.off3.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod sdot_za_zzi_d4xi {
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100001101000u32;
+    pub const OPCODE: u32 = 0b11000001110100001000000000001000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "sdot_za_zzi_d4xi";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct sdot_za_zzi_d4xi {
         pub Zm: ::aarchmrs_types::BitValue<4>,
@@ -95,9 +124,34 @@ pub mod sdot_za_zzi_d4xi {
                     | self.off3.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod svdot_za_zzi_d4xi {
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100001101000u32;
+    pub const OPCODE: u32 = 0b11000001110100001000100000001000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "svdot_za_zzi_d4xi";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct svdot_za_zzi_d4xi {
         pub Zm: ::aarchmrs_types::BitValue<4>,
@@ -142,9 +196,34 @@ pub mod svdot_za_zzi_d4xi {
                     | self.off3.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod fmls_za_zzi_d4xi {
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100001101000u32;
+    pub const OPCODE: u32 = 0b11000001110100001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "fmls_za_zzi_d4xi";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct fmls_za_zzi_d4xi {
         pub Zm: ::aarchmrs_types::BitValue<4>,
@@ -189,9 +268,34 @@ pub mod fmls_za_zzi_d4xi {
                     | self.off3.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod udot_za_zzi_d4xi {
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100001101000u32;
+    pub const OPCODE: u32 = 0b11000001110100001000000000001000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "udot_za_zzi_d4xi";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct udot_za_zzi_d4xi {
         pub Zm: ::aarchmrs_types::BitValue<4>,
@@ -236,9 +340,34 @@ pub mod udot_za_zzi_d4xi {
                     | self.off3.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod uvdot_za_zzi_d4xi {
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100001101000u32;
+    pub const OPCODE: u32 = 0b11000001110100001000100000001000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "uvdot_za_zzi_d4xi";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct uvdot_za_zzi_d4xi {
         pub Zm: ::aarchmrs_types::BitValue<4>,
@@ -282,6 +411,27 @@ pub mod uvdot_za_zzi_d4xi {
                     | 0b1u32 << 3u32
                     | self.off3.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

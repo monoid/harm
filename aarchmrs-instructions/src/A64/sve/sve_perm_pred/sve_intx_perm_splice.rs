@@ -4,6 +4,10 @@
  */
 
 pub mod splice_z_p_zz_con {
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
+    pub const OPCODE: u32 = 0b00000101001011011000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "splice_z_p_zz_con";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct splice_z_p_zz_con {
         pub size: ::aarchmrs_types::BitValue<2>,
@@ -31,6 +35,27 @@ pub mod splice_z_p_zz_con {
                     | self.Zn.into_inner() << 5u32
                     | self.Zd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

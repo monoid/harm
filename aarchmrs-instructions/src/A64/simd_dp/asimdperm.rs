@@ -4,6 +4,10 @@
  */
 
 pub mod UZP1_asimdperm_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000001100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "UZP1_asimdperm_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UZP1_asimdperm_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -48,9 +52,34 @@ pub mod UZP1_asimdperm_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TRN1_asimdperm_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TRN1_asimdperm_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TRN1_asimdperm_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -95,9 +124,34 @@ pub mod TRN1_asimdperm_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ZIP1_asimdperm_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000011100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ZIP1_asimdperm_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ZIP1_asimdperm_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -142,9 +196,34 @@ pub mod ZIP1_asimdperm_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod UZP2_asimdperm_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000001100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "UZP2_asimdperm_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UZP2_asimdperm_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -189,9 +268,34 @@ pub mod UZP2_asimdperm_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod TRN2_asimdperm_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000010100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "TRN2_asimdperm_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct TRN2_asimdperm_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -236,9 +340,34 @@ pub mod TRN2_asimdperm_only {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ZIP2_asimdperm_only {
+    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000011100000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ZIP2_asimdperm_only";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ZIP2_asimdperm_only {
         pub Q: ::aarchmrs_types::BitValue<1>,
@@ -282,6 +411,27 @@ pub mod ZIP2_asimdperm_only {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

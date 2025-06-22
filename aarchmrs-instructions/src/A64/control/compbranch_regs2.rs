@@ -4,6 +4,10 @@
  */
 
 pub mod CBBGT_8_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100000000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBBGT_8_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBBGT_8_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -29,9 +33,34 @@ pub mod CBBGT_8_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBBGE_8_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100001000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBBGE_8_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBBGE_8_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -57,9 +86,34 @@ pub mod CBBGE_8_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBBHI_8_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100010000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBBHI_8_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBBHI_8_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -85,9 +139,34 @@ pub mod CBBHI_8_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBBHS_8_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100011000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBBHS_8_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBBHS_8_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -113,9 +192,34 @@ pub mod CBBHS_8_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBBEQ_8_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100110000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBBEQ_8_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBBEQ_8_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -141,9 +245,34 @@ pub mod CBBEQ_8_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBBNE_8_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100111000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBBNE_8_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBBNE_8_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -169,9 +298,34 @@ pub mod CBBNE_8_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBHGT_16_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100000000001100000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBHGT_16_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBHGT_16_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -197,9 +351,34 @@ pub mod CBHGT_16_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBHGE_16_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100001000001100000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBHGE_16_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBHGE_16_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -225,9 +404,34 @@ pub mod CBHGE_16_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBHHI_16_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100010000001100000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBHHI_16_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBHHI_16_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -253,9 +457,34 @@ pub mod CBHHI_16_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBHHS_16_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100011000001100000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBHHS_16_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBHHS_16_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -281,9 +510,34 @@ pub mod CBHHS_16_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBHEQ_16_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100110000001100000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBHEQ_16_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBHEQ_16_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -309,9 +563,34 @@ pub mod CBHEQ_16_regs {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod CBHNE_16_regs {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01110100111000001100000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "CBHNE_16_regs";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct CBHNE_16_regs {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -336,6 +615,27 @@ pub mod CBHNE_16_regs {
                     | self.imm9.into_inner() << 5u32
                     | self.Rt.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

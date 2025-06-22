@@ -4,6 +4,10 @@
  */
 
 pub mod movaz_z_rza_b {
+    pub const OPCODE_MASK: u32 = 0b11111111111111110001111000000000u32;
+    pub const OPCODE: u32 = 0b11000000000000100000001000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "movaz_z_rza_b";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct movaz_z_rza_b {
         pub V: ::aarchmrs_types::BitValue<1>,
@@ -32,9 +36,34 @@ pub mod movaz_z_rza_b {
                     | self.Zd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod movaz_z_rza_h {
+    pub const OPCODE_MASK: u32 = 0b11111111111111110001111000000000u32;
+    pub const OPCODE: u32 = 0b11000000010000100000001000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "movaz_z_rza_h";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct movaz_z_rza_h {
         pub V: ::aarchmrs_types::BitValue<1>,
@@ -72,9 +101,34 @@ pub mod movaz_z_rza_h {
                     | self.Zd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod movaz_z_rza_w {
+    pub const OPCODE_MASK: u32 = 0b11111111111111110001111000000000u32;
+    pub const OPCODE: u32 = 0b11000000100000100000001000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "movaz_z_rza_w";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct movaz_z_rza_w {
         pub V: ::aarchmrs_types::BitValue<1>,
@@ -112,9 +166,34 @@ pub mod movaz_z_rza_w {
                     | self.Zd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod movaz_z_rza_d {
+    pub const OPCODE_MASK: u32 = 0b11111111111111110001111000000000u32;
+    pub const OPCODE: u32 = 0b11000000110000100000001000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "movaz_z_rza_d";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct movaz_z_rza_d {
         pub V: ::aarchmrs_types::BitValue<1>,
@@ -146,9 +225,34 @@ pub mod movaz_z_rza_d {
                     | self.Zd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod movaz_z_rza_q {
+    pub const OPCODE_MASK: u32 = 0b11111111111111110001111000000000u32;
+    pub const OPCODE: u32 = 0b11000000110000110000001000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "movaz_z_rza_q";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct movaz_z_rza_q {
         pub V: ::aarchmrs_types::BitValue<1>,
@@ -176,6 +280,27 @@ pub mod movaz_z_rza_q {
                     | self.ZAn.into_inner() << 5u32
                     | self.Zd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

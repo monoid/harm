@@ -4,6 +4,10 @@
  */
 
 pub mod MADD_32A_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000000000u32;
+    pub const OPCODE: u32 = 0b00011011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "MADD_32A_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct MADD_32A_dp_3src {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -32,9 +36,34 @@ pub mod MADD_32A_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod MSUB_32A_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000000000u32;
+    pub const OPCODE: u32 = 0b00011011000000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "MSUB_32A_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct MSUB_32A_dp_3src {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -63,9 +92,34 @@ pub mod MSUB_32A_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod MADD_64A_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000000000u32;
+    pub const OPCODE: u32 = 0b10011011000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "MADD_64A_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct MADD_64A_dp_3src {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -94,9 +148,34 @@ pub mod MADD_64A_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod MSUB_64A_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000000000u32;
+    pub const OPCODE: u32 = 0b10011011000000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "MSUB_64A_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct MSUB_64A_dp_3src {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -125,9 +204,34 @@ pub mod MSUB_64A_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SMADDL_64WA_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111011000001000000000000000u32;
+    pub const OPCODE: u32 = 0b10011011001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SMADDL_64WA_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SMADDL_64WA_dp_3src {
         pub U: ::aarchmrs_types::BitValue<1>,
@@ -160,9 +264,34 @@ pub mod SMADDL_64WA_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SMSUBL_64WA_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111011000001000000000000000u32;
+    pub const OPCODE: u32 = 0b10011011001000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "SMSUBL_64WA_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SMSUBL_64WA_dp_3src {
         pub U: ::aarchmrs_types::BitValue<1>,
@@ -195,9 +324,34 @@ pub mod SMSUBL_64WA_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod SMULH_64_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111011000001111110000000000u32;
+    pub const OPCODE: u32 = 0b10011011010000000111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "SMULH_64_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct SMULH_64_dp_3src {
         pub U: ::aarchmrs_types::BitValue<1>,
@@ -227,9 +381,34 @@ pub mod SMULH_64_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod MADDPT_64A_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000000000u32;
+    pub const OPCODE: u32 = 0b10011011011000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "MADDPT_64A_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct MADDPT_64A_dp_3src {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -258,9 +437,34 @@ pub mod MADDPT_64A_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod MSUBPT_64A_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000000000u32;
+    pub const OPCODE: u32 = 0b10011011011000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "MSUBPT_64A_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct MSUBPT_64A_dp_3src {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -289,9 +493,34 @@ pub mod MSUBPT_64A_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod UMADDL_64WA_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111011000001000000000000000u32;
+    pub const OPCODE: u32 = 0b10011011001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "UMADDL_64WA_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UMADDL_64WA_dp_3src {
         pub U: ::aarchmrs_types::BitValue<1>,
@@ -324,9 +553,34 @@ pub mod UMADDL_64WA_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod UMSUBL_64WA_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111011000001000000000000000u32;
+    pub const OPCODE: u32 = 0b10011011001000001000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "UMSUBL_64WA_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UMSUBL_64WA_dp_3src {
         pub U: ::aarchmrs_types::BitValue<1>,
@@ -359,9 +613,34 @@ pub mod UMSUBL_64WA_dp_3src {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod UMULH_64_dp_3src {
+    pub const OPCODE_MASK: u32 = 0b11111111011000001111110000000000u32;
+    pub const OPCODE: u32 = 0b10011011010000000111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "UMULH_64_dp_3src";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct UMULH_64_dp_3src {
         pub U: ::aarchmrs_types::BitValue<1>,
@@ -390,6 +669,27 @@ pub mod UMULH_64_dp_3src {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

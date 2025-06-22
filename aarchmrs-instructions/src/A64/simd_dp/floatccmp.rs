@@ -4,6 +4,10 @@
  */
 
 pub mod FCCMP_S_floatccmp {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000010000u32;
+    pub const OPCODE: u32 = 0b00011110001000000000010000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCCMP_S_floatccmp";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCCMP_S_floatccmp {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -33,9 +37,34 @@ pub mod FCCMP_S_floatccmp {
                     | self.nzcv.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCCMPE_S_floatccmp {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000010000u32;
+    pub const OPCODE: u32 = 0b00011110001000000000010000010000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCCMPE_S_floatccmp";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCCMPE_S_floatccmp {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -65,9 +94,34 @@ pub mod FCCMPE_S_floatccmp {
                     | self.nzcv.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCCMP_D_floatccmp {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000010000u32;
+    pub const OPCODE: u32 = 0b00011110011000000000010000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCCMP_D_floatccmp";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCCMP_D_floatccmp {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -97,9 +151,34 @@ pub mod FCCMP_D_floatccmp {
                     | self.nzcv.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCCMPE_D_floatccmp {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000010000u32;
+    pub const OPCODE: u32 = 0b00011110011000000000010000010000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCCMPE_D_floatccmp";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCCMPE_D_floatccmp {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -129,9 +208,34 @@ pub mod FCCMPE_D_floatccmp {
                     | self.nzcv.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCCMP_H_floatccmp {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000010000u32;
+    pub const OPCODE: u32 = 0b00011110111000000000010000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCCMP_H_floatccmp";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCCMP_H_floatccmp {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -161,9 +265,34 @@ pub mod FCCMP_H_floatccmp {
                     | self.nzcv.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod FCCMPE_H_floatccmp {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000010000u32;
+    pub const OPCODE: u32 = 0b00011110111000000000010000010000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "FCCMPE_H_floatccmp";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct FCCMPE_H_floatccmp {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -192,6 +321,27 @@ pub mod FCCMPE_H_floatccmp {
                     | 0b1u32 << 4u32
                     | self.nzcv.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

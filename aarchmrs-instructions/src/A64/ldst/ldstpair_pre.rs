@@ -4,6 +4,10 @@
  */
 
 pub mod STP_32_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00101001100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "STP_32_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STP_32_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -31,9 +35,34 @@ pub mod STP_32_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDP_32_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00101001110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDP_32_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDP_32_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -61,9 +90,34 @@ pub mod LDP_32_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STP_S_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00101101100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "STP_S_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STP_S_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -91,9 +145,34 @@ pub mod STP_S_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDP_S_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00101101110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDP_S_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDP_S_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -121,9 +200,34 @@ pub mod LDP_S_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STGP_64_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01101001100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "STGP_64_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STGP_64_ldstpair_pre {
         pub simm7: ::aarchmrs_types::BitValue<7>,
@@ -151,9 +255,34 @@ pub mod STGP_64_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDPSW_64_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01101001110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDPSW_64_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDPSW_64_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -181,9 +310,34 @@ pub mod LDPSW_64_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STP_D_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01101101100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "STP_D_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STP_D_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -211,9 +365,34 @@ pub mod STP_D_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDP_D_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01101101110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDP_D_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDP_D_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -241,9 +420,34 @@ pub mod LDP_D_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STP_64_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10101001100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "STP_64_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STP_64_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -271,9 +475,34 @@ pub mod STP_64_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDP_64_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10101001110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDP_64_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDP_64_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -301,9 +530,34 @@ pub mod LDP_64_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STP_Q_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10101101100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "STP_Q_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STP_Q_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -331,9 +585,34 @@ pub mod STP_Q_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDP_Q_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10101101110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDP_Q_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDP_Q_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -361,9 +640,34 @@ pub mod LDP_Q_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STTP_64_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11101001100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "STTP_64_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STTP_64_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -391,9 +695,34 @@ pub mod STTP_64_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDTP_64_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11101001110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDTP_64_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDTP_64_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -421,9 +750,34 @@ pub mod LDTP_64_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STTP_Q_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11101101100000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "STTP_Q_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STTP_Q_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -451,9 +805,34 @@ pub mod STTP_Q_ldstpair_pre {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDTP_Q_ldstpair_pre {
+    pub const OPCODE_MASK: u32 = 0b11111111110000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11101101110000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDTP_Q_ldstpair_pre";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDTP_Q_ldstpair_pre {
         pub imm7: ::aarchmrs_types::BitValue<7>,
@@ -480,6 +859,27 @@ pub mod LDTP_Q_ldstpair_pre {
                     | self.Rn.into_inner() << 5u32
                     | self.Rt.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

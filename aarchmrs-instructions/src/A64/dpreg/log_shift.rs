@@ -4,6 +4,10 @@
  */
 
 pub mod AND_32_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00001010000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "AND_32_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct AND_32_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -41,9 +45,34 @@ pub mod AND_32_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod BIC_32_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00001010001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "BIC_32_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct BIC_32_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -81,9 +110,34 @@ pub mod BIC_32_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ORR_32_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00101010000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ORR_32_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ORR_32_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -121,9 +175,34 @@ pub mod ORR_32_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ORN_32_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00101010001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ORN_32_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ORN_32_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -161,9 +240,34 @@ pub mod ORN_32_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod EOR_32_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01001010000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "EOR_32_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct EOR_32_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -201,9 +305,34 @@ pub mod EOR_32_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod EON_32_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01001010001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "EON_32_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct EON_32_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -241,9 +370,34 @@ pub mod EON_32_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ANDS_32_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01101010000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ANDS_32_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ANDS_32_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -281,9 +435,34 @@ pub mod ANDS_32_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod BICS_32_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01101010001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "BICS_32_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct BICS_32_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -321,9 +500,34 @@ pub mod BICS_32_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod AND_64_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10001010000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "AND_64_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct AND_64_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -361,9 +565,34 @@ pub mod AND_64_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod BIC_64_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10001010001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "BIC_64_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct BIC_64_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -401,9 +630,34 @@ pub mod BIC_64_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ORR_64_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10101010000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ORR_64_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ORR_64_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -441,9 +695,34 @@ pub mod ORR_64_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ORN_64_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10101010001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ORN_64_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ORN_64_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -481,9 +760,34 @@ pub mod ORN_64_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod EOR_64_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11001010000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "EOR_64_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct EOR_64_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -521,9 +825,34 @@ pub mod EOR_64_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod EON_64_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11001010001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "EON_64_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct EON_64_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -561,9 +890,34 @@ pub mod EON_64_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod ANDS_64_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11101010000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "ANDS_64_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct ANDS_64_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -601,9 +955,34 @@ pub mod ANDS_64_log_shift {
                     | self.Rd.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod BICS_64_log_shift {
+    pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11101010001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "BICS_64_log_shift";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct BICS_64_log_shift {
         pub shift: ::aarchmrs_types::BitValue<2>,
@@ -640,6 +1019,27 @@ pub mod BICS_64_log_shift {
                     | self.Rn.into_inner() << 5u32
                     | self.Rd.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

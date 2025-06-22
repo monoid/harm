@@ -4,6 +4,10 @@
  */
 
 pub mod LDR_32_loadlit {
+    pub const OPCODE_MASK: u32 = 0b11111111000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00011000000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDR_32_loadlit";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDR_32_loadlit {
         pub imm19: ::aarchmrs_types::BitValue<19>,
@@ -25,9 +29,34 @@ pub mod LDR_32_loadlit {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDR_S_loadlit {
+    pub const OPCODE_MASK: u32 = 0b11111111000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00011100000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDR_S_loadlit";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDR_S_loadlit {
         pub imm19: ::aarchmrs_types::BitValue<19>,
@@ -49,9 +78,34 @@ pub mod LDR_S_loadlit {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDR_64_loadlit {
+    pub const OPCODE_MASK: u32 = 0b11111111000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01011000000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDR_64_loadlit";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDR_64_loadlit {
         pub imm19: ::aarchmrs_types::BitValue<19>,
@@ -73,9 +127,34 @@ pub mod LDR_64_loadlit {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDR_D_loadlit {
+    pub const OPCODE_MASK: u32 = 0b11111111000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01011100000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDR_D_loadlit";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDR_D_loadlit {
         pub imm19: ::aarchmrs_types::BitValue<19>,
@@ -97,9 +176,34 @@ pub mod LDR_D_loadlit {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDRSW_64_loadlit {
+    pub const OPCODE_MASK: u32 = 0b11111111000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10011000000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDRSW_64_loadlit";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDRSW_64_loadlit {
         pub imm19: ::aarchmrs_types::BitValue<19>,
@@ -121,9 +225,34 @@ pub mod LDRSW_64_loadlit {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDR_Q_loadlit {
+    pub const OPCODE_MASK: u32 = 0b11111111000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10011100000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "LDR_Q_loadlit";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDR_Q_loadlit {
         pub imm19: ::aarchmrs_types::BitValue<19>,
@@ -145,9 +274,34 @@ pub mod LDR_Q_loadlit {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod PRFM_P_loadlit {
+    pub const OPCODE_MASK: u32 = 0b11111111000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11011000000000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "PRFM_P_loadlit";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct PRFM_P_loadlit {
         pub imm19: ::aarchmrs_types::BitValue<19>,
@@ -168,6 +322,27 @@ pub mod PRFM_P_loadlit {
                     | self.imm19.into_inner() << 5u32
                     | self.Rt.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

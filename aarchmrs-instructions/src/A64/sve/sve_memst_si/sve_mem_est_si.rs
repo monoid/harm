@@ -4,6 +4,10 @@
  */
 
 pub mod st2b_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100001100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st2b_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st2b_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -42,9 +46,34 @@ pub mod st2b_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st3b_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100010100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st3b_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st3b_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -83,9 +112,34 @@ pub mod st3b_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st4b_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100011100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st4b_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st4b_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -124,9 +178,34 @@ pub mod st4b_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st2h_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100001100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st2h_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st2h_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -165,9 +244,34 @@ pub mod st2h_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st3h_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100010100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st3h_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st3h_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -206,9 +310,34 @@ pub mod st3h_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st4h_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100011100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st4h_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st4h_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -247,9 +376,34 @@ pub mod st4h_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st2w_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100001100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st2w_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st2w_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -288,9 +442,34 @@ pub mod st2w_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st3w_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100010100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st3w_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st3w_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -329,9 +508,34 @@ pub mod st3w_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st4w_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100011100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st4w_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st4w_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -370,9 +574,34 @@ pub mod st4w_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st2d_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100001100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st2d_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st2d_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -411,9 +640,34 @@ pub mod st2d_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st3d_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100010100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st3d_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st3d_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -452,9 +706,34 @@ pub mod st3d_z_p_bi_contiguous {
                     | self.Zt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st4d_z_p_bi_contiguous {
+    pub const OPCODE_MASK: u32 = 0b11111110011100001110000000000000u32;
+    pub const OPCODE: u32 = 0b11100100011100001110000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st4d_z_p_bi_contiguous";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st4d_z_p_bi_contiguous {
         pub msz: ::aarchmrs_types::BitValue<2>,
@@ -492,6 +771,27 @@ pub mod st4d_z_p_bi_contiguous {
                     | self.Rn.into_inner() << 5u32
                     | self.Zt.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

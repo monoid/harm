@@ -4,6 +4,10 @@
  */
 
 pub mod STXRB_SR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001000000000000111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "STXRB_SR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STXRB_SR32_ldstexclr {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -29,9 +33,34 @@ pub mod STXRB_SR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STLXRB_SR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b00001000000000001111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "STLXRB_SR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STLXRB_SR32_ldstexclr {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -57,9 +86,34 @@ pub mod STLXRB_SR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDXRB_LR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00001000010111110111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
+    pub const NAME: &str = "LDXRB_LR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDXRB_LR32_ldstexclr {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -81,9 +135,34 @@ pub mod LDXRB_LR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDAXRB_LR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b00001000010111111111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
+    pub const NAME: &str = "LDAXRB_LR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDAXRB_LR32_ldstexclr {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -105,9 +184,34 @@ pub mod LDAXRB_LR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STXRH_SR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b01001000000000000111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "STXRH_SR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STXRH_SR32_ldstexclr {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -133,9 +237,34 @@ pub mod STXRH_SR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STLXRH_SR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b01001000000000001111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "STLXRH_SR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STLXRH_SR32_ldstexclr {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -161,9 +290,34 @@ pub mod STLXRH_SR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDXRH_LR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01001000010111110111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
+    pub const NAME: &str = "LDXRH_LR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDXRH_LR32_ldstexclr {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -185,9 +339,34 @@ pub mod LDXRH_LR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDAXRH_LR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b01001000010111111111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
+    pub const NAME: &str = "LDAXRH_LR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDAXRH_LR32_ldstexclr {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -209,9 +388,34 @@ pub mod LDAXRH_LR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STXR_SR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b10001000000000000111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "STXR_SR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STXR_SR32_ldstexclr {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -237,9 +441,34 @@ pub mod STXR_SR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STLXR_SR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b10001000000000001111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "STLXR_SR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STLXR_SR32_ldstexclr {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -265,9 +494,34 @@ pub mod STLXR_SR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDXR_LR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b10001000010111110111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
+    pub const NAME: &str = "LDXR_LR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDXR_LR32_ldstexclr {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -289,9 +543,34 @@ pub mod LDXR_LR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDAXR_LR32_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b10001000010111111111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
+    pub const NAME: &str = "LDAXR_LR32_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDAXR_LR32_ldstexclr {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -313,9 +592,34 @@ pub mod LDAXR_LR32_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STXR_SR64_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b11001000000000000111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "STXR_SR64_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STXR_SR64_ldstexclr {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -341,9 +645,34 @@ pub mod STXR_SR64_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod STLXR_SR64_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    pub const OPCODE: u32 = 0b11001000000000001111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
+    pub const NAME: &str = "STLXR_SR64_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct STLXR_SR64_ldstexclr {
         pub Rs: ::aarchmrs_types::BitValue<5>,
@@ -369,9 +698,34 @@ pub mod STLXR_SR64_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDXR_LR64_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b11001000010111110111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
+    pub const NAME: &str = "LDXR_LR64_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDXR_LR64_ldstexclr {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -393,9 +747,34 @@ pub mod LDXR_LR64_ldstexclr {
                     | self.Rt.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod LDAXR_LR64_ldstexclr {
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    pub const OPCODE: u32 = 0b11001000010111111111110000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
+    pub const NAME: &str = "LDAXR_LR64_ldstexclr";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct LDAXR_LR64_ldstexclr {
         pub Rn: ::aarchmrs_types::BitValue<5>,
@@ -416,6 +795,27 @@ pub mod LDAXR_LR64_ldstexclr {
                     | self.Rn.into_inner() << 5u32
                     | self.Rt.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }

@@ -4,6 +4,10 @@
  */
 
 pub mod st1b_za_p_rrr_ {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000000000010000u32;
+    pub const OPCODE: u32 = 0b11100000001000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st1b_za_p_rrr_";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st1b_za_p_rrr_ {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -45,9 +49,34 @@ pub mod st1b_za_p_rrr_ {
                     | self.off4.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st1h_za_p_rrr_ {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000000000010000u32;
+    pub const OPCODE: u32 = 0b11100000011000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st1h_za_p_rrr_";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st1h_za_p_rrr_ {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -93,9 +122,34 @@ pub mod st1h_za_p_rrr_ {
                     | self.off3.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st1w_za_p_rrr_ {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000000000010000u32;
+    pub const OPCODE: u32 = 0b11100000101000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st1w_za_p_rrr_";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st1w_za_p_rrr_ {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -141,9 +195,34 @@ pub mod st1w_za_p_rrr_ {
                     | self.off2.into_inner() << 0u32,
             )
         }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
+        }
     }
 }
 pub mod st1d_za_p_rrr_ {
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000000000010000u32;
+    pub const OPCODE: u32 = 0b11100000111000000000000000000000u32;
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    pub const NAME: &str = "st1d_za_p_rrr_";
     #[derive(Copy, Clone, Debug, Default)]
     pub struct st1d_za_p_rrr_ {
         pub Rm: ::aarchmrs_types::BitValue<5>,
@@ -188,6 +267,27 @@ pub mod st1d_za_p_rrr_ {
                     | self.ZAt.into_inner() << 1u32
                     | self.o1.into_inner() << 0u32,
             )
+        }
+        #[inline]
+        pub const fn opcode_mask() -> u32 {
+            self::OPCODE_MASK
+        }
+        #[inline]
+        pub const fn opcode() -> u32 {
+            self::OPCODE
+        }
+        #[inline]
+        pub const fn should_be_mask() -> u32 {
+            self::SHOULD_BE_MASK
+        }
+        #[inline]
+        pub const fn match_opcode(opcode: u32) -> bool {
+            let opcode = opcode & self::OPCODE_MASK;
+            opcode == self::OPCODE
+        }
+        #[inline]
+        pub const fn name() -> &'static str {
+            self::NAME
         }
     }
 }
