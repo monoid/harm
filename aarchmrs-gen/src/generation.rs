@@ -16,7 +16,7 @@ struct Masks {
 
 pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenStream {
     let args: Vec<_> = gen_constructor_args(desc).collect();
-    let (fields, inits) = gen_fields(desc);
+    let (fields, inits) = gen_struct_fields(desc);
     let expr = gen_expr(desc);
 
     let Masks { mask, opcode } = gen_mask(desc);
@@ -83,26 +83,29 @@ pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenS
 }
 
 fn gen_constructor_args(desc: &[Bits]) -> impl Iterator<Item = syn::FnArg> {
-    let args = desc.iter().rev().filter_map(|bits| match bits {
+    desc.iter().rev().filter_map(|bits| match bits {
         Bits::Bit { .. } => None,
-        Bits::Field { name, range } => Some(syn::FnArg::Typed(PatType {
-            attrs: vec![],
-            pat: Box::new(Pat::Ident(PatIdent {
-                attrs: vec![],
-                by_ref: None,
-                mutability: None,
-                ident: format_ident!("{}", name.as_ref()),
-                subpat: None,
-            })),
-            colon_token: <_>::default(),
-            ty: syn::parse_str(&format!("::aarchmrs_types::BitValue::<{}>", range.width))
-                .expect("internal error: malformed type"),
-        })),
-    });
-    args
+        Bits::Field { name, range } => field_to_fnarg(name, range),
+    })
 }
 
-fn gen_fields(desc: &[Bits]) -> (Vec<syn::Field>, Vec<syn::FieldValue>) {
+fn field_to_fnarg(name: &str, range: &aarchmrs_parser::instructions::Range) -> Option<syn::FnArg> {
+    Some(syn::FnArg::Typed(PatType {
+        attrs: vec![],
+        pat: Box::new(Pat::Ident(PatIdent {
+            attrs: vec![],
+            by_ref: None,
+            mutability: None,
+            ident: format_ident!("{}", name),
+            subpat: None,
+        })),
+        colon_token: <_>::default(),
+        ty: syn::parse_str(&format!("::aarchmrs_types::BitValue::<{}>", range.width))
+            .expect("internal error: malformed type"),
+    }))
+}
+
+fn gen_struct_fields(desc: &[Bits]) -> (Vec<syn::Field>, Vec<syn::FieldValue>) {
     let mut fields = vec![];
     let mut inits = vec![];
     for bits in desc.iter().rev() {
@@ -173,8 +176,8 @@ mod tests {
 
     fn pretty(code: TokenStream) -> String {
         let file: syn::File = parse_quote!(#code);
-        let code = prettyplease::unparse(&file);
-        code
+
+        prettyplease::unparse(&file)
     }
 
     #[test]
