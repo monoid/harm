@@ -57,7 +57,7 @@ impl Branch<PcDst> {
 }
 
 impl Instruction for Branch<PcDst> {
-    fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
+    fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static {
         // TODO first offset is 19 bits, the second is 29 bits!
         // what to do with the possible overflow?
         let code = match self.condition {

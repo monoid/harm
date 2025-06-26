@@ -8,8 +8,12 @@ use aarchmrs_types::InstructionCode;
 pub mod arith;
 pub mod branches;
 
+// It should be &self, but rustc bug makes the impl infected by its lifetime:
+// https://github.com/rust-lang/rust/issues/42940
+// When the bug is fixed, it can be changed to &self.
+// // OTOH, currently all implementations are `Copy`.
 pub trait Instruction {
-    fn reprsent(&self) -> impl Iterator<Item = InstructionCode>;
+    fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static;
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]

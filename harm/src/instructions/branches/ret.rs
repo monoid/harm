@@ -3,9 +3,7 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use aarchmrs_instructions::A64::control::{
-    branch_reg::RET_64R_branch_reg::RET_64R_branch_reg,
-};
+use aarchmrs_instructions::A64::control::branch_reg::RET_64R_branch_reg::RET_64R_branch_reg;
 use aarchmrs_types::InstructionCode;
 
 use super::Instruction;
@@ -33,7 +31,7 @@ impl Ret {
 }
 
 impl Instruction for Ret {
-    fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
+    fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static {
         let reg = self.0;
         let reg_code = reg.code() as u32;
         let code = RET_64R_branch_reg::new(
@@ -56,14 +54,14 @@ mod tests {
     #[test]
     fn test_ret() {
         let ret_inst = ret();
-        let codes: Vec<InstructionCode> = ret_inst.reprsent().collect();
+        let codes: Vec<InstructionCode> = ret_inst.represent().collect();
         assert_eq!(codes, vec![InstructionCode::from_u32(0xd65f03c0)]);
     }
 
     #[test]
     fn test_ret_reg() {
         let ret_inst = ret().reg(Reg64::X3);
-        let codes: Vec<InstructionCode> = ret_inst.reprsent().collect();
+        let codes: Vec<InstructionCode> = ret_inst.represent().collect();
         assert_eq!(codes, vec![InstructionCode::from_u32(0xd65f0060)]);
     }
 }

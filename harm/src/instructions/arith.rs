@@ -49,7 +49,7 @@ impl Add<RegOrZero64, ShiftedReg<RegOrZero64>> {
 
 impl Instruction for Add<RegOrZero64, ShiftedReg<RegOrZero64>> {
     #[inline]
-    fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
+    fn represent(self) -> impl Iterator<Item = InstructionCode> {
         let opcode = self.add_opcode();
 
         std::iter::once(opcode)
@@ -84,7 +84,7 @@ impl Add<RegOrZero32, ShiftedReg<RegOrZero32>> {
 
 impl Instruction for Add<RegOrZero32, ShiftedReg<RegOrZero32>> {
     #[inline]
-    fn reprsent(&self) -> impl Iterator<Item = InstructionCode> {
+    fn represent(self) -> impl Iterator<Item = InstructionCode> {
         let opcode = self.add_opcode();
 
         std::iter::once(opcode)
@@ -148,7 +148,7 @@ mod tests {
 
         let codes: Vec<_> = add(X1.into(), X2.into(), ShiftedReg::from(X12))
             .shift(ShiftMode::LSR, 4)
-            .reprsent()
+            .represent()
             .collect();
 
         assert_eq!(codes.len(), 1);
@@ -165,7 +165,7 @@ mod tests {
             XZR,
             ShiftedReg::from(X12).shift(ShiftMode::LSR, 4),
         )
-        .reprsent()
+        .represent()
         .collect();
 
         assert_eq!(codes.len(), 1);
@@ -178,7 +178,7 @@ mod tests {
 
         let codes: Vec<_> = add(W1.into(), W2.into(), ShiftedReg::from(W12))
             .shift(ShiftMode::LSR, 4)
-            .reprsent()
+            .represent()
             .collect();
 
         assert_eq!(codes.len(), 1);
@@ -195,7 +195,7 @@ mod tests {
             WZR,
             ShiftedReg::from(W12).shift(ShiftMode::LSR, 4),
         )
-        .reprsent()
+        .represent()
         .collect();
 
         assert_eq!(codes.len(), 1);
