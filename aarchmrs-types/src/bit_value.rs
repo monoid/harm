@@ -89,6 +89,13 @@ impl<const BITS: u32> From<i8> for BitValue<BITS> {
     }
 }
 
+impl From<bool> for BitValue<1> {
+    #[inline]
+    fn from(value: bool) -> Self {
+        Self::new_u32(value as u32)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
