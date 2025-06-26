@@ -5,6 +5,10 @@
 
 #![allow(clippy::upper_case_acronyms)]
 
+pub trait IntoCode {
+    fn code(&self) -> u8;
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 #[repr(u8)]
 pub enum Reg64 {
@@ -62,6 +66,13 @@ impl From<Reg64> for RegOrSp64 {
 impl From<Reg64> for RegOrZero64 {
     fn from(value: Reg64) -> Self {
         Self::Reg(value)
+    }
+}
+
+impl IntoCode for Reg64 {
+    #[inline]
+    fn code(&self) -> u8 {
+        *self as u8
     }
 }
 
@@ -127,8 +138,11 @@ impl From<Reg32> for RegOrZero32 {
     }
 }
 
-pub trait IntoCode {
-    fn code(&self) -> u8;
+impl IntoCode for Reg32 {
+    #[inline]
+    fn code(&self) -> u8 {
+        *self as u8
+    }
 }
 
 impl IntoCode for RegOrSp64 {
