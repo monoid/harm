@@ -5,8 +5,11 @@
 
 use aarchmrs_instructions::A64::{
     dpimm::addsub_imm::ADD_64_addsub_imm::ADD_64_addsub_imm,
-    dpreg::addsub_shift::{
-        ADD_32_addsub_shift::ADD_32_addsub_shift, ADD_64_addsub_shift::ADD_64_addsub_shift,
+    dpreg::{
+        addsub_ext::{ADD_32_addsub_ext::ADD_32_addsub_ext, ADD_64_addsub_ext::ADD_64_addsub_ext},
+        addsub_shift::{
+            ADD_32_addsub_shift::ADD_32_addsub_shift, ADD_64_addsub_shift::ADD_64_addsub_shift,
+        },
     },
 };
 use aarchmrs_types::InstructionCode;
@@ -23,8 +26,8 @@ where
     Add::<T, U>::new(dst, src1, src2)
 }
 
-pub trait MakeAdd<T, U> {
-    fn new(dst: T, src1: T, src2: U) -> Result<Add<T, U>, Error>;
+pub trait MakeAdd<T, U>: Sized {
+    fn new(dst: T, src1: T, src2: U) -> Result<Self, Error>;
 }
 
 pub struct Add<T, U> {
@@ -51,27 +54,59 @@ impl Add<Reg64, Reg64> {
         .expect("internal error: cannot happen")
         .shift(mode, amount)
     }
+
+    #[inline]
+    pub fn extend(
+        self,
+        mode: ExtendMode,
+        amount: u8,
+    ) -> Add<RegOrZero64, ExtendedReg<RegOrZero64>> {
+        add(
+            RegOrZero64::Reg(self.dst),
+            RegOrZero64::Reg(self.src1),
+            ExtendedReg::new(RegOrZero64::Reg(self.src2)),
+        )
+        .expect("internal error: cannot happen")
+        .extend(mode, amount)
+    }
 }
 
 impl Instruction for Add<Reg64, Reg64> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = InstructionCode> {
-        let shift = 0;
-        let rm = self.src2.code();
-        let shift_amount_imm6 = 0;
-        let rn = self.src1.code();
-        let rd = self.dst.code();
+        Add {
+            dst: RegOrZero64::Reg(self.dst),
+            src1: RegOrZero64::Reg(self.src1),
+            src2: ShiftedReg::new(RegOrZero64::Reg(self.src2)),
+        }
+        .represent()
+    }
+}
 
-        let opcode = ADD_64_addsub_shift::new(
-            shift.into(),
-            rm.into(),
-            shift_amount_imm6.into(),
-            rn.into(),
-            rd.into(),
-        )
-        .build();
+impl MakeAdd<RegOrZero64, RegOrZero64> for Add<RegOrZero64, RegOrZero64> {
+    #[inline]
+    fn new(dst: RegOrZero64, src1: RegOrZero64, src2: RegOrZero64) -> Result<Self, &'static str> {
+        Ok(Self { dst, src1, src2 })
+    }
+}
 
-        std::iter::once(opcode)
+impl Add<RegOrZero64, RegOrZero64> {
+    #[inline]
+    pub fn shift(self, mode: ShiftMode, amount: u8) -> Add<RegOrZero64, ShiftedReg<RegOrZero64>> {
+        add(self.dst, self.src1, ShiftedReg::new(self.src2))
+            .expect("internal error: cannot happen")
+            .shift(mode, amount)
+    }
+
+    #[inline]
+    pub fn extend(
+        self,
+        mode: ExtendMode,
+        amount: u8,
+    ) -> Add<RegOrZero64, ExtendedReg<RegOrZero64>> {
+        add(self.dst, self.src1, ExtendedReg::new(self.src2))
+            .expect("internal error: cannot happen")
+            .extend(mode, amount)
     }
 }
 
@@ -113,6 +148,45 @@ impl Add<RegOrZero64, ShiftedReg<RegOrZero64>> {
 }
 
 impl Instruction for Add<RegOrZero64, ShiftedReg<RegOrZero64>> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = InstructionCode> {
+        let opcode = self.add_opcode();
+
+        std::iter::once(opcode)
+    }
+}
+
+impl MakeAdd<RegOrZero64, ExtendedReg<RegOrZero64>> for Add<RegOrZero64, ExtendedReg<RegOrZero64>> {
+    #[inline]
+    fn new(
+        dst: RegOrZero64,
+        src1: RegOrZero64,
+        src2: ExtendedReg<RegOrZero64>,
+    ) -> Result<Self, &'static str> {
+        Ok(Self { dst, src1, src2 })
+    }
+}
+
+impl Add<RegOrZero64, ExtendedReg<RegOrZero64>> {
+    #[inline]
+    pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
+        self.src2.extend = Extend { mode, amount };
+        self
+    }
+
+    #[inline]
+    fn add_opcode(&self) -> InstructionCode {
+        let option = self.src2.extend.mode as u8;
+        let rm = self.src2.reg.code();
+        let imm3 = self.src2.extend.amount;
+        let rn = self.src1.code();
+        let rd = self.dst.code();
+
+        ADD_64_addsub_ext::new(rm.into(), option.into(), imm3.into(), rn.into(), rd.into()).build()
+    }
+}
+
+impl Instruction for Add<RegOrZero64, ExtendedReg<RegOrZero64>> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = InstructionCode> {
         let opcode = self.add_opcode();
@@ -186,6 +260,21 @@ impl Add<Reg32, Reg32> {
         let src2 = ShiftedReg::new(RegOrZero32::Reg(self.src2));
         Add { dst, src1, src2 }.shift(mode, amount)
     }
+
+    #[inline]
+    pub fn extend(
+        self,
+        mode: ExtendMode,
+        amount: u8,
+    ) -> Add<RegOrZero32, ExtendedReg<RegOrZero32>> {
+        add(
+            RegOrZero32::Reg(self.dst),
+            RegOrZero32::Reg(self.src1),
+            ExtendedReg::new(RegOrZero32::Reg(self.src2)),
+        )
+        .expect("internal error: cannot happen")
+        .extend(mode, amount)
+    }
 }
 
 impl Instruction for Add<Reg32, Reg32> {
@@ -207,6 +296,33 @@ impl Instruction for Add<Reg32, Reg32> {
         .build();
 
         std::iter::once(opcode)
+    }
+}
+
+impl MakeAdd<RegOrZero32, RegOrZero32> for Add<RegOrZero32, RegOrZero32> {
+    #[inline]
+    fn new(dst: RegOrZero32, src1: RegOrZero32, src2: RegOrZero32) -> Result<Self, &'static str> {
+        Ok(Self { dst, src1, src2 })
+    }
+}
+
+impl Add<RegOrZero32, RegOrZero32> {
+    #[inline]
+    pub fn shift(self, mode: ShiftMode, amount: u8) -> Add<RegOrZero32, ShiftedReg<RegOrZero32>> {
+        add(self.dst, self.src1, ShiftedReg::new(self.src2))
+            .expect("internal error: cannot happen")
+            .shift(mode, amount)
+    }
+
+    #[inline]
+    pub fn extend(
+        self,
+        mode: ExtendMode,
+        amount: u8,
+    ) -> Add<RegOrZero32, ExtendedReg<RegOrZero32>> {
+        add(self.dst, self.src1, ExtendedReg::new(self.src2))
+            .expect("internal error: cannot happen")
+            .extend(mode, amount)
     }
 }
 
@@ -248,6 +364,45 @@ impl Add<RegOrZero32, ShiftedReg<RegOrZero32>> {
 }
 
 impl Instruction for Add<RegOrZero32, ShiftedReg<RegOrZero32>> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = InstructionCode> {
+        let opcode = self.add_opcode();
+
+        std::iter::once(opcode)
+    }
+}
+
+impl MakeAdd<RegOrZero32, ExtendedReg<RegOrZero32>> for Add<RegOrZero32, ExtendedReg<RegOrZero32>> {
+    #[inline]
+    fn new(
+        dst: RegOrZero32,
+        src1: RegOrZero32,
+        src2: ExtendedReg<RegOrZero32>,
+    ) -> Result<Self, &'static str> {
+        Ok(Self { dst, src1, src2 })
+    }
+}
+
+impl Add<RegOrZero32, ExtendedReg<RegOrZero32>> {
+    #[inline]
+    pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
+        self.src2.extend = Extend { mode, amount };
+        self
+    }
+
+    #[inline]
+    fn add_opcode(&self) -> InstructionCode {
+        let option = self.src2.extend.mode as u8;
+        let rm = self.src2.reg.code();
+        let imm3 = self.src2.extend.amount;
+        let rn = self.src1.code();
+        let rd = self.dst.code();
+
+        ADD_32_addsub_ext::new(rm.into(), option.into(), imm3.into(), rn.into(), rd.into()).build()
+    }
+}
+
+impl Instruction for Add<RegOrZero32, ExtendedReg<RegOrZero32>> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = InstructionCode> {
         let opcode = self.add_opcode();
@@ -303,6 +458,58 @@ pub enum ShiftMode {
     LSL = 0b00,
     LSR = 0b01,
     ASR = 0b10,
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub struct ExtendedReg<T> {
+    reg: T,
+    extend: Extend,
+}
+
+impl<T> ExtendedReg<T> {
+    pub fn new(reg: T) -> Self {
+        Self {
+            reg,
+            extend: <_>::default(),
+        }
+    }
+
+    pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
+        self.extend = Extend { mode, amount };
+        self
+    }
+}
+
+impl From<Reg64> for ExtendedReg<RegOrZero64> {
+    fn from(value: Reg64) -> Self {
+        Self::new(value.into())
+    }
+}
+
+impl From<Reg32> for ExtendedReg<RegOrZero32> {
+    fn from(value: Reg32) -> Self {
+        Self::new(value.into())
+    }
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
+#[repr(u8)]
+pub enum ExtendMode {
+    UXTB = 0b000,
+    UXTH = 0b001,
+    UXTW = 0b010,
+    #[default]
+    UXTX = 0b011, // it is essentially a noop for any register, so it is the default
+    SXTB = 0b100,
+    SXTH = 0b101,
+    SXTW = 0b110,
+    SXTX = 0b111,
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
+pub struct Extend {
+    mode: ExtendMode,
+    amount: u8,
 }
 
 fn validate_imm12(imm12: u32) -> Result<u32, &'static str> {
@@ -365,6 +572,53 @@ mod tests {
 
         assert_eq!(codes.len(), 1);
         assert_eq!(codes[0].0, [0xe1, 0x13, 0x4c, 0x8b]); // 0x8b4c13e1
+    }
+
+    #[test]
+    fn test_add_64_extend_uxtx() {
+        use Reg64::*;
+        use RegOrZero64::*;
+
+        let codes: Vec<_> = add(Reg(X1), Reg(X2), Reg(X12))
+            .unwrap()
+            .extend(ExtendMode::UXTX, 3)
+            .represent()
+            .collect();
+
+        assert_eq!(codes.len(), 1);
+        // add x1, x2, x12, uxtx #3
+        assert_eq!(codes[0].0, [0x41, 0x6c, 0x2c, 0x8b]); // 0x8b2c6c41
+    }
+
+    #[test]
+    fn test_add_64_extend_uxtw() {
+        use Reg64::*;
+
+        let codes: Vec<_> = add(X1, X2, X12)
+            .unwrap()
+            .extend(ExtendMode::UXTW, 3)
+            .represent()
+            .collect();
+
+        assert_eq!(codes.len(), 1);
+        // add x1, x2, w12, uxtw #3
+        assert_eq!(codes[0].0, [0x41, 0x4c, 0x2c, 0x8b]); // 0x8b2c4c41
+    }
+
+    #[test]
+    fn test_add_64_extend_uxth_xzr() {
+        use Reg64::*;
+        use RegOrZero64::*;
+
+        let codes: Vec<_> = add(Reg(X1), Reg(X2), XZR)
+            .unwrap()
+            .extend(ExtendMode::UXTH, 3)
+            .represent()
+            .collect();
+
+        assert_eq!(codes.len(), 1);
+        // add x1, x2, wzr, uxtw #3
+        assert_eq!(codes[0].0, [0x41, 0x2c, 0x3f, 0x8b]); // 0x8b3f2c41
     }
 
     #[test]
@@ -435,5 +689,67 @@ mod tests {
 
         assert_eq!(codes.len(), 1);
         assert_eq!(codes[0].0, [0xe1, 0x13, 0x4c, 0x0b]); // 0x0b4c13e1
+    }
+
+    #[test]
+    fn test_add_32_extend_uxtx() {
+        use Reg32::*;
+
+        let codes: Vec<_> = add(W1, W2, W12)
+            .unwrap()
+            .extend(ExtendMode::UXTX, 3)
+            .represent()
+            .collect();
+
+        assert_eq!(codes.len(), 1);
+        // add x1, x2, x12, uxtx #3
+        assert_eq!(codes[0].0, [0x41, 0x6c, 0x2c, 0x0b]); // 0x0b2c6c41
+    }
+
+    #[test]
+    fn test_add_32_extend_uxtw() {
+        use Reg32::*;
+
+        let codes: Vec<_> = add(W1, W2, W12)
+            .unwrap()
+            .extend(ExtendMode::UXTW, 3)
+            .represent()
+            .collect();
+
+        assert_eq!(codes.len(), 1);
+        // add w1, w2, w12, uxtw #3
+        assert_eq!(codes[0].0, [0x41, 0x4c, 0x2c, 0x0b]); // 0x0b2c4c41
+    }
+
+    #[test]
+    fn test_add_32_extend_uxtx_wzr() {
+        use Reg32::*;
+        use RegOrZero32::*;
+
+        let codes: Vec<_> = add(Reg(W1), Reg(W2), WZR)
+            .unwrap()
+            .extend(ExtendMode::UXTX, 3)
+            .represent()
+            .collect();
+
+        assert_eq!(codes.len(), 1);
+        // add w1, w2, wzr, uxtx #3
+        assert_eq!(codes[0].0, [0x41, 0x6c, 0x3f, 0x0b]); // 0x0b3f6c41
+    }
+
+    #[test]
+    fn test_add_32_extend_uxtw_wzr() {
+        use Reg32::*;
+        use RegOrZero32::*;
+
+        let codes: Vec<_> = add(Reg(W1), Reg(W2), WZR)
+            .unwrap()
+            .extend(ExtendMode::UXTW, 3)
+            .represent()
+            .collect();
+
+        assert_eq!(codes.len(), 1);
+        // add w1, w2, wzr, uxtw #3
+        assert_eq!(codes[0].0, [0x41, 0x4c, 0x3f, 0x0b]); // 0x0b3f4c41
     }
 }
