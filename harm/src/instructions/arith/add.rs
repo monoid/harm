@@ -57,17 +57,6 @@ impl Add<Reg64, Reg64> {
         .expect("internal error: cannot happen")
         .shift(mode, amount)
     }
-
-    #[inline]
-    pub fn extend(self, mode: ExtendMode, amount: u8) -> Add<RegOrSp64, ExtendedReg<RegOrZero64>> {
-        add(
-            RegOrSp64::Reg(self.dst),
-            RegOrSp64::Reg(self.src1),
-            ExtendedReg::new(RegOrZero64::Reg(self.src2)),
-        )
-        .expect("internal error: cannot happen")
-        .extend(mode, amount)
-    }
 }
 
 impl Instruction for Add<Reg64, Reg64> {
@@ -95,15 +84,6 @@ impl Add<RegOrZero64, RegOrZero64> {
         add(self.dst, self.src1, ShiftedReg::new(self.src2))
             .expect("internal error: cannot happen")
             .shift(mode, amount)
-    }
-}
-
-impl Add<RegOrSp64, RegOrZero64> {
-    #[inline]
-    pub fn extend(self, mode: ExtendMode, amount: u8) -> Add<RegOrSp64, ExtendedReg<RegOrZero64>> {
-        add(self.dst, self.src1, ExtendedReg::new(self.src2))
-            .expect("internal error: cannot happen")
-            .extend(mode, amount)
     }
 }
 
@@ -153,68 +133,6 @@ impl Instruction for Add<RegOrZero64, ShiftedReg<RegOrZero64>> {
     }
 }
 
-impl MakeAdd<RegOrSp64, RegOrZero64> for Add<RegOrSp64, RegOrZero64> {
-    #[inline]
-    fn new(dst: RegOrSp64, src1: RegOrSp64, src2: RegOrZero64) -> Result<Self, &'static str> {
-        Ok(Self { dst, src1, src2 })
-    }
-}
-
-impl MakeAdd<RegOrSp64, Reg64> for Add<RegOrSp64, Reg64> {
-    #[inline]
-    fn new(dst: RegOrSp64, src1: RegOrSp64, src2: Reg64) -> Result<Self, &'static str> {
-        Ok(Self { dst, src1, src2 })
-    }
-}
-
-impl Add<RegOrSp64, Reg64> {
-    #[inline]
-    pub fn extend(self, mode: ExtendMode, amount: u8) -> Add<RegOrSp64, ExtendedReg<RegOrZero64>> {
-        add(self.dst, self.src1, ExtendedReg::new(self.src2.into()))
-            .expect("internal error: cannot happen")
-            .extend(mode, amount)
-    }
-}
-
-impl MakeAdd<RegOrSp64, ExtendedReg<RegOrZero64>> for Add<RegOrSp64, ExtendedReg<RegOrZero64>> {
-    #[inline]
-    fn new(
-        dst: RegOrSp64,
-        src1: RegOrSp64,
-        src2: ExtendedReg<RegOrZero64>,
-    ) -> Result<Self, &'static str> {
-        Ok(Self { dst, src1, src2 })
-    }
-}
-
-impl Add<RegOrSp64, ExtendedReg<RegOrZero64>> {
-    #[inline]
-    pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
-        self.src2.extend = Extend { mode, amount };
-        self
-    }
-
-    #[inline]
-    fn add_opcode(&self) -> InstructionCode {
-        let option = self.src2.extend.mode as u8;
-        let rm = self.src2.reg.code();
-        let imm3 = self.src2.extend.amount;
-        let rn = self.src1.code();
-        let rd = self.dst.code();
-
-        ADD_64_addsub_ext::new(rm.into(), option.into(), imm3.into(), rn.into(), rd.into()).build()
-    }
-}
-
-impl Instruction for Add<RegOrSp64, ExtendedReg<RegOrZero64>> {
-    #[inline]
-    fn represent(self) -> impl Iterator<Item = InstructionCode> {
-        let opcode = self.add_opcode();
-
-        std::iter::once(opcode)
-    }
-}
-
 impl MakeAdd<Reg32, Reg32> for Add<Reg32, Reg32> {
     #[inline]
     fn new(dst: Reg32, src1: Reg32, src2: Reg32) -> Result<Self, Error> {
@@ -229,17 +147,6 @@ impl Add<Reg32, Reg32> {
         let src1 = RegOrZero32::Reg(self.src1);
         let src2 = ShiftedReg::new(RegOrZero32::Reg(self.src2));
         Add { dst, src1, src2 }.shift(mode, amount)
-    }
-
-    #[inline]
-    pub fn extend(self, mode: ExtendMode, amount: u8) -> Add<RegOrSp32, ExtendedReg<RegOrZero32>> {
-        add(
-            RegOrSp32::Reg(self.dst),
-            RegOrSp32::Reg(self.src1),
-            ExtendedReg::new(RegOrZero32::Reg(self.src2)),
-        )
-        .expect("internal error: cannot happen")
-        .extend(mode, amount)
     }
 }
 
@@ -278,22 +185,6 @@ impl Add<RegOrZero32, RegOrZero32> {
         add(self.dst, self.src1, ShiftedReg::new(self.src2))
             .expect("internal error: cannot happen")
             .shift(mode, amount)
-    }
-}
-
-impl MakeAdd<RegOrSp32, RegOrZero32> for Add<RegOrSp32, RegOrZero32> {
-    #[inline]
-    fn new(dst: RegOrSp32, src1: RegOrSp32, src2: RegOrZero32) -> Result<Self, &'static str> {
-        Ok(Self { dst, src1, src2 })
-    }
-}
-
-impl Add<RegOrSp32, RegOrZero32> {
-    #[inline]
-    pub fn extend(self, mode: ExtendMode, amount: u8) -> Add<RegOrSp32, ExtendedReg<RegOrZero32>> {
-        add(self.dst, self.src1, ExtendedReg::new(self.src2))
-            .expect("internal error: cannot happen")
-            .extend(mode, amount)
     }
 }
 
@@ -343,44 +234,8 @@ impl Instruction for Add<RegOrZero32, ShiftedReg<RegOrZero32>> {
     }
 }
 
-impl MakeAdd<RegOrSp32, ExtendedReg<RegOrZero32>> for Add<RegOrSp32, ExtendedReg<RegOrZero32>> {
-    #[inline]
-    fn new(
-        dst: RegOrSp32,
-        src1: RegOrSp32,
-        src2: ExtendedReg<RegOrZero32>,
-    ) -> Result<Self, &'static str> {
-        Ok(Self { dst, src1, src2 })
-    }
-}
-
-impl Add<RegOrSp32, ExtendedReg<RegOrZero32>> {
-    #[inline]
-    pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
-        self.src2.extend = Extend { mode, amount };
-        self
-    }
-
-    #[inline]
-    fn add_opcode(&self) -> InstructionCode {
-        let option = self.src2.extend.mode as u8;
-        let rm = self.src2.reg.code();
-        let imm3 = self.src2.extend.amount;
-        let rn = self.src1.code();
-        let rd = self.dst.code();
-
-        ADD_32_addsub_ext::new(rm.into(), option.into(), imm3.into(), rn.into(), rd.into()).build()
-    }
-}
-
-impl Instruction for Add<RegOrSp32, ExtendedReg<RegOrZero32>> {
-    #[inline]
-    fn represent(self) -> impl Iterator<Item = InstructionCode> {
-        let opcode = self.add_opcode();
-
-        std::iter::once(opcode)
-    }
-}
+define_arith_extend!(Add, 64, addsub, Reg64, RegOrSp64, RegOrZero64);
+define_arith_extend!(Add, 32, addsub, Reg32, RegOrSp32, RegOrZero32);
 
 define_arith_imm12!(Add, 32, addsub, Reg32, RegOrZero32);
 define_arith_imm12!(Add, 64, addsub, Reg64, RegOrZero64);

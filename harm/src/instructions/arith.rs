@@ -61,7 +61,110 @@ macro_rules! define_arith_imm12 {
     }
 }
 
+macro_rules! define_arith_extend {
+    ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $stype:ty, $ztype:ty) => {
+        paste! {
+            impl $name<$reg, $reg> {
+                #[inline]
+                pub fn extend(
+                    self,
+                    mode: ExtendMode,
+                    amount: u8,
+                ) -> $name<$stype, ExtendedReg<$ztype>> {
+                    $name::new(
+                        <$stype>::Reg(self.dst),
+                        <$stype>::Reg(self.src1),
+                        ExtendedReg::new(<$ztype>::Reg(self.src2)),
+                    )
+                    .expect("internal error: cannot happen")
+                    .extend(mode, amount)
+                }
+            }
+
+            impl [<Make $name>]<$stype, $ztype> for $name<$stype, $ztype> {
+                #[inline]
+                fn new(dst: $stype, src1: $stype, src2: $ztype) -> Result<Self, &'static str> {
+                    Ok(Self { dst, src1, src2 })
+                }
+            }
+
+            impl [<Make $name>]<$stype, $reg> for $name<$stype, $reg> {
+                #[inline]
+                fn new(dst: $stype, src1: $stype, src2: $reg) -> Result<Self, &'static str> {
+                    Ok(Self { dst, src1, src2 })
+                }
+            }
+
+            impl $name<$stype, $reg> {
+                #[inline]
+                pub fn extend(
+                    self,
+                    mode: ExtendMode,
+                    amount: u8,
+                ) -> $name<$stype, ExtendedReg<$ztype>> {
+                    $name::new(self.dst, self.src1, ExtendedReg::new(self.src2.into()))
+                        .expect("internal error: cannot happen")
+                        .extend(mode, amount)
+                }
+            }
+
+            impl [<Make $name>]<$stype, ExtendedReg<$ztype>>
+                for $name<$stype, ExtendedReg<$ztype>>
+            {
+                #[inline]
+                fn new(
+                    dst: $stype,
+                    src1: $stype,
+                    src2: ExtendedReg<$ztype>,
+                ) -> Result<Self, &'static str> {
+                    Ok(Self { dst, src1, src2 })
+                }
+            }
+
+            impl $name<$stype, ExtendedReg<$ztype>> {
+                #[inline]
+                pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
+                    self.src2.extend = Extend { mode, amount };
+                    self
+                }
+
+                #[inline]
+                fn add_opcode(&self) -> InstructionCode {
+                    let option = self.src2.extend.mode as u8;
+                    let rm = self.src2.reg.code();
+                    let imm3 = self.src2.extend.amount;
+                    let rn = self.src1.code();
+                    let rd = self.dst.code();
+
+                    [<$name:upper _ $bits _ $cmd _ext>]::new(
+                        rm.into(), option.into(), imm3.into(), rn.into(), rd.into()
+                    ).build()
+                }
+            }
+
+            impl $name<$stype, $ztype> {
+                #[inline]
+                pub fn extend(self, mode: ExtendMode, amount: u8) -> $name<$stype, ExtendedReg<$ztype>> {
+                    $name::new(self.dst, self.src1, ExtendedReg::new(self.src2))
+                        .expect("internal error: cannot happen")
+                        .extend(mode, amount)
+                }
+            }
+
+            impl Instruction for $name<$stype, ExtendedReg<$ztype>> {
+                #[inline]
+                fn represent(self) -> impl Iterator<Item = InstructionCode> {
+                    let opcode = self.add_opcode();
+
+                    std::iter::once(opcode)
+                }
+            }
+        }
+    };
+}
+
 pub mod add;
+pub mod sub;
 
 pub type Error = &'static str;
 
