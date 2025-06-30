@@ -35,7 +35,7 @@ macro_rules! define_arith_shift {
 
             impl [<Make $name>]<$ztype, $ztype> for $name<$ztype, $ztype> {
                 #[inline]
-                fn new(dst: $ztype, src1: $ztype, src2: $ztype) -> Result<Self, &'static str> {
+                fn new(dst: $ztype, src1: $ztype, src2: $ztype) -> Result<Self, Error> {
                     Ok(Self { dst, src1, src2 })
                 }
             }
@@ -55,7 +55,7 @@ macro_rules! define_arith_shift {
                     dst: $ztype,
                     src1: $ztype,
                     src2: ShiftedReg<$ztype>,
-                ) -> Result<Self, &'static str> {
+                ) -> Result<Self, Error> {
                     Ok(Self { dst, src1, src2 })
                 }
             }
@@ -97,12 +97,13 @@ macro_rules! define_arith_shift {
         }
     }
 }
+
 macro_rules! define_arith_imm12 {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $etype:ty) => {
         paste! {
             impl [<Make $name>]<$reg, u32> for $name<$reg, u32> {
                 #[inline]
-                fn new(dst: $reg, src1: $reg, src2: u32) -> Result<Self, &'static str> {
+                fn new(dst: $reg, src1: $reg, src2: u32) -> Result<Self, Error> {
                     let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
                     Ok(Self {
                         dst,
@@ -124,7 +125,7 @@ macro_rules! define_arith_imm12 {
 
             impl [<Make $name>]<$etype, u32> for $name<$etype, u32> {
                 #[inline]
-                fn new(dst: $etype, src1: $etype, src2: u32) -> Result<Self, &'static str> {
+                fn new(dst: $etype, src1: $etype, src2: u32) -> Result<Self, Error> {
                     let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
                     Ok(Self {
                         dst,
@@ -175,14 +176,14 @@ macro_rules! define_arith_extend {
 
             impl [<Make $name>]<$stype, $ztype> for $name<$stype, $ztype> {
                 #[inline]
-                fn new(dst: $stype, src1: $stype, src2: $ztype) -> Result<Self, &'static str> {
+                fn new(dst: $stype, src1: $stype, src2: $ztype) -> Result<Self, Error> {
                     Ok(Self { dst, src1, src2 })
                 }
             }
 
             impl [<Make $name>]<$stype, $reg> for $name<$stype, $reg> {
                 #[inline]
-                fn new(dst: $stype, src1: $stype, src2: $reg) -> Result<Self, &'static str> {
+                fn new(dst: $stype, src1: $stype, src2: $reg) -> Result<Self, Error> {
                     Ok(Self { dst, src1, src2 })
                 }
             }
@@ -208,7 +209,7 @@ macro_rules! define_arith_extend {
                     dst: $stype,
                     src1: $stype,
                     src2: ExtendedReg<$ztype>,
-                ) -> Result<Self, &'static str> {
+                ) -> Result<Self, Error> {
                     Ok(Self { dst, src1, src2 })
                 }
             }
@@ -255,9 +256,11 @@ macro_rules! define_arith_extend {
     };
 }
 
+// These modules have to be defined after the macros
 pub mod add;
 pub mod sub;
 
+// TODO: proper error type
 pub type Error = &'static str;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -361,7 +364,7 @@ pub struct Extend {
     amount: u8,
 }
 
-pub(crate) fn validate_imm12(imm12: u32) -> Result<u32, &'static str> {
+pub(crate) fn validate_imm12(imm12: u32) -> Result<u32, Error> {
     const BITS_12: u32 = (1 << 12) - 1;
     if imm12 <= BITS_12 {
         Ok(imm12)
