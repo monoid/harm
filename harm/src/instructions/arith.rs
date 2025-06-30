@@ -5,6 +5,98 @@
 
 use crate::register::{Reg32, Reg64, RegOrZero32, RegOrZero64};
 
+macro_rules! define_arith_shift {
+    ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $ztype:ty) => {
+        paste! {
+            impl $name<$reg, $reg> {
+                #[inline]
+                pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, ShiftedReg<$ztype>> {
+                    $name::new(
+                        $ztype::Reg(self.dst),
+                        $ztype::Reg(self.src1),
+                        ShiftedReg::new($ztype::Reg(self.src2)),
+                    )
+                        .expect("internal error: cannot happen")
+                        .shift(mode, amount)
+                }
+            }
+
+            impl Instruction for $name<$reg, $reg> {
+                #[inline]
+                fn represent(self) -> impl Iterator<Item = InstructionCode> {
+                    $name {
+                        dst: $ztype::Reg(self.dst),
+                        src1: $ztype::Reg(self.src1),
+                        src2: ShiftedReg::new($ztype::Reg(self.src2)),
+                    }
+                    .represent()
+                }
+            }
+
+            impl [<Make $name>]<$ztype, $ztype> for $name<$ztype, $ztype> {
+                #[inline]
+                fn new(dst: $ztype, src1: $ztype, src2: $ztype) -> Result<Self, &'static str> {
+                    Ok(Self { dst, src1, src2 })
+                }
+            }
+
+            impl $name<$ztype, $ztype> {
+                #[inline]
+                pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, ShiftedReg<$ztype>> {
+                    $name::new(self.dst, self.src1, ShiftedReg::new(self.src2))
+                        .expect("internal error: cannot happen")
+                        .shift(mode, amount)
+                }
+            }
+
+            impl [<Make $name>]<$ztype, ShiftedReg<$ztype>> for $name<$ztype, ShiftedReg<$ztype>> {
+                #[inline]
+                fn new(
+                    dst: $ztype,
+                    src1: $ztype,
+                    src2: ShiftedReg<$ztype>,
+                ) -> Result<Self, &'static str> {
+                    Ok(Self { dst, src1, src2 })
+                }
+            }
+
+            impl $name<$ztype, ShiftedReg<$ztype>> {
+                #[inline]
+                pub fn shift(mut self, mode: ShiftMode, amount: u8) -> Self {
+                    self.src2.shift = Shift { mode, amount };
+                    self
+                }
+
+                #[inline]
+                fn add_opcode(&self) -> InstructionCode {
+                    let shift = self.src2.shift.mode as u8;
+                    let rm = self.src2.reg.code();
+                    let shift_amount_imm6 = self.src2.shift.amount;
+                    let rn = self.src1.code();
+                    let rd = self.dst.code();
+
+                    [<$name:upper _ $bits _ $cmd _shift>]::new(
+                        shift.into(),
+                        rm.into(),
+                        shift_amount_imm6.into(),
+                        rn.into(),
+                        rd.into(),
+                    )
+                        .build()
+                }
+            }
+
+            impl Instruction for $name<$ztype, ShiftedReg<$ztype>> {
+                #[inline]
+                fn represent(self) -> impl Iterator<Item = InstructionCode> {
+                    let opcode = self.add_opcode();
+
+                    std::iter::once(opcode)
+                }
+            }
+        }
+    }
+}
 macro_rules! define_arith_imm12 {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $etype:ty) => {
         paste! {

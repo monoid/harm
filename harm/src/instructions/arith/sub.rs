@@ -5,6 +5,9 @@ use aarchmrs_instructions::A64::{
     dpreg::addsub_ext::{
         SUB_32_addsub_ext::SUB_32_addsub_ext, SUB_64_addsub_ext::SUB_64_addsub_ext,
     },
+    dpreg::addsub_shift::{
+        SUB_32_addsub_shift::SUB_32_addsub_shift, SUB_64_addsub_shift::SUB_64_addsub_shift,
+    },
 };
 use aarchmrs_types::InstructionCode;
 use paste::paste;
@@ -13,7 +16,7 @@ use super::Error;
 use crate::{
     instructions::{
         Instruction,
-        arith::{Extend, ExtendMode, ExtendedReg},
+        arith::{Extend, ExtendMode, ExtendedReg, Shift, ShiftMode, ShiftedReg},
     },
     register::{IntoCode as _, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
 };
@@ -34,6 +37,23 @@ pub struct Sub<T, U> {
     pub src1: T,
     pub src2: U,
 }
+
+impl MakeSub<Reg64, Reg64> for Sub<Reg64, Reg64> {
+    #[inline]
+    fn new(dst: Reg64, src1: Reg64, src2: Reg64) -> Result<Self, Error> {
+        Ok(Self { dst, src1, src2 })
+    }
+}
+
+impl MakeSub<Reg32, Reg32> for Sub<Reg32, Reg32> {
+    #[inline]
+    fn new(dst: Reg32, src1: Reg32, src2: Reg32) -> Result<Self, Error> {
+        Ok(Self { dst, src1, src2 })
+    }
+}
+
+define_arith_shift!(Sub, 32, addsub, Reg32, RegOrZero32);
+define_arith_shift!(Sub, 64, addsub, Reg64, RegOrZero64);
 
 define_arith_imm12!(Sub, 32, addsub, Reg32, RegOrZero32);
 define_arith_imm12!(Sub, 64, addsub, Reg64, RegOrZero64);
