@@ -13,23 +13,22 @@ pub struct BitValue<const BITS: u32>(pub u32);
 impl<const BITS: u32> BitValue<BITS> {
     #[inline]
     pub const fn new_u32(nested: u32) -> Self {
-        debug_assert!(nested < (1 << BITS));
+        debug_assert!({
+            let upper_bits = i32::BITS - BITS;
+            nested == (nested << upper_bits) >> upper_bits
+        });
 
         Self(nested)
     }
 
     #[inline]
     pub const fn new_i32(nested: i32) -> Self {
-        // debug_assert_eq is not const-compatible, works debug_assert though
+        let upper_bits = i32::BITS - BITS;
+        // debug_assert_eq is not const-compatible, debug_assert does work though
         // it is not documented as const-compatible.
-        debug_assert!(
-            {
-                let bits = i32::BITS - BITS;
-                (nested << bits) >> bits
-            } == nested
-        );
+        debug_assert!(nested == ((nested << upper_bits) >> upper_bits));
 
-        let mask = (1 << BITS) - 1;
+        let mask = u32::MAX >> upper_bits;
         let nested = nested as u32;
         Self(nested & mask)
     }

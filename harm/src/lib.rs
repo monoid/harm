@@ -3,5 +3,6 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+pub mod bits;
 pub mod instructions;
 pub mod register;
