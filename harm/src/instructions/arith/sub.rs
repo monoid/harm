@@ -55,15 +55,26 @@ impl MakeSub<Reg32, Reg32> for Sub<Reg32, Reg32> {
 define_arith_shift!(Sub, 32, addsub, Reg32, RegOrZero32);
 define_arith_shift!(Sub, 64, addsub, Reg64, RegOrZero64);
 
-define_arith_imm12!(Sub, 32, addsub, Reg32, RegOrZero32);
-define_arith_imm12!(Sub, 64, addsub, Reg64, RegOrZero64);
-
 define_arith_extend!(Sub, 32, addsub, Reg32, RegOrSp32, RegOrZero32);
 define_arith_extend!(Sub, 64, addsub, Reg64, RegOrSp64, RegOrZero64);
+
+define_arith_imm12!(Sub, 32, addsub, Reg32, RegOrSp32);
+define_arith_imm12!(Sub, 64, addsub, Reg64, RegOrSp64);
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_sub_sp_64_const_0x823() {
+        use RegOrSp64::SP;
+
+        let codes: Vec<_> = sub(SP, SP, 0x823).unwrap().represent().collect();
+
+        assert_eq!(codes.len(), 1);
+        // sub sp, sp, 0x123
+        assert_eq!(codes[0].0, [0xff, 0x8f, 0x20, 0xd1]); // 0xd1208fff
+    }
 
     #[test]
     fn test_sub_32_const_0x823() {
@@ -74,6 +85,17 @@ mod tests {
         assert_eq!(codes.len(), 1);
         // sub w1, w2, 0x123
         assert_eq!(codes[0].0, [0x41, 0x8c, 0x20, 0x51]); // 0x51208c41
+    }
+
+    #[test]
+    fn test_sub_sp_32_const_0x823() {
+        use RegOrSp32::WSP;
+
+        let codes: Vec<_> = sub(WSP, WSP, 0x823).unwrap().represent().collect();
+
+        assert_eq!(codes.len(), 1);
+        // sub wsp, wsp, 0x123
+        assert_eq!(codes[0].0, [0xff, 0x8f, 0x20, 0x51]); // 0x51208fff
     }
 
     #[test]

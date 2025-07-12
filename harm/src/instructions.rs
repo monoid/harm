@@ -16,6 +16,9 @@ pub trait Instruction {
     fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static;
 }
 
+// TODO to use it with dynasmrt, we should implement IntoIterator<Item = u8>, but it is impossible to
+// define Iterator type...  Unless we use boxing.
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum BranchCond {
     EQ = 0b0000, // equal

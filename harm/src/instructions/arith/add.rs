@@ -59,8 +59,8 @@ define_arith_shift!(Add, 64, addsub, Reg64, RegOrZero64);
 define_arith_extend!(Add, 32, addsub, Reg32, RegOrSp32, RegOrZero32);
 define_arith_extend!(Add, 64, addsub, Reg64, RegOrSp64, RegOrZero64);
 
-define_arith_imm12!(Add, 32, addsub, Reg32, RegOrZero32);
-define_arith_imm12!(Add, 64, addsub, Reg64, RegOrZero64);
+define_arith_imm12!(Add, 32, addsub, Reg32, RegOrSp32);
+define_arith_imm12!(Add, 64, addsub, Reg64, RegOrSp64);
 
 #[cfg(test)]
 mod tests {
@@ -186,6 +186,26 @@ mod tests {
     }
 
     #[test]
+    fn test_add_sp_64_const_1() {
+        use RegOrSp64::SP;
+
+        let codes: Vec<_> = add(SP, SP, 1).unwrap().represent().collect();
+
+        assert_eq!(codes.len(), 1);
+        assert_eq!(codes[0].0, [0xFF, 0x07, 0x00, 0x91]); // 0x910007FF
+    }
+
+    #[test]
+    fn test_add_sp_64_const_0x1000() {
+        use RegOrSp64::SP;
+
+        let codes: Vec<_> = add(SP, SP, 1).unwrap().represent().collect();
+
+        assert_eq!(codes.len(), 1);
+        assert_eq!(codes[0].0, [0xFF, 0x07, 0x00, 0x91]); // 0x910007FF
+    }
+
+    #[test]
     fn test_add_32() {
         use Reg32::*;
 
@@ -300,6 +320,17 @@ mod tests {
         assert_eq!(codes.len(), 1);
         // add w1, w2, 0x123
         assert_eq!(codes[0].0, [0x41, 0x8c, 0x04, 0x11]); // 0x11048c41
+    }
+
+    #[test]
+    fn test_add_wsp_32_const_0x123() {
+        use RegOrSp32::WSP;
+
+        let codes: Vec<_> = add(WSP, WSP, 0x123).unwrap().represent().collect();
+
+        assert_eq!(codes.len(), 1);
+        // add w1, w2, 0x123
+        assert_eq!(codes[0].0, [0xFF, 0x8F, 0x04, 0x11]); // 0x11048fff
     }
 
     #[test]
