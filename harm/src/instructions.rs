@@ -12,12 +12,14 @@ pub mod branches;
 // https://github.com/rust-lang/rust/issues/42940
 // When the bug is fixed, it can be changed to &self.
 // // OTOH, currently all implementations are `Copy`.
-pub trait Instruction {
+pub trait Instruction: Sized {
     fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static;
-}
 
-// TODO to use it with dynasmrt, we should implement IntoIterator<Item = u8>, but it is impossible to
-// define Iterator type...  Unless we use boxing.
+    #[inline]
+    fn bytes(self) -> impl Iterator<Item = u8> + 'static {
+        self.represent().flat_map(|i| i.0)
+    }
+}
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum BranchCond {
