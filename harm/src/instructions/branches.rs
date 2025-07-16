@@ -4,6 +4,7 @@
  */
 
 pub mod ret;
+pub(crate) mod testbranch;
 
 use aarchmrs_instructions::A64::control::{
     branch_imm::B_only_branch_imm::B_only_branch_imm, // TODO BL: branch with link
@@ -11,12 +12,14 @@ use aarchmrs_instructions::A64::control::{
 };
 use aarchmrs_types::InstructionCode;
 
-pub use self::ret::*;
 use super::{BranchCond, Instruction};
 use crate::{
     bits::SBitValue,
     register::{IntoCode as _, Reg32, Reg64},
 };
+
+pub use self::ret::*;
+pub use self::testbranch::*;
 
 #[inline]
 pub fn b(offset: PcOffset) -> Branch<PcDst> {
