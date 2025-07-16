@@ -6,7 +6,7 @@ use std::env;
 use std::path::PathBuf;
 
 fn main() {
-    println!("cargo::rerun-if-changed=");
+    println!("cargo::rerun-if-changed=build.rs");
     if env::var("FORCE_AARCHMRS_GEN").is_ok() {
         let out_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
         let cache_dir = env::var("OUT_DIR").unwrap();
