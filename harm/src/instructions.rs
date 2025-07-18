@@ -7,6 +7,7 @@ use aarchmrs_types::InstructionCode;
 
 pub mod arith;
 pub mod branches;
+pub mod load;
 
 // It should be &self, but rustc bug makes the impl infected by its lifetime:
 // https://github.com/rust-lang/rust/issues/42940
