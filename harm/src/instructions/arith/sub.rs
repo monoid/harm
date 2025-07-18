@@ -10,7 +10,6 @@ use aarchmrs_instructions::A64::{
     },
 };
 use aarchmrs_types::InstructionCode;
-use paste::paste;
 
 use super::Error;
 use crate::{

@@ -7,7 +7,7 @@ use crate::register::{Reg32, Reg64, RegOrZero32, RegOrZero64};
 
 macro_rules! define_arith_shift {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $ztype:ty) => {
-        paste! {
+        ::paste::paste! {
             impl $name<$reg, $reg> {
                 #[inline]
                 pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, ShiftedReg<$ztype>> {
@@ -100,7 +100,7 @@ macro_rules! define_arith_shift {
 
 macro_rules! define_arith_imm12 {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $etype:ty) => {
-        paste! {
+        ::paste::paste! {
             impl [<Make $name>]<$reg, u32> for $name<$reg, u32> {
                 #[inline]
                 fn new(dst: $reg, src1: $reg, src2: u32) -> Result<Self, Error> {
@@ -156,7 +156,7 @@ macro_rules! define_arith_imm12 {
 
 macro_rules! define_arith_extend {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $stype:ty, $ztype:ty) => {
-        paste! {
+        ::paste::paste! {
             impl $name<$reg, $reg> {
                 #[inline]
                 pub fn extend(
