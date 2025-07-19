@@ -10,3 +10,4 @@ keywords = ["arm", "aarch64", "assembler", "jit"]
 categories = ["hardware-support"]
 
 [dependencies]
+hex = "0.4.3"
