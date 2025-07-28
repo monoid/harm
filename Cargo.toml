@@ -6,6 +6,8 @@ members = [
    "aarchmrs-parser",
    "aarchmrs-types",
    "harm",
+   "tools/harm-test-utils",
+   "tools/harm-testgen",
 ]
 
 resolver = "3"
@@ -17,3 +19,4 @@ aarchmrs-instructions = { path = "aarchmrs-instructions", version = "0.1.0-2025-
 aarchmrs-parser = { path = "aarchmrs-parser", version = "0.1.0" }
 aarchmrs-types = { path = "aarchmrs-types", version = "0.1.0" }
 harm = { path = "harm", version = "0.1.0" }
+harm-test-utils = { path = "tools/harm-test-utils", version = "0.1.0" }
