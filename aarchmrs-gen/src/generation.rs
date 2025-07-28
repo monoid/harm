@@ -16,7 +16,6 @@ struct Masks {
 
 pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenStream {
     let args: Vec<_> = gen_constructor_args(desc).collect();
-    let (fields, inits) = gen_struct_fields(desc);
     let expr = gen_expr(desc);
 
     let Masks { mask, opcode } = gen_mask(desc);
@@ -35,47 +34,9 @@ pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenS
         pub const SHOULD_BE_MASK: u32 = #should_be_mask;
         pub const NAME: &str = #name;
 
-        #[derive(Copy, Clone, Debug, Default)]
-        pub struct #fmt_name {
-            #(#fields),*
-        }
-
-        impl #fmt_name {
-            #[inline]
-            pub const fn new(#(#args),*) -> Self {
-                Self { #(#inits),* }
-            }
-
-            #[inline]
-            pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-                ::aarchmrs_types::InstructionCode::from_u32(#expr)
-            }
-
-            #[inline]
-            pub const fn opcode_mask() -> u32 {
-                self::OPCODE_MASK
-            }
-
-            #[inline]
-            pub const fn opcode() -> u32 {
-                self::OPCODE
-            }
-
-            #[inline]
-            pub const fn should_be_mask() -> u32 {
-                self::SHOULD_BE_MASK
-            }
-
-            #[inline]
-            pub const fn match_opcode(opcode: u32) -> bool {
-                let opcode = opcode & self::OPCODE_MASK;
-                opcode == self::OPCODE
-            }
-
-            #[inline]
-            pub const fn name() -> &'static str {
-                self::NAME
-            }
+        #[inline]
+        pub const fn #fmt_name(#(#args),*) -> ::aarchmrs_types::InstructionCode {
+            ::aarchmrs_types::InstructionCode::from_u32(#expr)
         }
     };
 
@@ -105,27 +66,6 @@ fn field_to_fnarg(name: &str, range: &aarchmrs_parser::instructions::Range) -> O
     }))
 }
 
-fn gen_struct_fields(desc: &[Bits]) -> (Vec<syn::Field>, Vec<syn::FieldValue>) {
-    let mut fields = vec![];
-    let mut inits = vec![];
-    for bits in desc.iter().rev() {
-        match bits {
-            Bits::Bit { .. } => {}
-            Bits::Field { name, range } => {
-                let field = format_ident!("{}", **name);
-                let ty: syn::Type =
-                    syn::parse_str(&format!("::aarchmrs_types::BitValue::<{}>", range.width))
-                        .expect("internal error: malformed type");
-                fields.push(parse_quote!(
-                    pub #field: #ty
-                ));
-                inits.push(parse_quote!(#field));
-            }
-        }
-    }
-    (fields, inits)
-}
-
 fn gen_expr(desc: &[Bits]) -> syn::Expr {
     desc.iter()
         .map(|bits| match bits {
@@ -139,7 +79,7 @@ fn gen_expr(desc: &[Bits]) -> syn::Expr {
             Bits::Field { name, range } => {
                 let name = format_ident!("{}", name.as_ref());
                 let offset = range.start;
-                parse_quote!(self.#name.into_inner() << #offset)
+                parse_quote!(#name.into_inner() << #offset)
             }
         })
         .rev()
