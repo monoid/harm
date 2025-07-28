@@ -11,3 +11,6 @@ publish = false
 aarchmrs-types = { workspace = true }
 aarchmrs-instructions = { workspace = true }
 paste = "1.0.15"
+
+[dev-dependencies]
+harm-test-utils = { workspace = true }
