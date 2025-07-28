@@ -33,13 +33,13 @@ impl Ret {
 impl Instruction for Ret {
     fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static {
         let reg = self.0;
-        let reg_code = reg.code() as u32;
+        let reg_code = reg.code();
         let code = RET_64R_branch_reg::new(
             0b0u32.into(),
             0b10u32.into(),
             0b0u32.into(),
             0b0u32.into(),
-            reg_code.into(),
+            reg_code,
             0b00000u32.into(),
         )
         .build();

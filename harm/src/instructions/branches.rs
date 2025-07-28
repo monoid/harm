@@ -117,13 +117,13 @@ impl Instruction for CompareBranch<Reg64> {
         let code = if self.equal {
             compbranch::CBZ_64_compbranch::CBZ_64_compbranch::new(
                 self.offset.into(),
-                self.reg.code().into(),
+                self.reg.code(),
             )
             .build()
         } else {
             compbranch::CBNZ_64_compbranch::CBNZ_64_compbranch::new(
                 self.offset.into(),
-                self.reg.code().into(),
+                self.reg.code(),
             )
             .build()
         };
@@ -138,13 +138,13 @@ impl Instruction for CompareBranch<Reg32> {
         let code = if self.equal {
             compbranch::CBZ_32_compbranch::CBZ_32_compbranch::new(
                 self.offset.into(),
-                self.reg.code().into(),
+                self.reg.code(),
             )
             .build()
         } else {
             compbranch::CBNZ_32_compbranch::CBNZ_32_compbranch::new(
                 self.offset.into(),
-                self.reg.code().into(),
+                self.reg.code(),
             )
             .build()
         };

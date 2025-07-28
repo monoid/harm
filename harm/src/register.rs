@@ -5,8 +5,10 @@
 
 #![allow(clippy::upper_case_acronyms)]
 
+use aarchmrs_types::BitValue;
+
 pub trait IntoCode {
-    fn code(&self) -> u8;
+    fn code(&self) -> BitValue<5>;
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
@@ -71,8 +73,8 @@ impl From<Reg64> for RegOrZero64 {
 
 impl IntoCode for Reg64 {
     #[inline]
-    fn code(&self) -> u8 {
-        *self as u8
+    fn code(&self) -> BitValue<5> {
+        BitValue::new_u32(*self as u32)
     }
 }
 
@@ -140,47 +142,47 @@ impl From<Reg32> for RegOrZero32 {
 
 impl IntoCode for Reg32 {
     #[inline]
-    fn code(&self) -> u8 {
-        *self as u8
+    fn code(&self) -> BitValue<5> {
+        BitValue::new_u32(*self as u32)
     }
 }
 
 impl IntoCode for RegOrSp64 {
     #[inline]
-    fn code(&self) -> u8 {
-        match self {
+    fn code(&self) -> BitValue<5> {
+        BitValue::new_u32(match self {
             Self::Reg(general_register64) => *general_register64 as _,
             Self::SP => 31,
-        }
+        })
     }
 }
 
 impl IntoCode for RegOrZero64 {
     #[inline]
-    fn code(&self) -> u8 {
-        match self {
+    fn code(&self) -> BitValue<5> {
+        BitValue::new_u32(match self {
             Self::Reg(general_register64) => *general_register64 as _,
             Self::XZR => 31,
-        }
+        })
     }
 }
 
 impl IntoCode for RegOrSp32 {
     #[inline]
-    fn code(&self) -> u8 {
-        match self {
+    fn code(&self) -> BitValue<5> {
+        BitValue::new_u32(match self {
             Self::Reg(general_register32) => *general_register32 as _,
             Self::WSP => 31,
-        }
+        })
     }
 }
 
 impl IntoCode for RegOrZero32 {
     #[inline]
-    fn code(&self) -> u8 {
-        match self {
+    fn code(&self) -> BitValue<5> {
+        BitValue::new_u32(match self {
             Self::Reg(general_register32) => *general_register32 as _,
             Self::WZR => 31,
-        }
+        })
     }
 }

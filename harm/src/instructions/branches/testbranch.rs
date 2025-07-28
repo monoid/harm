@@ -58,19 +58,14 @@ impl Instruction for TestBranch<RegOrZero64, UBitValue<6>> {
         let b5 = bit >> 5;
         let b40 = bit & 0b11111;
         let opcode = if self.op {
-            TBNZ_only_testbranch::new(
-                b5.into(),
-                b40.into(),
-                self.offset.into(),
-                self.reg.code().into(),
-            )
-            .build()
+            TBNZ_only_testbranch::new(b5.into(), b40.into(), self.offset.into(), self.reg.code())
+                .build()
         } else {
             TBZ_only_testbranch::new(
                 (bit >> 5).into(),
                 (bit & 0b11111).into(),
                 self.offset.into(),
-                self.reg.code().into(),
+                self.reg.code(),
             )
             .build()
         };
@@ -85,21 +80,11 @@ impl Instruction for TestBranch<RegOrZero32, UBitValue<5>> {
         let b5 = 0;
         let b40 = bit;
         let opcode = if self.op {
-            TBNZ_only_testbranch::new(
-                b5.into(),
-                b40.into(),
-                self.offset.into(),
-                self.reg.code().into(),
-            )
-            .build()
+            TBNZ_only_testbranch::new(b5.into(), b40.into(), self.offset.into(), self.reg.code())
+                .build()
         } else {
-            TBZ_only_testbranch::new(
-                b5.into(),
-                b40.into(),
-                self.offset.into(),
-                self.reg.code().into(),
-            )
-            .build()
+            TBZ_only_testbranch::new(b5.into(), b40.into(), self.offset.into(), self.reg.code())
+                .build()
         };
         std::iter::once(opcode)
     }
