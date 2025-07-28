@@ -4,9 +4,10 @@ use nom::{
     IResult, Parser as _,
     branch::alt,
     bytes::complete::tag,
-    combinator::{cut, eof, map, opt},
-    multi::separated_list0,
-    sequence::{pair, preceded, terminated},
+    character::complete::none_of,
+    combinator::{cut, eof, map},
+    multi::{many, separated_list0},
+    sequence::{preceded, terminated},
 };
 
 #[derive(ClapParser)]
@@ -66,11 +67,13 @@ where
 fn parse(inp: &str) -> IResult<&str, IterClone<String>> {
     alt((
         map(eof, |_| IterClone::new(std::iter::once(String::new()))),
-        map(pair(parse_item, opt(parse)), |(c, rest)| match rest {
-            Some(rest) => IterClone::new(
-                Itertools::cartesian_product(c, rest).map(|(a, b)| format!("{a}{b}")),
-            ),
-            None => c,
+        map(many(1.., parse_item), |items: Vec<_>| {
+            IterClone::new(
+                items
+                    .into_iter()
+                    .multi_cartesian_product()
+                    .map(|prod| format!("{}", prod.into_iter().format(""))),
+            )
         }),
     ))
     .parse(inp)
@@ -79,8 +82,8 @@ fn parse(inp: &str) -> IResult<&str, IterClone<String>> {
 fn parse_item(inp: &str) -> IResult<&str, IterClone<String>> {
     alt((
         preceded(tag("("), cut(terminated(parse_alt, tag(")")))),
-        map(nom::character::complete::none_of("|)"), |c| {
-            IterClone::new(std::iter::once(format!("{c}")))
+        map(many(1.., none_of("(|)")), |c: String| {
+            IterClone::new(std::iter::once(c))
         }),
     ))
     .parse(inp)
@@ -147,8 +150,20 @@ mod tests {
     }
 
     #[test]
-    fn test_patterns_nested() {
+    fn test_patterns_nested1() {
         let var = variants("(a|b(c|d))").collect_vec();
         assert_eq!(var, &["a", "bc", "bd"]);
+    }
+
+    #[test]
+    fn test_patterns_nested2() {
+        let var = variants("(a|(c|d)b)").collect_vec();
+        assert_eq!(var, &["a", "cb", "db"]);
+    }
+
+    #[test]
+    fn test_patterns_nested3() {
+        let var = variants("(a|b(c|d)e)").collect_vec();
+        assert_eq!(var, &["a", "bce", "bde"]);
     }
 }
