@@ -18,6 +18,6 @@ impl InstructionCode {
 
     #[inline]
     pub const fn unpack(self) -> u32 {
-        u32::from_be_bytes(self.0)
+        u32::from_le_bytes(self.0)
     }
 }
