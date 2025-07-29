@@ -5,7 +5,7 @@
 
 pub mod smlal_za_zzi_1 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100000001000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100000001000000011000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001110000000001000000000000u32;
     #[cfg(feature = "meta")]
@@ -19,8 +19,6 @@ pub mod smlal_za_zzi_1 {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3l: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
-        S: ::aarchmrs_types::BitValue<1>,
         off3: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -31,17 +29,16 @@ pub mod smlal_za_zzi_1 {
                 | 0b1u32 << 12u32
                 | i3l.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | U.into_inner() << 4u32
-                | S.into_inner() << 3u32
+                | 0b00u32 << 3u32
                 | off3.into_inner() << 0u32,
         )
     }
 }
 pub mod smlsl_za_zzi_1 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100000001000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100000001000000011000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001110000000001000000000000u32;
+    pub const OPCODE: u32 = 0b11000001110000000001000000001000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -53,8 +50,6 @@ pub mod smlsl_za_zzi_1 {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3l: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
-        S: ::aarchmrs_types::BitValue<1>,
         off3: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -65,17 +60,16 @@ pub mod smlsl_za_zzi_1 {
                 | 0b1u32 << 12u32
                 | i3l.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | U.into_inner() << 4u32
-                | S.into_inner() << 3u32
+                | 0b01u32 << 3u32
                 | off3.into_inner() << 0u32,
         )
     }
 }
 pub mod umlal_za_zzi_1 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100000001000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100000001000000011000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001110000000001000000000000u32;
+    pub const OPCODE: u32 = 0b11000001110000000001000000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -87,8 +81,6 @@ pub mod umlal_za_zzi_1 {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3l: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
-        S: ::aarchmrs_types::BitValue<1>,
         off3: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -99,17 +91,16 @@ pub mod umlal_za_zzi_1 {
                 | 0b1u32 << 12u32
                 | i3l.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | U.into_inner() << 4u32
-                | S.into_inner() << 3u32
+                | 0b10u32 << 3u32
                 | off3.into_inner() << 0u32,
         )
     }
 }
 pub mod umlsl_za_zzi_1 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100000001000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100000001000000011000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001110000000001000000000000u32;
+    pub const OPCODE: u32 = 0b11000001110000000001000000011000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -121,8 +112,6 @@ pub mod umlsl_za_zzi_1 {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3l: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
-        S: ::aarchmrs_types::BitValue<1>,
         off3: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -133,8 +122,7 @@ pub mod umlsl_za_zzi_1 {
                 | 0b1u32 << 12u32
                 | i3l.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | U.into_inner() << 4u32
-                | S.into_inner() << 3u32
+                | 0b11u32 << 3u32
                 | off3.into_inner() << 0u32,
         )
     }

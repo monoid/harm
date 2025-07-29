@@ -1,6 +1,6 @@
 [package]
 name = "aarchmrs-instructions"
-version = "0.1.1-2025-03"
+version = "0.2.0-2025-06"
 edition = "2024"
 description = "AARCHMRS-generated ARM instructions functions"
 license = "BSD-3-Clause"
@@ -13,4 +13,8 @@ categories = ["compilers", "hardware-support"]
 aarchmrs-types = { workspace = true }
 
 [features]
+default = ["A64"]
 meta = []
+A64 = []
+A32 = []
+T32 = []

@@ -5,7 +5,7 @@
 
 pub mod lasta_v_p_z_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000101001000101000000000000000u32;
     #[cfg(feature = "meta")]
@@ -15,7 +15,6 @@ pub mod lasta_v_p_z_ {
     #[inline]
     pub const fn lasta_v_p_z_(
         size: ::aarchmrs_types::BitValue<2>,
-        B: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Vd: ::aarchmrs_types::BitValue<5>,
@@ -23,9 +22,7 @@ pub mod lasta_v_p_z_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000101u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b10001u32 << 17u32
-                | B.into_inner() << 16u32
-                | 0b100u32 << 13u32
+                | 0b100010100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Vd.into_inner() << 0u32,
@@ -34,9 +31,9 @@ pub mod lasta_v_p_z_ {
 }
 pub mod lastb_v_p_z_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00000101001000101000000000000000u32;
+    pub const OPCODE: u32 = 0b00000101001000111000000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -44,7 +41,6 @@ pub mod lastb_v_p_z_ {
     #[inline]
     pub const fn lastb_v_p_z_(
         size: ::aarchmrs_types::BitValue<2>,
-        B: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Vd: ::aarchmrs_types::BitValue<5>,
@@ -52,9 +48,7 @@ pub mod lastb_v_p_z_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000101u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b10001u32 << 17u32
-                | B.into_inner() << 16u32
-                | 0b100u32 << 13u32
+                | 0b100011100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Vd.into_inner() << 0u32,

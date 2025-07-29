@@ -5,7 +5,7 @@
 
 pub mod ld1b_mzx_p_br_2x8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000001000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b10100001000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -15,7 +15,6 @@ pub mod ld1b_mzx_p_br_2x8 {
     #[inline]
     pub const fn ld1b_mzx_p_br_2x8(
         Rm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         PNg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         T: ::aarchmrs_types::BitValue<1>,
@@ -24,8 +23,7 @@ pub mod ld1b_mzx_p_br_2x8 {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b10100001000u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b000u32 << 13u32
                 | PNg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | T.into_inner() << 4u32
@@ -36,7 +34,7 @@ pub mod ld1b_mzx_p_br_2x8 {
 }
 pub mod ldnt1b_mzx_p_br_2x8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000001000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b10100001000000000000000000001000u32;
     #[cfg(feature = "meta")]
@@ -46,7 +44,6 @@ pub mod ldnt1b_mzx_p_br_2x8 {
     #[inline]
     pub const fn ldnt1b_mzx_p_br_2x8(
         Rm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         PNg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         T: ::aarchmrs_types::BitValue<1>,
@@ -55,8 +52,7 @@ pub mod ldnt1b_mzx_p_br_2x8 {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b10100001000u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b000u32 << 13u32
                 | PNg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | T.into_inner() << 4u32
@@ -67,9 +63,9 @@ pub mod ldnt1b_mzx_p_br_2x8 {
 }
 pub mod ld1h_mzx_p_br_2x8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000001000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100001000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10100001000000000010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -77,7 +73,6 @@ pub mod ld1h_mzx_p_br_2x8 {
     #[inline]
     pub const fn ld1h_mzx_p_br_2x8(
         Rm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         PNg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         T: ::aarchmrs_types::BitValue<1>,
@@ -86,8 +81,7 @@ pub mod ld1h_mzx_p_br_2x8 {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b10100001000u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b001u32 << 13u32
                 | PNg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | T.into_inner() << 4u32
@@ -98,9 +92,9 @@ pub mod ld1h_mzx_p_br_2x8 {
 }
 pub mod ldnt1h_mzx_p_br_2x8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000001000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100001000000000000000000001000u32;
+    pub const OPCODE: u32 = 0b10100001000000000010000000001000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -108,7 +102,6 @@ pub mod ldnt1h_mzx_p_br_2x8 {
     #[inline]
     pub const fn ldnt1h_mzx_p_br_2x8(
         Rm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         PNg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         T: ::aarchmrs_types::BitValue<1>,
@@ -117,8 +110,7 @@ pub mod ldnt1h_mzx_p_br_2x8 {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b10100001000u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b001u32 << 13u32
                 | PNg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | T.into_inner() << 4u32
@@ -129,9 +121,9 @@ pub mod ldnt1h_mzx_p_br_2x8 {
 }
 pub mod ld1w_mzx_p_br_2x8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000001000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100001000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10100001000000000100000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -139,7 +131,6 @@ pub mod ld1w_mzx_p_br_2x8 {
     #[inline]
     pub const fn ld1w_mzx_p_br_2x8(
         Rm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         PNg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         T: ::aarchmrs_types::BitValue<1>,
@@ -148,8 +139,7 @@ pub mod ld1w_mzx_p_br_2x8 {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b10100001000u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b010u32 << 13u32
                 | PNg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | T.into_inner() << 4u32
@@ -160,9 +150,9 @@ pub mod ld1w_mzx_p_br_2x8 {
 }
 pub mod ldnt1w_mzx_p_br_2x8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000001000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100001000000000000000000001000u32;
+    pub const OPCODE: u32 = 0b10100001000000000100000000001000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -170,7 +160,6 @@ pub mod ldnt1w_mzx_p_br_2x8 {
     #[inline]
     pub const fn ldnt1w_mzx_p_br_2x8(
         Rm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         PNg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         T: ::aarchmrs_types::BitValue<1>,
@@ -179,8 +168,7 @@ pub mod ldnt1w_mzx_p_br_2x8 {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b10100001000u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b010u32 << 13u32
                 | PNg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | T.into_inner() << 4u32
@@ -191,9 +179,9 @@ pub mod ldnt1w_mzx_p_br_2x8 {
 }
 pub mod ld1d_mzx_p_br_2x8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000001000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100001000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10100001000000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -201,7 +189,6 @@ pub mod ld1d_mzx_p_br_2x8 {
     #[inline]
     pub const fn ld1d_mzx_p_br_2x8(
         Rm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         PNg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         T: ::aarchmrs_types::BitValue<1>,
@@ -210,8 +197,7 @@ pub mod ld1d_mzx_p_br_2x8 {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b10100001000u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b011u32 << 13u32
                 | PNg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | T.into_inner() << 4u32
@@ -222,9 +208,9 @@ pub mod ld1d_mzx_p_br_2x8 {
 }
 pub mod ldnt1d_mzx_p_br_2x8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001000000000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000001000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100001000000000000000000001000u32;
+    pub const OPCODE: u32 = 0b10100001000000000110000000001000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -232,7 +218,6 @@ pub mod ldnt1d_mzx_p_br_2x8 {
     #[inline]
     pub const fn ldnt1d_mzx_p_br_2x8(
         Rm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         PNg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         T: ::aarchmrs_types::BitValue<1>,
@@ -241,8 +226,7 @@ pub mod ldnt1d_mzx_p_br_2x8 {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b10100001000u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b011u32 << 13u32
                 | PNg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | T.into_inner() << 4u32

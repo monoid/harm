@@ -5,7 +5,7 @@
 
 pub mod CSEL_32_condsel {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011010100000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -16,7 +16,6 @@ pub mod CSEL_32_condsel {
     pub const fn CSEL_32_condsel(
         Rm: ::aarchmrs_types::BitValue<5>,
         cond: ::aarchmrs_types::BitValue<4>,
-        o2: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -24,8 +23,7 @@ pub mod CSEL_32_condsel {
             0b00011010100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | cond.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | o2.into_inner() << 10u32
+                | 0b00u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -33,9 +31,9 @@ pub mod CSEL_32_condsel {
 }
 pub mod CSINC_32_condsel {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011010100000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00011010100000000000010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -44,7 +42,6 @@ pub mod CSINC_32_condsel {
     pub const fn CSINC_32_condsel(
         Rm: ::aarchmrs_types::BitValue<5>,
         cond: ::aarchmrs_types::BitValue<4>,
-        o2: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -52,8 +49,7 @@ pub mod CSINC_32_condsel {
             0b00011010100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | cond.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | o2.into_inner() << 10u32
+                | 0b01u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -61,7 +57,7 @@ pub mod CSINC_32_condsel {
 }
 pub mod CSINV_32_condsel {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01011010100000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -72,7 +68,6 @@ pub mod CSINV_32_condsel {
     pub const fn CSINV_32_condsel(
         Rm: ::aarchmrs_types::BitValue<5>,
         cond: ::aarchmrs_types::BitValue<4>,
-        o2: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -80,8 +75,7 @@ pub mod CSINV_32_condsel {
             0b01011010100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | cond.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | o2.into_inner() << 10u32
+                | 0b00u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -89,9 +83,9 @@ pub mod CSINV_32_condsel {
 }
 pub mod CSNEG_32_condsel {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01011010100000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01011010100000000000010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -100,7 +94,6 @@ pub mod CSNEG_32_condsel {
     pub const fn CSNEG_32_condsel(
         Rm: ::aarchmrs_types::BitValue<5>,
         cond: ::aarchmrs_types::BitValue<4>,
-        o2: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -108,8 +101,7 @@ pub mod CSNEG_32_condsel {
             0b01011010100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | cond.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | o2.into_inner() << 10u32
+                | 0b01u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -117,7 +109,7 @@ pub mod CSNEG_32_condsel {
 }
 pub mod CSEL_64_condsel {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b10011010100000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -128,7 +120,6 @@ pub mod CSEL_64_condsel {
     pub const fn CSEL_64_condsel(
         Rm: ::aarchmrs_types::BitValue<5>,
         cond: ::aarchmrs_types::BitValue<4>,
-        o2: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -136,8 +127,7 @@ pub mod CSEL_64_condsel {
             0b10011010100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | cond.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | o2.into_inner() << 10u32
+                | 0b00u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -145,9 +135,9 @@ pub mod CSEL_64_condsel {
 }
 pub mod CSINC_64_condsel {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10011010100000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10011010100000000000010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -156,7 +146,6 @@ pub mod CSINC_64_condsel {
     pub const fn CSINC_64_condsel(
         Rm: ::aarchmrs_types::BitValue<5>,
         cond: ::aarchmrs_types::BitValue<4>,
-        o2: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -164,8 +153,7 @@ pub mod CSINC_64_condsel {
             0b10011010100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | cond.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | o2.into_inner() << 10u32
+                | 0b01u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -173,7 +161,7 @@ pub mod CSINC_64_condsel {
 }
 pub mod CSINV_64_condsel {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11011010100000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -184,7 +172,6 @@ pub mod CSINV_64_condsel {
     pub const fn CSINV_64_condsel(
         Rm: ::aarchmrs_types::BitValue<5>,
         cond: ::aarchmrs_types::BitValue<4>,
-        o2: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -192,8 +179,7 @@ pub mod CSINV_64_condsel {
             0b11011010100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | cond.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | o2.into_inner() << 10u32
+                | 0b00u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -201,9 +187,9 @@ pub mod CSINV_64_condsel {
 }
 pub mod CSNEG_64_condsel {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11011010100000000000000000000000u32;
+    pub const OPCODE: u32 = 0b11011010100000000000010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -212,7 +198,6 @@ pub mod CSNEG_64_condsel {
     pub const fn CSNEG_64_condsel(
         Rm: ::aarchmrs_types::BitValue<5>,
         cond: ::aarchmrs_types::BitValue<4>,
-        o2: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -220,8 +205,7 @@ pub mod CSNEG_64_condsel {
             0b11011010100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | cond.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | o2.into_inner() << 10u32
+                | 0b01u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )

@@ -12,5 +12,5 @@ publish = false
 
 [dependencies]
 aarchmrs-types = { workspace = true }
-aarchmrs-instructions = { workspace = true }
+aarchmrs-instructions = { workspace = true, features = ["A64"] }
 paste = "1.0.15"

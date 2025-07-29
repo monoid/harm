@@ -5,7 +5,7 @@
 
 pub mod zipq1_z_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000100000000001110000000000000u32;
     #[cfg(feature = "meta")]
@@ -16,7 +16,6 @@ pub mod zipq1_z_zz_ {
     pub const fn zipq1_z_zz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        H: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -25,8 +24,7 @@ pub mod zipq1_z_zz_ {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b11100u32 << 11u32
-                | H.into_inner() << 10u32
+                | 0b111000u32 << 10u32
                 | Zn.into_inner() << 5u32
                 | Zd.into_inner() << 0u32,
         )
@@ -34,7 +32,7 @@ pub mod zipq1_z_zz_ {
 }
 pub mod uzpq1_z_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000100000000001110100000000000u32;
     #[cfg(feature = "meta")]
@@ -45,7 +43,6 @@ pub mod uzpq1_z_zz_ {
     pub const fn uzpq1_z_zz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        H: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -54,8 +51,7 @@ pub mod uzpq1_z_zz_ {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b11101u32 << 11u32
-                | H.into_inner() << 10u32
+                | 0b111010u32 << 10u32
                 | Zn.into_inner() << 5u32
                 | Zd.into_inner() << 0u32,
         )
@@ -90,9 +86,9 @@ pub mod tblq_z_zz_ {
 }
 pub mod zipq2_z_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01000100000000001110000000000000u32;
+    pub const OPCODE: u32 = 0b01000100000000001110010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -101,7 +97,6 @@ pub mod zipq2_z_zz_ {
     pub const fn zipq2_z_zz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        H: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -110,8 +105,7 @@ pub mod zipq2_z_zz_ {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b11100u32 << 11u32
-                | H.into_inner() << 10u32
+                | 0b111001u32 << 10u32
                 | Zn.into_inner() << 5u32
                 | Zd.into_inner() << 0u32,
         )
@@ -119,9 +113,9 @@ pub mod zipq2_z_zz_ {
 }
 pub mod uzpq2_z_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01000100000000001110100000000000u32;
+    pub const OPCODE: u32 = 0b01000100000000001110110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -130,7 +124,6 @@ pub mod uzpq2_z_zz_ {
     pub const fn uzpq2_z_zz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        H: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -139,8 +132,7 @@ pub mod uzpq2_z_zz_ {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b11101u32 << 11u32
-                | H.into_inner() << 10u32
+                | 0b111011u32 << 10u32
                 | Zn.into_inner() << 5u32
                 | Zd.into_inner() << 0u32,
         )

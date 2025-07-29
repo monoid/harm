@@ -5,7 +5,7 @@
 
 pub mod sdot_za_zzv_2x1 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111101100001001110000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111101100001001110000011000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001000000001010000000000u32;
     #[cfg(feature = "meta")]
@@ -18,7 +18,6 @@ pub mod sdot_za_zzv_2x1 {
         Zm: ::aarchmrs_types::BitValue<4>,
         Rv: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
         off3: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -30,17 +29,16 @@ pub mod sdot_za_zzv_2x1 {
                 | Rv.into_inner() << 13u32
                 | 0b101u32 << 10u32
                 | Zn.into_inner() << 5u32
-                | U.into_inner() << 4u32
-                | 0b0u32 << 3u32
+                | 0b00u32 << 3u32
                 | off3.into_inner() << 0u32,
         )
     }
 }
 pub mod udot_za_zzv_2x1 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111101100001001110000001000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111101100001001110000011000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001001000000001010000000000u32;
+    pub const OPCODE: u32 = 0b11000001001000000001010000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -51,7 +49,6 @@ pub mod udot_za_zzv_2x1 {
         Zm: ::aarchmrs_types::BitValue<4>,
         Rv: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
         off3: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -63,8 +60,7 @@ pub mod udot_za_zzv_2x1 {
                 | Rv.into_inner() << 13u32
                 | 0b101u32 << 10u32
                 | Zn.into_inner() << 5u32
-                | U.into_inner() << 4u32
-                | 0b0u32 << 3u32
+                | 0b10u32 << 3u32
                 | off3.into_inner() << 0u32,
         )
     }

@@ -5,7 +5,7 @@
 
 pub mod sqrshr_z_mz4_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100001000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110001100000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001000001101100000000000u32;
     #[cfg(feature = "meta")]
@@ -16,9 +16,7 @@ pub mod sqrshr_z_mz4_ {
     pub const fn sqrshr_z_mz4_(
         tsize: ::aarchmrs_types::BitValue<2>,
         imm5: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<3>,
-        U: ::aarchmrs_types::BitValue<1>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -26,18 +24,16 @@ pub mod sqrshr_z_mz4_ {
                 | tsize.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | imm5.into_inner() << 16u32
-                | 0b11011u32 << 11u32
-                | N.into_inner() << 10u32
+                | 0b110110u32 << 10u32
                 | Zn.into_inner() << 7u32
-                | 0b0u32 << 6u32
-                | U.into_inner() << 5u32
+                | 0b00u32 << 5u32
                 | Zd.into_inner() << 0u32,
         )
     }
 }
 pub mod sqrshru_z_mz4_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100001100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110001100000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001000001101100001000000u32;
     #[cfg(feature = "meta")]
@@ -48,7 +44,6 @@ pub mod sqrshru_z_mz4_ {
     pub const fn sqrshru_z_mz4_(
         tsize: ::aarchmrs_types::BitValue<2>,
         imm5: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<3>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -57,8 +52,7 @@ pub mod sqrshru_z_mz4_ {
                 | tsize.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | imm5.into_inner() << 16u32
-                | 0b11011u32 << 11u32
-                | N.into_inner() << 10u32
+                | 0b110110u32 << 10u32
                 | Zn.into_inner() << 7u32
                 | 0b10u32 << 5u32
                 | Zd.into_inner() << 0u32,
@@ -67,9 +61,9 @@ pub mod sqrshru_z_mz4_ {
 }
 pub mod sqrshrn_z_mz4_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100001000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110001100000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001001000001101100000000000u32;
+    pub const OPCODE: u32 = 0b11000001001000001101110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -78,9 +72,7 @@ pub mod sqrshrn_z_mz4_ {
     pub const fn sqrshrn_z_mz4_(
         tsize: ::aarchmrs_types::BitValue<2>,
         imm5: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<3>,
-        U: ::aarchmrs_types::BitValue<1>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -88,20 +80,18 @@ pub mod sqrshrn_z_mz4_ {
                 | tsize.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | imm5.into_inner() << 16u32
-                | 0b11011u32 << 11u32
-                | N.into_inner() << 10u32
+                | 0b110111u32 << 10u32
                 | Zn.into_inner() << 7u32
-                | 0b0u32 << 6u32
-                | U.into_inner() << 5u32
+                | 0b00u32 << 5u32
                 | Zd.into_inner() << 0u32,
         )
     }
 }
 pub mod sqrshrun_z_mz4_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100001100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110001100000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001001000001101100001000000u32;
+    pub const OPCODE: u32 = 0b11000001001000001101110001000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -110,7 +100,6 @@ pub mod sqrshrun_z_mz4_ {
     pub const fn sqrshrun_z_mz4_(
         tsize: ::aarchmrs_types::BitValue<2>,
         imm5: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<3>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -119,8 +108,7 @@ pub mod sqrshrun_z_mz4_ {
                 | tsize.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | imm5.into_inner() << 16u32
-                | 0b11011u32 << 11u32
-                | N.into_inner() << 10u32
+                | 0b110111u32 << 10u32
                 | Zn.into_inner() << 7u32
                 | 0b10u32 << 5u32
                 | Zd.into_inner() << 0u32,
@@ -129,9 +117,9 @@ pub mod sqrshrun_z_mz4_ {
 }
 pub mod uqrshr_z_mz4_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100001000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110001100000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001001000001101100000000000u32;
+    pub const OPCODE: u32 = 0b11000001001000001101100000100000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -140,9 +128,7 @@ pub mod uqrshr_z_mz4_ {
     pub const fn uqrshr_z_mz4_(
         tsize: ::aarchmrs_types::BitValue<2>,
         imm5: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<3>,
-        U: ::aarchmrs_types::BitValue<1>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -150,20 +136,18 @@ pub mod uqrshr_z_mz4_ {
                 | tsize.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | imm5.into_inner() << 16u32
-                | 0b11011u32 << 11u32
-                | N.into_inner() << 10u32
+                | 0b110110u32 << 10u32
                 | Zn.into_inner() << 7u32
-                | 0b0u32 << 6u32
-                | U.into_inner() << 5u32
+                | 0b01u32 << 5u32
                 | Zd.into_inner() << 0u32,
         )
     }
 }
 pub mod uqrshrn_z_mz4_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111100001000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110001100000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001001000001101100000000000u32;
+    pub const OPCODE: u32 = 0b11000001001000001101110000100000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -172,9 +156,7 @@ pub mod uqrshrn_z_mz4_ {
     pub const fn uqrshrn_z_mz4_(
         tsize: ::aarchmrs_types::BitValue<2>,
         imm5: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<3>,
-        U: ::aarchmrs_types::BitValue<1>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -182,11 +164,9 @@ pub mod uqrshrn_z_mz4_ {
                 | tsize.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | imm5.into_inner() << 16u32
-                | 0b11011u32 << 11u32
-                | N.into_inner() << 10u32
+                | 0b110111u32 << 10u32
                 | Zn.into_inner() << 7u32
-                | 0b0u32 << 6u32
-                | U.into_inner() << 5u32
+                | 0b01u32 << 5u32
                 | Zd.into_inner() << 0u32,
         )
     }

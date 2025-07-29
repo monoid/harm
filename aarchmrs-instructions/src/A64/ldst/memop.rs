@@ -221,7 +221,7 @@ pub mod SWPB_32_memop {
 }
 pub mod RCWCLR_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000001000001001000000000000u32;
     #[cfg(feature = "meta")]
@@ -230,15 +230,12 @@ pub mod RCWCLR_64_memop {
     pub const NAME: &str = "RCWCLR_64_memop";
     #[inline]
     pub const fn RCWCLR_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000001u32 << 21u32
+            0b00111000001u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -248,7 +245,7 @@ pub mod RCWCLR_64_memop {
 }
 pub mod RCWSWP_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000001000001010000000000000u32;
     #[cfg(feature = "meta")]
@@ -257,15 +254,12 @@ pub mod RCWSWP_64_memop {
     pub const NAME: &str = "RCWSWP_64_memop";
     #[inline]
     pub const fn RCWSWP_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000001u32 << 21u32
+            0b00111000001u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101000u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -275,7 +269,7 @@ pub mod RCWSWP_64_memop {
 }
 pub mod RCWSET_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000001000001011000000000000u32;
     #[cfg(feature = "meta")]
@@ -284,15 +278,12 @@ pub mod RCWSET_64_memop {
     pub const NAME: &str = "RCWSET_64_memop";
     #[inline]
     pub const fn RCWSET_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000001u32 << 21u32
+            0b00111000001u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -518,7 +509,7 @@ pub mod SWPLB_32_memop {
 }
 pub mod RCWCLRL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000011000001001000000000000u32;
     #[cfg(feature = "meta")]
@@ -527,15 +518,12 @@ pub mod RCWCLRL_64_memop {
     pub const NAME: &str = "RCWCLRL_64_memop";
     #[inline]
     pub const fn RCWCLRL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000011u32 << 21u32
+            0b00111000011u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -545,7 +533,7 @@ pub mod RCWCLRL_64_memop {
 }
 pub mod RCWSWPL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000011000001010000000000000u32;
     #[cfg(feature = "meta")]
@@ -554,15 +542,12 @@ pub mod RCWSWPL_64_memop {
     pub const NAME: &str = "RCWSWPL_64_memop";
     #[inline]
     pub const fn RCWSWPL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000011u32 << 21u32
+            0b00111000011u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101000u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -572,7 +557,7 @@ pub mod RCWSWPL_64_memop {
 }
 pub mod RCWSETL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000011000001011000000000000u32;
     #[cfg(feature = "meta")]
@@ -581,15 +566,12 @@ pub mod RCWSETL_64_memop {
     pub const NAME: &str = "RCWSETL_64_memop";
     #[inline]
     pub const fn RCWSETL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000011u32 << 21u32
+            0b00111000011u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -815,7 +797,7 @@ pub mod SWPAB_32_memop {
 }
 pub mod RCWCLRA_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000101000001001000000000000u32;
     #[cfg(feature = "meta")]
@@ -824,15 +806,12 @@ pub mod RCWCLRA_64_memop {
     pub const NAME: &str = "RCWCLRA_64_memop";
     #[inline]
     pub const fn RCWCLRA_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000101u32 << 21u32
+            0b00111000101u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -842,7 +821,7 @@ pub mod RCWCLRA_64_memop {
 }
 pub mod RCWSWPA_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000101000001010000000000000u32;
     #[cfg(feature = "meta")]
@@ -851,15 +830,12 @@ pub mod RCWSWPA_64_memop {
     pub const NAME: &str = "RCWSWPA_64_memop";
     #[inline]
     pub const fn RCWSWPA_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000101u32 << 21u32
+            0b00111000101u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101000u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -869,7 +845,7 @@ pub mod RCWSWPA_64_memop {
 }
 pub mod RCWSETA_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000101000001011000000000000u32;
     #[cfg(feature = "meta")]
@@ -878,15 +854,12 @@ pub mod RCWSETA_64_memop {
     pub const NAME: &str = "RCWSETA_64_memop";
     #[inline]
     pub const fn RCWSETA_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000101u32 << 21u32
+            0b00111000101u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1133,7 +1106,7 @@ pub mod SWPALB_32_memop {
 }
 pub mod RCWCLRAL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000111000001001000000000000u32;
     #[cfg(feature = "meta")]
@@ -1142,15 +1115,12 @@ pub mod RCWCLRAL_64_memop {
     pub const NAME: &str = "RCWCLRAL_64_memop";
     #[inline]
     pub const fn RCWCLRAL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000111u32 << 21u32
+            0b00111000111u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1160,7 +1130,7 @@ pub mod RCWCLRAL_64_memop {
 }
 pub mod RCWSWPAL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000111000001010000000000000u32;
     #[cfg(feature = "meta")]
@@ -1169,15 +1139,12 @@ pub mod RCWSWPAL_64_memop {
     pub const NAME: &str = "RCWSWPAL_64_memop";
     #[inline]
     pub const fn RCWSWPAL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000111u32 << 21u32
+            0b00111000111u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101000u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1187,7 +1154,7 @@ pub mod RCWSWPAL_64_memop {
 }
 pub mod RCWSETAL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00111000111000001011000000000000u32;
     #[cfg(feature = "meta")]
@@ -1196,15 +1163,12 @@ pub mod RCWSETAL_64_memop {
     pub const NAME: &str = "RCWSETAL_64_memop";
     #[inline]
     pub const fn RCWSETAL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000111u32 << 21u32
+            0b00111000111u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1430,24 +1394,21 @@ pub mod SWPH_32_memop {
 }
 pub mod RCWSCLR_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000001000001001000000000000u32;
+    pub const OPCODE: u32 = 0b01111000001000001001000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSCLR_64_memop";
     #[inline]
     pub const fn RCWSCLR_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000001u32 << 21u32
+            0b01111000001u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1457,24 +1418,21 @@ pub mod RCWSCLR_64_memop {
 }
 pub mod RCWSSWP_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000001000001010000000000000u32;
+    pub const OPCODE: u32 = 0b01111000001000001010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSSWP_64_memop";
     #[inline]
     pub const fn RCWSSWP_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000001u32 << 21u32
+            0b01111000001u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101000u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1484,24 +1442,21 @@ pub mod RCWSSWP_64_memop {
 }
 pub mod RCWSSET_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000001000001011000000000000u32;
+    pub const OPCODE: u32 = 0b01111000001000001011000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSSET_64_memop";
     #[inline]
     pub const fn RCWSSET_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000001u32 << 21u32
+            0b01111000001u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1727,24 +1682,21 @@ pub mod SWPLH_32_memop {
 }
 pub mod RCWSCLRL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000011000001001000000000000u32;
+    pub const OPCODE: u32 = 0b01111000011000001001000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSCLRL_64_memop";
     #[inline]
     pub const fn RCWSCLRL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000011u32 << 21u32
+            0b01111000011u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1754,24 +1706,21 @@ pub mod RCWSCLRL_64_memop {
 }
 pub mod RCWSSWPL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000011000001010000000000000u32;
+    pub const OPCODE: u32 = 0b01111000011000001010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSSWPL_64_memop";
     #[inline]
     pub const fn RCWSSWPL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000011u32 << 21u32
+            0b01111000011u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101000u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -1781,24 +1730,21 @@ pub mod RCWSSWPL_64_memop {
 }
 pub mod RCWSSETL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000011000001011000000000000u32;
+    pub const OPCODE: u32 = 0b01111000011000001011000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSSETL_64_memop";
     #[inline]
     pub const fn RCWSSETL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000011u32 << 21u32
+            0b01111000011u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -2024,24 +1970,21 @@ pub mod SWPAH_32_memop {
 }
 pub mod RCWSCLRA_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000101000001001000000000000u32;
+    pub const OPCODE: u32 = 0b01111000101000001001000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSCLRA_64_memop";
     #[inline]
     pub const fn RCWSCLRA_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000101u32 << 21u32
+            0b01111000101u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -2051,24 +1994,21 @@ pub mod RCWSCLRA_64_memop {
 }
 pub mod RCWSSWPA_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000101000001010000000000000u32;
+    pub const OPCODE: u32 = 0b01111000101000001010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSSWPA_64_memop";
     #[inline]
     pub const fn RCWSSWPA_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000101u32 << 21u32
+            0b01111000101u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101000u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -2078,24 +2018,21 @@ pub mod RCWSSWPA_64_memop {
 }
 pub mod RCWSSETA_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000101000001011000000000000u32;
+    pub const OPCODE: u32 = 0b01111000101000001011000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSSETA_64_memop";
     #[inline]
     pub const fn RCWSSETA_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000101u32 << 21u32
+            0b01111000101u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -2342,24 +2279,21 @@ pub mod SWPALH_32_memop {
 }
 pub mod RCWSCLRAL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000111000001001000000000000u32;
+    pub const OPCODE: u32 = 0b01111000111000001001000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSCLRAL_64_memop";
     #[inline]
     pub const fn RCWSCLRAL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000111u32 << 21u32
+            0b01111000111u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -2369,24 +2303,21 @@ pub mod RCWSCLRAL_64_memop {
 }
 pub mod RCWSSWPAL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000111000001010000000000000u32;
+    pub const OPCODE: u32 = 0b01111000111000001010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSSWPAL_64_memop";
     #[inline]
     pub const fn RCWSSWPAL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000111u32 << 21u32
+            0b01111000111u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101000u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -2396,24 +2327,21 @@ pub mod RCWSSWPAL_64_memop {
 }
 pub mod RCWSSETAL_64_memop {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00111000111000001011000000000000u32;
+    pub const OPCODE: u32 = 0b01111000111000001011000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RCWSSETAL_64_memop";
     #[inline]
     pub const fn RCWSSETAL_64_memop(
-        S: ::aarchmrs_types::BitValue<1>,
         Rs: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b0u32 << 31u32
-                | S.into_inner() << 30u32
-                | 0b111000111u32 << 21u32
+            0b01111000111u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32

@@ -5,7 +5,7 @@
 
 pub mod smaxv_r_p_z_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100000010000010000000000000u32;
     #[cfg(feature = "meta")]
@@ -15,7 +15,6 @@ pub mod smaxv_r_p_z_ {
     #[inline]
     pub const fn smaxv_r_p_z_(
         size: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Vd: ::aarchmrs_types::BitValue<5>,
@@ -23,9 +22,7 @@ pub mod smaxv_r_p_z_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b00100u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b001u32 << 13u32
+                | 0b001000001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Vd.into_inner() << 0u32,
@@ -34,7 +31,7 @@ pub mod smaxv_r_p_z_ {
 }
 pub mod sminv_r_p_z_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100000010100010000000000000u32;
     #[cfg(feature = "meta")]
@@ -44,7 +41,6 @@ pub mod sminv_r_p_z_ {
     #[inline]
     pub const fn sminv_r_p_z_(
         size: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Vd: ::aarchmrs_types::BitValue<5>,
@@ -52,9 +48,7 @@ pub mod sminv_r_p_z_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b00101u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b001u32 << 13u32
+                | 0b001010001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Vd.into_inner() << 0u32,
@@ -63,9 +57,9 @@ pub mod sminv_r_p_z_ {
 }
 pub mod umaxv_r_p_z_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00000100000010000010000000000000u32;
+    pub const OPCODE: u32 = 0b00000100000010010010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -73,7 +67,6 @@ pub mod umaxv_r_p_z_ {
     #[inline]
     pub const fn umaxv_r_p_z_(
         size: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Vd: ::aarchmrs_types::BitValue<5>,
@@ -81,9 +74,7 @@ pub mod umaxv_r_p_z_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b00100u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b001u32 << 13u32
+                | 0b001001001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Vd.into_inner() << 0u32,
@@ -92,9 +83,9 @@ pub mod umaxv_r_p_z_ {
 }
 pub mod uminv_r_p_z_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00000100000010100010000000000000u32;
+    pub const OPCODE: u32 = 0b00000100000010110010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -102,7 +93,6 @@ pub mod uminv_r_p_z_ {
     #[inline]
     pub const fn uminv_r_p_z_(
         size: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Vd: ::aarchmrs_types::BitValue<5>,
@@ -110,9 +100,7 @@ pub mod uminv_r_p_z_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b00101u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b001u32 << 13u32
+                | 0b001011001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Vd.into_inner() << 0u32,
