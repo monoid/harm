@@ -4,374 +4,164 @@
  */
 
 pub mod inch_z_zs_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001100001100000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "inch_z_zs_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct inch_z_zs_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Zdn: ::aarchmrs_types::BitValue<5>,
-    }
-    impl inch_z_zs_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Zdn: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Zdn,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b11u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b110000u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Zdn.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn inch_z_zs_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Zdn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b11u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b110000u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Zdn.into_inner() << 0u32,
+        )
     }
 }
 pub mod dech_z_zs_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001100001100010000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "dech_z_zs_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct dech_z_zs_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Zdn: ::aarchmrs_types::BitValue<5>,
-    }
-    impl dech_z_zs_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Zdn: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Zdn,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b11u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b110001u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Zdn.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn dech_z_zs_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Zdn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b11u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b110001u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Zdn.into_inner() << 0u32,
+        )
     }
 }
 pub mod incw_z_zs_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001100001100000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "incw_z_zs_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct incw_z_zs_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Zdn: ::aarchmrs_types::BitValue<5>,
-    }
-    impl incw_z_zs_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Zdn: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Zdn,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b11u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b110000u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Zdn.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn incw_z_zs_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Zdn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b11u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b110000u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Zdn.into_inner() << 0u32,
+        )
     }
 }
 pub mod decw_z_zs_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001100001100010000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "decw_z_zs_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct decw_z_zs_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Zdn: ::aarchmrs_types::BitValue<5>,
-    }
-    impl decw_z_zs_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Zdn: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Zdn,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b11u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b110001u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Zdn.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn decw_z_zs_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Zdn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b11u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b110001u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Zdn.into_inner() << 0u32,
+        )
     }
 }
 pub mod incd_z_zs_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001100001100000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "incd_z_zs_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct incd_z_zs_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Zdn: ::aarchmrs_types::BitValue<5>,
-    }
-    impl incd_z_zs_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Zdn: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Zdn,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b11u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b110000u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Zdn.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn incd_z_zs_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Zdn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b11u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b110000u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Zdn.into_inner() << 0u32,
+        )
     }
 }
 pub mod decd_z_zs_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001100001100010000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "decd_z_zs_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct decd_z_zs_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Zdn: ::aarchmrs_types::BitValue<5>,
-    }
-    impl decd_z_zs_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Zdn: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Zdn,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b11u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b110001u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Zdn.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn decd_z_zs_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Zdn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b11u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b110001u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Zdn.into_inner() << 0u32,
+        )
     }
 }

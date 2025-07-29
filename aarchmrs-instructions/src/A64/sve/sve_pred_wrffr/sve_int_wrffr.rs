@@ -4,47 +4,20 @@
  */
 
 pub mod wrffr_f_p_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111111111111000011111u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100101001010001001000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "wrffr_f_p_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct wrffr_f_p_ {
-        pub Pn: ::aarchmrs_types::BitValue<4>,
-    }
-    impl wrffr_f_p_ {
-        #[inline]
-        pub const fn new(Pn: ::aarchmrs_types::BitValue<4>) -> Self {
-            Self { Pn }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00100101001010001001000u32 << 9u32
-                    | self.Pn.into_inner() << 5u32
-                    | 0b00000u32 << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn wrffr_f_p_(
+        Pn: ::aarchmrs_types::BitValue<4>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00100101001010001001000u32 << 9u32 | Pn.into_inner() << 5u32 | 0b00000u32 << 0u32,
+        )
     }
 }

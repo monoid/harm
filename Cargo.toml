@@ -6,6 +6,7 @@ members = [
    "aarchmrs-parser",
    "aarchmrs-types",
    "harm",
+   "tools/aarchmrs-generate",
    "tools/harm-test-utils",
    "tools/harm-testgen",
 ]
@@ -13,10 +14,9 @@ members = [
 resolver = "3"
 
 [workspace.dependencies]
-aarchmrs = { path = "aarchmrs", version = "0.1.0-2025-03" }
 aarchmrs-gen = { path = "aarchmrs-gen", version = "0.1.0-2025-03" }
-aarchmrs-instructions = { path = "aarchmrs-instructions", version = "0.1.0-2025-03" }
+aarchmrs-instructions = { path = "aarchmrs-instructions", version = "0.1.1-2025-03" }
 aarchmrs-parser = { path = "aarchmrs-parser", version = "0.1.0" }
-aarchmrs-types = { path = "aarchmrs-types", version = "0.1.0" }
+aarchmrs-types = { path = "aarchmrs-types", version = "0.1.1" }
 harm = { path = "harm", version = "0.1.0" }
 harm-test-utils = { path = "tools/harm-test-utils", version = "0.1.0" }

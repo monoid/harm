@@ -75,14 +75,13 @@ macro_rules! define_arith_shift {
                     let rn = self.src1.code();
                     let rd = self.dst.code();
 
-                    [<$name:upper _ $bits _ $cmd _shift>]::new(
+                    [<$name:upper _ $bits _ $cmd _shift>](
                         shift.into(),
                         rm.into(),
                         shift_amount_imm6.into(),
                         rn.into(),
                         rd.into(),
                     )
-                        .build()
                 }
             }
 
@@ -145,7 +144,7 @@ macro_rules! define_arith_imm12 {
                     let rd = self.dst.code();
 
                     let opcode =
-                        [<$name:upper _ $bits _ $cmd _imm>]::new(shift.into(), imm12.into(), rn.into(), rd.into()).build();
+                        [<$name:upper _ $bits _ $cmd _imm>](shift.into(), imm12.into(), rn.into(), rd.into());
 
                     std::iter::once(opcode)
                 }
@@ -229,9 +228,9 @@ macro_rules! define_arith_extend {
                     let rn = self.src1.code();
                     let rd = self.dst.code();
 
-                    [<$name:upper _ $bits _ $cmd _ext>]::new(
+                    [<$name:upper _ $bits _ $cmd _ext>](
                         rm.into(), option.into(), imm3.into(), rn.into(), rd.into()
-                    ).build()
+                    )
                 }
             }
 

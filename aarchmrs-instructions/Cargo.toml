@@ -1,13 +1,16 @@
 [package]
 name = "aarchmrs-instructions"
-version = "0.1.0-2025-03"
+version = "0.1.1-2025-03"
 edition = "2024"
 description = "AARCHMRS-generated ARM instructions functions"
 license = "BSD-3-Clause"
 authors = ["Ivan Boldyrev <lispnik@gmail.com>", "Arm Limited"]
+repository = "https://github.com/monoid/harm/"
+keywords = ["arm", "aarch64", "aarchmrs", "assembler", "jit"]
+categories = ["compilers", "hardware-support"]
 
 [dependencies]
 aarchmrs-types = { workspace = true }
 
-[build-dependencies]
-aarchmrs-gen = { workspace = true }
+[features]
+meta = []
