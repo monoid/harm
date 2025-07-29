@@ -98,7 +98,6 @@ fn gen_mask(desc: &[Bits]) -> Masks {
     for bits in desc.iter() {
         match bits {
             Bits::Bit { bits, range } => {
-                eprintln!("width: {}, start: {}", range.width, range.start);
                 mask |= 1u32.unbounded_shl(range.width).wrapping_sub(1) << range.start;
                 encoding |= bits << range.start;
             }
