@@ -9,6 +9,7 @@ use std::path::Path;
 use aarchmrs_parser::instructions::{
     Encodeset, InstructionGroup, InstructionGroupOrInstruction, License,
 };
+use itertools::Itertools;
 use proc_macro2::TokenStream;
 
 use crate::downloads::{DownloadError, ensure_archive};
@@ -19,11 +20,13 @@ mod encoding;
 mod generation;
 mod stack;
 
-pub const AARCHMRS_2025_03_URL: &str = "https://developer.arm.com/-/cdn-downloads/permalink/Exploration-Tools-OS-Machine-Readable-Data/AARCHMRS_BSD/AARCHMRS_OPENSOURCE_A_profile-2025-03.tar.gz";
-pub const AARCHMRS_2025_03_FILE: &str = "AARCHMRS_OPENSOURCE_A_profile-2025-03.tar.gz";
-pub const AARCHMRS_2025_03_MD5: [u8; 16] = hex_literal::hex!("dcc4850852a18ae0e786ccbe52fafbb0");
-pub const AARCHMRS_2025_03_SIZE: u64 = 3517054;
+pub const AARCHMRS_2025_03_URL: &str = "https://developer.arm.com/-/cdn-downloads/permalink/Exploration-Tools-OS-Machine-Readable-Data/AARCHMRS_BSD/AARCHMRS_OPENSOURCE_A_profile-2025-06.tar.gz";
+pub const AARCHMRS_2025_03_FILE: &str = "AARCHMRS_OPENSOURCE_A_profile-2025-06.tar.gz";
+pub const AARCHMRS_2025_03_MD5: [u8; 16] = hex_literal::hex!("9d2b1867aac5f76ae8a7d7b6144c0f7a");
+pub const AARCHMRS_2025_03_SIZE: u64 = 4770765;
 pub const AARCHMRS_INSTRUCTIONS_FILE: &str = "Instructions.json";
+
+const FEATURES: [&'static str; 3] = ["A64", "A32", "T32"];
 
 pub fn gen_instructions(
     dest_dir: &Path,
@@ -54,7 +57,10 @@ pub fn gen_instructions(
 
     let mut lib_mods = vec![];
     for inst_set in &data.instructions {
-        let inst_name = &inst_set.name; // single entry: "A64"
+        let inst_name = &inst_set.name;
+        if FEATURES.into_iter().contains(inst_name.as_str()) {
+            lib_mods.push(quote::quote! { #[cfg(feature = #inst_name)] });
+        }
         let inst_id = quote::format_ident!("{inst_name}");
         lib_mods.push(quote::quote! { pub mod #inst_id; });
 
@@ -77,7 +83,7 @@ pub fn gen_instructions(
 
     let mod_file = if r#mod { "mod.rs" } else { "lib.rs" };
     let mod_path = dest_dir.join(mod_file);
-    let clippy_allow_pragma = quote::quote! { #[allow(
+    let clippy_allow_pragma = quote::quote! { #![allow(
         non_snake_case, non_camel_case_types, clippy::identity_op, clippy::too_many_arguments, clippy::module_inception
     )]};
     write_mod(
