@@ -4,418 +4,202 @@
  */
 
 pub mod ldnt1sb_z_p_ar_d_64_unscaled {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000100000000001000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ldnt1sb_z_p_ar_d_64_unscaled";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ldnt1sb_z_p_ar_d_64_unscaled {
-        pub Rm: ::aarchmrs_types::BitValue<5>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ldnt1sb_z_p_ar_d_64_unscaled {
-        #[inline]
-        pub const fn new(
-            Rm: ::aarchmrs_types::BitValue<5>,
-            U: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self { Rm, U, Pg, Zn, Zt }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000100000u32 << 21u32
-                    | self.Rm.into_inner() << 16u32
-                    | 0b1u32 << 15u32
-                    | self.U.into_inner() << 14u32
-                    | 0b0u32 << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ldnt1sb_z_p_ar_d_64_unscaled(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        U: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000100000u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b1u32 << 15u32
+                | U.into_inner() << 14u32
+                | 0b0u32 << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zt.into_inner() << 0u32,
+        )
     }
 }
 pub mod ldnt1sh_z_p_ar_d_64_unscaled {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000100100000001000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ldnt1sh_z_p_ar_d_64_unscaled";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ldnt1sh_z_p_ar_d_64_unscaled {
-        pub Rm: ::aarchmrs_types::BitValue<5>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ldnt1sh_z_p_ar_d_64_unscaled {
-        #[inline]
-        pub const fn new(
-            Rm: ::aarchmrs_types::BitValue<5>,
-            U: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self { Rm, U, Pg, Zn, Zt }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000100100u32 << 21u32
-                    | self.Rm.into_inner() << 16u32
-                    | 0b1u32 << 15u32
-                    | self.U.into_inner() << 14u32
-                    | 0b0u32 << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ldnt1sh_z_p_ar_d_64_unscaled(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        U: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000100100u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b1u32 << 15u32
+                | U.into_inner() << 14u32
+                | 0b0u32 << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zt.into_inner() << 0u32,
+        )
     }
 }
 pub mod ldnt1sw_z_p_ar_d_64_unscaled {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000101000000001000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ldnt1sw_z_p_ar_d_64_unscaled";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ldnt1sw_z_p_ar_d_64_unscaled {
-        pub Rm: ::aarchmrs_types::BitValue<5>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ldnt1sw_z_p_ar_d_64_unscaled {
-        #[inline]
-        pub const fn new(
-            Rm: ::aarchmrs_types::BitValue<5>,
-            U: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self { Rm, U, Pg, Zn, Zt }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000101000u32 << 21u32
-                    | self.Rm.into_inner() << 16u32
-                    | 0b1u32 << 15u32
-                    | self.U.into_inner() << 14u32
-                    | 0b0u32 << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ldnt1sw_z_p_ar_d_64_unscaled(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        U: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000101000u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b1u32 << 15u32
+                | U.into_inner() << 14u32
+                | 0b0u32 << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zt.into_inner() << 0u32,
+        )
     }
 }
 pub mod ldnt1d_z_p_ar_d_64_unscaled {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000101100000001100000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ldnt1d_z_p_ar_d_64_unscaled";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ldnt1d_z_p_ar_d_64_unscaled {
-        pub Rm: ::aarchmrs_types::BitValue<5>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ldnt1d_z_p_ar_d_64_unscaled {
-        #[inline]
-        pub const fn new(
-            Rm: ::aarchmrs_types::BitValue<5>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self { Rm, Pg, Zn, Zt }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000101100u32 << 21u32
-                    | self.Rm.into_inner() << 16u32
-                    | 0b110u32 << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ldnt1d_z_p_ar_d_64_unscaled(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000101100u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b110u32 << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zt.into_inner() << 0u32,
+        )
     }
 }
 pub mod ldnt1b_z_p_ar_d_64_unscaled {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000100000000001000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ldnt1b_z_p_ar_d_64_unscaled";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ldnt1b_z_p_ar_d_64_unscaled {
-        pub Rm: ::aarchmrs_types::BitValue<5>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ldnt1b_z_p_ar_d_64_unscaled {
-        #[inline]
-        pub const fn new(
-            Rm: ::aarchmrs_types::BitValue<5>,
-            U: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self { Rm, U, Pg, Zn, Zt }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000100000u32 << 21u32
-                    | self.Rm.into_inner() << 16u32
-                    | 0b1u32 << 15u32
-                    | self.U.into_inner() << 14u32
-                    | 0b0u32 << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ldnt1b_z_p_ar_d_64_unscaled(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        U: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000100000u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b1u32 << 15u32
+                | U.into_inner() << 14u32
+                | 0b0u32 << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zt.into_inner() << 0u32,
+        )
     }
 }
 pub mod ldnt1h_z_p_ar_d_64_unscaled {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000100100000001000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ldnt1h_z_p_ar_d_64_unscaled";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ldnt1h_z_p_ar_d_64_unscaled {
-        pub Rm: ::aarchmrs_types::BitValue<5>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ldnt1h_z_p_ar_d_64_unscaled {
-        #[inline]
-        pub const fn new(
-            Rm: ::aarchmrs_types::BitValue<5>,
-            U: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self { Rm, U, Pg, Zn, Zt }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000100100u32 << 21u32
-                    | self.Rm.into_inner() << 16u32
-                    | 0b1u32 << 15u32
-                    | self.U.into_inner() << 14u32
-                    | 0b0u32 << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ldnt1h_z_p_ar_d_64_unscaled(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        U: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000100100u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b1u32 << 15u32
+                | U.into_inner() << 14u32
+                | 0b0u32 << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zt.into_inner() << 0u32,
+        )
     }
 }
 pub mod ldnt1w_z_p_ar_d_64_unscaled {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000101000000001000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ldnt1w_z_p_ar_d_64_unscaled";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ldnt1w_z_p_ar_d_64_unscaled {
-        pub Rm: ::aarchmrs_types::BitValue<5>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ldnt1w_z_p_ar_d_64_unscaled {
-        #[inline]
-        pub const fn new(
-            Rm: ::aarchmrs_types::BitValue<5>,
-            U: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self { Rm, U, Pg, Zn, Zt }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000101000u32 << 21u32
-                    | self.Rm.into_inner() << 16u32
-                    | 0b1u32 << 15u32
-                    | self.U.into_inner() << 14u32
-                    | 0b0u32 << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ldnt1w_z_p_ar_d_64_unscaled(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        U: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000101000u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b1u32 << 15u32
+                | U.into_inner() << 14u32
+                | 0b0u32 << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zt.into_inner() << 0u32,
+        )
     }
 }

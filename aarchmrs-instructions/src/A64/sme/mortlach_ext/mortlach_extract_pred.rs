@@ -4,333 +4,148 @@
  */
 
 pub mod mova_z_p_rza_b {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111110000001000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000000000000100000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "mova_z_p_rza_b";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct mova_z_p_rza_b {
-        pub V: ::aarchmrs_types::BitValue<1>,
-        pub Rs: ::aarchmrs_types::BitValue<2>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub off4: ::aarchmrs_types::BitValue<4>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl mova_z_p_rza_b {
-        #[inline]
-        pub const fn new(
-            V: ::aarchmrs_types::BitValue<1>,
-            Rs: ::aarchmrs_types::BitValue<2>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            off4: ::aarchmrs_types::BitValue<4>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                V,
-                Rs,
-                Pg,
-                off4,
-                Zd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b1100000000000010u32 << 16u32
-                    | self.V.into_inner() << 15u32
-                    | self.Rs.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | 0b0u32 << 9u32
-                    | self.off4.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn mova_z_p_rza_b(
+        V: ::aarchmrs_types::BitValue<1>,
+        Rs: ::aarchmrs_types::BitValue<2>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        off4: ::aarchmrs_types::BitValue<4>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b1100000000000010u32 << 16u32
+                | V.into_inner() << 15u32
+                | Rs.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | 0b0u32 << 9u32
+                | off4.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }
 pub mod mova_z_p_rza_h {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111110000001000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000000010000100000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "mova_z_p_rza_h";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct mova_z_p_rza_h {
-        pub V: ::aarchmrs_types::BitValue<1>,
-        pub Rs: ::aarchmrs_types::BitValue<2>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub ZAn: ::aarchmrs_types::BitValue<1>,
-        pub off3: ::aarchmrs_types::BitValue<3>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl mova_z_p_rza_h {
-        #[inline]
-        pub const fn new(
-            V: ::aarchmrs_types::BitValue<1>,
-            Rs: ::aarchmrs_types::BitValue<2>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            ZAn: ::aarchmrs_types::BitValue<1>,
-            off3: ::aarchmrs_types::BitValue<3>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                V,
-                Rs,
-                Pg,
-                ZAn,
-                off3,
-                Zd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b1100000001000010u32 << 16u32
-                    | self.V.into_inner() << 15u32
-                    | self.Rs.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | 0b0u32 << 9u32
-                    | self.ZAn.into_inner() << 8u32
-                    | self.off3.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn mova_z_p_rza_h(
+        V: ::aarchmrs_types::BitValue<1>,
+        Rs: ::aarchmrs_types::BitValue<2>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        ZAn: ::aarchmrs_types::BitValue<1>,
+        off3: ::aarchmrs_types::BitValue<3>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b1100000001000010u32 << 16u32
+                | V.into_inner() << 15u32
+                | Rs.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | 0b0u32 << 9u32
+                | ZAn.into_inner() << 8u32
+                | off3.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }
 pub mod mova_z_p_rza_w {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111110000001000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000000100000100000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "mova_z_p_rza_w";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct mova_z_p_rza_w {
-        pub V: ::aarchmrs_types::BitValue<1>,
-        pub Rs: ::aarchmrs_types::BitValue<2>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub ZAn: ::aarchmrs_types::BitValue<2>,
-        pub off2: ::aarchmrs_types::BitValue<2>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl mova_z_p_rza_w {
-        #[inline]
-        pub const fn new(
-            V: ::aarchmrs_types::BitValue<1>,
-            Rs: ::aarchmrs_types::BitValue<2>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            ZAn: ::aarchmrs_types::BitValue<2>,
-            off2: ::aarchmrs_types::BitValue<2>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                V,
-                Rs,
-                Pg,
-                ZAn,
-                off2,
-                Zd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b1100000010000010u32 << 16u32
-                    | self.V.into_inner() << 15u32
-                    | self.Rs.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | 0b0u32 << 9u32
-                    | self.ZAn.into_inner() << 7u32
-                    | self.off2.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn mova_z_p_rza_w(
+        V: ::aarchmrs_types::BitValue<1>,
+        Rs: ::aarchmrs_types::BitValue<2>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        ZAn: ::aarchmrs_types::BitValue<2>,
+        off2: ::aarchmrs_types::BitValue<2>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b1100000010000010u32 << 16u32
+                | V.into_inner() << 15u32
+                | Rs.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | 0b0u32 << 9u32
+                | ZAn.into_inner() << 7u32
+                | off2.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }
 pub mod mova_z_p_rza_d {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111110000001000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000000110000100000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "mova_z_p_rza_d";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct mova_z_p_rza_d {
-        pub V: ::aarchmrs_types::BitValue<1>,
-        pub Rs: ::aarchmrs_types::BitValue<2>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub ZAn: ::aarchmrs_types::BitValue<3>,
-        pub o1: ::aarchmrs_types::BitValue<1>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl mova_z_p_rza_d {
-        #[inline]
-        pub const fn new(
-            V: ::aarchmrs_types::BitValue<1>,
-            Rs: ::aarchmrs_types::BitValue<2>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            ZAn: ::aarchmrs_types::BitValue<3>,
-            o1: ::aarchmrs_types::BitValue<1>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                V,
-                Rs,
-                Pg,
-                ZAn,
-                o1,
-                Zd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b1100000011000010u32 << 16u32
-                    | self.V.into_inner() << 15u32
-                    | self.Rs.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | 0b0u32 << 9u32
-                    | self.ZAn.into_inner() << 6u32
-                    | self.o1.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn mova_z_p_rza_d(
+        V: ::aarchmrs_types::BitValue<1>,
+        Rs: ::aarchmrs_types::BitValue<2>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        ZAn: ::aarchmrs_types::BitValue<3>,
+        o1: ::aarchmrs_types::BitValue<1>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b1100000011000010u32 << 16u32
+                | V.into_inner() << 15u32
+                | Rs.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | 0b0u32 << 9u32
+                | ZAn.into_inner() << 6u32
+                | o1.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }
 pub mod mova_z_p_rza_q {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111110000001000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000000110000110000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "mova_z_p_rza_q";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct mova_z_p_rza_q {
-        pub V: ::aarchmrs_types::BitValue<1>,
-        pub Rs: ::aarchmrs_types::BitValue<2>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub ZAn: ::aarchmrs_types::BitValue<4>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl mova_z_p_rza_q {
-        #[inline]
-        pub const fn new(
-            V: ::aarchmrs_types::BitValue<1>,
-            Rs: ::aarchmrs_types::BitValue<2>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            ZAn: ::aarchmrs_types::BitValue<4>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self { V, Rs, Pg, ZAn, Zd }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b1100000011000011u32 << 16u32
-                    | self.V.into_inner() << 15u32
-                    | self.Rs.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | 0b0u32 << 9u32
-                    | self.ZAn.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn mova_z_p_rza_q(
+        V: ::aarchmrs_types::BitValue<1>,
+        Rs: ::aarchmrs_types::BitValue<2>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        ZAn: ::aarchmrs_types::BitValue<4>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b1100000011000011u32 << 16u32
+                | V.into_inner() << 15u32
+                | Rs.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | 0b0u32 << 9u32
+                | ZAn.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }

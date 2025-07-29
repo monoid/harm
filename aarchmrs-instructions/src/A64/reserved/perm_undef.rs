@@ -4,45 +4,20 @@
  */
 
 pub mod UDF_only_perm_undef {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111110000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "UDF_only_perm_undef";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct UDF_only_perm_undef {
-        pub imm16: ::aarchmrs_types::BitValue<16>,
-    }
-    impl UDF_only_perm_undef {
-        #[inline]
-        pub const fn new(imm16: ::aarchmrs_types::BitValue<16>) -> Self {
-            Self { imm16 }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b0000000000000000u32 << 16u32 | self.imm16.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn UDF_only_perm_undef(
+        imm16: ::aarchmrs_types::BitValue<16>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b0000000000000000u32 << 16u32 | imm16.into_inner() << 0u32,
+        )
     }
 }

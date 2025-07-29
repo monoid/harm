@@ -4,132 +4,58 @@
  */
 
 pub mod fmopa_za_pp_zz_32 {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000000000000000011100u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b10000000100000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "fmopa_za_pp_zz_32";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct fmopa_za_pp_zz_32 {
-        pub Zm: ::aarchmrs_types::BitValue<5>,
-        pub Pm: ::aarchmrs_types::BitValue<3>,
-        pub Pn: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub ZAda: ::aarchmrs_types::BitValue<2>,
-    }
-    impl fmopa_za_pp_zz_32 {
-        #[inline]
-        pub const fn new(
-            Zm: ::aarchmrs_types::BitValue<5>,
-            Pm: ::aarchmrs_types::BitValue<3>,
-            Pn: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            ZAda: ::aarchmrs_types::BitValue<2>,
-        ) -> Self {
-            Self {
-                Zm,
-                Pm,
-                Pn,
-                Zn,
-                ZAda,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b10000000100u32 << 21u32
-                    | self.Zm.into_inner() << 16u32
-                    | self.Pm.into_inner() << 13u32
-                    | self.Pn.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | 0b000u32 << 2u32
-                    | self.ZAda.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn fmopa_za_pp_zz_32(
+        Zm: ::aarchmrs_types::BitValue<5>,
+        Pm: ::aarchmrs_types::BitValue<3>,
+        Pn: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        ZAda: ::aarchmrs_types::BitValue<2>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b10000000100u32 << 21u32
+                | Zm.into_inner() << 16u32
+                | Pm.into_inner() << 13u32
+                | Pn.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | 0b000u32 << 2u32
+                | ZAda.into_inner() << 0u32,
+        )
     }
 }
 pub mod fmops_za_pp_zz_32 {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000000000000000011100u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b10000000100000000000000000010000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "fmops_za_pp_zz_32";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct fmops_za_pp_zz_32 {
-        pub Zm: ::aarchmrs_types::BitValue<5>,
-        pub Pm: ::aarchmrs_types::BitValue<3>,
-        pub Pn: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub ZAda: ::aarchmrs_types::BitValue<2>,
-    }
-    impl fmops_za_pp_zz_32 {
-        #[inline]
-        pub const fn new(
-            Zm: ::aarchmrs_types::BitValue<5>,
-            Pm: ::aarchmrs_types::BitValue<3>,
-            Pn: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            ZAda: ::aarchmrs_types::BitValue<2>,
-        ) -> Self {
-            Self {
-                Zm,
-                Pm,
-                Pn,
-                Zn,
-                ZAda,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b10000000100u32 << 21u32
-                    | self.Zm.into_inner() << 16u32
-                    | self.Pm.into_inner() << 13u32
-                    | self.Pn.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | 0b100u32 << 2u32
-                    | self.ZAda.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn fmops_za_pp_zz_32(
+        Zm: ::aarchmrs_types::BitValue<5>,
+        Pm: ::aarchmrs_types::BitValue<3>,
+        Pn: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        ZAda: ::aarchmrs_types::BitValue<2>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b10000000100u32 << 21u32
+                | Zm.into_inner() << 16u32
+                | Pm.into_inner() << 13u32
+                | Pn.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | 0b100u32 << 2u32
+                | ZAda.into_inner() << 0u32,
+        )
     }
 }

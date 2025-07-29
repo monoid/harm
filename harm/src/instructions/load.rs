@@ -164,14 +164,13 @@ where
 impl Instruction for Load<Reg64, RegOrSp64, RegOrZero64> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let code = LDR_64_ldst_regoff::new(
+        let code = LDR_64_ldst_regoff(
             self.offset.code(),
             (LdrExtendOption64::default() as u8).into(),
             0b0.into(),
             self.base.code(),
             self.dst.code(),
-        )
-        .build();
+        );
         std::iter::once(code)
     }
 }
@@ -196,14 +195,13 @@ where
 impl Instruction for Load<Reg32, RegOrSp64, RegOrZero64> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let code = LDR_32_ldst_regoff::new(
+        let code = LDR_32_ldst_regoff(
             self.offset.code(),
             (LdrExtendOption64::default() as u8).into(),
             0b0.into(),
             self.base.code(),
             self.dst.code(),
-        )
-        .build();
+        );
         std::iter::once(code)
     }
 }
@@ -227,8 +225,7 @@ where
 impl Instruction for Load<Reg32, RegOrSp64, ScaledOffset32> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let code =
-            LDR_32_ldst_pos::new(self.offset.into(), self.base.code(), self.dst.code()).build();
+        let code = LDR_32_ldst_pos(self.offset.into(), self.base.code(), self.dst.code());
         std::iter::once(code)
     }
 }
@@ -252,8 +249,7 @@ where
 impl Instruction for Load<Reg64, RegOrSp64, ScaledOffset64> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let code =
-            LDR_64_ldst_pos::new(self.offset.into(), self.base.code(), self.dst.code()).build();
+        let code = LDR_64_ldst_pos(self.offset.into(), self.base.code(), self.dst.code());
         std::iter::once(code)
     }
 }
