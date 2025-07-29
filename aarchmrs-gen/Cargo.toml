@@ -5,6 +5,7 @@ edition = "2024"
 description = "AARCHMRS generator"
 license = "BSD-3-Clause"
 authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
+publish = false
 
 [dependencies]
 aarchmrs-parser = { workspace = true }
