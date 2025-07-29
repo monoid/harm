@@ -5,7 +5,7 @@
 
 pub mod sunpk_mz_z_4 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111111111110000100010u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111110000100011u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001101011110000000000000u32;
     #[cfg(feature = "meta")]
@@ -17,7 +17,6 @@ pub mod sunpk_mz_z_4 {
         size: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<4>,
         Zd: ::aarchmrs_types::BitValue<3>,
-        U: ::aarchmrs_types::BitValue<1>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b11000001u32 << 24u32
@@ -26,16 +25,15 @@ pub mod sunpk_mz_z_4 {
                 | Zn.into_inner() << 6u32
                 | 0b0u32 << 5u32
                 | Zd.into_inner() << 2u32
-                | 0b0u32 << 1u32
-                | U.into_inner() << 0u32,
+                | 0b00u32 << 0u32,
         )
     }
 }
 pub mod uunpk_mz_z_4 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111111111110000100010u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111110000100011u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001001101011110000000000000u32;
+    pub const OPCODE: u32 = 0b11000001001101011110000000000001u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -45,7 +43,6 @@ pub mod uunpk_mz_z_4 {
         size: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<4>,
         Zd: ::aarchmrs_types::BitValue<3>,
-        U: ::aarchmrs_types::BitValue<1>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b11000001u32 << 24u32
@@ -54,8 +51,7 @@ pub mod uunpk_mz_z_4 {
                 | Zn.into_inner() << 6u32
                 | 0b0u32 << 5u32
                 | Zd.into_inner() << 2u32
-                | 0b0u32 << 1u32
-                | U.into_inner() << 0u32,
+                | 0b01u32 << 0u32,
         )
     }
 }

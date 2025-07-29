@@ -755,9 +755,9 @@ pub mod LDR_64_ldst_regoff {
 }
 pub mod PRFM_P_ldst_regoff {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000100110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11111000101000000000100000000000u32;
+    pub const OPCODE: u32 = 0b11111000101000000100100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -765,7 +765,8 @@ pub mod PRFM_P_ldst_regoff {
     #[inline]
     pub const fn PRFM_P_ldst_regoff(
         Rm: ::aarchmrs_types::BitValue<5>,
-        option: ::aarchmrs_types::BitValue<3>,
+        option_15: ::aarchmrs_types::BitValue<1>,
+        option_13: ::aarchmrs_types::BitValue<1>,
         S: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rt: ::aarchmrs_types::BitValue<5>,
@@ -773,7 +774,9 @@ pub mod PRFM_P_ldst_regoff {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b11111000101u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | option.into_inner() << 13u32
+                | option_15.into_inner() << 15u32
+                | 0b1u32 << 14u32
+                | option_13.into_inner() << 13u32
                 | S.into_inner() << 12u32
                 | 0b10u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -783,9 +786,9 @@ pub mod PRFM_P_ldst_regoff {
 }
 pub mod RPRFM_R_ldst_regoff {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000000100110000011000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11111000101000000000100000000000u32;
+    pub const OPCODE: u32 = 0b11111000101000000100100000011000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -793,18 +796,22 @@ pub mod RPRFM_R_ldst_regoff {
     #[inline]
     pub const fn RPRFM_R_ldst_regoff(
         Rm: ::aarchmrs_types::BitValue<5>,
-        option: ::aarchmrs_types::BitValue<3>,
+        option_15: ::aarchmrs_types::BitValue<1>,
+        option_13: ::aarchmrs_types::BitValue<1>,
         S: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        Rt: ::aarchmrs_types::BitValue<5>,
+        Rt: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b11111000101u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | option.into_inner() << 13u32
+                | option_15.into_inner() << 15u32
+                | 0b1u32 << 14u32
+                | option_13.into_inner() << 13u32
                 | S.into_inner() << 12u32
                 | 0b10u32 << 10u32
                 | Rn.into_inner() << 5u32
+                | 0b11u32 << 3u32
                 | Rt.into_inner() << 0u32,
         )
     }

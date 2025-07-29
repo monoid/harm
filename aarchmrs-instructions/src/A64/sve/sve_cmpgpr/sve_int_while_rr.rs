@@ -5,7 +5,7 @@
 
 pub mod whilege_p_p_rr_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110110000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100101001000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -17,9 +17,7 @@ pub mod whilege_p_p_rr_ {
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
         sf: ::aarchmrs_types::BitValue<1>,
-        lt: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        eq: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -29,17 +27,16 @@ pub mod whilege_p_p_rr_ {
                 | Rm.into_inner() << 16u32
                 | 0b000u32 << 13u32
                 | sf.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | lt.into_inner() << 10u32
+                | 0b00u32 << 10u32
                 | Rn.into_inner() << 5u32
-                | eq.into_inner() << 4u32
+                | 0b0u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod whilehs_p_p_rr_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110110000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100101001000000000100000000000u32;
     #[cfg(feature = "meta")]
@@ -51,9 +48,7 @@ pub mod whilehs_p_p_rr_ {
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
         sf: ::aarchmrs_types::BitValue<1>,
-        lt: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        eq: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -63,19 +58,18 @@ pub mod whilehs_p_p_rr_ {
                 | Rm.into_inner() << 16u32
                 | 0b000u32 << 13u32
                 | sf.into_inner() << 12u32
-                | 0b1u32 << 11u32
-                | lt.into_inner() << 10u32
+                | 0b10u32 << 10u32
                 | Rn.into_inner() << 5u32
-                | eq.into_inner() << 4u32
+                | 0b0u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod whilegt_p_p_rr_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110110000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100101001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00100101001000000000000000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -85,9 +79,7 @@ pub mod whilegt_p_p_rr_ {
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
         sf: ::aarchmrs_types::BitValue<1>,
-        lt: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        eq: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -97,19 +89,18 @@ pub mod whilegt_p_p_rr_ {
                 | Rm.into_inner() << 16u32
                 | 0b000u32 << 13u32
                 | sf.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | lt.into_inner() << 10u32
+                | 0b00u32 << 10u32
                 | Rn.into_inner() << 5u32
-                | eq.into_inner() << 4u32
+                | 0b1u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod whilehi_p_p_rr_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110110000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100101001000000000100000000000u32;
+    pub const OPCODE: u32 = 0b00100101001000000000100000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -119,9 +110,7 @@ pub mod whilehi_p_p_rr_ {
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
         sf: ::aarchmrs_types::BitValue<1>,
-        lt: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        eq: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -131,19 +120,18 @@ pub mod whilehi_p_p_rr_ {
                 | Rm.into_inner() << 16u32
                 | 0b000u32 << 13u32
                 | sf.into_inner() << 12u32
-                | 0b1u32 << 11u32
-                | lt.into_inner() << 10u32
+                | 0b10u32 << 10u32
                 | Rn.into_inner() << 5u32
-                | eq.into_inner() << 4u32
+                | 0b1u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod whilelt_p_p_rr_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110110000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100101001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00100101001000000000010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -153,9 +141,7 @@ pub mod whilelt_p_p_rr_ {
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
         sf: ::aarchmrs_types::BitValue<1>,
-        lt: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        eq: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -165,19 +151,18 @@ pub mod whilelt_p_p_rr_ {
                 | Rm.into_inner() << 16u32
                 | 0b000u32 << 13u32
                 | sf.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | lt.into_inner() << 10u32
+                | 0b01u32 << 10u32
                 | Rn.into_inner() << 5u32
-                | eq.into_inner() << 4u32
+                | 0b0u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod whilelo_p_p_rr_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110110000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100101001000000000100000000000u32;
+    pub const OPCODE: u32 = 0b00100101001000000000110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -187,9 +172,7 @@ pub mod whilelo_p_p_rr_ {
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
         sf: ::aarchmrs_types::BitValue<1>,
-        lt: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        eq: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -199,19 +182,18 @@ pub mod whilelo_p_p_rr_ {
                 | Rm.into_inner() << 16u32
                 | 0b000u32 << 13u32
                 | sf.into_inner() << 12u32
-                | 0b1u32 << 11u32
-                | lt.into_inner() << 10u32
+                | 0b11u32 << 10u32
                 | Rn.into_inner() << 5u32
-                | eq.into_inner() << 4u32
+                | 0b0u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod whilele_p_p_rr_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110110000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100101001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00100101001000000000010000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -221,9 +203,7 @@ pub mod whilele_p_p_rr_ {
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
         sf: ::aarchmrs_types::BitValue<1>,
-        lt: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        eq: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -233,19 +213,18 @@ pub mod whilele_p_p_rr_ {
                 | Rm.into_inner() << 16u32
                 | 0b000u32 << 13u32
                 | sf.into_inner() << 12u32
-                | 0b0u32 << 11u32
-                | lt.into_inner() << 10u32
+                | 0b01u32 << 10u32
                 | Rn.into_inner() << 5u32
-                | eq.into_inner() << 4u32
+                | 0b1u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod whilels_p_p_rr_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110100000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110110000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100101001000000000100000000000u32;
+    pub const OPCODE: u32 = 0b00100101001000000000110000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -255,9 +234,7 @@ pub mod whilels_p_p_rr_ {
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
         sf: ::aarchmrs_types::BitValue<1>,
-        lt: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
-        eq: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -267,10 +244,9 @@ pub mod whilels_p_p_rr_ {
                 | Rm.into_inner() << 16u32
                 | 0b000u32 << 13u32
                 | sf.into_inner() << 12u32
-                | 0b1u32 << 11u32
-                | lt.into_inner() << 10u32
+                | 0b11u32 << 10u32
                 | Rn.into_inner() << 5u32
-                | eq.into_inner() << 4u32
+                | 0b1u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }

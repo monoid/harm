@@ -5,7 +5,7 @@
 
 pub mod asr_z_p_zi_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100000000001000000000000000u32;
     #[cfg(feature = "meta")]
@@ -15,7 +15,6 @@ pub mod asr_z_p_zi_ {
     #[inline]
     pub const fn asr_z_p_zi_(
         tszh: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         tszl: ::aarchmrs_types::BitValue<2>,
         imm3: ::aarchmrs_types::BitValue<3>,
@@ -24,9 +23,7 @@ pub mod asr_z_p_zi_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | tszh.into_inner() << 22u32
-                | 0b00000u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b100u32 << 13u32
+                | 0b000000100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | tszl.into_inner() << 8u32
                 | imm3.into_inner() << 5u32
@@ -92,7 +89,7 @@ pub mod asrd_z_p_zi_ {
 }
 pub mod sqshl_z_p_zi_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100000001101000000000000000u32;
     #[cfg(feature = "meta")]
@@ -102,7 +99,6 @@ pub mod sqshl_z_p_zi_ {
     #[inline]
     pub const fn sqshl_z_p_zi_(
         tszh: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         tszl: ::aarchmrs_types::BitValue<2>,
         imm3: ::aarchmrs_types::BitValue<3>,
@@ -111,9 +107,7 @@ pub mod sqshl_z_p_zi_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | tszh.into_inner() << 22u32
-                | 0b00011u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b100u32 << 13u32
+                | 0b000110100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | tszl.into_inner() << 8u32
                 | imm3.into_inner() << 5u32
@@ -123,7 +117,7 @@ pub mod sqshl_z_p_zi_ {
 }
 pub mod srshr_z_p_zi_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100000011001000000000000000u32;
     #[cfg(feature = "meta")]
@@ -133,7 +127,6 @@ pub mod srshr_z_p_zi_ {
     #[inline]
     pub const fn srshr_z_p_zi_(
         tszh: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         tszl: ::aarchmrs_types::BitValue<2>,
         imm3: ::aarchmrs_types::BitValue<3>,
@@ -142,9 +135,7 @@ pub mod srshr_z_p_zi_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | tszh.into_inner() << 22u32
-                | 0b00110u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b100u32 << 13u32
+                | 0b001100100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | tszl.into_inner() << 8u32
                 | imm3.into_inner() << 5u32
@@ -182,9 +173,9 @@ pub mod sqshlu_z_p_zi_ {
 }
 pub mod lsr_z_p_zi_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00000100000000001000000000000000u32;
+    pub const OPCODE: u32 = 0b00000100000000011000000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -192,7 +183,6 @@ pub mod lsr_z_p_zi_ {
     #[inline]
     pub const fn lsr_z_p_zi_(
         tszh: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         tszl: ::aarchmrs_types::BitValue<2>,
         imm3: ::aarchmrs_types::BitValue<3>,
@@ -201,9 +191,7 @@ pub mod lsr_z_p_zi_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | tszh.into_inner() << 22u32
-                | 0b00000u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b100u32 << 13u32
+                | 0b000001100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | tszl.into_inner() << 8u32
                 | imm3.into_inner() << 5u32
@@ -213,9 +201,9 @@ pub mod lsr_z_p_zi_ {
 }
 pub mod uqshl_z_p_zi_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00000100000001101000000000000000u32;
+    pub const OPCODE: u32 = 0b00000100000001111000000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -223,7 +211,6 @@ pub mod uqshl_z_p_zi_ {
     #[inline]
     pub const fn uqshl_z_p_zi_(
         tszh: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         tszl: ::aarchmrs_types::BitValue<2>,
         imm3: ::aarchmrs_types::BitValue<3>,
@@ -232,9 +219,7 @@ pub mod uqshl_z_p_zi_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | tszh.into_inner() << 22u32
-                | 0b00011u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b100u32 << 13u32
+                | 0b000111100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | tszl.into_inner() << 8u32
                 | imm3.into_inner() << 5u32
@@ -244,9 +229,9 @@ pub mod uqshl_z_p_zi_ {
 }
 pub mod urshr_z_p_zi_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00000100000011001000000000000000u32;
+    pub const OPCODE: u32 = 0b00000100000011011000000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -254,7 +239,6 @@ pub mod urshr_z_p_zi_ {
     #[inline]
     pub const fn urshr_z_p_zi_(
         tszh: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         tszl: ::aarchmrs_types::BitValue<2>,
         imm3: ::aarchmrs_types::BitValue<3>,
@@ -263,9 +247,7 @@ pub mod urshr_z_p_zi_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00000100u32 << 24u32
                 | tszh.into_inner() << 22u32
-                | 0b00110u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b100u32 << 13u32
+                | 0b001101100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | tszl.into_inner() << 8u32
                 | imm3.into_inner() << 5u32

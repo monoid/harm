@@ -5,7 +5,7 @@
 
 pub mod FMUL_S_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110001000000000100000000000u32;
     #[cfg(feature = "meta")]
@@ -15,15 +15,13 @@ pub mod FMUL_S_floatdp2 {
     #[inline]
     pub const fn FMUL_S_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110001u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | op.into_inner() << 15u32
-                | 0b00010u32 << 10u32
+                | 0b000010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -55,7 +53,7 @@ pub mod FDIV_S_floatdp2 {
 }
 pub mod FADD_S_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110001000000010100000000000u32;
     #[cfg(feature = "meta")]
@@ -65,16 +63,13 @@ pub mod FADD_S_floatdp2 {
     #[inline]
     pub const fn FADD_S_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110001u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b001u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b001010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -82,9 +77,9 @@ pub mod FADD_S_floatdp2 {
 }
 pub mod FSUB_S_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110001000000010100000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000011100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -92,16 +87,13 @@ pub mod FSUB_S_floatdp2 {
     #[inline]
     pub const fn FSUB_S_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110001u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b001u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b001110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -109,7 +101,7 @@ pub mod FSUB_S_floatdp2 {
 }
 pub mod FMAX_S_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110001000000100100000000000u32;
     #[cfg(feature = "meta")]
@@ -119,16 +111,13 @@ pub mod FMAX_S_floatdp2 {
     #[inline]
     pub const fn FMAX_S_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110001u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b010010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -136,9 +125,9 @@ pub mod FMAX_S_floatdp2 {
 }
 pub mod FMIN_S_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110001000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000101100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -146,16 +135,13 @@ pub mod FMIN_S_floatdp2 {
     #[inline]
     pub const fn FMIN_S_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110001u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b010110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -163,9 +149,9 @@ pub mod FMIN_S_floatdp2 {
 }
 pub mod FMAXNM_S_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110001000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000110100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -173,16 +159,13 @@ pub mod FMAXNM_S_floatdp2 {
     #[inline]
     pub const fn FMAXNM_S_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110001u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b011010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -190,9 +173,9 @@ pub mod FMAXNM_S_floatdp2 {
 }
 pub mod FMINNM_S_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110001000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000000111100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -200,16 +183,13 @@ pub mod FMINNM_S_floatdp2 {
     #[inline]
     pub const fn FMINNM_S_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110001u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b011110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -217,9 +197,9 @@ pub mod FMINNM_S_floatdp2 {
 }
 pub mod FNMUL_S_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110001000000000100000000000u32;
+    pub const OPCODE: u32 = 0b00011110001000001000100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -227,15 +207,13 @@ pub mod FNMUL_S_floatdp2 {
     #[inline]
     pub const fn FNMUL_S_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110001u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | op.into_inner() << 15u32
-                | 0b00010u32 << 10u32
+                | 0b100010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -243,7 +221,7 @@ pub mod FNMUL_S_floatdp2 {
 }
 pub mod FMUL_D_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110011000000000100000000000u32;
     #[cfg(feature = "meta")]
@@ -253,15 +231,13 @@ pub mod FMUL_D_floatdp2 {
     #[inline]
     pub const fn FMUL_D_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110011u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | op.into_inner() << 15u32
-                | 0b00010u32 << 10u32
+                | 0b000010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -293,7 +269,7 @@ pub mod FDIV_D_floatdp2 {
 }
 pub mod FADD_D_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110011000000010100000000000u32;
     #[cfg(feature = "meta")]
@@ -303,16 +279,13 @@ pub mod FADD_D_floatdp2 {
     #[inline]
     pub const fn FADD_D_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110011u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b001u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b001010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -320,9 +293,9 @@ pub mod FADD_D_floatdp2 {
 }
 pub mod FSUB_D_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110011000000010100000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000011100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -330,16 +303,13 @@ pub mod FSUB_D_floatdp2 {
     #[inline]
     pub const fn FSUB_D_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110011u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b001u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b001110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -347,7 +317,7 @@ pub mod FSUB_D_floatdp2 {
 }
 pub mod FMAX_D_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110011000000100100000000000u32;
     #[cfg(feature = "meta")]
@@ -357,16 +327,13 @@ pub mod FMAX_D_floatdp2 {
     #[inline]
     pub const fn FMAX_D_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110011u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b010010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -374,9 +341,9 @@ pub mod FMAX_D_floatdp2 {
 }
 pub mod FMIN_D_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110011000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000101100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -384,16 +351,13 @@ pub mod FMIN_D_floatdp2 {
     #[inline]
     pub const fn FMIN_D_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110011u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b010110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -401,9 +365,9 @@ pub mod FMIN_D_floatdp2 {
 }
 pub mod FMAXNM_D_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110011000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000110100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -411,16 +375,13 @@ pub mod FMAXNM_D_floatdp2 {
     #[inline]
     pub const fn FMAXNM_D_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110011u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b011010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -428,9 +389,9 @@ pub mod FMAXNM_D_floatdp2 {
 }
 pub mod FMINNM_D_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110011000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000000111100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -438,16 +399,13 @@ pub mod FMINNM_D_floatdp2 {
     #[inline]
     pub const fn FMINNM_D_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110011u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b011110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -455,9 +413,9 @@ pub mod FMINNM_D_floatdp2 {
 }
 pub mod FNMUL_D_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110011000000000100000000000u32;
+    pub const OPCODE: u32 = 0b00011110011000001000100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -465,15 +423,13 @@ pub mod FNMUL_D_floatdp2 {
     #[inline]
     pub const fn FNMUL_D_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110011u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | op.into_inner() << 15u32
-                | 0b00010u32 << 10u32
+                | 0b100010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -481,7 +437,7 @@ pub mod FNMUL_D_floatdp2 {
 }
 pub mod FMUL_H_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110111000000000100000000000u32;
     #[cfg(feature = "meta")]
@@ -491,15 +447,13 @@ pub mod FMUL_H_floatdp2 {
     #[inline]
     pub const fn FMUL_H_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | op.into_inner() << 15u32
-                | 0b00010u32 << 10u32
+                | 0b000010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -531,7 +485,7 @@ pub mod FDIV_H_floatdp2 {
 }
 pub mod FADD_H_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110111000000010100000000000u32;
     #[cfg(feature = "meta")]
@@ -541,16 +495,13 @@ pub mod FADD_H_floatdp2 {
     #[inline]
     pub const fn FADD_H_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b001u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b001010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -558,9 +509,9 @@ pub mod FADD_H_floatdp2 {
 }
 pub mod FSUB_H_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110111000000010100000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000011100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -568,16 +519,13 @@ pub mod FSUB_H_floatdp2 {
     #[inline]
     pub const fn FSUB_H_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b001u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b001110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -585,7 +533,7 @@ pub mod FSUB_H_floatdp2 {
 }
 pub mod FMAX_H_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00011110111000000100100000000000u32;
     #[cfg(feature = "meta")]
@@ -595,16 +543,13 @@ pub mod FMAX_H_floatdp2 {
     #[inline]
     pub const fn FMAX_H_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b010010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -612,9 +557,9 @@ pub mod FMAX_H_floatdp2 {
 }
 pub mod FMIN_H_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110111000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000101100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -622,16 +567,13 @@ pub mod FMIN_H_floatdp2 {
     #[inline]
     pub const fn FMIN_H_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b010110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -639,9 +581,9 @@ pub mod FMIN_H_floatdp2 {
 }
 pub mod FMAXNM_H_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110111000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000110100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -649,16 +591,13 @@ pub mod FMAXNM_H_floatdp2 {
     #[inline]
     pub const fn FMAXNM_H_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b011010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -666,9 +605,9 @@ pub mod FMAXNM_H_floatdp2 {
 }
 pub mod FMINNM_H_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110111000000100100000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000000111100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -676,16 +615,13 @@ pub mod FMINNM_H_floatdp2 {
     #[inline]
     pub const fn FMINNM_H_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b01u32 << 14u32
-                | op.into_inner() << 12u32
-                | 0b10u32 << 10u32
+                | 0b011110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -693,9 +629,9 @@ pub mod FMINNM_H_floatdp2 {
 }
 pub mod FNMUL_H_floatdp2 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00011110111000000000100000000000u32;
+    pub const OPCODE: u32 = 0b00011110111000001000100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -703,15 +639,13 @@ pub mod FNMUL_H_floatdp2 {
     #[inline]
     pub const fn FNMUL_H_floatdp2(
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | op.into_inner() << 15u32
-                | 0b00010u32 << 10u32
+                | 0b100010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )

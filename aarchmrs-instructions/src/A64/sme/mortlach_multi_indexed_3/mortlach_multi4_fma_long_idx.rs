@@ -5,7 +5,7 @@
 
 pub mod bfmlal_za_zzi_4xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001000001110000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001000001111000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001100100001001000000010000u32;
     #[cfg(feature = "meta")]
@@ -18,7 +18,6 @@ pub mod bfmlal_za_zzi_4xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3h: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<3>,
-        S: ::aarchmrs_types::BitValue<1>,
         i3l: ::aarchmrs_types::BitValue<1>,
         off2: ::aarchmrs_types::BitValue<2>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -30,8 +29,7 @@ pub mod bfmlal_za_zzi_4xi {
                 | 0b1u32 << 12u32
                 | i3h.into_inner() << 10u32
                 | Zn.into_inner() << 7u32
-                | 0b001u32 << 4u32
-                | S.into_inner() << 3u32
+                | 0b0010u32 << 3u32
                 | i3l.into_inner() << 2u32
                 | off2.into_inner() << 0u32,
         )
@@ -39,7 +37,7 @@ pub mod bfmlal_za_zzi_4xi {
 }
 pub mod fmlal_za_zzi_4xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001000001110000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001000001111000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001100100001001000000000000u32;
     #[cfg(feature = "meta")]
@@ -52,7 +50,6 @@ pub mod fmlal_za_zzi_4xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3h: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<3>,
-        S: ::aarchmrs_types::BitValue<1>,
         i3l: ::aarchmrs_types::BitValue<1>,
         off2: ::aarchmrs_types::BitValue<2>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -64,8 +61,7 @@ pub mod fmlal_za_zzi_4xi {
                 | 0b1u32 << 12u32
                 | i3h.into_inner() << 10u32
                 | Zn.into_inner() << 7u32
-                | 0b000u32 << 4u32
-                | S.into_inner() << 3u32
+                | 0b0000u32 << 3u32
                 | i3l.into_inner() << 2u32
                 | off2.into_inner() << 0u32,
         )
@@ -73,9 +69,9 @@ pub mod fmlal_za_zzi_4xi {
 }
 pub mod bfmlsl_za_zzi_4xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001000001110000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001000001111000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001100100001001000000010000u32;
+    pub const OPCODE: u32 = 0b11000001100100001001000000011000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -86,7 +82,6 @@ pub mod bfmlsl_za_zzi_4xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3h: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<3>,
-        S: ::aarchmrs_types::BitValue<1>,
         i3l: ::aarchmrs_types::BitValue<1>,
         off2: ::aarchmrs_types::BitValue<2>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -98,8 +93,7 @@ pub mod bfmlsl_za_zzi_4xi {
                 | 0b1u32 << 12u32
                 | i3h.into_inner() << 10u32
                 | Zn.into_inner() << 7u32
-                | 0b001u32 << 4u32
-                | S.into_inner() << 3u32
+                | 0b0011u32 << 3u32
                 | i3l.into_inner() << 2u32
                 | off2.into_inner() << 0u32,
         )
@@ -107,9 +101,9 @@ pub mod bfmlsl_za_zzi_4xi {
 }
 pub mod fmlsl_za_zzi_4xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001000001110000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001000001111000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001100100001001000000000000u32;
+    pub const OPCODE: u32 = 0b11000001100100001001000000001000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -120,7 +114,6 @@ pub mod fmlsl_za_zzi_4xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3h: ::aarchmrs_types::BitValue<2>,
         Zn: ::aarchmrs_types::BitValue<3>,
-        S: ::aarchmrs_types::BitValue<1>,
         i3l: ::aarchmrs_types::BitValue<1>,
         off2: ::aarchmrs_types::BitValue<2>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -132,8 +125,7 @@ pub mod fmlsl_za_zzi_4xi {
                 | 0b1u32 << 12u32
                 | i3h.into_inner() << 10u32
                 | Zn.into_inner() << 7u32
-                | 0b000u32 << 4u32
-                | S.into_inner() << 3u32
+                | 0b0001u32 << 3u32
                 | i3l.into_inner() << 2u32
                 | off2.into_inner() << 0u32,
         )

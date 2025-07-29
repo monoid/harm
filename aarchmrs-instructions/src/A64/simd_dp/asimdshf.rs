@@ -5,7 +5,7 @@
 
 pub mod SSHR_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00001111000000000000010000000000u32;
     #[cfg(feature = "meta")]
@@ -17,8 +17,6 @@ pub mod SSHR_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        o1: ::aarchmrs_types::BitValue<1>,
-        o0: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -28,10 +26,7 @@ pub mod SSHR_asimdshf_R {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | o1.into_inner() << 13u32
-                | o0.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b000001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -39,9 +34,9 @@ pub mod SSHR_asimdshf_R {
 }
 pub mod SSRA_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001111000000000000010000000000u32;
+    pub const OPCODE: u32 = 0b00001111000000000001010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -51,8 +46,6 @@ pub mod SSRA_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        o1: ::aarchmrs_types::BitValue<1>,
-        o0: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -62,10 +55,7 @@ pub mod SSRA_asimdshf_R {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | o1.into_inner() << 13u32
-                | o0.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b000101u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -73,9 +63,9 @@ pub mod SSRA_asimdshf_R {
 }
 pub mod SRSHR_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001111000000000000010000000000u32;
+    pub const OPCODE: u32 = 0b00001111000000000010010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -85,8 +75,6 @@ pub mod SRSHR_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        o1: ::aarchmrs_types::BitValue<1>,
-        o0: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -96,10 +84,7 @@ pub mod SRSHR_asimdshf_R {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | o1.into_inner() << 13u32
-                | o0.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b001001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -107,9 +92,9 @@ pub mod SRSHR_asimdshf_R {
 }
 pub mod SRSRA_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001111000000000000010000000000u32;
+    pub const OPCODE: u32 = 0b00001111000000000011010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -119,8 +104,6 @@ pub mod SRSRA_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        o1: ::aarchmrs_types::BitValue<1>,
-        o0: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -130,10 +113,7 @@ pub mod SRSRA_asimdshf_R {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | o1.into_inner() << 13u32
-                | o0.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b001101u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -170,9 +150,9 @@ pub mod SHL_asimdshf_R {
 }
 pub mod SQSHL_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001111000000000110010000000000u32;
+    pub const OPCODE: u32 = 0b00001111000000000111010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -182,7 +162,6 @@ pub mod SQSHL_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -192,9 +171,7 @@ pub mod SQSHL_asimdshf_R {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b011u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b011101u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -202,7 +179,7 @@ pub mod SQSHL_asimdshf_R {
 }
 pub mod SHRN_asimdshf_N {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00001111000000001000010000000000u32;
     #[cfg(feature = "meta")]
@@ -214,7 +191,6 @@ pub mod SHRN_asimdshf_N {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -224,9 +200,7 @@ pub mod SHRN_asimdshf_N {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b1000u32 << 12u32
-                | op.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b100001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -234,9 +208,9 @@ pub mod SHRN_asimdshf_N {
 }
 pub mod RSHRN_asimdshf_N {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001111000000001000010000000000u32;
+    pub const OPCODE: u32 = 0b00001111000000001000110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -246,7 +220,6 @@ pub mod RSHRN_asimdshf_N {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -256,9 +229,7 @@ pub mod RSHRN_asimdshf_N {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b1000u32 << 12u32
-                | op.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b100011u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -266,7 +237,7 @@ pub mod RSHRN_asimdshf_N {
 }
 pub mod SQSHRN_asimdshf_N {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00001111000000001001010000000000u32;
     #[cfg(feature = "meta")]
@@ -278,7 +249,6 @@ pub mod SQSHRN_asimdshf_N {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -288,9 +258,7 @@ pub mod SQSHRN_asimdshf_N {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b1001u32 << 12u32
-                | op.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b100101u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -298,9 +266,9 @@ pub mod SQSHRN_asimdshf_N {
 }
 pub mod SQRSHRN_asimdshf_N {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001111000000001001010000000000u32;
+    pub const OPCODE: u32 = 0b00001111000000001001110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -310,7 +278,6 @@ pub mod SQRSHRN_asimdshf_N {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -320,9 +287,7 @@ pub mod SQRSHRN_asimdshf_N {
                 | 0b0011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b1001u32 << 12u32
-                | op.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b100111u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -417,7 +382,7 @@ pub mod FCVTZS_asimdshf_C {
 }
 pub mod USHR_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00101111000000000000010000000000u32;
     #[cfg(feature = "meta")]
@@ -429,8 +394,6 @@ pub mod USHR_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        o1: ::aarchmrs_types::BitValue<1>,
-        o0: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -440,10 +403,7 @@ pub mod USHR_asimdshf_R {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | o1.into_inner() << 13u32
-                | o0.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b000001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -451,9 +411,9 @@ pub mod USHR_asimdshf_R {
 }
 pub mod USRA_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101111000000000000010000000000u32;
+    pub const OPCODE: u32 = 0b00101111000000000001010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -463,8 +423,6 @@ pub mod USRA_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        o1: ::aarchmrs_types::BitValue<1>,
-        o0: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -474,10 +432,7 @@ pub mod USRA_asimdshf_R {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | o1.into_inner() << 13u32
-                | o0.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b000101u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -485,9 +440,9 @@ pub mod USRA_asimdshf_R {
 }
 pub mod URSHR_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101111000000000000010000000000u32;
+    pub const OPCODE: u32 = 0b00101111000000000010010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -497,8 +452,6 @@ pub mod URSHR_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        o1: ::aarchmrs_types::BitValue<1>,
-        o0: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -508,10 +461,7 @@ pub mod URSHR_asimdshf_R {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | o1.into_inner() << 13u32
-                | o0.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b001001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -519,9 +469,9 @@ pub mod URSHR_asimdshf_R {
 }
 pub mod URSRA_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001100110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101111000000000000010000000000u32;
+    pub const OPCODE: u32 = 0b00101111000000000011010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -531,8 +481,6 @@ pub mod URSRA_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        o1: ::aarchmrs_types::BitValue<1>,
-        o0: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -542,10 +490,7 @@ pub mod URSRA_asimdshf_R {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | o1.into_inner() << 13u32
-                | o0.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b001101u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -611,7 +556,7 @@ pub mod SLI_asimdshf_R {
 }
 pub mod SQSHLU_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00101111000000000110010000000000u32;
     #[cfg(feature = "meta")]
@@ -623,7 +568,6 @@ pub mod SQSHLU_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -633,9 +577,7 @@ pub mod SQSHLU_asimdshf_R {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b011u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b011001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -643,9 +585,9 @@ pub mod SQSHLU_asimdshf_R {
 }
 pub mod UQSHL_asimdshf_R {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001110110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101111000000000110010000000000u32;
+    pub const OPCODE: u32 = 0b00101111000000000111010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -655,7 +597,6 @@ pub mod UQSHL_asimdshf_R {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -665,9 +606,7 @@ pub mod UQSHL_asimdshf_R {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b011u32 << 13u32
-                | op.into_inner() << 12u32
-                | 0b01u32 << 10u32
+                | 0b011101u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -675,7 +614,7 @@ pub mod UQSHL_asimdshf_R {
 }
 pub mod SQSHRUN_asimdshf_N {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00101111000000001000010000000000u32;
     #[cfg(feature = "meta")]
@@ -687,7 +626,6 @@ pub mod SQSHRUN_asimdshf_N {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -697,9 +635,7 @@ pub mod SQSHRUN_asimdshf_N {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b1000u32 << 12u32
-                | op.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b100001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -707,9 +643,9 @@ pub mod SQSHRUN_asimdshf_N {
 }
 pub mod SQRSHRUN_asimdshf_N {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101111000000001000010000000000u32;
+    pub const OPCODE: u32 = 0b00101111000000001000110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -719,7 +655,6 @@ pub mod SQRSHRUN_asimdshf_N {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -729,9 +664,7 @@ pub mod SQRSHRUN_asimdshf_N {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b1000u32 << 12u32
-                | op.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b100011u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -739,7 +672,7 @@ pub mod SQRSHRUN_asimdshf_N {
 }
 pub mod UQSHRN_asimdshf_N {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00101111000000001001010000000000u32;
     #[cfg(feature = "meta")]
@@ -751,7 +684,6 @@ pub mod UQSHRN_asimdshf_N {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -761,9 +693,7 @@ pub mod UQSHRN_asimdshf_N {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b1001u32 << 12u32
-                | op.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b100101u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -771,9 +701,9 @@ pub mod UQSHRN_asimdshf_N {
 }
 pub mod UQRSHRN_asimdshf_N {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111100000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111100000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101111000000001001010000000000u32;
+    pub const OPCODE: u32 = 0b00101111000000001001110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -783,7 +713,6 @@ pub mod UQRSHRN_asimdshf_N {
         Q: ::aarchmrs_types::BitValue<1>,
         immh: ::aarchmrs_types::BitValue<4>,
         immb: ::aarchmrs_types::BitValue<3>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -793,9 +722,7 @@ pub mod UQRSHRN_asimdshf_N {
                 | 0b1011110u32 << 23u32
                 | immh.into_inner() << 19u32
                 | immb.into_inner() << 16u32
-                | 0b1001u32 << 12u32
-                | op.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b100111u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )

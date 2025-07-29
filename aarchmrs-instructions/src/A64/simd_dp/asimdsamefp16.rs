@@ -113,7 +113,7 @@ pub mod FMULX_asimdsamefp16_only {
 }
 pub mod FCMEQ_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00001110010000000010010000000000u32;
     #[cfg(feature = "meta")]
@@ -123,22 +123,16 @@ pub mod FCMEQ_asimdsamefp16_only {
     #[inline]
     pub const fn FCMEQ_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        E: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        ac: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b001110u32 << 24u32
-                | E.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b001110010u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0010u32 << 12u32
-                | ac.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b001001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -146,7 +140,7 @@ pub mod FCMEQ_asimdsamefp16_only {
 }
 pub mod FMAX_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00001110010000000011010000000000u32;
     #[cfg(feature = "meta")]
@@ -156,7 +150,6 @@ pub mod FMAX_asimdsamefp16_only {
     #[inline]
     pub const fn FMAX_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        o1: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
@@ -164,9 +157,7 @@ pub mod FMAX_asimdsamefp16_only {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b001110u32 << 24u32
-                | o1.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b001110010u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b001101u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -311,9 +302,9 @@ pub mod FAMAX_asimdsamefp16_only {
 }
 pub mod FMIN_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001110010000000011010000000000u32;
+    pub const OPCODE: u32 = 0b00001110110000000011010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -321,7 +312,6 @@ pub mod FMIN_asimdsamefp16_only {
     #[inline]
     pub const fn FMIN_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        o1: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
@@ -329,9 +319,7 @@ pub mod FMIN_asimdsamefp16_only {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b001110u32 << 24u32
-                | o1.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b001110110u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b001101u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -449,7 +437,7 @@ pub mod FMUL_asimdsamefp16_only {
 }
 pub mod FCMGE_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00101110010000000010010000000000u32;
     #[cfg(feature = "meta")]
@@ -459,22 +447,16 @@ pub mod FCMGE_asimdsamefp16_only {
     #[inline]
     pub const fn FCMGE_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        E: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        ac: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b101110u32 << 24u32
-                | E.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b101110010u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0010u32 << 12u32
-                | ac.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b001001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -482,9 +464,9 @@ pub mod FCMGE_asimdsamefp16_only {
 }
 pub mod FACGE_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101110010000000010010000000000u32;
+    pub const OPCODE: u32 = 0b00101110010000000010110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -492,22 +474,16 @@ pub mod FACGE_asimdsamefp16_only {
     #[inline]
     pub const fn FACGE_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        E: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        ac: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b101110u32 << 24u32
-                | E.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b101110010u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0010u32 << 12u32
-                | ac.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b001011u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -515,7 +491,7 @@ pub mod FACGE_asimdsamefp16_only {
 }
 pub mod FMAXP_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00101110010000000011010000000000u32;
     #[cfg(feature = "meta")]
@@ -525,7 +501,6 @@ pub mod FMAXP_asimdsamefp16_only {
     #[inline]
     pub const fn FMAXP_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        o1: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
@@ -533,9 +508,7 @@ pub mod FMAXP_asimdsamefp16_only {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b101110u32 << 24u32
-                | o1.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b101110010u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b001101u32 << 10u32
                 | Rn.into_inner() << 5u32
@@ -653,9 +626,9 @@ pub mod FAMIN_asimdsamefp16_only {
 }
 pub mod FCMGT_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101110010000000010010000000000u32;
+    pub const OPCODE: u32 = 0b00101110110000000010010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -663,22 +636,16 @@ pub mod FCMGT_asimdsamefp16_only {
     #[inline]
     pub const fn FCMGT_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        E: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        ac: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b101110u32 << 24u32
-                | E.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b101110110u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0010u32 << 12u32
-                | ac.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b001001u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -686,9 +653,9 @@ pub mod FCMGT_asimdsamefp16_only {
 }
 pub mod FACGT_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111010000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101110010000000010010000000000u32;
+    pub const OPCODE: u32 = 0b00101110110000000010110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -696,22 +663,16 @@ pub mod FACGT_asimdsamefp16_only {
     #[inline]
     pub const fn FACGT_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        E: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        ac: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b101110u32 << 24u32
-                | E.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b101110110u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0010u32 << 12u32
-                | ac.into_inner() << 11u32
-                | 0b1u32 << 10u32
+                | 0b001011u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -719,9 +680,9 @@ pub mod FACGT_asimdsamefp16_only {
 }
 pub mod FMINP_asimdsamefp16_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111011000001111110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00101110010000000011010000000000u32;
+    pub const OPCODE: u32 = 0b00101110110000000011010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -729,7 +690,6 @@ pub mod FMINP_asimdsamefp16_only {
     #[inline]
     pub const fn FMINP_asimdsamefp16_only(
         Q: ::aarchmrs_types::BitValue<1>,
-        o1: ::aarchmrs_types::BitValue<1>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
@@ -737,9 +697,7 @@ pub mod FMINP_asimdsamefp16_only {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0u32 << 31u32
                 | Q.into_inner() << 30u32
-                | 0b101110u32 << 24u32
-                | o1.into_inner() << 23u32
-                | 0b10u32 << 21u32
+                | 0b101110110u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b001101u32 << 10u32
                 | Rn.into_inner() << 5u32

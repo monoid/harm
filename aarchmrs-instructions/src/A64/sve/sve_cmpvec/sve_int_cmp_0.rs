@@ -5,7 +5,7 @@
 
 pub mod cmphs_p_p_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100100000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -18,7 +18,6 @@ pub mod cmphs_p_p_zz_ {
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        ne: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -29,14 +28,14 @@ pub mod cmphs_p_p_zz_ {
                 | 0b000u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | ne.into_inner() << 4u32
+                | 0b0u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod cmpge_p_p_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100100000000001000000000000000u32;
     #[cfg(feature = "meta")]
@@ -49,7 +48,6 @@ pub mod cmpge_p_p_zz_ {
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        ne: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -60,14 +58,14 @@ pub mod cmpge_p_p_zz_ {
                 | 0b100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | ne.into_inner() << 4u32
+                | 0b0u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod cmpeq_p_p_zw_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100100000000000010000000000000u32;
     #[cfg(feature = "meta")]
@@ -80,7 +78,6 @@ pub mod cmpeq_p_p_zw_ {
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        ne: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -91,14 +88,14 @@ pub mod cmpeq_p_p_zw_ {
                 | 0b001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | ne.into_inner() << 4u32
+                | 0b0u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod cmpeq_p_p_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100100000000001010000000000000u32;
     #[cfg(feature = "meta")]
@@ -111,7 +108,6 @@ pub mod cmpeq_p_p_zz_ {
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        ne: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -122,16 +118,16 @@ pub mod cmpeq_p_p_zz_ {
                 | 0b101u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | ne.into_inner() << 4u32
+                | 0b0u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod cmphi_p_p_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100100000000000000000000000000u32;
+    pub const OPCODE: u32 = 0b00100100000000000000000000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -142,7 +138,6 @@ pub mod cmphi_p_p_zz_ {
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        ne: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -153,16 +148,16 @@ pub mod cmphi_p_p_zz_ {
                 | 0b000u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | ne.into_inner() << 4u32
+                | 0b1u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod cmpgt_p_p_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100100000000001000000000000000u32;
+    pub const OPCODE: u32 = 0b00100100000000001000000000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -173,7 +168,6 @@ pub mod cmpgt_p_p_zz_ {
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        ne: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -184,16 +178,16 @@ pub mod cmpgt_p_p_zz_ {
                 | 0b100u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | ne.into_inner() << 4u32
+                | 0b1u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod cmpne_p_p_zw_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100100000000000010000000000000u32;
+    pub const OPCODE: u32 = 0b00100100000000000010000000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -204,7 +198,6 @@ pub mod cmpne_p_p_zw_ {
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        ne: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -215,16 +208,16 @@ pub mod cmpne_p_p_zw_ {
                 | 0b001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | ne.into_inner() << 4u32
+                | 0b1u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }
 }
 pub mod cmpne_p_p_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100100000000001010000000000000u32;
+    pub const OPCODE: u32 = 0b00100100000000001010000000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -235,7 +228,6 @@ pub mod cmpne_p_p_zz_ {
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
-        ne: ::aarchmrs_types::BitValue<1>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -246,7 +238,7 @@ pub mod cmpne_p_p_zz_ {
                 | 0b101u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
-                | ne.into_inner() << 4u32
+                | 0b1u32 << 4u32
                 | Pd.into_inner() << 0u32,
         )
     }

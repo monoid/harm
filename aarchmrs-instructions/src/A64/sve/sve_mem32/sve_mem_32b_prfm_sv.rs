@@ -5,7 +5,7 @@
 
 pub mod prfb_i_p_bz_s_x32_scaled {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111101000001000000000010000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111101000001110000000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b10000100001000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -16,7 +16,6 @@ pub mod prfb_i_p_bz_s_x32_scaled {
     pub const fn prfb_i_p_bz_s_x32_scaled(
         xs: ::aarchmrs_types::BitValue<1>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         prfop: ::aarchmrs_types::BitValue<4>,
@@ -26,8 +25,7 @@ pub mod prfb_i_p_bz_s_x32_scaled {
                 | xs.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b000u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | 0b0u32 << 4u32
@@ -37,9 +35,9 @@ pub mod prfb_i_p_bz_s_x32_scaled {
 }
 pub mod prfh_i_p_bz_s_x32_scaled {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111101000001000000000010000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111101000001110000000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10000100001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10000100001000000010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -48,7 +46,6 @@ pub mod prfh_i_p_bz_s_x32_scaled {
     pub const fn prfh_i_p_bz_s_x32_scaled(
         xs: ::aarchmrs_types::BitValue<1>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         prfop: ::aarchmrs_types::BitValue<4>,
@@ -58,8 +55,7 @@ pub mod prfh_i_p_bz_s_x32_scaled {
                 | xs.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | 0b0u32 << 4u32
@@ -69,9 +65,9 @@ pub mod prfh_i_p_bz_s_x32_scaled {
 }
 pub mod prfw_i_p_bz_s_x32_scaled {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111101000001000000000010000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111101000001110000000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10000100001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10000100001000000100000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -80,7 +76,6 @@ pub mod prfw_i_p_bz_s_x32_scaled {
     pub const fn prfw_i_p_bz_s_x32_scaled(
         xs: ::aarchmrs_types::BitValue<1>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         prfop: ::aarchmrs_types::BitValue<4>,
@@ -90,8 +85,7 @@ pub mod prfw_i_p_bz_s_x32_scaled {
                 | xs.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b010u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | 0b0u32 << 4u32
@@ -101,9 +95,9 @@ pub mod prfw_i_p_bz_s_x32_scaled {
 }
 pub mod prfd_i_p_bz_s_x32_scaled {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111101000001000000000010000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111101000001110000000010000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10000100001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b10000100001000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -112,7 +106,6 @@ pub mod prfd_i_p_bz_s_x32_scaled {
     pub const fn prfd_i_p_bz_s_x32_scaled(
         xs: ::aarchmrs_types::BitValue<1>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        msz: ::aarchmrs_types::BitValue<2>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         prfop: ::aarchmrs_types::BitValue<4>,
@@ -122,8 +115,7 @@ pub mod prfd_i_p_bz_s_x32_scaled {
                 | xs.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | msz.into_inner() << 13u32
+                | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Rn.into_inner() << 5u32
                 | 0b0u32 << 4u32

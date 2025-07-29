@@ -5,7 +5,7 @@
 
 pub mod fmla_z_p_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001000000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01100101001000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -16,8 +16,6 @@ pub mod fmla_z_p_zzz_ {
     pub const fn fmla_z_p_zzz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
-        op: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
@@ -27,9 +25,7 @@ pub mod fmla_z_p_zzz_ {
                 | size.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | N.into_inner() << 14u32
-                | op.into_inner() << 13u32
+                | 0b000u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
@@ -38,7 +34,7 @@ pub mod fmla_z_p_zzz_ {
 }
 pub mod bfmla_z_p_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01100101001000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -48,7 +44,6 @@ pub mod bfmla_z_p_zzz_ {
     #[inline]
     pub const fn bfmla_z_p_zzz_(
         Zm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
@@ -56,8 +51,7 @@ pub mod bfmla_z_p_zzz_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b01100101001u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | op.into_inner() << 13u32
+                | 0b000u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
@@ -66,9 +60,9 @@ pub mod bfmla_z_p_zzz_ {
 }
 pub mod fmls_z_p_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001000000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01100101001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01100101001000000010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -77,8 +71,6 @@ pub mod fmls_z_p_zzz_ {
     pub const fn fmls_z_p_zzz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
-        op: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
@@ -88,9 +80,7 @@ pub mod fmls_z_p_zzz_ {
                 | size.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | N.into_inner() << 14u32
-                | op.into_inner() << 13u32
+                | 0b001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
@@ -99,9 +89,9 @@ pub mod fmls_z_p_zzz_ {
 }
 pub mod bfmls_z_p_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000001100000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01100101001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01100101001000000010000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -109,7 +99,6 @@ pub mod bfmls_z_p_zzz_ {
     #[inline]
     pub const fn bfmls_z_p_zzz_(
         Zm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
@@ -117,8 +106,7 @@ pub mod bfmls_z_p_zzz_ {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b01100101001u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b00u32 << 14u32
-                | op.into_inner() << 13u32
+                | 0b001u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
@@ -127,9 +115,9 @@ pub mod bfmls_z_p_zzz_ {
 }
 pub mod fnmla_z_p_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001000000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01100101001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01100101001000000100000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -138,8 +126,6 @@ pub mod fnmla_z_p_zzz_ {
     pub const fn fnmla_z_p_zzz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
-        op: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
@@ -149,9 +135,7 @@ pub mod fnmla_z_p_zzz_ {
                 | size.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | N.into_inner() << 14u32
-                | op.into_inner() << 13u32
+                | 0b010u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
@@ -160,9 +144,9 @@ pub mod fnmla_z_p_zzz_ {
 }
 pub mod fnmls_z_p_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001000000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01100101001000000000000000000000u32;
+    pub const OPCODE: u32 = 0b01100101001000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -171,8 +155,6 @@ pub mod fnmls_z_p_zzz_ {
     pub const fn fnmls_z_p_zzz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        N: ::aarchmrs_types::BitValue<1>,
-        op: ::aarchmrs_types::BitValue<1>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
@@ -182,9 +164,7 @@ pub mod fnmls_z_p_zzz_ {
                 | size.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | N.into_inner() << 14u32
-                | op.into_inner() << 13u32
+                | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,

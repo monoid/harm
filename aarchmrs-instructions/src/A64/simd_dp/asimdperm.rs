@@ -5,7 +5,7 @@
 
 pub mod UZP1_asimdperm_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00001110000000000001100000000000u32;
     #[cfg(feature = "meta")]
@@ -17,7 +17,6 @@ pub mod UZP1_asimdperm_only {
         Q: ::aarchmrs_types::BitValue<1>,
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -28,9 +27,7 @@ pub mod UZP1_asimdperm_only {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | op.into_inner() << 14u32
-                | 0b0110u32 << 10u32
+                | 0b000110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -38,7 +35,7 @@ pub mod UZP1_asimdperm_only {
 }
 pub mod TRN1_asimdperm_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00001110000000000010100000000000u32;
     #[cfg(feature = "meta")]
@@ -50,7 +47,6 @@ pub mod TRN1_asimdperm_only {
         Q: ::aarchmrs_types::BitValue<1>,
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -61,9 +57,7 @@ pub mod TRN1_asimdperm_only {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | op.into_inner() << 14u32
-                | 0b1010u32 << 10u32
+                | 0b001010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -71,7 +65,7 @@ pub mod TRN1_asimdperm_only {
 }
 pub mod ZIP1_asimdperm_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00001110000000000011100000000000u32;
     #[cfg(feature = "meta")]
@@ -83,7 +77,6 @@ pub mod ZIP1_asimdperm_only {
         Q: ::aarchmrs_types::BitValue<1>,
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -94,9 +87,7 @@ pub mod ZIP1_asimdperm_only {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | op.into_inner() << 14u32
-                | 0b1110u32 << 10u32
+                | 0b001110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -104,9 +95,9 @@ pub mod ZIP1_asimdperm_only {
 }
 pub mod UZP2_asimdperm_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001110000000000001100000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000101100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -116,7 +107,6 @@ pub mod UZP2_asimdperm_only {
         Q: ::aarchmrs_types::BitValue<1>,
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -127,9 +117,7 @@ pub mod UZP2_asimdperm_only {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | op.into_inner() << 14u32
-                | 0b0110u32 << 10u32
+                | 0b010110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -137,9 +125,9 @@ pub mod UZP2_asimdperm_only {
 }
 pub mod TRN2_asimdperm_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001110000000000010100000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000110100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -149,7 +137,6 @@ pub mod TRN2_asimdperm_only {
         Q: ::aarchmrs_types::BitValue<1>,
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -160,9 +147,7 @@ pub mod TRN2_asimdperm_only {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | op.into_inner() << 14u32
-                | 0b1010u32 << 10u32
+                | 0b011010u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -170,9 +155,9 @@ pub mod TRN2_asimdperm_only {
 }
 pub mod ZIP2_asimdperm_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b10111111001000001011110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b10111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00001110000000000011100000000000u32;
+    pub const OPCODE: u32 = 0b00001110000000000111100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -182,7 +167,6 @@ pub mod ZIP2_asimdperm_only {
         Q: ::aarchmrs_types::BitValue<1>,
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        op: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -193,9 +177,7 @@ pub mod ZIP2_asimdperm_only {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b0u32 << 15u32
-                | op.into_inner() << 14u32
-                | 0b1110u32 << 10u32
+                | 0b011110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
