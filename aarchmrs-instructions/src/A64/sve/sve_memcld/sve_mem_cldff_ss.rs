@@ -5,7 +5,7 @@
 
 pub mod ldff1b_z_p_br_u8 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
     #[cfg(feature = "meta")]
@@ -14,15 +14,13 @@ pub mod ldff1b_z_p_br_u8 {
     pub const NAME: &str = "ldff1b_z_p_br_u8";
     #[inline]
     pub const fn ldff1b_z_p_br_u8(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100100000u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -33,24 +31,22 @@ pub mod ldff1b_z_p_br_u8 {
 }
 pub mod ldff1b_z_p_br_u16 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100100001000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1b_z_p_br_u16";
     #[inline]
     pub const fn ldff1b_z_p_br_u16(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100100001u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -61,24 +57,22 @@ pub mod ldff1b_z_p_br_u16 {
 }
 pub mod ldff1b_z_p_br_u32 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100100010000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1b_z_p_br_u32";
     #[inline]
     pub const fn ldff1b_z_p_br_u32(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100100010u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -89,24 +83,22 @@ pub mod ldff1b_z_p_br_u32 {
 }
 pub mod ldff1b_z_p_br_u64 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100100011000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1b_z_p_br_u64";
     #[inline]
     pub const fn ldff1b_z_p_br_u64(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100100011u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -117,24 +109,22 @@ pub mod ldff1b_z_p_br_u64 {
 }
 pub mod ldff1sw_z_p_br_s64 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100100100000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1sw_z_p_br_s64";
     #[inline]
     pub const fn ldff1sw_z_p_br_s64(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100100100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -145,24 +135,22 @@ pub mod ldff1sw_z_p_br_s64 {
 }
 pub mod ldff1h_z_p_br_u16 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100100101000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1h_z_p_br_u16";
     #[inline]
     pub const fn ldff1h_z_p_br_u16(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100100101u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -173,24 +161,22 @@ pub mod ldff1h_z_p_br_u16 {
 }
 pub mod ldff1h_z_p_br_u32 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100100110000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1h_z_p_br_u32";
     #[inline]
     pub const fn ldff1h_z_p_br_u32(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100100110u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -201,24 +187,22 @@ pub mod ldff1h_z_p_br_u32 {
 }
 pub mod ldff1h_z_p_br_u64 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100100111000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1h_z_p_br_u64";
     #[inline]
     pub const fn ldff1h_z_p_br_u64(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100100111u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -229,24 +213,22 @@ pub mod ldff1h_z_p_br_u64 {
 }
 pub mod ldff1sh_z_p_br_s64 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100101000000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1sh_z_p_br_s64";
     #[inline]
     pub const fn ldff1sh_z_p_br_s64(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100101000u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -257,24 +239,22 @@ pub mod ldff1sh_z_p_br_s64 {
 }
 pub mod ldff1sh_z_p_br_s32 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100101001000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1sh_z_p_br_s32";
     #[inline]
     pub const fn ldff1sh_z_p_br_s32(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100101001u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -285,24 +265,22 @@ pub mod ldff1sh_z_p_br_s32 {
 }
 pub mod ldff1w_z_p_br_u32 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100101010000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1w_z_p_br_u32";
     #[inline]
     pub const fn ldff1w_z_p_br_u32(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100101010u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -313,24 +291,22 @@ pub mod ldff1w_z_p_br_u32 {
 }
 pub mod ldff1w_z_p_br_u64 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100101011000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1w_z_p_br_u64";
     #[inline]
     pub const fn ldff1w_z_p_br_u64(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100101011u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -341,24 +317,22 @@ pub mod ldff1w_z_p_br_u64 {
 }
 pub mod ldff1sb_z_p_br_s64 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100101100000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1sb_z_p_br_s64";
     #[inline]
     pub const fn ldff1sb_z_p_br_s64(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100101100u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -369,24 +343,22 @@ pub mod ldff1sb_z_p_br_s64 {
 }
 pub mod ldff1sb_z_p_br_s32 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100101101000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1sb_z_p_br_s32";
     #[inline]
     pub const fn ldff1sb_z_p_br_s32(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100101101u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -397,24 +369,22 @@ pub mod ldff1sb_z_p_br_s32 {
 }
 pub mod ldff1sb_z_p_br_s16 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100101110000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1sb_z_p_br_s16";
     #[inline]
     pub const fn ldff1sb_z_p_br_s16(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100101110u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32
@@ -425,24 +395,22 @@ pub mod ldff1sb_z_p_br_s16 {
 }
 pub mod ldff1d_z_p_br_u64 {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111110000000001110000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b10100100000000000110000000000000u32;
+    pub const OPCODE: u32 = 0b10100101111000000110000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ldff1d_z_p_br_u64";
     #[inline]
     pub const fn ldff1d_z_p_br_u64(
-        dtype: ::aarchmrs_types::BitValue<4>,
         Rm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zt: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b1010010u32 << 25u32
-                | dtype.into_inner() << 21u32
+            0b10100101111u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b011u32 << 13u32
                 | Pg.into_inner() << 10u32

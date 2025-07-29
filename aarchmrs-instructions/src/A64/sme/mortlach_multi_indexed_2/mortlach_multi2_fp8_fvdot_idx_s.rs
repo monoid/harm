@@ -5,7 +5,7 @@
 
 pub mod fvdotb_za32_z8z8i_2xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000110000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001110100000000100000000000u32;
     #[cfg(feature = "meta")]
@@ -18,7 +18,6 @@ pub mod fvdotb_za32_z8z8i_2xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i2h: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<4>,
-        T: ::aarchmrs_types::BitValue<1>,
         i2l: ::aarchmrs_types::BitValue<1>,
         off3: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -30,8 +29,7 @@ pub mod fvdotb_za32_z8z8i_2xi {
                 | 0b01u32 << 11u32
                 | i2h.into_inner() << 10u32
                 | Zn.into_inner() << 6u32
-                | 0b0u32 << 5u32
-                | T.into_inner() << 4u32
+                | 0b00u32 << 4u32
                 | i2l.into_inner() << 3u32
                 | off3.into_inner() << 0u32,
         )
@@ -39,9 +37,9 @@ pub mod fvdotb_za32_z8z8i_2xi {
 }
 pub mod fvdott_za32_z8z8i_2xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000110000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001110100000000100000000000u32;
+    pub const OPCODE: u32 = 0b11000001110100000000100000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -52,7 +50,6 @@ pub mod fvdott_za32_z8z8i_2xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i2h: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<4>,
-        T: ::aarchmrs_types::BitValue<1>,
         i2l: ::aarchmrs_types::BitValue<1>,
         off3: ::aarchmrs_types::BitValue<3>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -64,8 +61,7 @@ pub mod fvdott_za32_z8z8i_2xi {
                 | 0b01u32 << 11u32
                 | i2h.into_inner() << 10u32
                 | Zn.into_inner() << 6u32
-                | 0b0u32 << 5u32
-                | T.into_inner() << 4u32
+                | 0b01u32 << 4u32
                 | i2l.into_inner() << 3u32
                 | off3.into_inner() << 0u32,
         )

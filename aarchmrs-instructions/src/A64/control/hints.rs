@@ -391,7 +391,7 @@ pub mod AUTIBSP_HI_hints {
 }
 pub mod BTI_HB_hints {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111111100011111u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111111100111111u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11010101000000110010010000011111u32;
     #[cfg(feature = "meta")]
@@ -400,10 +400,10 @@ pub mod BTI_HB_hints {
     pub const NAME: &str = "BTI_HB_hints";
     #[inline]
     pub const fn BTI_HB_hints(
-        op2: ::aarchmrs_types::BitValue<3>,
+        op2: ::aarchmrs_types::BitValue<2>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b110101010000001100100100u32 << 8u32 | op2.into_inner() << 5u32 | 0b11111u32 << 0u32,
+            0b110101010000001100100100u32 << 8u32 | op2.into_inner() << 6u32 | 0b011111u32 << 0u32,
         )
     }
 }
@@ -437,7 +437,7 @@ pub mod CHKFEAT_HF_hints {
 }
 pub mod STSHH_HI_hints {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111111100011111u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111111111011111u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11010101000000110010011000011111u32;
     #[cfg(feature = "meta")]
@@ -446,10 +446,10 @@ pub mod STSHH_HI_hints {
     pub const NAME: &str = "STSHH_HI_hints";
     #[inline]
     pub const fn STSHH_HI_hints(
-        op2: ::aarchmrs_types::BitValue<3>,
+        op2: ::aarchmrs_types::BitValue<1>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b110101010000001100100110u32 << 8u32 | op2.into_inner() << 5u32 | 0b11111u32 << 0u32,
+            0b11010101000000110010011000u32 << 6u32 | op2.into_inner() << 5u32 | 0b11111u32 << 0u32,
         )
     }
 }

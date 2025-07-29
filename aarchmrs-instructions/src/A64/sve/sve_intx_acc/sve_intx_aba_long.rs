@@ -5,7 +5,7 @@
 
 pub mod sabalb_z_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000101000000001100000000000000u32;
     #[cfg(feature = "meta")]
@@ -16,8 +16,6 @@ pub mod sabalb_z_zzz_ {
     pub const fn sabalb_z_zzz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
-        T: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -26,9 +24,7 @@ pub mod sabalb_z_zzz_ {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b1100u32 << 12u32
-                | U.into_inner() << 11u32
-                | T.into_inner() << 10u32
+                | 0b110000u32 << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
         )
@@ -36,9 +32,9 @@ pub mod sabalb_z_zzz_ {
 }
 pub mod sabalt_z_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01000101000000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01000101000000001100010000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -47,8 +43,6 @@ pub mod sabalt_z_zzz_ {
     pub const fn sabalt_z_zzz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
-        T: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -57,9 +51,7 @@ pub mod sabalt_z_zzz_ {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b1100u32 << 12u32
-                | U.into_inner() << 11u32
-                | T.into_inner() << 10u32
+                | 0b110001u32 << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
         )
@@ -67,9 +59,9 @@ pub mod sabalt_z_zzz_ {
 }
 pub mod uabalb_z_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01000101000000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01000101000000001100100000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -78,8 +70,6 @@ pub mod uabalb_z_zzz_ {
     pub const fn uabalb_z_zzz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
-        T: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -88,9 +78,7 @@ pub mod uabalb_z_zzz_ {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b1100u32 << 12u32
-                | U.into_inner() << 11u32
-                | T.into_inner() << 10u32
+                | 0b110010u32 << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
         )
@@ -98,9 +86,9 @@ pub mod uabalb_z_zzz_ {
 }
 pub mod uabalt_z_zzz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001111000000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01000101000000001100000000000000u32;
+    pub const OPCODE: u32 = 0b01000101000000001100110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -109,8 +97,6 @@ pub mod uabalt_z_zzz_ {
     pub const fn uabalt_z_zzz_(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<5>,
-        U: ::aarchmrs_types::BitValue<1>,
-        T: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Zda: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -119,9 +105,7 @@ pub mod uabalt_z_zzz_ {
                 | size.into_inner() << 22u32
                 | 0b0u32 << 21u32
                 | Zm.into_inner() << 16u32
-                | 0b1100u32 << 12u32
-                | U.into_inner() << 11u32
-                | T.into_inner() << 10u32
+                | 0b110011u32 << 10u32
                 | Zn.into_inner() << 5u32
                 | Zda.into_inner() << 0u32,
         )

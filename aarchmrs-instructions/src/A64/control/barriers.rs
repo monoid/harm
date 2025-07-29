@@ -23,7 +23,7 @@ pub mod CLREX_BN_barriers {
 }
 pub mod DSB_BO_barriers {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111000010011111u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111000011111111u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11010101000000110011000010011111u32;
     #[cfg(feature = "meta")]
@@ -33,22 +33,17 @@ pub mod DSB_BO_barriers {
     #[inline]
     pub const fn DSB_BO_barriers(
         CRm: ::aarchmrs_types::BitValue<4>,
-        opc: ::aarchmrs_types::BitValue<2>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b11010101000000110011u32 << 12u32
-                | CRm.into_inner() << 8u32
-                | 0b1u32 << 7u32
-                | opc.into_inner() << 5u32
-                | 0b11111u32 << 0u32,
+            0b11010101000000110011u32 << 12u32 | CRm.into_inner() << 8u32 | 0b10011111u32 << 0u32,
         )
     }
 }
 pub mod DMB_BO_barriers {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111000010011111u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111000011111111u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11010101000000110011000010011111u32;
+    pub const OPCODE: u32 = 0b11010101000000110011000010111111u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -56,22 +51,17 @@ pub mod DMB_BO_barriers {
     #[inline]
     pub const fn DMB_BO_barriers(
         CRm: ::aarchmrs_types::BitValue<4>,
-        opc: ::aarchmrs_types::BitValue<2>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b11010101000000110011u32 << 12u32
-                | CRm.into_inner() << 8u32
-                | 0b1u32 << 7u32
-                | opc.into_inner() << 5u32
-                | 0b11111u32 << 0u32,
+            0b11010101000000110011u32 << 12u32 | CRm.into_inner() << 8u32 | 0b10111111u32 << 0u32,
         )
     }
 }
 pub mod ISB_BI_barriers {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111000010011111u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111000011111111u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11010101000000110011000010011111u32;
+    pub const OPCODE: u32 = 0b11010101000000110011000011011111u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -79,33 +69,24 @@ pub mod ISB_BI_barriers {
     #[inline]
     pub const fn ISB_BI_barriers(
         CRm: ::aarchmrs_types::BitValue<4>,
-        opc: ::aarchmrs_types::BitValue<2>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b11010101000000110011u32 << 12u32
-                | CRm.into_inner() << 8u32
-                | 0b1u32 << 7u32
-                | opc.into_inner() << 5u32
-                | 0b11111u32 << 0u32,
+            0b11010101000000110011u32 << 12u32 | CRm.into_inner() << 8u32 | 0b11011111u32 << 0u32,
         )
     }
 }
 pub mod SB_only_barriers {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111111110011111u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111111111111111u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11010101000000110011000010011111u32;
+    pub const OPCODE: u32 = 0b11010101000000110011000011111111u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000111100000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SB_only_barriers";
     #[inline]
-    pub const fn SB_only_barriers(
-        opc: ::aarchmrs_types::BitValue<2>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b1101010100000011001100001u32 << 7u32 | opc.into_inner() << 5u32 | 0b11111u32 << 0u32,
-        )
+    pub const fn SB_only_barriers() -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(0b11010101000000110011000011111111u32 << 0u32)
     }
 }
 pub mod DSB_BOn_barriers {
