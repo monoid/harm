@@ -29,9 +29,13 @@ pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenS
         syn::parse_str(&format!("0b{:0w$b}u32", should_be_mask, w = 32))
             .expect("internal error: malformed should_be_mask");
     let expanded = quote! {
+        #[cfg(feature = "meta")]
         pub const OPCODE_MASK: u32 = #mask;
+        #[cfg(feature = "meta")]
         pub const OPCODE: u32 = #opcode;
+        #[cfg(feature = "meta")]
         pub const SHOULD_BE_MASK: u32 = #should_be_mask;
+        #[cfg(feature = "meta")]
         pub const NAME: &str = #name;
 
         #[inline]
