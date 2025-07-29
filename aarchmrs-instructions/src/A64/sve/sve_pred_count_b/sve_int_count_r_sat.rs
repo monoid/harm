@@ -101,7 +101,7 @@ pub mod uqdecp_r_p_r_uw {
 }
 pub mod sqincp_r_p_r_x {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101111111000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111111000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100101001010001000110000000000u32;
     #[cfg(feature = "meta")]
@@ -111,16 +111,13 @@ pub mod sqincp_r_p_r_x {
     #[inline]
     pub const fn sqincp_r_p_r_x(
         size: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pm: ::aarchmrs_types::BitValue<4>,
         Rdn: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00100101u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b10100u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b1000110u32 << 9u32
+                | 0b1010001000110u32 << 9u32
                 | Pm.into_inner() << 5u32
                 | Rdn.into_inner() << 0u32,
         )
@@ -128,7 +125,7 @@ pub mod sqincp_r_p_r_x {
 }
 pub mod sqdecp_r_p_r_x {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101111111000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111111000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100101001010101000110000000000u32;
     #[cfg(feature = "meta")]
@@ -138,16 +135,13 @@ pub mod sqdecp_r_p_r_x {
     #[inline]
     pub const fn sqdecp_r_p_r_x(
         size: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pm: ::aarchmrs_types::BitValue<4>,
         Rdn: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00100101u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b10101u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b1000110u32 << 9u32
+                | 0b1010101000110u32 << 9u32
                 | Pm.into_inner() << 5u32
                 | Rdn.into_inner() << 0u32,
         )
@@ -155,9 +149,9 @@ pub mod sqdecp_r_p_r_x {
 }
 pub mod uqincp_r_p_r_x {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101111111000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111111000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100101001010001000110000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010011000110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -165,16 +159,13 @@ pub mod uqincp_r_p_r_x {
     #[inline]
     pub const fn uqincp_r_p_r_x(
         size: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pm: ::aarchmrs_types::BitValue<4>,
         Rdn: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00100101u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b10100u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b1000110u32 << 9u32
+                | 0b1010011000110u32 << 9u32
                 | Pm.into_inner() << 5u32
                 | Rdn.into_inner() << 0u32,
         )
@@ -182,9 +173,9 @@ pub mod uqincp_r_p_r_x {
 }
 pub mod uqdecp_r_p_r_x {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001111101111111000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001111111111111000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b00100101001010101000110000000000u32;
+    pub const OPCODE: u32 = 0b00100101001010111000110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -192,16 +183,13 @@ pub mod uqdecp_r_p_r_x {
     #[inline]
     pub const fn uqdecp_r_p_r_x(
         size: ::aarchmrs_types::BitValue<2>,
-        U: ::aarchmrs_types::BitValue<1>,
         Pm: ::aarchmrs_types::BitValue<4>,
         Rdn: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b00100101u32 << 24u32
                 | size.into_inner() << 22u32
-                | 0b10101u32 << 17u32
-                | U.into_inner() << 16u32
-                | 0b1000110u32 << 9u32
+                | 0b1010111000110u32 << 9u32
                 | Pm.into_inner() << 5u32
                 | Rdn.into_inner() << 0u32,
         )

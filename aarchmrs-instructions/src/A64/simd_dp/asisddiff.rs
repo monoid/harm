@@ -5,7 +5,7 @@
 
 pub mod SQDMLAL_asisddiff_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001101110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01011110001000001001000000000000u32;
     #[cfg(feature = "meta")]
@@ -16,7 +16,6 @@ pub mod SQDMLAL_asisddiff_only {
     pub const fn SQDMLAL_asisddiff_only(
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        o1: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -25,9 +24,7 @@ pub mod SQDMLAL_asisddiff_only {
                 | size.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b10u32 << 14u32
-                | o1.into_inner() << 13u32
-                | 0b100u32 << 10u32
+                | 0b100100u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )
@@ -35,9 +32,9 @@ pub mod SQDMLAL_asisddiff_only {
 }
 pub mod SQDMLSL_asisddiff_only {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001101110000000000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111001000001111110000000000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01011110001000001001000000000000u32;
+    pub const OPCODE: u32 = 0b01011110001000001011000000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -46,7 +43,6 @@ pub mod SQDMLSL_asisddiff_only {
     pub const fn SQDMLSL_asisddiff_only(
         size: ::aarchmrs_types::BitValue<2>,
         Rm: ::aarchmrs_types::BitValue<5>,
-        o1: ::aarchmrs_types::BitValue<1>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Rd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -55,9 +51,7 @@ pub mod SQDMLSL_asisddiff_only {
                 | size.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Rm.into_inner() << 16u32
-                | 0b10u32 << 14u32
-                | o1.into_inner() << 13u32
-                | 0b100u32 << 10u32
+                | 0b101100u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )

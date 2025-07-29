@@ -3,7 +3,7 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use std::rc::Rc;
+use std::{collections::HashSet, rc::Rc};
 
 use aarchmrs_parser::instructions::{Encodeset, Range};
 
@@ -43,7 +43,8 @@ pub fn flatten_encodeset(encodings: &[&Encodeset]) -> (Vec<Bits>, ShouldBeBits) 
         }
     }
 
-    let bits = regroup_back(&instruction_bits);
+    let mut bits = regroup_back(&instruction_bits);
+    dedup_names(&mut bits[..]);
     (
         bits,
         ShouldBeBits {
@@ -114,6 +115,30 @@ fn regroup_back(instruction_bits: &InstructionBits) -> Vec<Bits> {
     values
 }
 
+// Sometimes fields are split into two non-consecutive parts.  Give such fields a suffix with their starting bit.
+fn dedup_names(bits: &mut [Bits]) {
+    let mut previos_names = HashSet::new();
+    let mut dups = HashSet::new();
+
+    for bit in &mut *bits {
+        if let Bits::Field { name, .. } = bit {
+            if previos_names.contains(name) {
+                dups.insert(name.clone());
+            } else {
+                previos_names.insert(name.clone());
+            }
+        }
+    }
+
+    for bit in bits {
+        if let Bits::Field { name, range } = bit {
+            if dups.contains(name) {
+                *name = format!("{name}_{}", range.start).into();
+            }
+        }
+    }
+}
+
 fn fill_bits(instruction_bits: &mut InstructionBits, bits: &aarchmrs_parser::instructions::Bits) {
     for (bit_char, bit_idx) in bits
         .value
@@ -141,24 +166,31 @@ fn fill_field(
     instruction_bits: &mut InstructionBits,
     field: &aarchmrs_parser::instructions::Field,
 ) {
+    let mask = field.value.as_str().expect("string value");
     assert!(
-        field
-            .value
-            .as_str()
-            .expect("string value")
-            .chars()
-            .all(|c| c == 'x')
+        mask.chars().all(|c| c == 'x' || c == '0' || c == '1'),
+        "{mask:?}",
     );
     let name: Rc<str> = field.name.as_str().into();
 
-    for pos_idx in field.range {
-        instruction_bits[pos_idx as usize] = Some(Bits::Field {
-            name: name.clone(),
-            range: Range {
-                start: pos_idx,
-                width: 1,
-            },
-        });
+    for (pos_idx, c) in field.range.into_iter().rev().zip(mask.chars()) {
+        if c == 'x' {
+            instruction_bits[pos_idx as usize] = Some(Bits::Field {
+                name: name.clone(),
+                range: Range {
+                    start: pos_idx,
+                    width: 1,
+                },
+            });
+        } else if c == '0' || c == '1' {
+            instruction_bits[pos_idx as usize] = Some(Bits::Bit {
+                bits: (c == '1') as _,
+                range: Range {
+                    start: pos_idx,
+                    width: 1,
+                },
+            });
+        }
     }
 }
 

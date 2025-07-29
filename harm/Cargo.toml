@@ -2,14 +2,17 @@
 name = "harm"
 version = "0.1.0"
 edition = "2024"
-description = "AArch64 (ARM64) Assembler"
+description = "AArch64 (ARM64) dynamic assembler"
 license = "BSD-3-Clause"
 authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
+repository = "https://github.com/monoid/harm/"
+keywords = ["arm", "aarch64", "aarchmrs", "assembler", "jit"]
+categories = ["compilers", "hardware-support"]
 publish = false
 
 [dependencies]
 aarchmrs-types = { workspace = true }
-aarchmrs-instructions = { workspace = true }
+aarchmrs-instructions = { workspace = true, features = ["A64"] }
 paste = "1.0.15"
 
 [dev-dependencies]

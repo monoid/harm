@@ -27,7 +27,7 @@ pub mod fcvtn_z8_mz2_h2b {
 }
 pub mod fcvtnb_z8_mz2_s2b {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111010000100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000100000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01100101000010100011010000000000u32;
     #[cfg(feature = "meta")]
@@ -36,14 +36,11 @@ pub mod fcvtnb_z8_mz2_s2b {
     pub const NAME: &str = "fcvtnb_z8_mz2_s2b";
     #[inline]
     pub const fn fcvtnb_z8_mz2_s2b(
-        T: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<4>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b01100101000010100011u32 << 12u32
-                | T.into_inner() << 11u32
-                | 0b1u32 << 10u32
+            0b0110010100001010001101u32 << 10u32
                 | Zn.into_inner() << 6u32
                 | 0b0u32 << 5u32
                 | Zd.into_inner() << 0u32,
@@ -74,23 +71,20 @@ pub mod bfcvtn_z8_mz2_bf2b {
 }
 pub mod fcvtnt_z8_mz2_s2b {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111010000100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000100000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b01100101000010100011010000000000u32;
+    pub const OPCODE: u32 = 0b01100101000010100011110000000000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "fcvtnt_z8_mz2_s2b";
     #[inline]
     pub const fn fcvtnt_z8_mz2_s2b(
-        T: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<4>,
         Zd: ::aarchmrs_types::BitValue<5>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b01100101000010100011u32 << 12u32
-                | T.into_inner() << 11u32
-                | 0b1u32 << 10u32
+            0b0110010100001010001111u32 << 10u32
                 | Zn.into_inner() << 6u32
                 | 0b0u32 << 5u32
                 | Zd.into_inner() << 0u32,

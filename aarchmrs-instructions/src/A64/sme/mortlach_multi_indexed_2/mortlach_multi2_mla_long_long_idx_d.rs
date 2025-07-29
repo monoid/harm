@@ -5,7 +5,7 @@
 
 pub mod smlall_za_zzi_d2xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000111000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001100100000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -18,8 +18,6 @@ pub mod smlall_za_zzi_d2xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3h: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<4>,
-        U: ::aarchmrs_types::BitValue<1>,
-        S: ::aarchmrs_types::BitValue<1>,
         i3l: ::aarchmrs_types::BitValue<2>,
         o1: ::aarchmrs_types::BitValue<1>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -31,9 +29,7 @@ pub mod smlall_za_zzi_d2xi {
                 | 0b00u32 << 11u32
                 | i3h.into_inner() << 10u32
                 | Zn.into_inner() << 6u32
-                | 0b0u32 << 5u32
-                | U.into_inner() << 4u32
-                | S.into_inner() << 3u32
+                | 0b000u32 << 3u32
                 | i3l.into_inner() << 1u32
                 | o1.into_inner() << 0u32,
         )
@@ -41,9 +37,9 @@ pub mod smlall_za_zzi_d2xi {
 }
 pub mod smlsll_za_zzi_d2xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000111000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001100100000000000000000000u32;
+    pub const OPCODE: u32 = 0b11000001100100000000000000001000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -54,8 +50,6 @@ pub mod smlsll_za_zzi_d2xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3h: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<4>,
-        U: ::aarchmrs_types::BitValue<1>,
-        S: ::aarchmrs_types::BitValue<1>,
         i3l: ::aarchmrs_types::BitValue<2>,
         o1: ::aarchmrs_types::BitValue<1>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -67,9 +61,7 @@ pub mod smlsll_za_zzi_d2xi {
                 | 0b00u32 << 11u32
                 | i3h.into_inner() << 10u32
                 | Zn.into_inner() << 6u32
-                | 0b0u32 << 5u32
-                | U.into_inner() << 4u32
-                | S.into_inner() << 3u32
+                | 0b001u32 << 3u32
                 | i3l.into_inner() << 1u32
                 | o1.into_inner() << 0u32,
         )
@@ -77,9 +69,9 @@ pub mod smlsll_za_zzi_d2xi {
 }
 pub mod umlall_za_zzi_d2xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000111000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001100100000000000000000000u32;
+    pub const OPCODE: u32 = 0b11000001100100000000000000010000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -90,8 +82,6 @@ pub mod umlall_za_zzi_d2xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3h: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<4>,
-        U: ::aarchmrs_types::BitValue<1>,
-        S: ::aarchmrs_types::BitValue<1>,
         i3l: ::aarchmrs_types::BitValue<2>,
         o1: ::aarchmrs_types::BitValue<1>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -103,9 +93,7 @@ pub mod umlall_za_zzi_d2xi {
                 | 0b00u32 << 11u32
                 | i3h.into_inner() << 10u32
                 | Zn.into_inner() << 6u32
-                | 0b0u32 << 5u32
-                | U.into_inner() << 4u32
-                | S.into_inner() << 3u32
+                | 0b010u32 << 3u32
                 | i3l.into_inner() << 1u32
                 | o1.into_inner() << 0u32,
         )
@@ -113,9 +101,9 @@ pub mod umlall_za_zzi_d2xi {
 }
 pub mod umlsll_za_zzi_d2xi {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000100000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111111100001001100000111000u32;
     #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11000001100100000000000000000000u32;
+    pub const OPCODE: u32 = 0b11000001100100000000000000011000u32;
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
@@ -126,8 +114,6 @@ pub mod umlsll_za_zzi_d2xi {
         Rv: ::aarchmrs_types::BitValue<2>,
         i3h: ::aarchmrs_types::BitValue<1>,
         Zn: ::aarchmrs_types::BitValue<4>,
-        U: ::aarchmrs_types::BitValue<1>,
-        S: ::aarchmrs_types::BitValue<1>,
         i3l: ::aarchmrs_types::BitValue<2>,
         o1: ::aarchmrs_types::BitValue<1>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -139,9 +125,7 @@ pub mod umlsll_za_zzi_d2xi {
                 | 0b00u32 << 11u32
                 | i3h.into_inner() << 10u32
                 | Zn.into_inner() << 6u32
-                | 0b0u32 << 5u32
-                | U.into_inner() << 4u32
-                | S.into_inner() << 3u32
+                | 0b011u32 << 3u32
                 | i3l.into_inner() << 1u32
                 | o1.into_inner() << 0u32,
         )
