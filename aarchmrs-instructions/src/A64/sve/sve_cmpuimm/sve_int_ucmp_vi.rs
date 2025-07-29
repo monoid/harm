@@ -4,294 +4,130 @@
  */
 
 pub mod cmphs_p_p_zi_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100100001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "cmphs_p_p_zi_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct cmphs_p_p_zi_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm7: ::aarchmrs_types::BitValue<7>,
-        pub lt: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub ne: ::aarchmrs_types::BitValue<1>,
-        pub Pd: ::aarchmrs_types::BitValue<4>,
-    }
-    impl cmphs_p_p_zi_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm7: ::aarchmrs_types::BitValue<7>,
-            lt: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            ne: ::aarchmrs_types::BitValue<1>,
-            Pd: ::aarchmrs_types::BitValue<4>,
-        ) -> Self {
-            Self {
-                size,
-                imm7,
-                lt,
-                Pg,
-                Zn,
-                ne,
-                Pd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00100100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b1u32 << 21u32
-                    | self.imm7.into_inner() << 14u32
-                    | self.lt.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.ne.into_inner() << 4u32
-                    | self.Pd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn cmphs_p_p_zi_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm7: ::aarchmrs_types::BitValue<7>,
+        lt: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        ne: ::aarchmrs_types::BitValue<1>,
+        Pd: ::aarchmrs_types::BitValue<4>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00100100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b1u32 << 21u32
+                | imm7.into_inner() << 14u32
+                | lt.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | ne.into_inner() << 4u32
+                | Pd.into_inner() << 0u32,
+        )
     }
 }
 pub mod cmphi_p_p_zi_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100100001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "cmphi_p_p_zi_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct cmphi_p_p_zi_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm7: ::aarchmrs_types::BitValue<7>,
-        pub lt: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub ne: ::aarchmrs_types::BitValue<1>,
-        pub Pd: ::aarchmrs_types::BitValue<4>,
-    }
-    impl cmphi_p_p_zi_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm7: ::aarchmrs_types::BitValue<7>,
-            lt: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            ne: ::aarchmrs_types::BitValue<1>,
-            Pd: ::aarchmrs_types::BitValue<4>,
-        ) -> Self {
-            Self {
-                size,
-                imm7,
-                lt,
-                Pg,
-                Zn,
-                ne,
-                Pd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00100100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b1u32 << 21u32
-                    | self.imm7.into_inner() << 14u32
-                    | self.lt.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.ne.into_inner() << 4u32
-                    | self.Pd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn cmphi_p_p_zi_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm7: ::aarchmrs_types::BitValue<7>,
+        lt: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        ne: ::aarchmrs_types::BitValue<1>,
+        Pd: ::aarchmrs_types::BitValue<4>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00100100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b1u32 << 21u32
+                | imm7.into_inner() << 14u32
+                | lt.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | ne.into_inner() << 4u32
+                | Pd.into_inner() << 0u32,
+        )
     }
 }
 pub mod cmplo_p_p_zi_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100100001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "cmplo_p_p_zi_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct cmplo_p_p_zi_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm7: ::aarchmrs_types::BitValue<7>,
-        pub lt: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub ne: ::aarchmrs_types::BitValue<1>,
-        pub Pd: ::aarchmrs_types::BitValue<4>,
-    }
-    impl cmplo_p_p_zi_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm7: ::aarchmrs_types::BitValue<7>,
-            lt: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            ne: ::aarchmrs_types::BitValue<1>,
-            Pd: ::aarchmrs_types::BitValue<4>,
-        ) -> Self {
-            Self {
-                size,
-                imm7,
-                lt,
-                Pg,
-                Zn,
-                ne,
-                Pd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00100100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b1u32 << 21u32
-                    | self.imm7.into_inner() << 14u32
-                    | self.lt.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.ne.into_inner() << 4u32
-                    | self.Pd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn cmplo_p_p_zi_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm7: ::aarchmrs_types::BitValue<7>,
+        lt: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        ne: ::aarchmrs_types::BitValue<1>,
+        Pd: ::aarchmrs_types::BitValue<4>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00100100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b1u32 << 21u32
+                | imm7.into_inner() << 14u32
+                | lt.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | ne.into_inner() << 4u32
+                | Pd.into_inner() << 0u32,
+        )
     }
 }
 pub mod cmpls_p_p_zi_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00100100001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "cmpls_p_p_zi_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct cmpls_p_p_zi_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm7: ::aarchmrs_types::BitValue<7>,
-        pub lt: ::aarchmrs_types::BitValue<1>,
-        pub Pg: ::aarchmrs_types::BitValue<3>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub ne: ::aarchmrs_types::BitValue<1>,
-        pub Pd: ::aarchmrs_types::BitValue<4>,
-    }
-    impl cmpls_p_p_zi_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm7: ::aarchmrs_types::BitValue<7>,
-            lt: ::aarchmrs_types::BitValue<1>,
-            Pg: ::aarchmrs_types::BitValue<3>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            ne: ::aarchmrs_types::BitValue<1>,
-            Pd: ::aarchmrs_types::BitValue<4>,
-        ) -> Self {
-            Self {
-                size,
-                imm7,
-                lt,
-                Pg,
-                Zn,
-                ne,
-                Pd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00100100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b1u32 << 21u32
-                    | self.imm7.into_inner() << 14u32
-                    | self.lt.into_inner() << 13u32
-                    | self.Pg.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.ne.into_inner() << 4u32
-                    | self.Pd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn cmpls_p_p_zi_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm7: ::aarchmrs_types::BitValue<7>,
+        lt: ::aarchmrs_types::BitValue<1>,
+        Pg: ::aarchmrs_types::BitValue<3>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        ne: ::aarchmrs_types::BitValue<1>,
+        Pd: ::aarchmrs_types::BitValue<4>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00100100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b1u32 << 21u32
+                | imm7.into_inner() << 14u32
+                | lt.into_inner() << 13u32
+                | Pg.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | ne.into_inner() << 4u32
+                | Pd.into_inner() << 0u32,
+        )
     }
 }

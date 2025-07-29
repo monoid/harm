@@ -4,60 +4,30 @@
  */
 
 pub mod fmlall_za32_z8z8v_2x1 {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111100001001110000011110u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001000000000000000000010u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "fmlall_za32_z8z8v_2x1";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct fmlall_za32_z8z8v_2x1 {
-        pub Zm: ::aarchmrs_types::BitValue<4>,
-        pub Rv: ::aarchmrs_types::BitValue<2>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub o1: ::aarchmrs_types::BitValue<1>,
-    }
-    impl fmlall_za32_z8z8v_2x1 {
-        #[inline]
-        pub const fn new(
-            Zm: ::aarchmrs_types::BitValue<4>,
-            Rv: ::aarchmrs_types::BitValue<2>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            o1: ::aarchmrs_types::BitValue<1>,
-        ) -> Self {
-            Self { Zm, Rv, Zn, o1 }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b110000010010u32 << 20u32
-                    | self.Zm.into_inner() << 16u32
-                    | 0b0u32 << 15u32
-                    | self.Rv.into_inner() << 13u32
-                    | 0b000u32 << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | 0b0001u32 << 1u32
-                    | self.o1.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn fmlall_za32_z8z8v_2x1(
+        Zm: ::aarchmrs_types::BitValue<4>,
+        Rv: ::aarchmrs_types::BitValue<2>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        o1: ::aarchmrs_types::BitValue<1>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b110000010010u32 << 20u32
+                | Zm.into_inner() << 16u32
+                | 0b0u32 << 15u32
+                | Rv.into_inner() << 13u32
+                | 0b000u32 << 10u32
+                | Zn.into_inner() << 5u32
+                | 0b0001u32 << 1u32
+                | o1.into_inner() << 0u32,
+        )
     }
 }

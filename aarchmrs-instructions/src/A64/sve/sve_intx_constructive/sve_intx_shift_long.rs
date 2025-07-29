@@ -4,298 +4,134 @@
  */
 
 pub mod sshllb_z_zi_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111101000001111000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000101000000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "sshllb_z_zi_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct sshllb_z_zi_ {
-        pub tszh: ::aarchmrs_types::BitValue<1>,
-        pub tszl: ::aarchmrs_types::BitValue<2>,
-        pub imm3: ::aarchmrs_types::BitValue<3>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub T: ::aarchmrs_types::BitValue<1>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl sshllb_z_zi_ {
-        #[inline]
-        pub const fn new(
-            tszh: ::aarchmrs_types::BitValue<1>,
-            tszl: ::aarchmrs_types::BitValue<2>,
-            imm3: ::aarchmrs_types::BitValue<3>,
-            U: ::aarchmrs_types::BitValue<1>,
-            T: ::aarchmrs_types::BitValue<1>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                tszh,
-                tszl,
-                imm3,
-                U,
-                T,
-                Zn,
-                Zd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b010001010u32 << 23u32
-                    | self.tszh.into_inner() << 22u32
-                    | 0b0u32 << 21u32
-                    | self.tszl.into_inner() << 19u32
-                    | self.imm3.into_inner() << 16u32
-                    | 0b1010u32 << 12u32
-                    | self.U.into_inner() << 11u32
-                    | self.T.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn sshllb_z_zi_(
+        tszh: ::aarchmrs_types::BitValue<1>,
+        tszl: ::aarchmrs_types::BitValue<2>,
+        imm3: ::aarchmrs_types::BitValue<3>,
+        U: ::aarchmrs_types::BitValue<1>,
+        T: ::aarchmrs_types::BitValue<1>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b010001010u32 << 23u32
+                | tszh.into_inner() << 22u32
+                | 0b0u32 << 21u32
+                | tszl.into_inner() << 19u32
+                | imm3.into_inner() << 16u32
+                | 0b1010u32 << 12u32
+                | U.into_inner() << 11u32
+                | T.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }
 pub mod sshllt_z_zi_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111101000001111000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000101000000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "sshllt_z_zi_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct sshllt_z_zi_ {
-        pub tszh: ::aarchmrs_types::BitValue<1>,
-        pub tszl: ::aarchmrs_types::BitValue<2>,
-        pub imm3: ::aarchmrs_types::BitValue<3>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub T: ::aarchmrs_types::BitValue<1>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl sshllt_z_zi_ {
-        #[inline]
-        pub const fn new(
-            tszh: ::aarchmrs_types::BitValue<1>,
-            tszl: ::aarchmrs_types::BitValue<2>,
-            imm3: ::aarchmrs_types::BitValue<3>,
-            U: ::aarchmrs_types::BitValue<1>,
-            T: ::aarchmrs_types::BitValue<1>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                tszh,
-                tszl,
-                imm3,
-                U,
-                T,
-                Zn,
-                Zd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b010001010u32 << 23u32
-                    | self.tszh.into_inner() << 22u32
-                    | 0b0u32 << 21u32
-                    | self.tszl.into_inner() << 19u32
-                    | self.imm3.into_inner() << 16u32
-                    | 0b1010u32 << 12u32
-                    | self.U.into_inner() << 11u32
-                    | self.T.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn sshllt_z_zi_(
+        tszh: ::aarchmrs_types::BitValue<1>,
+        tszl: ::aarchmrs_types::BitValue<2>,
+        imm3: ::aarchmrs_types::BitValue<3>,
+        U: ::aarchmrs_types::BitValue<1>,
+        T: ::aarchmrs_types::BitValue<1>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b010001010u32 << 23u32
+                | tszh.into_inner() << 22u32
+                | 0b0u32 << 21u32
+                | tszl.into_inner() << 19u32
+                | imm3.into_inner() << 16u32
+                | 0b1010u32 << 12u32
+                | U.into_inner() << 11u32
+                | T.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }
 pub mod ushllb_z_zi_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111101000001111000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000101000000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ushllb_z_zi_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ushllb_z_zi_ {
-        pub tszh: ::aarchmrs_types::BitValue<1>,
-        pub tszl: ::aarchmrs_types::BitValue<2>,
-        pub imm3: ::aarchmrs_types::BitValue<3>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub T: ::aarchmrs_types::BitValue<1>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ushllb_z_zi_ {
-        #[inline]
-        pub const fn new(
-            tszh: ::aarchmrs_types::BitValue<1>,
-            tszl: ::aarchmrs_types::BitValue<2>,
-            imm3: ::aarchmrs_types::BitValue<3>,
-            U: ::aarchmrs_types::BitValue<1>,
-            T: ::aarchmrs_types::BitValue<1>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                tszh,
-                tszl,
-                imm3,
-                U,
-                T,
-                Zn,
-                Zd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b010001010u32 << 23u32
-                    | self.tszh.into_inner() << 22u32
-                    | 0b0u32 << 21u32
-                    | self.tszl.into_inner() << 19u32
-                    | self.imm3.into_inner() << 16u32
-                    | 0b1010u32 << 12u32
-                    | self.U.into_inner() << 11u32
-                    | self.T.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ushllb_z_zi_(
+        tszh: ::aarchmrs_types::BitValue<1>,
+        tszl: ::aarchmrs_types::BitValue<2>,
+        imm3: ::aarchmrs_types::BitValue<3>,
+        U: ::aarchmrs_types::BitValue<1>,
+        T: ::aarchmrs_types::BitValue<1>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b010001010u32 << 23u32
+                | tszh.into_inner() << 22u32
+                | 0b0u32 << 21u32
+                | tszl.into_inner() << 19u32
+                | imm3.into_inner() << 16u32
+                | 0b1010u32 << 12u32
+                | U.into_inner() << 11u32
+                | T.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }
 pub mod ushllt_z_zi_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111101000001111000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000101000000001010000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ushllt_z_zi_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ushllt_z_zi_ {
-        pub tszh: ::aarchmrs_types::BitValue<1>,
-        pub tszl: ::aarchmrs_types::BitValue<2>,
-        pub imm3: ::aarchmrs_types::BitValue<3>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-        pub T: ::aarchmrs_types::BitValue<1>,
-        pub Zn: ::aarchmrs_types::BitValue<5>,
-        pub Zd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ushllt_z_zi_ {
-        #[inline]
-        pub const fn new(
-            tszh: ::aarchmrs_types::BitValue<1>,
-            tszl: ::aarchmrs_types::BitValue<2>,
-            imm3: ::aarchmrs_types::BitValue<3>,
-            U: ::aarchmrs_types::BitValue<1>,
-            T: ::aarchmrs_types::BitValue<1>,
-            Zn: ::aarchmrs_types::BitValue<5>,
-            Zd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                tszh,
-                tszl,
-                imm3,
-                U,
-                T,
-                Zn,
-                Zd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b010001010u32 << 23u32
-                    | self.tszh.into_inner() << 22u32
-                    | 0b0u32 << 21u32
-                    | self.tszl.into_inner() << 19u32
-                    | self.imm3.into_inner() << 16u32
-                    | 0b1010u32 << 12u32
-                    | self.U.into_inner() << 11u32
-                    | self.T.into_inner() << 10u32
-                    | self.Zn.into_inner() << 5u32
-                    | self.Zd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ushllt_z_zi_(
+        tszh: ::aarchmrs_types::BitValue<1>,
+        tszl: ::aarchmrs_types::BitValue<2>,
+        imm3: ::aarchmrs_types::BitValue<3>,
+        U: ::aarchmrs_types::BitValue<1>,
+        T: ::aarchmrs_types::BitValue<1>,
+        Zn: ::aarchmrs_types::BitValue<5>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b010001010u32 << 23u32
+                | tszh.into_inner() << 22u32
+                | 0b0u32 << 21u32
+                | tszl.into_inner() << 19u32
+                | imm3.into_inner() << 16u32
+                | 0b1010u32 << 12u32
+                | U.into_inner() << 11u32
+                | T.into_inner() << 10u32
+                | Zn.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
     }
 }

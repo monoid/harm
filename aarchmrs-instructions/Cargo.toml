@@ -8,3 +8,6 @@ authors = ["Ivan Boldyrev <lispnik@gmail.com>", "Arm Limited"]
 
 [dependencies]
 aarchmrs-types = { workspace = true }
+
+[features]
+meta = []
