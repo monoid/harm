@@ -4,250 +4,110 @@
  */
 
 pub mod cntb_r_s_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001000001110000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "cntb_r_s_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct cntb_r_s_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Rd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl cntb_r_s_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Rd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Rd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b10u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b111000u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Rd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn cntb_r_s_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b10u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b111000u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
     }
 }
 pub mod cnth_r_s_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001000001110000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "cnth_r_s_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct cnth_r_s_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Rd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl cnth_r_s_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Rd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Rd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b10u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b111000u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Rd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn cnth_r_s_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b10u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b111000u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
     }
 }
 pub mod cntw_r_s_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001000001110000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "cntw_r_s_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct cntw_r_s_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Rd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl cntw_r_s_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Rd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Rd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b10u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b111000u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Rd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn cntw_r_s_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b10u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b111000u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
     }
 }
 pub mod cntd_r_s_ {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111110000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000100001000001110000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "cntd_r_s_";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct cntd_r_s_ {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub imm4: ::aarchmrs_types::BitValue<4>,
-        pub pattern: ::aarchmrs_types::BitValue<5>,
-        pub Rd: ::aarchmrs_types::BitValue<5>,
-    }
-    impl cntd_r_s_ {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            imm4: ::aarchmrs_types::BitValue<4>,
-            pattern: ::aarchmrs_types::BitValue<5>,
-            Rd: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                size,
-                imm4,
-                pattern,
-                Rd,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000100u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b10u32 << 20u32
-                    | self.imm4.into_inner() << 16u32
-                    | 0b111000u32 << 10u32
-                    | self.pattern.into_inner() << 5u32
-                    | self.Rd.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn cntd_r_s_(
+        size: ::aarchmrs_types::BitValue<2>,
+        imm4: ::aarchmrs_types::BitValue<4>,
+        pattern: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000100u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b10u32 << 20u32
+                | imm4.into_inner() << 16u32
+                | 0b111000u32 << 10u32
+                | pattern.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
     }
 }

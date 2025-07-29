@@ -4,138 +4,60 @@
  */
 
 pub mod MSRR_SR_systemmovepr {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111100000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11010101010100000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "MSRR_SR_systemmovepr";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct MSRR_SR_systemmovepr {
-        pub o0: ::aarchmrs_types::BitValue<1>,
-        pub op1: ::aarchmrs_types::BitValue<3>,
-        pub CRn: ::aarchmrs_types::BitValue<4>,
-        pub CRm: ::aarchmrs_types::BitValue<4>,
-        pub op2: ::aarchmrs_types::BitValue<3>,
-        pub Rt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl MSRR_SR_systemmovepr {
-        #[inline]
-        pub const fn new(
-            o0: ::aarchmrs_types::BitValue<1>,
-            op1: ::aarchmrs_types::BitValue<3>,
-            CRn: ::aarchmrs_types::BitValue<4>,
-            CRm: ::aarchmrs_types::BitValue<4>,
-            op2: ::aarchmrs_types::BitValue<3>,
-            Rt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                o0,
-                op1,
-                CRn,
-                CRm,
-                op2,
-                Rt,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b110101010101u32 << 20u32
-                    | self.o0.into_inner() << 19u32
-                    | self.op1.into_inner() << 16u32
-                    | self.CRn.into_inner() << 12u32
-                    | self.CRm.into_inner() << 8u32
-                    | self.op2.into_inner() << 5u32
-                    | self.Rt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn MSRR_SR_systemmovepr(
+        o0: ::aarchmrs_types::BitValue<1>,
+        op1: ::aarchmrs_types::BitValue<3>,
+        CRn: ::aarchmrs_types::BitValue<4>,
+        CRm: ::aarchmrs_types::BitValue<4>,
+        op2: ::aarchmrs_types::BitValue<3>,
+        Rt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b110101010101u32 << 20u32
+                | o0.into_inner() << 19u32
+                | op1.into_inner() << 16u32
+                | CRn.into_inner() << 12u32
+                | CRm.into_inner() << 8u32
+                | op2.into_inner() << 5u32
+                | Rt.into_inner() << 0u32,
+        )
     }
 }
 pub mod MRRS_RS_systemmovepr {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111100000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11010101011100000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "MRRS_RS_systemmovepr";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct MRRS_RS_systemmovepr {
-        pub o0: ::aarchmrs_types::BitValue<1>,
-        pub op1: ::aarchmrs_types::BitValue<3>,
-        pub CRn: ::aarchmrs_types::BitValue<4>,
-        pub CRm: ::aarchmrs_types::BitValue<4>,
-        pub op2: ::aarchmrs_types::BitValue<3>,
-        pub Rt: ::aarchmrs_types::BitValue<5>,
-    }
-    impl MRRS_RS_systemmovepr {
-        #[inline]
-        pub const fn new(
-            o0: ::aarchmrs_types::BitValue<1>,
-            op1: ::aarchmrs_types::BitValue<3>,
-            CRn: ::aarchmrs_types::BitValue<4>,
-            CRm: ::aarchmrs_types::BitValue<4>,
-            op2: ::aarchmrs_types::BitValue<3>,
-            Rt: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                o0,
-                op1,
-                CRn,
-                CRm,
-                op2,
-                Rt,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b110101010111u32 << 20u32
-                    | self.o0.into_inner() << 19u32
-                    | self.op1.into_inner() << 16u32
-                    | self.CRn.into_inner() << 12u32
-                    | self.CRm.into_inner() << 8u32
-                    | self.op2.into_inner() << 5u32
-                    | self.Rt.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn MRRS_RS_systemmovepr(
+        o0: ::aarchmrs_types::BitValue<1>,
+        op1: ::aarchmrs_types::BitValue<3>,
+        CRn: ::aarchmrs_types::BitValue<4>,
+        CRm: ::aarchmrs_types::BitValue<4>,
+        op2: ::aarchmrs_types::BitValue<3>,
+        Rt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b110101010111u32 << 20u32
+                | o0.into_inner() << 19u32
+                | op1.into_inner() << 16u32
+                | CRn.into_inner() << 12u32
+                | CRm.into_inner() << 8u32
+                | op2.into_inner() << 5u32
+                | Rt.into_inner() << 0u32,
+        )
     }
 }

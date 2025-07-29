@@ -4,234 +4,114 @@
  */
 
 pub mod smax_mz_zzv_4x1 {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111111111100010u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001000001010100000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "smax_mz_zzv_4x1";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct smax_mz_zzv_4x1 {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub Zm: ::aarchmrs_types::BitValue<4>,
-        pub Zdn: ::aarchmrs_types::BitValue<3>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-    }
-    impl smax_mz_zzv_4x1 {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            Zm: ::aarchmrs_types::BitValue<4>,
-            Zdn: ::aarchmrs_types::BitValue<3>,
-            U: ::aarchmrs_types::BitValue<1>,
-        ) -> Self {
-            Self { size, Zm, Zdn, U }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000001u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b10u32 << 20u32
-                    | self.Zm.into_inner() << 16u32
-                    | 0b10101000000u32 << 5u32
-                    | self.Zdn.into_inner() << 2u32
-                    | 0b0u32 << 1u32
-                    | self.U.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn smax_mz_zzv_4x1(
+        size: ::aarchmrs_types::BitValue<2>,
+        Zm: ::aarchmrs_types::BitValue<4>,
+        Zdn: ::aarchmrs_types::BitValue<3>,
+        U: ::aarchmrs_types::BitValue<1>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000001u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b10u32 << 20u32
+                | Zm.into_inner() << 16u32
+                | 0b10101000000u32 << 5u32
+                | Zdn.into_inner() << 2u32
+                | 0b0u32 << 1u32
+                | U.into_inner() << 0u32,
+        )
     }
 }
 pub mod smin_mz_zzv_4x1 {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111111111100010u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001000001010100000100000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "smin_mz_zzv_4x1";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct smin_mz_zzv_4x1 {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub Zm: ::aarchmrs_types::BitValue<4>,
-        pub Zdn: ::aarchmrs_types::BitValue<3>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-    }
-    impl smin_mz_zzv_4x1 {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            Zm: ::aarchmrs_types::BitValue<4>,
-            Zdn: ::aarchmrs_types::BitValue<3>,
-            U: ::aarchmrs_types::BitValue<1>,
-        ) -> Self {
-            Self { size, Zm, Zdn, U }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000001u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b10u32 << 20u32
-                    | self.Zm.into_inner() << 16u32
-                    | 0b10101000001u32 << 5u32
-                    | self.Zdn.into_inner() << 2u32
-                    | 0b0u32 << 1u32
-                    | self.U.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn smin_mz_zzv_4x1(
+        size: ::aarchmrs_types::BitValue<2>,
+        Zm: ::aarchmrs_types::BitValue<4>,
+        Zdn: ::aarchmrs_types::BitValue<3>,
+        U: ::aarchmrs_types::BitValue<1>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000001u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b10u32 << 20u32
+                | Zm.into_inner() << 16u32
+                | 0b10101000001u32 << 5u32
+                | Zdn.into_inner() << 2u32
+                | 0b0u32 << 1u32
+                | U.into_inner() << 0u32,
+        )
     }
 }
 pub mod umax_mz_zzv_4x1 {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111111111100010u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001000001010100000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "umax_mz_zzv_4x1";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct umax_mz_zzv_4x1 {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub Zm: ::aarchmrs_types::BitValue<4>,
-        pub Zdn: ::aarchmrs_types::BitValue<3>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-    }
-    impl umax_mz_zzv_4x1 {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            Zm: ::aarchmrs_types::BitValue<4>,
-            Zdn: ::aarchmrs_types::BitValue<3>,
-            U: ::aarchmrs_types::BitValue<1>,
-        ) -> Self {
-            Self { size, Zm, Zdn, U }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000001u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b10u32 << 20u32
-                    | self.Zm.into_inner() << 16u32
-                    | 0b10101000000u32 << 5u32
-                    | self.Zdn.into_inner() << 2u32
-                    | 0b0u32 << 1u32
-                    | self.U.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn umax_mz_zzv_4x1(
+        size: ::aarchmrs_types::BitValue<2>,
+        Zm: ::aarchmrs_types::BitValue<4>,
+        Zdn: ::aarchmrs_types::BitValue<3>,
+        U: ::aarchmrs_types::BitValue<1>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000001u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b10u32 << 20u32
+                | Zm.into_inner() << 16u32
+                | 0b10101000000u32 << 5u32
+                | Zdn.into_inner() << 2u32
+                | 0b0u32 << 1u32
+                | U.into_inner() << 0u32,
+        )
     }
 }
 pub mod umin_mz_zzv_4x1 {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001100001111111111100010u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b11000001001000001010100000100000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "umin_mz_zzv_4x1";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct umin_mz_zzv_4x1 {
-        pub size: ::aarchmrs_types::BitValue<2>,
-        pub Zm: ::aarchmrs_types::BitValue<4>,
-        pub Zdn: ::aarchmrs_types::BitValue<3>,
-        pub U: ::aarchmrs_types::BitValue<1>,
-    }
-    impl umin_mz_zzv_4x1 {
-        #[inline]
-        pub const fn new(
-            size: ::aarchmrs_types::BitValue<2>,
-            Zm: ::aarchmrs_types::BitValue<4>,
-            Zdn: ::aarchmrs_types::BitValue<3>,
-            U: ::aarchmrs_types::BitValue<1>,
-        ) -> Self {
-            Self { size, Zm, Zdn, U }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b11000001u32 << 24u32
-                    | self.size.into_inner() << 22u32
-                    | 0b10u32 << 20u32
-                    | self.Zm.into_inner() << 16u32
-                    | 0b10101000001u32 << 5u32
-                    | self.Zdn.into_inner() << 2u32
-                    | 0b0u32 << 1u32
-                    | self.U.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn umin_mz_zzv_4x1(
+        size: ::aarchmrs_types::BitValue<2>,
+        Zm: ::aarchmrs_types::BitValue<4>,
+        Zdn: ::aarchmrs_types::BitValue<3>,
+        U: ::aarchmrs_types::BitValue<1>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11000001u32 << 24u32
+                | size.into_inner() << 22u32
+                | 0b10u32 << 20u32
+                | Zm.into_inner() << 16u32
+                | 0b10101000001u32 << 5u32
+                | Zdn.into_inner() << 2u32
+                | 0b0u32 << 1u32
+                | U.into_inner() << 0u32,
+        )
     }
 }

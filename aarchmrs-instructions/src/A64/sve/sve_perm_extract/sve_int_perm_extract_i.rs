@@ -4,63 +4,28 @@
  */
 
 pub mod ext_z_zi_des {
+    #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001110000000000000u32;
+    #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b00000101001000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
     pub const NAME: &str = "ext_z_zi_des";
-    #[derive(Copy, Clone, Debug, Default)]
-    pub struct ext_z_zi_des {
-        pub imm8h: ::aarchmrs_types::BitValue<5>,
-        pub imm8l: ::aarchmrs_types::BitValue<3>,
-        pub Zm: ::aarchmrs_types::BitValue<5>,
-        pub Zdn: ::aarchmrs_types::BitValue<5>,
-    }
-    impl ext_z_zi_des {
-        #[inline]
-        pub const fn new(
-            imm8h: ::aarchmrs_types::BitValue<5>,
-            imm8l: ::aarchmrs_types::BitValue<3>,
-            Zm: ::aarchmrs_types::BitValue<5>,
-            Zdn: ::aarchmrs_types::BitValue<5>,
-        ) -> Self {
-            Self {
-                imm8h,
-                imm8l,
-                Zm,
-                Zdn,
-            }
-        }
-        #[inline]
-        pub const fn build(&self) -> ::aarchmrs_types::InstructionCode {
-            ::aarchmrs_types::InstructionCode::from_u32(
-                0b00000101001u32 << 21u32
-                    | self.imm8h.into_inner() << 16u32
-                    | 0b000u32 << 13u32
-                    | self.imm8l.into_inner() << 10u32
-                    | self.Zm.into_inner() << 5u32
-                    | self.Zdn.into_inner() << 0u32,
-            )
-        }
-        #[inline]
-        pub const fn opcode_mask() -> u32 {
-            self::OPCODE_MASK
-        }
-        #[inline]
-        pub const fn opcode() -> u32 {
-            self::OPCODE
-        }
-        #[inline]
-        pub const fn should_be_mask() -> u32 {
-            self::SHOULD_BE_MASK
-        }
-        #[inline]
-        pub const fn match_opcode(opcode: u32) -> bool {
-            let opcode = opcode & self::OPCODE_MASK;
-            opcode == self::OPCODE
-        }
-        #[inline]
-        pub const fn name() -> &'static str {
-            self::NAME
-        }
+    #[inline]
+    pub const fn ext_z_zi_des(
+        imm8h: ::aarchmrs_types::BitValue<5>,
+        imm8l: ::aarchmrs_types::BitValue<3>,
+        Zm: ::aarchmrs_types::BitValue<5>,
+        Zdn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00000101001u32 << 21u32
+                | imm8h.into_inner() << 16u32
+                | 0b000u32 << 13u32
+                | imm8l.into_inner() << 10u32
+                | Zm.into_inner() << 5u32
+                | Zdn.into_inner() << 0u32,
+        )
     }
 }
