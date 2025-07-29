@@ -15,4 +15,4 @@ aarchmrs = { path = "aarchmrs", version = "0.1.0-2025-03" }
 aarchmrs-gen = { path = "aarchmrs-gen", version = "0.1.0-2025-03" }
 aarchmrs-instructions = { path = "aarchmrs-instructions", version = "0.1.0-2025-03" }
 aarchmrs-parser = { path = "aarchmrs-parser", version = "0.1.0" }
-aarchmrs-types = { path = "aarchmrs-types", version = "0.1.0" }
+aarchmrs-types = { path = "aarchmrs-types", version = "0.1.1" }
