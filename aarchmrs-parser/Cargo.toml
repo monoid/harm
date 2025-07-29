@@ -5,6 +5,7 @@ edition = "2024"
 description = "AARCHMRS simple parser"
 license = "BSD-3-Clause"
 authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
+publish = false
 
 [dependencies]
 serde = { version = "1.0.219", features = ["derive"] }
