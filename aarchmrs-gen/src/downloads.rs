@@ -22,13 +22,13 @@ pub enum DownloadError {
 pub(crate) fn ensure_archive(cache_dir: &Path) -> Result<PathBuf, DownloadError> {
     let archive_file = cache_dir.join(AARCHMRS_2025_03_FILE);
     if !is_valid_archive(&archive_file) {
-        println!("cargo::warning=Downloading an archive file...");
+        eprintln!("Downloading an archive file...");
         download_archive(&archive_file)?;
         if !is_valid_archive(&archive_file) {
             return Err(io::Error::other("Failed to download a valid data").into());
         }
     } else {
-        println!("cargo::warning=The cached file is valid, using it...");
+        eprintln!("The cached file is valid, using it...");
     }
     Ok(archive_file)
 }

@@ -5,6 +5,7 @@ members = [
    "aarchmrs-instructions",
    "aarchmrs-parser",
    "aarchmrs-types",
+   "tools/aarchmrs-generate",
 ]
 
 resolver = "3"

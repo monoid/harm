@@ -1,0 +1,12 @@
+[package]
+name = "aarchmrs-generate"
+version = "0.1.0"
+edition = "2024"
+description = "AARCHMRS generation utility"
+license = "BSD-3-Clause"
+authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
+
+[dependencies]
+aarchmrs-gen = { workspace = true }
+clap = { version = "4.5.41", features = ["derive"] }
+eyre = "0.6.12"

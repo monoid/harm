@@ -25,7 +25,11 @@ pub const AARCHMRS_2025_03_MD5: [u8; 16] = hex_literal::hex!("dcc4850852a18ae0e7
 pub const AARCHMRS_2025_03_SIZE: u64 = 3517054;
 pub const AARCHMRS_INSTRUCTIONS_FILE: &str = "Instructions.json";
 
-pub fn gen_instructions(dest_dir: &Path, cache_dir: &Path) -> Result<(), DownloadError> {
+pub fn gen_instructions(
+    dest_dir: &Path,
+    cache_dir: &Path,
+    r#mod: bool,
+) -> Result<(), DownloadError> {
     let archive_path = ensure_archive(cache_dir)?;
 
     let gz_archive_file = std::fs::File::open(archive_path)?;
@@ -71,12 +75,13 @@ pub fn gen_instructions(dest_dir: &Path, cache_dir: &Path) -> Result<(), Downloa
 
     std::fs::create_dir_all(dest_dir)?;
 
-    let lib_path = dest_dir.join("lib.rs");
+    let mod_file = if r#mod { "mod.rs" } else { "lib.rs" };
+    let mod_path = dest_dir.join(mod_file);
     let clippy_allow_pragma = quote::quote! { #[allow(
         non_snake_case, non_camel_case_types, clippy::identity_op, clippy::too_many_arguments, clippy::module_inception
     )]};
     write_mod(
-        &lib_path,
+        &mod_path,
         &lib_mods,
         &clippy_allow_pragma,
         &data._meta.license,
