@@ -3,6 +3,7 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+/// ARM64 instruction with proper byte order and alignment.
 #[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
 #[repr(align(4))]
 pub struct InstructionCode(pub [u8; 4]);
