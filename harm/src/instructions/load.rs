@@ -17,24 +17,26 @@
 //! # `LDR`: Register base with register offset
 //!
 //! # Examples:
-//! ```ignore
-//! # use harm::instructions::load::{ldr, extended, shifted, LdrExtendOption32, LdrShift};
+//! ```
+//! # use harm::instructions::load::{ldr, extended, shifted, shifted_by, LdrExtendOption32, LdrShift};
 //! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
 //! use LdrExtendOption32::*;
+//!
 //! ldr(W1, X2);        // LDR W1, [X2]
 //! ldr(W1, (X2,));     // LDR W1, [X2]
-//! ldr(W1, (X2, X3));  // LDR W1, [X2, X3] ; n.b. a 32-bit register offset requires extend speicifer (sxtw or uxtw):
+//! ldr(W1, (X2, X3));  // LDR W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend speicifer (sxtw or uxtw):
 //! ldr(W1, (X2, extended(W3, UXTW))); // ldr w1, [x2, w3, uxtw]
-//! ldr(W1, (X2, extended(shifted_by(W3, LdrShift::Shifted), UXTW))); // ldr w1, [x2, w3, uxtw #2]
+//! ldr(W1, (X2, extended(shifted(W3, LdrShift::Shifted), UXTW))); // ldr w1, [x2, w3, uxtw #2]
 //! ldr(W1, (X2, extended(W3, UXTW))); // ldr w1, [x2, w3, uxtw]
 //! ldr(X1, (X2, extended(W3, UXTW))); // ldr x1, [x2, w3, uxtw]
-//! ldr(X1, (X2, extended(shifted_by(W3, LdrShift::Shifted), UXTW))); // ldr x1, [x2, w3, uxtw #3]
+//! ldr(X1, (X2, extended(shifted(W3, LdrShift::Shifted), UXTW))); // ldr x1, [x2, w3, uxtw #3]
+//! # // ldr(X1, (X2, shifted_by(W3, 3).unwrap())); // ldr x1, [x2, w3, uxtw 3]
+//! # // TODO ldr(W1, (X2, (W3, UXTW, 3))) // !!!
 //! # // TODO ldr(X1, (X2, uxtw(W3, 2))).unwrap();  // LDR X1, [X2, W3 uxtw 3]
 //! # // TODO ldr(X1, (X2, sxtw(W3, 2))).unwrap();  // LDR X1, [X2, W3 sxtw 3]
 //! # // TODO ldr(X1, (X2, uxtw(W3, 2).unwrap()));  // LDR X1, [X2, W3 uxtw 3]
 //! # // TODO ldr(X1, (X2, sxtw(W3, 2).unwrap()));  // LDR X1, [X2, W3 sxtw 3]
-//! # // TODO ldr(X1, (X2, extended((W3, 3)))).unwrap(); // ldr x1, [x2, w3, uxtw 3]
 //! # // TODO uxtw/sxtw functions
 //! ```
 //!
@@ -112,7 +114,7 @@ use crate::{
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[repr(u8)]
 // It seems that these variants are actually noop: you cannot actually extend r64 to r64.
-// It is only useful if you want to produce specific bit pattern.
+// It is only useful if you want to produce a specific bit pattern.
 pub enum LdrExtendOption64 {
     #[default]
     LSL = 0b011,
@@ -182,7 +184,7 @@ pub fn shifted<Dest: LdrDestShiftOption, Offset: LdrOffsetExtendOption>(
     }
 }
 
-impl<Dest, Offset> From<Offset> for Shifted<Dest, Offset> {
+impl<Dest, Offset: LdrOffsetExtendOption> From<Offset> for Shifted<Dest, Offset> {
     fn from(reg: Offset) -> Self {
         Shifted {
             offset: reg,
@@ -192,6 +194,10 @@ impl<Dest, Offset> From<Offset> for Shifted<Dest, Offset> {
     }
 }
 
+// TODO
+// ext((W1, UXTW))
+// ext((W1, UXTW, 3))
+// ldr(W1, (X2, (W3, UXTW, 3))) // !!!
 pub fn extended<Dest, Offset>(
     shifted: impl Into<Shifted<Dest, Offset>>,
     extend: <Offset as LdrOffsetExtendOption>::ExtendOption,
@@ -202,7 +208,7 @@ where
 {
     Extended {
         shifted: shifted.into(),
-        extend: extend,
+        extend,
     }
 }
 
@@ -277,18 +283,17 @@ pub struct Shifted<Dest, Reg> {
     phantom: std::marker::PhantomData<Dest>,
 }
 
-pub struct Load<Dst, Base, Offset> {
+pub struct Load<Dst, Addr> {
     pub dst: Dst,
-    pub base: Base,
-    pub offset: Offset,
+    pub addr: Addr,
 }
 
-pub trait MakeLoad<Dst, Base, Offset> {
+pub trait MakeLoad<Dst, Addr> {
     type Output;
-    fn new(dst: Dst, base: Base, offset: Offset) -> Self::Output;
+    fn new(dst: Dst, addr: Addr) -> Self::Output;
 }
 
-impl<Base, Ext> MakeLoad<Reg64, Base, Ext> for Load<Reg64, RegOrSp64, Extended<Reg64, Reg64>>
+impl<Base, Ext> MakeLoad<Reg64, (Base, Ext)> for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg64>)>
 where
     Base: Into<RegOrSp64>,
     Ext: Into<Extended<Reg64, Reg64>>,
@@ -296,30 +301,30 @@ where
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, base: Base, offset: Ext) -> Self {
+    fn new(dst: Reg64, (base, offset): (Base, Ext)) -> Self {
         Self {
             dst,
-            base: base.into(),
-            offset: offset.into(),
+            addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg64, RegOrSp64, Extended<Reg64, Reg64>> {
+impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg64>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
         let code = LDR_64_ldst_regoff(
-            self.offset.shifted.offset.code(),
-            (self.offset.extend as u8).into(),
-            self.offset.shifted.shifted.into(),
-            self.base.code(),
+            offset.shifted.offset.code(),
+            (offset.extend as u8).into(),
+            offset.shifted.shifted.into(),
+            base.code(),
             self.dst.code(),
         );
         std::iter::once(code)
     }
 }
 
-impl<Base, Ext> MakeLoad<Reg64, Base, Ext> for Load<Reg64, RegOrSp64, Extended<Reg64, Reg32>>
+impl<Base, Ext> MakeLoad<Reg64, (Base, Ext)> for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg32>)>
 where
     Base: Into<RegOrSp64>,
     Ext: Into<Extended<Reg64, Reg32>>,
@@ -327,30 +332,30 @@ where
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, base: Base, offset: Ext) -> Self {
+    fn new(dst: Reg64, (base, offset): (Base, Ext)) -> Self {
         Self {
             dst,
-            base: base.into(),
-            offset: offset.into(),
+            addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg64, RegOrSp64, Extended<Reg64, Reg32>> {
+impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg32>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
         let code = LDR_64_ldst_regoff(
-            self.offset.shifted.offset.code(),
-            (self.offset.extend as u8).into(),
-            self.offset.shifted.shifted.into(),
-            self.base.code(),
+            offset.shifted.offset.code(),
+            (offset.extend as u8).into(),
+            offset.shifted.shifted.into(),
+            base.code(),
             self.dst.code(),
         );
         std::iter::once(code)
     }
 }
 
-impl<Base, Ext> MakeLoad<Reg32, Base, Ext> for Load<Reg32, RegOrSp64, Extended<Reg32, Reg64>>
+impl<Base, Ext> MakeLoad<Reg32, (Base, Ext)> for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg64>)>
 where
     Base: Into<RegOrSp64>,
     Ext: Into<Extended<Reg32, Reg64>>,
@@ -358,30 +363,30 @@ where
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, base: Base, offset: Ext) -> Self {
+    fn new(dst: Reg32, (base, offset): (Base, Ext)) -> Self {
         Self {
             dst,
-            base: base.into(),
-            offset: offset.into(),
+            addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg32, RegOrSp64, Extended<Reg32, Reg64>> {
+impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg64>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
         let code = LDR_64_ldst_regoff(
-            self.offset.shifted.offset.code(),
-            (self.offset.extend as u8).into(),
-            self.offset.shifted.shifted.into(),
-            self.base.code(),
+            offset.shifted.offset.code(),
+            (offset.extend as u8).into(),
+            offset.shifted.shifted.into(),
+            base.code(),
             self.dst.code(),
         );
         std::iter::once(code)
     }
 }
 
-impl<Base, Ext> MakeLoad<Reg32, Base, Ext> for Load<Reg32, RegOrSp64, Extended<Reg32, Reg32>>
+impl<Base, Ext> MakeLoad<Reg32, (Base, Ext)> for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg32>)>
 where
     Base: Into<RegOrSp64>,
     Ext: Into<Extended<Reg32, Reg32>>,
@@ -389,30 +394,72 @@ where
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, base: Base, offset: Ext) -> Self {
+    fn new(dst: Reg32, (base, offset): (Base, Ext)) -> Self {
         Self {
             dst,
-            base: base.into(),
-            offset: offset.into(),
+            addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg32, RegOrSp64, Extended<Reg32, Reg32>> {
+impl<Dest, Base, Ext, Err> MakeLoad<Dest, (Base, Result<Ext, Err>)> for Load<Dest, (Base, Ext)>
+where
+    Load<Dest, (Base, Ext)>: MakeLoad<Dest, (Base, Ext)>,
+{
+    type Output = Result<<Self as MakeLoad<Dest, (Base, Ext)>>::Output, Err>;
+
+    #[inline]
+    fn new(dst: Dest, (base, offset): (Base, Result<Ext, Err>)) -> Self::Output {
+        offset.map(|offset| Load::new(dst, (base, offset)))
+    }
+}
+
+impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg32>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
         let code = LDR_64_ldst_regoff(
-            self.offset.shifted.offset.code(),
-            (self.offset.extend as u8).into(),
-            self.offset.shifted.shifted.into(),
-            self.base.code(),
+            offset.shifted.offset.code(),
+            (offset.extend as u8).into(),
+            offset.shifted.shifted.into(),
+            base.code(),
             self.dst.code(),
         );
         std::iter::once(code)
     }
 }
 
-impl<Base, OffsetReg> MakeLoad<Reg64, Base, OffsetReg> for Load<Reg64, RegOrSp64, RegOrZero64>
+impl<Base> MakeLoad<Reg64, Base> for Load<Reg64, (RegOrSp64, RegOrZero64)>
+where
+    Base: Into<RegOrSp64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Reg64, base: Base) -> Self {
+        Self {
+            dst,
+            addr: (base.into(), RegOrZero64::XZR),
+        }
+    }
+}
+
+impl<Base> MakeLoad<Reg64, (Base,)> for Load<Reg64, (RegOrSp64, RegOrZero64)>
+where
+    Base: Into<RegOrSp64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Reg64, (base,): (Base,)) -> Self {
+        Self {
+            dst,
+            addr: (base.into(), RegOrZero64::XZR),
+        }
+    }
+}
+
+impl<Base, OffsetReg> MakeLoad<Reg64, (Base, OffsetReg)> for Load<Reg64, (RegOrSp64, RegOrZero64)>
 where
     Base: Into<RegOrSp64>,
     OffsetReg: Into<RegOrZero64>,
@@ -420,30 +467,60 @@ where
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, base: Base, offset: OffsetReg) -> Self {
+    fn new(dst: Reg64, (base, offset): (Base, OffsetReg)) -> Self {
         Self {
             dst,
-            base: base.into(),
-            offset: offset.into(),
+            addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg64, RegOrSp64, RegOrZero64> {
+impl<Base> MakeLoad<Reg32, Base> for Load<Reg32, (RegOrSp64, RegOrZero64)>
+where
+    Base: Into<RegOrSp64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Reg32, base: Base) -> Self {
+        Self {
+            dst,
+            addr: (base.into(), RegOrZero64::XZR),
+        }
+    }
+}
+
+impl<Base> MakeLoad<Reg32, (Base,)> for Load<Reg32, (RegOrSp64, RegOrZero64)>
+where
+    Base: Into<RegOrSp64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Reg32, (base,): (Base,)) -> Self {
+        Self {
+            dst,
+            addr: (base.into(), RegOrZero64::XZR),
+        }
+    }
+}
+
+impl Instruction for Load<Reg64, (RegOrSp64, RegOrZero64)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
         let code = LDR_64_ldst_regoff(
-            self.offset.code(),
+            offset.code(),
             (LdrExtendOption64::default() as u8).into(),
             0b0.into(),
-            self.base.code(),
+            base.code(),
             self.dst.code(),
         );
         std::iter::once(code)
     }
 }
 
-impl<B, O> MakeLoad<Reg32, B, O> for Load<Reg32, RegOrSp64, RegOrZero64>
+impl<B, O> MakeLoad<Reg32, (B, O)> for Load<Reg32, (RegOrSp64, RegOrZero64)>
 where
     B: Into<RegOrSp64>,
     O: Into<RegOrZero64>,
@@ -451,119 +528,117 @@ where
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, base: B, offset: O) -> Self {
+    fn new(dst: Reg32, (base, offset): (B, O)) -> Self {
         Self {
             dst,
-            base: base.into(),
-            offset: offset.into(),
+            addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg32, RegOrSp64, RegOrZero64> {
+impl Instruction for Load<Reg32, (RegOrSp64, RegOrZero64)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
         let code = LDR_32_ldst_regoff(
-            self.offset.code(),
+            offset.code(),
             (LdrExtendOption64::default() as u8).into(),
             0b0.into(),
-            self.base.code(),
+            base.code(),
             self.dst.code(),
         );
         std::iter::once(code)
     }
 }
 
-impl<B> MakeLoad<Reg32, B, ScaledOffset32> for Load<Reg32, RegOrSp64, ScaledOffset32>
+impl<B> MakeLoad<Reg32, (B, ScaledOffset32)> for Load<Reg32, (RegOrSp64, ScaledOffset32)>
 where
     B: Into<RegOrSp64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, base: B, offset: ScaledOffset32) -> Self {
+    fn new(dst: Reg32, (base, offset): (B, ScaledOffset32)) -> Self {
         Self {
             dst,
-            base: base.into(),
-            offset,
+            addr: (base.into(), offset),
         }
     }
 }
 
-impl Instruction for Load<Reg32, RegOrSp64, ScaledOffset32> {
+impl Instruction for Load<Reg32, (RegOrSp64, ScaledOffset32)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let code = LDR_32_ldst_pos(self.offset.into(), self.base.code(), self.dst.code());
+        let (base, offset) = self.addr;
+        let code = LDR_32_ldst_pos(offset.into(), base.code(), self.dst.code());
         std::iter::once(code)
     }
 }
 
-impl<B> MakeLoad<Reg64, B, ScaledOffset64> for Load<Reg64, RegOrSp64, ScaledOffset64>
+impl<B> MakeLoad<Reg64, (B, ScaledOffset64)> for Load<Reg64, (RegOrSp64, ScaledOffset64)>
 where
     B: Into<RegOrSp64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, base: B, offset: ScaledOffset64) -> Self {
+    fn new(dst: Reg64, (base, offset): (B, ScaledOffset64)) -> Self {
         Self {
             dst,
-            base: base.into(),
-            offset,
+            addr: (base.into(), offset),
         }
     }
 }
 
-impl Instruction for Load<Reg64, RegOrSp64, ScaledOffset64> {
+impl Instruction for Load<Reg64, (RegOrSp64, ScaledOffset64)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let code = LDR_64_ldst_pos(self.offset.into(), self.base.code(), self.dst.code());
+        let (base, offset) = self.addr;
+        let code = LDR_64_ldst_pos(offset.into(), base.code(), self.dst.code());
         std::iter::once(code)
     }
 }
 
-impl<B> MakeLoad<Reg32, B, u32> for Load<Reg32, RegOrSp64, ScaledOffset32>
+impl<B> MakeLoad<Reg32, (B, u32)> for Load<Reg32, (RegOrSp64, ScaledOffset32)>
 where
     B: Into<RegOrSp64>,
 {
     type Output = Result<Self, BitError>;
 
     #[inline]
-    fn new(dst: Reg32, base: B, offset: u32) -> Self::Output {
+    fn new(dst: Reg32, (base, offset): (B, u32)) -> Self::Output {
         let offset = ScaledOffset32::new(offset)?;
         Ok(Self {
             dst,
-            base: base.into(),
-            offset,
+            addr: (base.into(), offset),
         })
     }
 }
 
-impl<B> MakeLoad<Reg64, B, u32> for Load<Reg64, RegOrSp64, ScaledOffset64>
+impl<B> MakeLoad<Reg64, (B, u32)> for Load<Reg64, (RegOrSp64, ScaledOffset64)>
 where
     B: Into<RegOrSp64>,
 {
     type Output = Result<Self, BitError>;
 
     #[inline]
-    fn new(dst: Reg64, base: B, offset: u32) -> Self::Output {
+    fn new(dst: Reg64, (base, offset): (B, u32)) -> Self::Output {
         let offset = ScaledOffset64::new(offset)?;
         Ok(Self {
             dst,
-            base: base.into(),
-            offset,
+            addr: (base.into(), offset),
         })
     }
 }
 
-pub fn ldr<Dst, Base, BaseReal, Offset, OffsetReal>(
+pub fn ldr<Dst, Addr, AddrReal>(
     dst: Dst,
-    (base, offset): (Base, Offset),
-) -> <Load<Dst, BaseReal, OffsetReal> as MakeLoad<Dst, Base, Offset>>::Output
+    addr: Addr,
+) -> <Load<Dst, AddrReal> as MakeLoad<Dst, Addr>>::Output
 where
-    Load<Dst, BaseReal, OffsetReal>: MakeLoad<Dst, Base, Offset>,
+    Load<Dst, AddrReal>: MakeLoad<Dst, Addr>,
 {
-    Load::new(dst, base, offset)
+    Load::new(dst, addr)
 }
 
 #[cfg(test)]
