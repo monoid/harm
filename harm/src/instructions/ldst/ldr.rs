@@ -241,7 +241,7 @@ impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg32>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
-        let code = LDR_64_ldst_regoff(
+        let code = LDR_32_ldst_regoff(
             offset.shifted.offset.code(),
             (offset.extend as u8).into(),
             offset.shifted.shifted.into(),
