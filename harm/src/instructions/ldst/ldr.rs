@@ -480,14 +480,14 @@ where
 
 #[cfg(test)]
 mod tests {
-    use crate::bits::UBitValue;
+    use harm_test_utils::test_cases;
 
+    use crate::bits::UBitValue;
     use super::*;
     use Reg32::*;
     use Reg64::*;
     use RegOrSp64::SP;
     use RegOrZero64::XZR;
-    use harm_test_utils::db;
 
     // 'ldr (w2|x2), [(x8|sp), (x3|xzr)]'
     const SIMPLE_LDR_REG_DB: &str = "
@@ -511,7 +511,6 @@ f863d902	ldr x2, [x8, w3, sxtw #3]
 f863e902	ldr x2, [x8, x3, sxtx]
 f863e902	ldr x2, [x8, x3, sxtx #0]
 f863f902	ldr x2, [x8, x3, sxtx #3]
-f8636902	ldr x2, [x8, x3]
 f8636902	ldr x2, [x8, x3, lsl #0]
 f8637902	ldr x2, [x8, x3, lsl #3]
 b8634902	ldr w2, [x8, w3, uxtw]
@@ -523,7 +522,6 @@ b863d902	ldr w2, [x8, w3, sxtw #2]
 b863e902	ldr w2, [x8, x3, sxtx]
 b863e902	ldr w2, [x8, x3, sxtx #0]
 b863f902	ldr w2, [x8, x3, sxtx #2]
-b8636902	ldr w2, [x8, x3]
 b8636902	ldr w2, [x8, x3, lsl #0]
 b8637902	ldr w2, [x8, x3, lsl #2]";
 
@@ -535,131 +533,33 @@ f940c902	ldr x2, [x8, #0x190]
 f940cbe2	ldr x2, [sp, #0x190]
 ";
 
-    #[test]
-    fn test_ldr_r64_r64_r32_sxtw() {
-        use LdrExtendOption32::*;
-        let inst: Vec<_> = ldr(X2, (X8, extended(W3, SXTW))).represent().collect();
-        assert_eq!(
-            inst,
-            vec![db(SIMPLE_LDR_REG_EXT_DB, "ldr x2, [x8, w3, sxtw]")]
-        );
+    use LdrExtendOption32::*;
+
+    test_cases! {
+        SIMPLE_LDR_REG_EXT_DB, untested_ldr_reg_ext_db;
+        test_ldr_r64_r64_r32_sxtw, ldr(X2, (X8, extended(W3, SXTW))), "ldr x2, [x8, w3, sxtw]";
+        test_ldr_r64_r64_r32_uxtw, ldr(X2, (X8, extended(W3, UXTW))), "ldr x2, [x8, w3, uxtw]";
+        test_ldr_r32_r64_r32_sxtw, ldr(W2, (X8, extended(W3, SXTW))), "ldr w2, [x8, w3, sxtw]";
+        test_ldr_r32_r64_r32_uxtw, ldr(W2, (X8, extended(W3, UXTW))), "ldr w2, [x8, w3, uxtw]";
     }
 
-    #[test]
-    fn test_ldr_r64_r64_r32_uxtw() {
-        use LdrExtendOption32::*;
-        let inst: Vec<_> = ldr(X2, (X8, extended(W3, UXTW))).represent().collect();
-        assert_eq!(
-            inst,
-            vec![db(SIMPLE_LDR_REG_EXT_DB, "ldr x2, [x8, w3, uxtw]")]
-        );
+    test_cases! {
+        SIMPLE_LDR_REG_DB, untested_ldr_reg_db;
+        test_ldr_r32_r64_r64, ldr(W2, (X8, X3)), "ldr w2, [x8, x3]";
+        test_ldr_r32_rsp_r64, ldr(W2, (SP, X3)), "ldr w2, [sp, x3]";
+        test_ldr_r64_r64_r64, ldr(X2, (X8, X3)), "ldr x2, [x8, x3]";
+        test_ldr_r64_rsp_r64, ldr(X2, (SP, X3)), "ldr x2, [sp, x3]";
+        test_ldr_r32_r64_xzr, ldr(W2, (X8, XZR)), "ldr w2, [x8, xzr]";
+        test_ldr_r32_rsp_xzr, ldr(W2, (SP, XZR)), "ldr w2, [sp, xzr]";
+        test_ldr_r64_r64_xzr, ldr(X2, (X8, XZR)), "ldr x2, [x8, xzr]";
+        test_ldr_r64_rsp_xzr, ldr(X2, (SP, XZR)), "ldr x2, [sp, xzr]";
     }
 
-    #[test]
-    fn test_ldr_r32_r64_r32_sxtw() {
-        use LdrExtendOption32::*;
-        let inst: Vec<_> = ldr(W2, (X8, extended(W3, SXTW))).represent().collect();
-        assert_eq!(
-            inst,
-            vec![db(SIMPLE_LDR_REG_EXT_DB, "ldr x2, [x8, w3, sxtw]")]
-        );
-    }
-
-    #[test]
-    fn test_ldr_r32_r64_r32_uxtw() {
-        use LdrExtendOption32::*;
-        let inst: Vec<_> = ldr(W2, (X8, extended(W3, UXTW))).represent().collect();
-        assert_eq!(
-            inst,
-            vec![db(SIMPLE_LDR_REG_EXT_DB, "ldr x2, [x8, w3, uxtw]")]
-        );
-    }
-
-    #[test]
-    fn test_ldr_r32_r64_r64() {
-        let inst: Vec<_> = ldr(W2, (X8, X3)).represent().collect();
-        assert_eq!(inst, vec![db(SIMPLE_LDR_REG_DB, "ldr w2, [x8, x3]")]);
-    }
-
-    #[test]
-    fn test_ldr_r32_rsp_r64() {
-        let inst: Vec<_> = ldr(W2, (SP, X3)).represent().collect();
-        assert_eq!(inst, vec![db(SIMPLE_LDR_REG_DB, "ldr w2, [sp, x3]")]);
-    }
-
-    #[test]
-    fn test_ldr_r64_r64_r64() {
-        let inst: Vec<_> = ldr(X2, (X8, X3)).represent().collect();
-        assert_eq!(inst, vec![db(SIMPLE_LDR_REG_DB, "ldr x2, [x8, x3]")]);
-    }
-
-    #[test]
-    fn test_ldr_r64_rsp_r64() {
-        let inst: Vec<_> = ldr(X2, (SP, X3)).represent().collect();
-        assert_eq!(inst, vec![db(SIMPLE_LDR_REG_DB, "ldr x2, [sp, x3]")]);
-    }
-
-    #[test]
-    fn test_ldr_r32_r64_xzr() {
-        let inst: Vec<_> = ldr(W2, (X8, XZR)).represent().collect();
-        assert_eq!(inst, vec![db(SIMPLE_LDR_REG_DB, "ldr w2, [x8, xzr]")]);
-    }
-
-    #[test]
-    fn test_ldr_r32_rsp_xzr() {
-        let inst: Vec<_> = ldr(W2, (SP, XZR)).represent().collect();
-        assert_eq!(inst, vec![db(SIMPLE_LDR_REG_DB, "ldr w2, [sp, xzr]")]);
-    }
-
-    #[test]
-    fn test_ldr_r64_r64_xzr() {
-        let inst: Vec<_> = ldr(X2, (X8, XZR)).represent().collect();
-        assert_eq!(inst, vec![db(SIMPLE_LDR_REG_DB, "ldr x2, [x8, xzr]")]);
-    }
-
-    #[test]
-    fn test_ldr_r64_rsp_xzr() {
-        let inst: Vec<_> = ldr(X2, (SP, XZR)).represent().collect();
-        assert_eq!(inst, vec![db(SIMPLE_LDR_REG_DB, "ldr x2, [sp, xzr]")]);
-    }
-
-    #[test]
-    fn test_ldr_r32_r64_scaled_imm() {
-        let offset = UBitValue::<12, 2>::new(0x190).unwrap();
-        let inst: Vec<_> = ldr(W2, (X8, offset)).represent().collect();
-        assert_eq!(
-            inst,
-            vec![db(SIMPLE_LDR_SCALED_IMM, "ldr w2, [x8, #0x190]")]
-        );
-    }
-
-    #[test]
-    fn test_ldr_r32_sp_scaled_imm() {
-        let offset = UBitValue::<12, 2>::new(0x190).unwrap();
-        let inst: Vec<_> = ldr(W2, (SP, offset)).represent().collect();
-        assert_eq!(
-            inst,
-            vec![db(SIMPLE_LDR_SCALED_IMM, "ldr w2, [sp, #0x190]")]
-        );
-    }
-
-    #[test]
-    fn test_ldr_r64_r64_scaled_imm() {
-        let offset = UBitValue::<12, 3>::new(0x190).unwrap();
-        let inst: Vec<_> = ldr(X2, (X8, offset)).represent().collect();
-        assert_eq!(
-            inst,
-            vec![db(SIMPLE_LDR_SCALED_IMM, "ldr x2, [x8, #0x190]")]
-        );
-    }
-
-    #[test]
-    fn test_ldr_r64_sp_scaled_imm() {
-        let offset = UBitValue::<12, 3>::new(0x190).unwrap();
-        let inst: Vec<_> = ldr(X2, (SP, offset)).represent().collect();
-        assert_eq!(
-            inst,
-            vec![db(SIMPLE_LDR_SCALED_IMM, "ldr x2, [sp, #0x190]")]
-        );
+    test_cases! {
+        SIMPLE_LDR_SCALED_IMM, untested_ldr_scaled_imm;
+        test_ldr_r32_r64_scaled_imm, ldr(W2, (X8, UBitValue::<12, 2>::new(0x190).unwrap())), "ldr w2, [x8, #0x190]";
+        test_ldr_r32_sp_scaled_imm, ldr(W2, (SP, UBitValue::<12, 2>::new(0x190).unwrap())), "ldr w2, [sp, #0x190]";
+        test_ldr_r64_r64_scaled_imm, ldr(X2, (X8, UBitValue::<12, 3>::new(0x190).unwrap())), "ldr x2, [x8, #0x190]";
+        test_ldr_r64_sp_scaled_imm, ldr(X2, (SP, UBitValue::<12, 3>::new(0x190).unwrap())), "ldr x2, [sp, #0x190]";
     }
 }

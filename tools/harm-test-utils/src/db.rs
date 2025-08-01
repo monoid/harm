@@ -35,6 +35,10 @@ impl Db {
     pub fn find(&self, key: &str) -> Option<InstructionCode> {
         self.codes.get(key).cloned()
     }
+
+    pub fn keys(&self) -> impl Iterator<Item = &'static str> {
+        self.codes.keys().copied()
+    }
 }
 
 pub fn db(db_data: &'static str, key: &str) -> InstructionCode {
