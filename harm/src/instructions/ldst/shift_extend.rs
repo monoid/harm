@@ -7,6 +7,7 @@ use aarchmrs_types::BitValue;
 
 use crate::register::{Reg32, Reg64, RegOrZero32, RegOrZero64};
 
+/// `LDR` extend options for 64-bit registers.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[repr(u8)]
 // It seems that these variants are actually noop: you cannot actually extend r64 to r64.
@@ -17,6 +18,7 @@ pub enum LdrExtendOption64 {
     SXTX = 0b111,
 }
 
+/// `LDR` extend options for 32-bit registers.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[repr(u8)]
 pub enum LdrExtendOption32 {
@@ -25,6 +27,7 @@ pub enum LdrExtendOption32 {
     SXTW = 0b110,
 }
 
+// TODO sealed traits
 pub trait LdrDestShiftOption {
     const SHIFT_SIZE: u32;
 }
@@ -108,6 +111,9 @@ where
     }
 }
 
+/// Creates a shifted register with a specific shift size. Please note that allowed the shift size depeds on the
+/// destination register size. For 64-bit registers, the shift is either 0 or 3, and for 32-bit registers, the shift is
+/// either 0 or 2.
 pub fn shifted_by<Dest: LdrDestShiftOption, Offset: LdrOffsetExtendOption>(
     reg: Offset,
     shift: u32,
@@ -146,6 +152,7 @@ impl fmt::Display for ShiftedError {
     }
 }
 
+/// Represents whether the register is shifted by the destination register size or not.
 #[repr(u8)]
 pub enum LdrShift {
     Unshifted = 0,
@@ -158,6 +165,7 @@ impl From<LdrShift> for BitValue<1> {
     }
 }
 
+/// Represents a register with possible shift applied to it.
 pub struct Shifted<Dest, Reg> {
     pub offset: Reg,
     pub shifted: LdrShift,
