@@ -5,85 +5,41 @@
 
 use crate::{
     bits::{BitError, SBitValue},
-    register::{RegOrSp64, RegOrZero64},
+    register::RegOrZero64,
 };
 
 pub type LdStIncOffset = SBitValue<9>;
 
-pub struct PreIncrement<Offset> {
-    pub base: RegOrSp64,
+pub struct Inc<Offset> {
     pub offset: Offset,
 }
 
-pub trait MakePreIncrement<Base, Offset> {
+pub trait MakeInc<Offset> {
     type Output;
-    fn new(base: Base, offset: Offset) -> Self::Output;
+    fn new(offset: Offset) -> Self::Output;
 }
 
-impl<const WIDTH: u32, Base: Into<RegOrSp64>>
-    MakePreIncrement<Base, SBitValue<WIDTH>> for PreIncrement<SBitValue<WIDTH>>
-{
+impl<const WIDTH: u32> MakeInc<SBitValue<WIDTH>> for Inc<SBitValue<WIDTH>> {
     type Output = Self;
 
-    fn new(base: Base, offset: SBitValue<WIDTH>) -> Self::Output {
-        PreIncrement {
-            base: base.into(),
-            offset,
-        }
+    fn new(offset: SBitValue<WIDTH>) -> Self::Output {
+        Inc { offset }
     }
 }
 
-impl<const WIDTH: u32, Base: Into<RegOrSp64>> MakePreIncrement<Base, i32>
-    for PreIncrement<SBitValue<WIDTH>>
-{
+impl<const WIDTH: u32> MakeInc<i32> for Inc<SBitValue<WIDTH>> {
     type Output = Result<Self, BitError>;
 
-    fn new(base: Base, offset: i32) -> Self::Output {
-        SBitValue::new(offset).map(|offset| Self::new(base, offset))
+    fn new(offset: i32) -> Self::Output {
+        SBitValue::new(offset).map(Self::new)
     }
 }
 
-pub struct PostIncrement<Offset> {
-    pub base: RegOrSp64,
-    pub offset: Offset,
-}
-
-pub trait MakePostIncrement<Base, Offset> {
-    type Output;
-    fn new(base: Base, offset: Offset) -> Self::Output;
-}
-
-impl<const WIDTH: u32, Base: Into<RegOrSp64>>
-    MakePostIncrement<Base, SBitValue<WIDTH>> for PostIncrement<SBitValue<WIDTH>>
-{
+impl<Offset: Into<RegOrZero64>> MakeInc<Offset> for Inc<RegOrZero64> {
     type Output = Self;
 
-    fn new(base: Base, offset: SBitValue<WIDTH>) -> Self::Output {
-        PostIncrement {
-            base: base.into(),
-            offset,
-        }
-    }
-}
-
-impl<const WIDTH: u32, Base: Into<RegOrSp64>> MakePostIncrement<Base, i32>
-    for PostIncrement<SBitValue<WIDTH>>
-{
-    type Output = Result<Self, BitError>;
-
-    fn new(base: Base, offset: i32) -> Self::Output {
-        SBitValue::new(offset).map(|offset| Self::new(base, offset))
-    }
-}
-
-impl<Base: Into<RegOrSp64>, Offset: Into<RegOrZero64>> MakePostIncrement<Base, Offset>
-    for PostIncrement<RegOrZero64>
-{
-    type Output = Self;
-
-    fn new(base: Base, offset: Offset) -> Self::Output {
-        PostIncrement {
-            base: base.into(),
+    fn new(offset: Offset) -> Self::Output {
+        Inc {
             offset: offset.into(),
         }
     }
@@ -92,19 +48,28 @@ impl<Base: Into<RegOrSp64>, Offset: Into<RegOrZero64>> MakePostIncrement<Base, O
 pub fn preinc<Base, OffsetInp, OffsetOut>(
     base: Base,
     offset: OffsetInp,
-) -> <PreIncrement<OffsetOut> as MakePreIncrement<Base, OffsetInp>>::Output
+) -> (<Inc<OffsetOut> as MakeInc<OffsetInp>>::Output, Base)
 where
-    PreIncrement<OffsetOut>: MakePreIncrement<Base, OffsetInp>,
+    Inc<OffsetOut>: MakeInc<OffsetInp>,
 {
-    PreIncrement::new(base, offset)
+    (Inc::new(offset), base)
 }
 
 pub fn postinc<Base, OffsetInp, OffsetOut>(
     base: Base,
     offset: OffsetInp,
-) -> <PostIncrement<OffsetOut> as MakePostIncrement<Base, OffsetInp>>::Output
+) -> (Base, <Inc<OffsetOut> as MakeInc<OffsetInp>>::Output)
 where
-    PostIncrement<OffsetOut>: MakePostIncrement<Base, OffsetInp>,
+    Inc<OffsetOut>: MakeInc<OffsetInp>,
 {
-    PostIncrement::new(base, offset)
+    (base, Inc::new(offset))
+}
+
+pub fn inc<OffsetInp, OffsetOut>(
+    offset: OffsetInp,
+) -> <Inc<OffsetOut> as MakeInc<OffsetInp>>::Output
+where
+    Inc<OffsetOut>: MakeInc<OffsetInp>,
+{
+    Inc::new(offset)
 }
