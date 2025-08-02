@@ -4,9 +4,9 @@ use std::collections::HashMap;
 
 #[derive(Debug, thiserror::Error)]
 pub enum DbError {
-    #[error("Malformed db line: {0}")]
+    #[error("Malformed db line: {0:?}")]
     MalformedDbLine(&'static str),
-    #[error("Malformed hex opcode: {0}")]
+    #[error("Malformed hex opcode: {0:?}")]
     MalformedHexOpcode(&'static str),
 }
 

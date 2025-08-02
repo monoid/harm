@@ -98,13 +98,13 @@
 //! ldr(X1, (X2, raw_offset)).unwap(),
 //! ldur(X1, (X2, raw_offset)).unwap(),
 //! ```
+//!
+//! TODO pre- and post-increment variants.
 use aarchmrs_instructions::A64::ldst::{
-    ldst_pos::{LDR_32_ldst_pos::LDR_32_ldst_pos, LDR_64_ldst_pos::LDR_64_ldst_pos},
-    ldst_regoff::{LDR_32_ldst_regoff::LDR_32_ldst_regoff, LDR_64_ldst_regoff::LDR_64_ldst_regoff},
-    loadlit::{LDR_32_loadlit::LDR_32_loadlit, LDR_64_loadlit::LDR_64_loadlit},
+    ldst_immpost::{LDR_32_ldst_immpost::LDR_32_ldst_immpost, LDR_64_ldst_immpost::LDR_64_ldst_immpost}, ldst_immpre::{LDR_32_ldst_immpre::LDR_32_ldst_immpre, LDR_64_ldst_immpre::LDR_64_ldst_immpre}, ldst_pos::{LDR_32_ldst_pos::LDR_32_ldst_pos, LDR_64_ldst_pos::LDR_64_ldst_pos}, ldst_regoff::{LDR_32_ldst_regoff::LDR_32_ldst_regoff, LDR_64_ldst_regoff::LDR_64_ldst_regoff}, loadlit::{LDR_32_loadlit::LDR_32_loadlit, LDR_64_loadlit::LDR_64_loadlit}
 };
 
-use super::{LdStPcOffset, Pc, shift_extend::*};
+use super::{shift_extend::*, LdStIncOffset, LdStPcOffset, Pc, PostIncrement, PreIncrement};
 use super::{Load, MakeLoad, ScaledOffset32, ScaledOffset64};
 use crate::{
     bits::BitError,
@@ -226,18 +226,30 @@ where
 }
 
 /// `LDR` with fallible offset that delegates to non-faillible variants.
-impl<Dest, Base, Ext, Err> MakeLoad<Dest, (Base, Result<Ext, Err>)> for Load<Dest, (Base, Ext)>
+impl<DestInp, DestOut, Base, Ext, Err> MakeLoad<DestInp, (Base, Result<Ext, Err>)> for Load<DestOut, (Base, Ext)>
 where
-    Load<Dest, (Base, Ext)>: MakeLoad<Dest, (Base, Ext)>,
+    Load<DestOut, (Base, Ext)>: MakeLoad<DestInp, (Base, Ext)>,
 {
-    type Output = Result<<Self as MakeLoad<Dest, (Base, Ext)>>::Output, Err>;
+    type Output = Result<<Self as MakeLoad<DestInp, (Base, Ext)>>::Output, Err>;
 
     #[inline]
-    fn new(dst: Dest, (base, offset): (Base, Result<Ext, Err>)) -> Self::Output {
+    fn new(dst: DestInp, (base, offset): (Base, Result<Ext, Err>)) -> Self::Output {
         offset.map(|offset| Load::new(dst, (base, offset)))
     }
 }
 
+/// `LDR` with fallible address that delegates to non-faillible variants.
+impl<DestInp, DestOut, Addr, Err> MakeLoad<DestInp, Result<Addr, Err>> for Load<DestOut, Addr>
+where
+    Load<DestOut, Addr>: MakeLoad<DestInp, Addr>,
+{
+    type Output = Result<<Self as MakeLoad<DestInp, Addr>>::Output, Err>;
+
+    #[inline]
+    fn new(dst: DestInp, addr: Result<Addr, Err>) -> Self::Output {
+        addr.map(|addr| Load::new(dst, addr))
+    }
+}
 impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg32>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
@@ -516,13 +528,117 @@ impl Instruction for Load<RegOrZero32, (Pc, LdStPcOffset)> {
     }
 }
 
+impl<Dest: Into<RegOrZero64>> MakeLoad<Dest, PreIncrement<LdStIncOffset>>
+    for Load<RegOrZero64, PreIncrement<LdStIncOffset>>
+{
+    type Output = Self;
+
+    fn new(dst: Dest, addr: PreIncrement<LdStIncOffset>) -> Self {
+        Self {
+            dst: dst.into(),
+            addr,
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero64, PreIncrement<LdStIncOffset>> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let addr = self.addr;
+        let code = LDR_64_ldst_immpre(
+            addr.offset.into(),
+            addr.base.code(),
+            self.dst.code(),
+        );
+        std::iter::once(code)
+    }
+}
+
+impl<Dest: Into<RegOrZero32>> MakeLoad<Dest, PreIncrement<LdStIncOffset>>
+    for Load<RegOrZero32, PreIncrement<LdStIncOffset>>
+{
+    type Output = Self;
+
+    fn new(dst: Dest, addr: PreIncrement<LdStIncOffset>) -> Self {
+        Self {
+            dst: dst.into(),
+            addr,
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero32, PreIncrement<LdStIncOffset>> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let addr = self.addr;
+        let code = LDR_32_ldst_immpre(
+            addr.offset.into(),
+            addr.base.code(),
+            self.dst.code(),
+        );
+        std::iter::once(code)
+    }
+}
+
+impl<Dest: Into<RegOrZero64>> MakeLoad<Dest, PostIncrement<LdStIncOffset>>
+    for Load<RegOrZero64, PostIncrement<LdStIncOffset>>
+{
+    type Output = Self;
+
+    fn new(dst: Dest, addr: PostIncrement<LdStIncOffset>) -> Self {
+        Self {
+            dst: dst.into(),
+            addr,
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero64, PostIncrement<LdStIncOffset>> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let addr = self.addr;
+        let code = LDR_64_ldst_immpost(
+            addr.offset.into(),
+            addr.base.code(),
+            self.dst.code(),
+        );
+        std::iter::once(code)
+    }
+}
+
+impl<Dest: Into<RegOrZero32>> MakeLoad<Dest, PostIncrement<LdStIncOffset>>
+    for Load<RegOrZero32, PostIncrement<LdStIncOffset>>
+{
+    type Output = Self;
+
+    fn new(dst: Dest, addr: PostIncrement<LdStIncOffset>) -> Self {
+        Self {
+            dst: dst.into(),
+            addr,
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero32, PostIncrement<LdStIncOffset>> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let addr = self.addr;
+        let code = LDR_32_ldst_immpost(
+            addr.offset.into(),
+            addr.base.code(),
+            self.dst.code(),
+        );
+        std::iter::once(code)
+    }
+}
+
 /// ldr construction function.  See examples in the module documentation.
-pub fn ldr<Target, TargetReal, Addr, AddrReal>(
-    dst: Target,
-    addr: Addr,
-) -> <Load<TargetReal, AddrReal> as MakeLoad<Target, Addr>>::Output
+pub fn ldr<TargetInp, TargetOut, AddrInp, AddrOut>(
+    dst: TargetInp,
+    addr: AddrInp,
+) -> <Load<TargetOut, AddrOut> as MakeLoad<TargetInp, AddrInp>>::Output
 where
-    Load<TargetReal, AddrReal>: MakeLoad<Target, Addr>,
+    Load<TargetOut, AddrOut>: MakeLoad<TargetInp, AddrInp>,
 {
     Load::new(dst, addr)
 }
@@ -534,7 +650,7 @@ mod tests {
     use super::*;
     use crate::{
         bits::UBitValue,
-        instructions::ldst::{LdStPcOffset, Pc},
+        instructions::ldst::{LdStPcOffset, Pc, postinc, preinc},
     };
     use Reg32::*;
     use Reg64::*;
@@ -595,6 +711,24 @@ f940cbe2	ldr x2, [sp, #0x190]
 58fffea2	ldr x2, [pc, #-44]
 ";
 
+    const LDR_PRE_POST_INC_DB: &str = "
+b842a441	ldr w1, [x2], #0x2a
+b842a7e1	ldr w1, [sp], #0x2a
+b842ac41	ldr w1, [x2, #0x2a]!
+b842afe1	ldr w1, [sp, #0x2a]!
+b85d6441	ldr w1, [x2], #-0x2a
+b85d67e1	ldr w1, [sp], #-0x2a
+b85d6c41	ldr w1, [x2, #-0x2a]!
+b85d6fe1	ldr w1, [sp, #-0x2a]!
+f842a441	ldr x1, [x2], #0x2a
+f842a7e1	ldr x1, [sp], #0x2a
+f842ac41	ldr x1, [x2, #0x2a]!
+f842afe1	ldr x1, [sp, #0x2a]!
+f85d6441	ldr x1, [x2], #-0x2a
+f85d67e1	ldr x1, [sp], #-0x2a
+f85d6c41	ldr x1, [x2, #-0x2a]!
+f85d6fe1	ldr x1, [sp, #-0x2a]!
+";
     use LdrExtendOption32::*;
 
     test_cases! {
@@ -627,5 +761,25 @@ f940cbe2	ldr x2, [sp, #0x190]
             test_ldr_r64_pc_relative, ldr(X2, (Pc, LdStPcOffset::new(44).unwrap())), "ldr x2, [pc, #44]";
             test_ldr_r32_pc_relative_neg, ldr(W2, (Pc, LdStPcOffset::new(-44).unwrap())), "ldr w2, [pc, #-44]";
             test_ldr_r64_pc_relative_neg, ldr(X2, (Pc, LdStPcOffset::new(-44).unwrap())), "ldr x2, [pc, #-44]";
+    }
+
+    test_cases! {
+        LDR_PRE_POST_INC_DB, untested_ldr_pre_post_inc;
+        test_ldr_r32_r64_pre_inc, ldr(W1, preinc(X2, 0x2a)).unwrap(), "ldr w1, [x2, #0x2a]!";
+        test_ldr_r32_r64_post_inc, ldr(W1, postinc(X2, 0x2a)).unwrap(), "ldr w1, [x2], #0x2a";
+        test_ldr_r64_r64_pre_inc, ldr(X1, preinc(X2, 0x2a)).unwrap(), "ldr x1, [x2, #0x2a]!";
+        test_ldr_r64_r64_post_inc, ldr(X1, postinc(X2, 0x2a)).unwrap(), "ldr x1, [x2], #0x2a";
+        test_ldr_r32_sp_pre_inc, ldr(W1, preinc(SP, 0x2a)).unwrap(), "ldr w1, [sp, #0x2a]!";
+        test_ldr_r32_sp_post_inc, ldr(W1, postinc(SP, 0x2a)).unwrap(), "ldr w1, [sp], #0x2a";
+        test_ldr_r64_sp_pre_inc, ldr(X1, preinc(SP, 0x2a)).unwrap(), "ldr x1, [sp, #0x2a]!";
+        test_ldr_r64_sp_post_inc, ldr(X1, postinc(SP, 0x2a)).unwrap(), "ldr x1, [sp], #0x2a";
+        test_ldr_r32_r64_pre_inc_neg, ldr(W1, preinc(X2, -0x2a)).unwrap(), "ldr w1, [x2, #-0x2a]!";
+        test_ldr_r32_r64_post_inc_neg, ldr(W1, postinc(X2, -0x2a)).unwrap(), "ldr w1, [x2], #-0x2a";
+        test_ldr_r64_r64_pre_inc_neg, ldr(X1, preinc(X2, -0x2a)).unwrap(), "ldr x1, [x2, #-0x2a]!";
+        test_ldr_r64_r64_post_inc_neg, ldr(X1, postinc(X2, -0x2a)).unwrap(), "ldr x1, [x2], #-0x2a";
+        test_ldr_r32_sp_pre_inc_neg, ldr(W1, preinc(SP, -0x2a)).unwrap(), "ldr w1, [sp, #-0x2a]!";
+        test_ldr_r32_sp_post_inc_neg, ldr(W1, postinc(SP, -0x2a)).unwrap(), "ldr w1, [sp], #-0x2a";
+        test_ldr_r64_sp_pre_inc_neg, ldr(X1, preinc(SP, -0x2a)).unwrap(), "ldr x1, [sp, #-0x2a]!";
+        test_ldr_r64_sp_post_inc_neg, ldr(X1, postinc(SP, -0x2a)).unwrap(), "ldr x1, [sp], #-0x2a";
     }
 }

@@ -3,9 +3,11 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+mod increment;
 pub mod ldr;
 mod shift_extend;
 
+pub use self::increment::*;
 pub use self::ldr::*;
 pub use self::shift_extend::*;
 use crate::{
