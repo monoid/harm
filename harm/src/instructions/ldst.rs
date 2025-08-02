@@ -13,11 +13,11 @@ use crate::{
     register::RegOrSp64,
 };
 
-pub type PcOffset = SBitValue<19>;
+pub type LdStPcOffset = SBitValue<19, 2>;
 
 /// PC register as a base register with an immediate offset.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub struct Pc(PcOffset);
+pub struct Pc;
 
 pub type ScaledOffset32 = UBitValue<12, 2>;
 pub type ScaledOffset64 = UBitValue<12, 3>;

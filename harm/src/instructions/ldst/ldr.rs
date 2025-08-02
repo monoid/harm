@@ -101,9 +101,10 @@
 use aarchmrs_instructions::A64::ldst::{
     ldst_pos::{LDR_32_ldst_pos::LDR_32_ldst_pos, LDR_64_ldst_pos::LDR_64_ldst_pos},
     ldst_regoff::{LDR_32_ldst_regoff::LDR_32_ldst_regoff, LDR_64_ldst_regoff::LDR_64_ldst_regoff},
+    loadlit::{LDR_32_loadlit::LDR_32_loadlit, LDR_64_loadlit::LDR_64_loadlit},
 };
 
-use super::shift_extend::*;
+use super::{LdStPcOffset, Pc, shift_extend::*};
 use super::{Load, MakeLoad, ScaledOffset32, ScaledOffset64};
 use crate::{
     bits::BitError,
@@ -467,13 +468,61 @@ where
     }
 }
 
-/// ldr construction function.  See examples in the module documentation.
-pub fn ldr<Dst, Addr, AddrReal>(
-    dst: Dst,
-    addr: Addr,
-) -> <Load<Dst, AddrReal> as MakeLoad<Dst, Addr>>::Output
+impl<Dest> MakeLoad<Dest, (Pc, LdStPcOffset)> for Load<RegOrZero64, (Pc, LdStPcOffset)>
 where
-    Load<Dst, AddrReal>: MakeLoad<Dst, Addr>,
+    Dest: Into<RegOrZero64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Dest, addr: (Pc, LdStPcOffset)) -> Self {
+        Self {
+            dst: dst.into(),
+            addr,
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero64, (Pc, LdStPcOffset)> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (_pc, offset) = self.addr;
+        let code = LDR_64_loadlit(offset.into(), self.dst.code());
+        std::iter::once(code)
+    }
+}
+
+impl<Dest> MakeLoad<Dest, (Pc, LdStPcOffset)> for Load<RegOrZero32, (Pc, LdStPcOffset)>
+where
+    Dest: Into<RegOrZero32>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Dest, addr: (Pc, LdStPcOffset)) -> Self {
+        Self {
+            dst: dst.into(),
+            addr,
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero32, (Pc, LdStPcOffset)> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (_pc, offset) = self.addr;
+        let code = LDR_32_loadlit(offset.into(), self.dst.code());
+        std::iter::once(code)
+    }
+}
+
+/// ldr construction function.  See examples in the module documentation.
+pub fn ldr<Target, TargetReal, Addr, AddrReal>(
+    dst: Target,
+    addr: Addr,
+) -> <Load<TargetReal, AddrReal> as MakeLoad<Target, Addr>>::Output
+where
+    Load<TargetReal, AddrReal>: MakeLoad<Target, Addr>,
 {
     Load::new(dst, addr)
 }
@@ -482,69 +531,78 @@ where
 mod tests {
     use harm_test_utils::test_cases;
 
-    use crate::bits::UBitValue;
     use super::*;
+    use crate::{
+        bits::UBitValue,
+        instructions::ldst::{LdStPcOffset, Pc},
+    };
     use Reg32::*;
     use Reg64::*;
     use RegOrSp64::SP;
     use RegOrZero64::XZR;
 
-    // 'ldr (w2|x2), [(x8|sp), (x3|xzr)]'
-    const SIMPLE_LDR_REG_DB: &str = "
+    const LDR_REG_EXT_DB: &str = "
+b8634902	ldr w2, [x8, w3, uxtw #0]
+b8634902	ldr w2, [x8, w3, uxtw]
+b8635902	ldr w2, [x8, w3, uxtw #2]
+b8636902	ldr w2, [x8, x3, lsl #0]
 b8636902	ldr w2, [x8, x3]
-b87f6902	ldr w2, [x8, xzr]
 b8636be2	ldr w2, [sp, x3]
+b8637902	ldr w2, [x8, x3, lsl #2]
+b8637902	ldr w2, [x8, x3, lsl #2]
+b863c902	ldr w2, [x8, w3, sxtw #0]
+b863c902	ldr w2, [x8, w3, sxtw]
+b863d902	ldr w2, [x8, w3, sxtw #2]
+b863e902	ldr w2, [x8, x3, sxtx #0]
+b863e902	ldr w2, [x8, x3, sxtx]
+b863f902	ldr w2, [x8, x3, sxtx #2]
+b87f6902	ldr w2, [x8, xzr]
 b87f6be2	ldr w2, [sp, xzr]
+f8634902	ldr x2, [x8, w3, uxtw #0]
+f8634902	ldr x2, [x8, w3, uxtw]
+f8635902	ldr x2, [x8, w3, uxtw #3]
+f8636902	ldr x2, [x8, x3, lsl #0]
 f8636902	ldr x2, [x8, x3]
-f87f6902	ldr x2, [x8, xzr]
 f8636be2	ldr x2, [sp, x3]
+f8637902	ldr x2, [x8, x3, lsl #3]
+f863c902	ldr x2, [x8, w3, sxtw #0]
+f863c902	ldr x2, [x8, w3, sxtw]
+f863d902	ldr x2, [x8, w3, sxtw #3]
+f863e902	ldr x2, [x8, x3, sxtx #0]
+f863e902	ldr x2, [x8, x3, sxtx]
+f863f902	ldr x2, [x8, x3, sxtx #3]
+f87f4902	ldr x2, [x8, wzr, uxtw]
+f87f6902	ldr x2, [x8, xzr]
 f87f6be2	ldr x2, [sp, xzr]
+f87f7902	ldr x2, [x8, xzr, lsl #3]
+f87fc902	ldr x2, [x8, wzr, sxtw]
+f87fe902	ldr x2, [x8, xzr, sxtx]
 ";
 
-    const SIMPLE_LDR_REG_EXT_DB: &str = "
-f8634902	ldr x2, [x8, w3, uxtw]
-f8634902	ldr x2, [x8, w3, uxtw #0]
-f8635902	ldr x2, [x8, w3, uxtw #3]
-f863c902	ldr x2, [x8, w3, sxtw]
-f863c902	ldr x2, [x8, w3, sxtw #0]
-f863d902	ldr x2, [x8, w3, sxtw #3]
-f863e902	ldr x2, [x8, x3, sxtx]
-f863e902	ldr x2, [x8, x3, sxtx #0]
-f863f902	ldr x2, [x8, x3, sxtx #3]
-f8636902	ldr x2, [x8, x3, lsl #0]
-f8637902	ldr x2, [x8, x3, lsl #3]
-b8634902	ldr w2, [x8, w3, uxtw]
-b8634902	ldr w2, [x8, w3, uxtw #0]
-b8635902	ldr w2, [x8, w3, uxtw #2]
-b863c902	ldr w2, [x8, w3, sxtw]
-b863c902	ldr w2, [x8, w3, sxtw #0]
-b863d902	ldr w2, [x8, w3, sxtw #2]
-b863e902	ldr w2, [x8, x3, sxtx]
-b863e902	ldr w2, [x8, x3, sxtx #0]
-b863f902	ldr w2, [x8, x3, sxtx #2]
-b8636902	ldr w2, [x8, x3, lsl #0]
-b8637902	ldr w2, [x8, x3, lsl #2]";
-
     // 'ldr (w2|x2), [(x8|sp), #0x190]'
-    const SIMPLE_LDR_SCALED_IMM: &str = "
+    const LDR_SCALED_IMM_DB: &str = "
 b9419102	ldr w2, [x8, #0x190]
 b94193e2	ldr w2, [sp, #0x190]
 f940c902	ldr x2, [x8, #0x190]
 f940cbe2	ldr x2, [sp, #0x190]
 ";
 
+    // NB: not a real syntax.
+    const LDR_PC_RELATIVE_DB: &str = "
+18000162	ldr w2, [pc, #44]
+58000162	ldr x2, [pc, #44]
+18fffea2	ldr w2, [pc, #-44]
+58fffea2	ldr x2, [pc, #-44]
+";
+
     use LdrExtendOption32::*;
 
     test_cases! {
-        SIMPLE_LDR_REG_EXT_DB, untested_ldr_reg_ext_db;
+        LDR_REG_EXT_DB, untested_ldr_reg_ext_db;
         test_ldr_r64_r64_r32_sxtw, ldr(X2, (X8, extended(W3, SXTW))), "ldr x2, [x8, w3, sxtw]";
         test_ldr_r64_r64_r32_uxtw, ldr(X2, (X8, extended(W3, UXTW))), "ldr x2, [x8, w3, uxtw]";
         test_ldr_r32_r64_r32_sxtw, ldr(W2, (X8, extended(W3, SXTW))), "ldr w2, [x8, w3, sxtw]";
         test_ldr_r32_r64_r32_uxtw, ldr(W2, (X8, extended(W3, UXTW))), "ldr w2, [x8, w3, uxtw]";
-    }
-
-    test_cases! {
-        SIMPLE_LDR_REG_DB, untested_ldr_reg_db;
         test_ldr_r32_r64_r64, ldr(W2, (X8, X3)), "ldr w2, [x8, x3]";
         test_ldr_r32_rsp_r64, ldr(W2, (SP, X3)), "ldr w2, [sp, x3]";
         test_ldr_r64_r64_r64, ldr(X2, (X8, X3)), "ldr x2, [x8, x3]";
@@ -567,5 +625,7 @@ f940cbe2	ldr x2, [sp, #0x190]
         LDR_PC_RELATIVE_DB, untested_ldr_pc_relative;
             test_ldr_r32_pc_relative, ldr(W2, (Pc, LdStPcOffset::new(44).unwrap())), "ldr w2, [pc, #44]";
             test_ldr_r64_pc_relative, ldr(X2, (Pc, LdStPcOffset::new(44).unwrap())), "ldr x2, [pc, #44]";
+            test_ldr_r32_pc_relative_neg, ldr(W2, (Pc, LdStPcOffset::new(-44).unwrap())), "ldr w2, [pc, #-44]";
+            test_ldr_r64_pc_relative_neg, ldr(X2, (Pc, LdStPcOffset::new(-44).unwrap())), "ldr x2, [pc, #-44]";
     }
 }
