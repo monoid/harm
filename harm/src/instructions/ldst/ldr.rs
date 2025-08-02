@@ -556,10 +556,16 @@ f940cbe2	ldr x2, [sp, #0x190]
     }
 
     test_cases! {
-        SIMPLE_LDR_SCALED_IMM, untested_ldr_scaled_imm;
+        LDR_SCALED_IMM_DB, untested_ldr_scaled_imm;
         test_ldr_r32_r64_scaled_imm, ldr(W2, (X8, UBitValue::<12, 2>::new(0x190).unwrap())), "ldr w2, [x8, #0x190]";
         test_ldr_r32_sp_scaled_imm, ldr(W2, (SP, UBitValue::<12, 2>::new(0x190).unwrap())), "ldr w2, [sp, #0x190]";
         test_ldr_r64_r64_scaled_imm, ldr(X2, (X8, UBitValue::<12, 3>::new(0x190).unwrap())), "ldr x2, [x8, #0x190]";
         test_ldr_r64_sp_scaled_imm, ldr(X2, (SP, UBitValue::<12, 3>::new(0x190).unwrap())), "ldr x2, [sp, #0x190]";
+    }
+
+    test_cases! {
+        LDR_PC_RELATIVE_DB, untested_ldr_pc_relative;
+            test_ldr_r32_pc_relative, ldr(W2, (Pc, LdStPcOffset::new(44).unwrap())), "ldr w2, [pc, #44]";
+            test_ldr_r64_pc_relative, ldr(X2, (Pc, LdStPcOffset::new(44).unwrap())), "ldr x2, [pc, #44]";
     }
 }
