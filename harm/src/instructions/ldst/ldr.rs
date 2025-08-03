@@ -218,7 +218,7 @@ impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg64>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
-        let code = LDR_64_ldst_regoff(
+        let code = LDR_32_ldst_regoff(
             offset.shifted.offset.code(),
             (offset.extend as u8).into(),
             offset.shifted.shifted.into(),
@@ -672,11 +672,14 @@ mod tests {
     use super::*;
     use crate::{
         bits::UBitValue,
-        instructions::ldst::{LdStPcOffset, Pc, postinc, preinc, inc},
+        instructions::ldst::{LdStPcOffset, Pc, inc, postinc, preinc},
     };
+    use LdrExtendOption32::*;
+    use LdrExtendOption64::*;
     use Reg32::*;
     use Reg64::*;
     use RegOrSp64::SP;
+    use RegOrZero32::WZR;
     use RegOrZero64::XZR;
 
     const LDR_REG_EXT_DB: &str = "
@@ -735,30 +738,50 @@ f940cbe2	ldr x2, [sp, #0x190]
 
     const LDR_PRE_POST_INC_DB: &str = "
 b842a441	ldr w1, [x2], #0x2a
+b842a45f	ldr wzr, [x2], #0x2a
 b842a7e1	ldr w1, [sp], #0x2a
 b842ac41	ldr w1, [x2, #0x2a]!
+b842ac5f	ldr wzr, [x2, #0x2a]!
 b842afe1	ldr w1, [sp, #0x2a]!
 b85d6441	ldr w1, [x2], #-0x2a
 b85d67e1	ldr w1, [sp], #-0x2a
 b85d6c41	ldr w1, [x2, #-0x2a]!
 b85d6fe1	ldr w1, [sp, #-0x2a]!
 f842a441	ldr x1, [x2], #0x2a
+f842a45f	ldr xzr, [x2], #0x2a
 f842a7e1	ldr x1, [sp], #0x2a
 f842ac41	ldr x1, [x2, #0x2a]!
+f842ac5f	ldr xzr, [x2, #0x2a]!
 f842afe1	ldr x1, [sp, #0x2a]!
 f85d6441	ldr x1, [x2], #-0x2a
 f85d67e1	ldr x1, [sp], #-0x2a
 f85d6c41	ldr x1, [x2, #-0x2a]!
 f85d6fe1	ldr x1, [sp, #-0x2a]!
 ";
-    use LdrExtendOption32::*;
-
     test_cases! {
         LDR_REG_EXT_DB, untested_ldr_reg_ext_db;
         test_ldr_r64_r64_r32_sxtw, ldr(X2, (X8, extended(W3, SXTW))), "ldr x2, [x8, w3, sxtw]";
         test_ldr_r64_r64_r32_uxtw, ldr(X2, (X8, extended(W3, UXTW))), "ldr x2, [x8, w3, uxtw]";
         test_ldr_r32_r64_r32_sxtw, ldr(W2, (X8, extended(W3, SXTW))), "ldr w2, [x8, w3, sxtw]";
         test_ldr_r32_r64_r32_uxtw, ldr(W2, (X8, extended(W3, UXTW))), "ldr w2, [x8, w3, uxtw]";
+        test_ldr_r32_r64_r64_sxtx, ldr(W2, (X8, extended(X3, SXTX))), "ldr w2, [x8, x3, sxtx]";
+        test_ldr_r64_r64_r64_sxtx, ldr(X2, (X8, extended(X3, SXTX))), "ldr x2, [x8, x3, sxtx]";
+        test_ldr_r32_r64_r32_sxtw_0, ldr(W2, (X8, extended(shifted_by(W3, 0).unwrap(), SXTW))), "ldr w2, [x8, w3, sxtw #0]";
+        test_ldr_r32_r64_r32_sxtw_2, ldr(W2, (X8, extended(shifted_by(W3, 2).unwrap(), SXTW))), "ldr w2, [x8, w3, sxtw #2]";
+        test_ldr_r32_r64_r32_uxtw_0, ldr(W2, (X8, extended(shifted_by(W3, 0).unwrap(), UXTW))), "ldr w2, [x8, w3, uxtw #0]";
+        test_ldr_r32_r64_r32_uxtw_2, ldr(W2, (X8, extended(shifted_by(W3, 2).unwrap(), UXTW))), "ldr w2, [x8, w3, uxtw #2]";
+        test_ldr_r64_r64_r32_sxtw_0, ldr(X2, (X8, extended(shifted_by(W3, 0).unwrap(), SXTW))), "ldr x2, [x8, w3, sxtw #0]";
+        test_ldr_r64_r64_r32_sxtw_3, ldr(X2, (X8, extended(shifted_by(W3, 3).unwrap(), SXTW))), "ldr x2, [x8, w3, sxtw #3]";
+        test_ldr_r64_r64_r32_uxtw_0, ldr(X2, (X8, extended(shifted_by(W3, 0).unwrap(), UXTW))), "ldr x2, [x8, w3, uxtw #0]";
+        test_ldr_r64_r64_r32_uxtw_3, ldr(X2, (X8, extended(shifted_by(W3, 3).unwrap(), UXTW))), "ldr x2, [x8, w3, uxtw #3]";
+        test_ldr_r32_r64_r64_lsl_0, ldr(W2, (X8, extended(shifted_by(X3, 0).unwrap(), LSL))), "ldr w2, [x8, x3, lsl #0]";
+        test_ldr_r32_r64_r64_lsl_2, ldr(W2, (X8, extended(shifted_by(X3, 2).unwrap(), LSL))), "ldr w2, [x8, x3, lsl #2]";
+        test_ldr_r32_r64_r64_sxtx_0, ldr(W2, (X8, extended(shifted_by(X3, 0).unwrap(), SXTX))), "ldr w2, [x8, x3, sxtx #0]";
+        test_ldr_r32_r64_r64_sxtx_2, ldr(W2, (X8, extended(shifted_by(X3, 2).unwrap(), SXTX))), "ldr w2, [x8, x3, sxtx #2]";
+        test_ldr_r64_r64_r64_lsl_0, ldr(X2, (X8, extended(shifted_by(X3, 0).unwrap(), LSL))), "ldr x2, [x8, x3, lsl #0]";
+        test_ldr_r64_r64_r64_lsl_3, ldr(X2, (X8, extended(shifted_by(X3, 3).unwrap(), LSL))), "ldr x2, [x8, x3, lsl #3]";
+        test_ldr_r64_r64_r32_sxtx_0, ldr(X2, (X8, extended(shifted_by(X3, 0).unwrap(), SXTX))), "ldr x2, [x8, x3, sxtx #0]";
+        test_ldr_r64_r64_r32_sxtx_3, ldr(X2, (X8, extended(shifted_by(X3, 3).unwrap(), SXTX))), "ldr x2, [x8, x3, sxtx #3]";
         test_ldr_r32_r64_r64, ldr(W2, (X8, X3)), "ldr w2, [x8, x3]";
         test_ldr_r32_rsp_r64, ldr(W2, (SP, X3)), "ldr w2, [sp, x3]";
         test_ldr_r64_r64_r64, ldr(X2, (X8, X3)), "ldr x2, [x8, x3]";
@@ -789,8 +812,6 @@ f85d6fe1	ldr x1, [sp, #-0x2a]!
 
     test_cases! {
         LDR_PRE_POST_INC_DB, untested_ldr_pre_post_inc;
-        // ldr(W1, (X2, inc(0x2a)))
-        // ldr(W1, (inc(0x2a), X2))
         test_ldr_r32_r64_preinc, ldr(W1, preinc(X2, 0x2a)).unwrap(), "ldr w1, [x2, #0x2a]!";
         test_ldr_r32_r64_postinc, ldr(W1, postinc(X2, 0x2a)).unwrap(), "ldr w1, [x2], #0x2a";
         test_ldr_r64_r64_preinc, ldr(X1, preinc(X2, 0x2a)).unwrap(), "ldr x1, [x2, #0x2a]!";
@@ -809,7 +830,6 @@ f85d6fe1	ldr x1, [sp, #-0x2a]!
         test_ldr_r64_sp_postinc_neg, ldr(X1, postinc(SP, -0x2a)).unwrap(), "ldr x1, [sp], #-0x2a";
         test_ldr_r32_sp_preinc2, ldr(W1, preinc(SP, LdStIncOffset::new(0x2a).unwrap())), "ldr w1, [sp, #0x2a]!";
         test_ldr_r64_r64_preinc_neg2, ldr(X1, preinc(X2, LdStIncOffset::new(-0x2a).unwrap())), "ldr x1, [x2, #-0x2a]!";
-
         test_ldr_r32_r64_pre_inc, ldr(W1, (inc(0x2a), X2)).unwrap(), "ldr w1, [x2, #0x2a]!";
         test_ldr_r32_r64_post_inc, ldr(W1, (X2, inc(0x2a))).unwrap(), "ldr w1, [x2], #0x2a";
         test_ldr_r64_r64_pre_inc, ldr(X1, (inc(0x2a), X2)).unwrap(), "ldr x1, [x2, #0x2a]!";
@@ -828,5 +848,9 @@ f85d6fe1	ldr x1, [sp, #-0x2a]!
         test_ldr_r64_sp_post_inc_neg, ldr(X1, (SP, inc(-0x2a))).unwrap(), "ldr x1, [sp], #-0x2a";
         test_ldr_r32_sp_pre_inc2, ldr(W1, (inc(LdStIncOffset::new(0x2a).unwrap()), SP)), "ldr w1, [sp, #0x2a]!";
         test_ldr_r64_r64_pre_inc_neg2, ldr(X1, (inc(LdStIncOffset::new(-0x2a).unwrap()), X2)), "ldr x1, [x2, #-0x2a]!";
+        test_ldr_xzr_r64_pre_inc, ldr(XZR, (inc(0x2a), X2)).unwrap(), "ldr xzr, [x2, #0x2a]!";
+        test_ldr_xzr_r64_post_inc, ldr(XZR, (X2, inc(0x2a))).unwrap(), "ldr xzr, [x2], #0x2a";
+        test_ldr_wzr_r64_pre_inc, ldr(WZR, (inc(0x2a), X2)).unwrap(), "ldr wzr, [x2, #0x2a]!";
+        test_ldr_wzr_r64_post_inc, ldr(WZR, (X2, inc(0x2a))).unwrap(), "ldr wzr, [x2], #0x2a";
     }
 }
