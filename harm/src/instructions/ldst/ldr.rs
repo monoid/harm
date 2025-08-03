@@ -124,28 +124,29 @@ use super::{Inc, LdStIncOffset, LdStPcOffset, Load, MakeLoad, Pc, ScaledOffset32
 use crate::{
     bits::BitError,
     instructions::Instruction,
-    register::{IntoCode, Reg32, Reg64, RegOrSp64, RegOrZero32, RegOrZero64},
+    register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
 };
 
 /// `LDR` with 64-bit destination, base register with extended 64-bit register offset with scale.
-impl<Base, Ext> MakeLoad<Reg64, (Base, Ext)>
-    for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero64>)>
+impl<Tgt64, Base, Ext> MakeLoad<Tgt64, (Base, Ext)>
+    for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero64>)>
 where
+    Tgt64: Into<RegOrZero64>,
     Base: Into<RegOrSp64>,
-    Ext: Into<Extended<Reg64, RegOrZero64>>,
+    Ext: Into<Extended<RegOrZero64, RegOrZero64>>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, (base, offset): (Base, Ext)) -> Self {
+    fn new(dst: Tgt64, (base, offset): (Base, Ext)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero64>)> {
+impl Instruction for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero64>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
@@ -161,24 +162,25 @@ impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero64>)> {
 }
 
 /// `LDR` with 64-bit destination, base register with extended 32-bit register offset with scale.
-impl<Base, Ext> MakeLoad<Reg64, (Base, Ext)>
-    for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero32>)>
+impl<Tgt64, Base, Ext> MakeLoad<Tgt64, (Base, Ext)>
+    for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero32>)>
 where
+    Tgt64: Into<RegOrZero64>,
     Base: Into<RegOrSp64>,
-    Ext: Into<Extended<Reg64, RegOrZero32>>,
+    Ext: Into<Extended<RegOrZero64, RegOrZero32>>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, (base, offset): (Base, Ext)) -> Self {
+    fn new(dst: Tgt64, (base, offset): (Base, Ext)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero32>)> {
+impl Instruction for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero32>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
@@ -194,24 +196,25 @@ impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero32>)> {
 }
 
 /// `LDR` with 32-bit destination, base register with extended 64-bit register offset with scale.
-impl<Base, Ext> MakeLoad<Reg32, (Base, Ext)>
-    for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero64>)>
+impl<Tgt32, Base, Ext> MakeLoad<Tgt32, (Base, Ext)>
+    for Load<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)>
 where
+    Tgt32: Into<RegOrZero32>,
     Base: Into<RegOrSp64>,
-    Ext: Into<Extended<Reg32, RegOrZero64>>,
+    Ext: Into<Extended<RegOrZero32, RegOrZero64>>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, (base, offset): (Base, Ext)) -> Self {
+    fn new(dst: Tgt32, (base, offset): (Base, Ext)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero64>)> {
+impl Instruction for Load<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
@@ -227,20 +230,36 @@ impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero64>)> {
 }
 
 /// `LDR` with 32-bit destination, base register with extended 32-bit register offset with scale.
-impl<Base, Ext> MakeLoad<Reg32, (Base, Ext)>
-    for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero32>)>
+impl<Tgt32, Base, Ext> MakeLoad<Tgt32, (Base, Ext)>
+    for Load<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero32>)>
 where
+    Tgt32: Into<RegOrZero32>,
     Base: Into<RegOrSp64>,
-    Ext: Into<Extended<Reg32, RegOrZero32>>,
+    Ext: Into<Extended<RegOrZero32, RegOrZero32>>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, (base, offset): (Base, Ext)) -> Self {
+    fn new(dst: Tgt32, (base, offset): (Base, Ext)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset.into()),
         }
+    }
+}
+
+impl Instruction for Load<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero32>)> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
+        let code = LDR_32_ldst_regoff(
+            offset.offset.code(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.code(),
+            self.dst.code(),
+        );
+        std::iter::once(code)
     }
 }
 
@@ -286,32 +305,19 @@ where
         addr.map(|addr| Load::new(dst, addr))
     }
 }
-impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero32>)> {
-    #[inline]
-    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let (base, offset) = self.addr;
-        let code = LDR_32_ldst_regoff(
-            offset.offset.code(),
-            (offset.extend as u8).into(),
-            offset.shifted.into(),
-            base.code(),
-            self.dst.code(),
-        );
-        std::iter::once(code)
-    }
-}
 
 /// `LDR` with 64-bit destination, bare base register.
-impl<Base> MakeLoad<Reg64, Base> for Load<Reg64, (RegOrSp64, RegOrZero64)>
+impl<Tgt64, Base> MakeLoad<Tgt64, Base> for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
 where
+    Tgt64: Into<RegOrZero64>,
     Base: Into<RegOrSp64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, base: Base) -> Self {
+    fn new(dst: Tgt64, base: Base) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             // TODO does the spec says something specific?
             addr: (base.into(), RegOrZero64::XZR),
         }
@@ -319,71 +325,76 @@ where
 }
 
 /// `LDR` with 64-bit destination, bare base register as a tuple.
-impl<Base> MakeLoad<Reg64, (Base,)> for Load<Reg64, (RegOrSp64, RegOrZero64)>
+impl<Tgt64, Base> MakeLoad<Tgt64, (Base,)> for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
 where
+    Tgt64: Into<RegOrZero64>,
     Base: Into<RegOrSp64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, (base,): (Base,)) -> Self {
+    fn new(dst: Tgt64, (base,): (Base,)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), RegOrZero64::XZR),
         }
     }
 }
 
 /// `LDR` with 64-bit destination, base register with 64-bit offset without scaling.
-impl<Base, OffsetReg> MakeLoad<Reg64, (Base, OffsetReg)> for Load<Reg64, (RegOrSp64, RegOrZero64)>
+impl<Tgt64, Base, OffsetReg> MakeLoad<Tgt64, (Base, OffsetReg)>
+    for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
 where
+    Tgt64: Into<RegOrZero64>,
     Base: Into<RegOrSp64>,
     OffsetReg: Into<RegOrZero64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, (base, offset): (Base, OffsetReg)) -> Self {
+    fn new(dst: Tgt64, (base, offset): (Base, OffsetReg)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset.into()),
         }
     }
 }
 
 /// `LDR` with 32-bit destination, bare base register.
-impl<Base> MakeLoad<Reg32, Base> for Load<Reg32, (RegOrSp64, RegOrZero64)>
+impl<Tgt32, Base> MakeLoad<Tgt32, Base> for Load<RegOrZero32, (RegOrSp64, RegOrZero64)>
 where
+    Tgt32: Into<RegOrZero32>,
     Base: Into<RegOrSp64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, base: Base) -> Self {
+    fn new(dst: Tgt32, base: Base) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), RegOrZero64::XZR),
         }
     }
 }
 
 /// `LDR` with 32-bit destination, bare base register as a tuple.
-impl<Base> MakeLoad<Reg32, (Base,)> for Load<Reg32, (RegOrSp64, RegOrZero64)>
+impl<Tgt32, Base> MakeLoad<Tgt32, (Base,)> for Load<RegOrZero32, (RegOrSp64, RegOrZero64)>
 where
+    Tgt32: Into<RegOrZero32>,
     Base: Into<RegOrSp64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, (base,): (Base,)) -> Self {
+    fn new(dst: Tgt32, (base,): (Base,)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), RegOrZero64::XZR),
         }
     }
 }
 
-impl Instruction for Load<Reg64, (RegOrSp64, RegOrZero64)> {
+impl Instruction for Load<RegOrZero64, (RegOrSp64, RegOrZero64)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
@@ -399,23 +410,24 @@ impl Instruction for Load<Reg64, (RegOrSp64, RegOrZero64)> {
 }
 
 /// `LDR` with 32-bit destination, base register with 64-bit offset without scaling.
-impl<B, O> MakeLoad<Reg32, (B, O)> for Load<Reg32, (RegOrSp64, RegOrZero64)>
+impl<Tgt32, B, O> MakeLoad<Tgt32, (B, O)> for Load<RegOrZero32, (RegOrSp64, RegOrZero64)>
 where
+    Tgt32: Into<RegOrZero32>,
     B: Into<RegOrSp64>,
     O: Into<RegOrZero64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, (base, offset): (B, O)) -> Self {
+    fn new(dst: Tgt32, (base, offset): (B, O)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset.into()),
         }
     }
 }
 
-impl Instruction for Load<Reg32, (RegOrSp64, RegOrZero64)> {
+impl Instruction for Load<RegOrZero32, (RegOrSp64, RegOrZero64)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
@@ -431,22 +443,24 @@ impl Instruction for Load<Reg32, (RegOrSp64, RegOrZero64)> {
 }
 
 /// `LDR` with 32-bit destination, base register with aligned immediate offset.
-impl<B> MakeLoad<Reg32, (B, ScaledOffset32)> for Load<Reg32, (RegOrSp64, ScaledOffset32)>
+impl<Tgt32, B> MakeLoad<Tgt32, (B, ScaledOffset32)>
+    for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
 where
+    Tgt32: Into<RegOrZero32>,
     B: Into<RegOrSp64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg32, (base, offset): (B, ScaledOffset32)) -> Self {
+    fn new(dst: Tgt32, (base, offset): (B, ScaledOffset32)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset),
         }
     }
 }
 
-impl Instruction for Load<Reg32, (RegOrSp64, ScaledOffset32)> {
+impl Instruction for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
@@ -456,22 +470,24 @@ impl Instruction for Load<Reg32, (RegOrSp64, ScaledOffset32)> {
 }
 
 /// `LDR` with 64-bit destination, base register with aligned immediate offset.
-impl<B> MakeLoad<Reg64, (B, ScaledOffset64)> for Load<Reg64, (RegOrSp64, ScaledOffset64)>
+impl<Tgt64, B> MakeLoad<Tgt64, (B, ScaledOffset64)>
+    for Load<RegOrZero64, (RegOrSp64, ScaledOffset64)>
 where
+    Tgt64: Into<RegOrZero64>,
     B: Into<RegOrSp64>,
 {
     type Output = Self;
 
     #[inline]
-    fn new(dst: Reg64, (base, offset): (B, ScaledOffset64)) -> Self {
+    fn new(dst: Tgt64, (base, offset): (B, ScaledOffset64)) -> Self {
         Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset),
         }
     }
 }
 
-impl Instruction for Load<Reg64, (RegOrSp64, ScaledOffset64)> {
+impl Instruction for Load<RegOrZero64, (RegOrSp64, ScaledOffset64)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
@@ -482,17 +498,18 @@ impl Instruction for Load<Reg64, (RegOrSp64, ScaledOffset64)> {
 
 /// `LDR` with 32-bit destination, base register with immediate offset. It is fallible, as the offset is has to be
 /// properly aligned.
-impl<B> MakeLoad<Reg32, (B, u32)> for Load<Reg32, (RegOrSp64, ScaledOffset32)>
+impl<Tgt32, B> MakeLoad<Tgt32, (B, u32)> for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
 where
+    Tgt32: Into<RegOrZero32>,
     B: Into<RegOrSp64>,
 {
     type Output = Result<Self, BitError>;
 
     #[inline]
-    fn new(dst: Reg32, (base, offset): (B, u32)) -> Self::Output {
+    fn new(dst: Tgt32, (base, offset): (B, u32)) -> Self::Output {
         let offset = ScaledOffset32::new(offset)?;
         Ok(Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset),
         })
     }
@@ -500,17 +517,18 @@ where
 
 /// `LDR` with 64-bit destination, base register with immediate offset. It is fallible, as the offset is has to be
 /// properly aligned.
-impl<B> MakeLoad<Reg64, (B, u32)> for Load<Reg64, (RegOrSp64, ScaledOffset64)>
+impl<Tgt64, B> MakeLoad<Tgt64, (B, u32)> for Load<RegOrZero64, (RegOrSp64, ScaledOffset64)>
 where
+    Tgt64: Into<RegOrZero64>,
     B: Into<RegOrSp64>,
 {
     type Output = Result<Self, BitError>;
 
     #[inline]
-    fn new(dst: Reg64, (base, offset): (B, u32)) -> Self::Output {
+    fn new(dst: Tgt64, (base, offset): (B, u32)) -> Self::Output {
         let offset = ScaledOffset64::new(offset)?;
         Ok(Self {
-            dst,
+            dst: dst.into(),
             addr: (base.into(), offset),
         })
     }
@@ -668,14 +686,14 @@ mod tests {
     use harm_test_utils::test_cases;
 
     use super::*;
+    use crate::register::Reg32::*;
+    use crate::register::Reg64::*;
     use crate::{
         bits::UBitValue,
         instructions::ldst::{LdStPcOffset, Pc, inc, postinc, preinc},
     };
     use LdrExtendOption32::*;
     use LdrExtendOption64::*;
-    use Reg32::*;
-    use Reg64::*;
     use RegOrSp64::SP;
     use RegOrZero32::WZR;
     use RegOrZero64::XZR;
@@ -710,6 +728,10 @@ f863d902	ldr x2, [x8, w3, sxtw #3]
 f863e902	ldr x2, [x8, x3, sxtx #0]
 f863e902	ldr x2, [x8, x3, sxtx]
 f863f902	ldr x2, [x8, x3, sxtx #3]
+f869491f	ldr xzr, [x8, w9, uxtw]
+f869691f	ldr xzr, [x8, x9]
+f869691f	ldr xzr, [x8, x9]
+f869c91f	ldr xzr, [x8, w9, sxtw]
 f87f4902	ldr x2, [x8, wzr, uxtw]
 f87f6902	ldr x2, [x8, xzr]
 f87f6be2	ldr x2, [sp, xzr]
@@ -721,9 +743,11 @@ f87fe902	ldr x2, [x8, xzr, sxtx]
     // 'ldr (w2|x2), [(x8|sp), #0x190]'
     const LDR_SCALED_IMM_DB: &str = "
 b9419102	ldr w2, [x8, #0x190]
+b941911f	ldr wzr, [x8, #0x190]
 b94193e2	ldr w2, [sp, #0x190]
 f940c902	ldr x2, [x8, #0x190]
 f940cbe2	ldr x2, [sp, #0x190]
+f940cbff	ldr xzr, [sp, #0x190]
 ";
 
     // NB: not a real syntax.
@@ -792,6 +816,10 @@ f85d6fe1	ldr x1, [sp, #-0x2a]!
         test_ldr_r32_rsp_xzr, ldr(W2, (SP, XZR)), "ldr w2, [sp, xzr]";
         test_ldr_r64_r64_xzr, ldr(X2, (X8, XZR)), "ldr x2, [x8, xzr]";
         test_ldr_r64_rsp_xzr, ldr(X2, (SP, XZR)), "ldr x2, [sp, xzr]";
+        test_ldr_xzr_r64_r64, ldr(XZR, (X8, X9)), "ldr xzr, [x8, x9]";
+        test_ldr_wzr_r64_r64, ldr(XZR, (X8, X9)), "ldr xzr, [x8, x9]";
+        test_ldr_xzr_r64_r32_sxtw, ldr(XZR, (X8, ext((W9, SXTW)))), "ldr xzr, [x8, w9, sxtw]";
+        test_ldr_wzr_r64_r32_uxtw, ldr(XZR, (X8, ext((W9, UXTW)))), "ldr xzr, [x8, w9, uxtw]";
     }
 
     test_cases! {
@@ -802,6 +830,8 @@ f85d6fe1	ldr x1, [sp, #-0x2a]!
         test_ldr_r64_sp_scaled_imm, ldr(X2, (SP, UBitValue::<12, 3>::new(0x190).unwrap())), "ldr x2, [sp, #0x190]";
         test_ldr_r32_r64_scaled_imm2, ldr(W2, (X8, 0x190)).unwrap(), "ldr w2, [x8, #0x190]";
         test_ldr_r64_sp_scaled_imm2, ldr(X2, (SP, 0x190)).unwrap(), "ldr x2, [sp, #0x190]";
+        test_ldr_wzr_r64_scaled_imm, ldr(WZR, (X8, 0x190)).unwrap(), "ldr wzr, [x8, #0x190]";
+        test_ldr_xzr_sp_scaled_imm, ldr(XZR, (SP, 0x190)).unwrap(), "ldr xzr, [sp, #0x190]";
     }
 
     test_cases! {
