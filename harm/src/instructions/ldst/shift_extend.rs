@@ -7,6 +7,18 @@ use aarchmrs_types::BitValue;
 
 use crate::register::{Reg32, Reg64, RegOrZero32, RegOrZero64};
 
+/// Represents whether the register is shifted by the destination register size or not.
+#[repr(u8)]
+pub enum LdrShift {
+    Unshifted = 0,
+    Shifted = 1,
+}
+
+impl From<LdrShift> for BitValue<1> {
+    fn from(value: LdrShift) -> Self {
+        (value as u8).into()
+    }
+}
 /// `LDR` extend options for 64-bit registers.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 #[repr(u8)]
@@ -67,28 +79,30 @@ impl LdrOffsetExtendOption for RegOrZero32 {
     type ExtendOption = LdrExtendOption32;
 }
 
-pub struct Extended<Dest: LdrDestShiftOption, Offset: LdrOffsetExtendOption> {
-    pub shifted: Shifted<Dest, Offset>,
+pub trait MakeExtended<Dest> {
+    type Output;
+
+    fn new(args: Self) -> Self::Output;
+}
+
+pub struct Extended<Dest, Offset: LdrOffsetExtendOption> {
+    pub offset: Offset,
     pub extend: <Offset as LdrOffsetExtendOption>::ExtendOption,
+    pub shifted: LdrShift,
+    phantom: PhantomData<Dest>,
 }
 
-pub fn shifted<Dest: LdrDestShiftOption, Offset: LdrOffsetExtendOption>(
-    offset: Offset,
-    shifted: LdrShift,
-) -> Shifted<Dest, Offset> {
-    Shifted {
-        offset,
-        shifted,
-        phantom: std::marker::PhantomData,
-    }
-}
-
-impl<Dest, Offset: LdrOffsetExtendOption> From<Offset> for Shifted<Dest, Offset> {
-    fn from(reg: Offset) -> Self {
-        Shifted {
-            offset: reg,
-            shifted: LdrShift::Unshifted,
-            phantom: std::marker::PhantomData,
+impl<Dest, Offset: LdrOffsetExtendOption> Extended<Dest, Offset> {
+    pub fn new(
+        offset: Offset,
+        extend: <Offset as LdrOffsetExtendOption>::ExtendOption,
+        shifted: LdrShift,
+    ) -> Self {
+        Self {
+            offset,
+            extend,
+            shifted,
+            phantom: PhantomData,
         }
     }
 }
@@ -97,40 +111,93 @@ impl<Dest, Offset: LdrOffsetExtendOption> From<Offset> for Shifted<Dest, Offset>
 // ext((W1, UXTW))
 // ext((W1, UXTW, 3))
 // ldr(W1, (X2, (W3, UXTW, 3))) // !!!
-pub fn extended<Dest, Offset>(
-    shifted: impl Into<Shifted<Dest, Offset>>,
-    extend: <Offset as LdrOffsetExtendOption>::ExtendOption,
-) -> Extended<Dest, Offset>
+pub fn ext<Dest, Args>(args: Args) -> <Args as MakeExtended<Dest>>::Output
 where
+    Args: MakeExtended<Dest>,
     Dest: LdrDestShiftOption,
-    Offset: LdrOffsetExtendOption,
 {
-    Extended {
-        shifted: shifted.into(),
-        extend,
+    <_>::new(args)
+}
+
+impl<Dest, R64> MakeExtended<Dest> for (R64, LdrExtendOption64)
+where
+    RegOrZero64: From<R64>,
+{
+    type Output = Extended<Dest, RegOrZero64>;
+
+    fn new((offset, extend): Self) -> Self::Output {
+        Extended::new(offset.into(), extend, LdrShift::Unshifted)
+    }
+}
+
+impl<Dest, R32> MakeExtended<Dest> for (R32, LdrExtendOption32)
+where
+    RegOrZero32: From<R32>,
+{
+    type Output = Extended<Dest, RegOrZero32>;
+
+    fn new((offset, extend): Self) -> Self::Output {
+        Extended::new(offset.into(), extend, LdrShift::Unshifted)
+    }
+}
+impl<Dest, R64> MakeExtended<Dest> for (R64, LdrExtendOption64, LdrShift)
+where
+    RegOrZero64: From<R64>,
+{
+    type Output = Extended<Dest, RegOrZero64>;
+
+    fn new((offset, extend, shifted): Self) -> Self::Output {
+        Extended::new(offset.into(), extend, shifted)
+    }
+}
+
+impl<Dest, R32> MakeExtended<Dest> for (R32, LdrExtendOption32, LdrShift)
+where
+    RegOrZero32: From<R32>,
+{
+    type Output = Extended<Dest, RegOrZero32>;
+
+    fn new((offset, extend, shifted): Self) -> Self::Output {
+        Extended::new(offset.into(), extend, shifted)
+    }
+}
+
+impl<Dest, R64> MakeExtended<Dest> for (R64, LdrExtendOption64, u32)
+where
+    RegOrZero64: From<R64>,
+    Dest: LdrDestShiftOption,
+{
+    type Output = Result<Extended<Dest, RegOrZero64>, ShiftedError>;
+
+    fn new((offset, extend, shift): Self) -> Self::Output {
+        shifted_by::<Dest>(shift).map(|shifted| Extended::new(offset.into(), extend, shifted))
+    }
+}
+
+impl<Dest, R32> MakeExtended<Dest> for (R32, LdrExtendOption32, u32)
+where
+    RegOrZero32: From<R32>,
+    Dest: LdrDestShiftOption,
+{
+    type Output = Result<Extended<Dest, RegOrZero32>, ShiftedError>;
+
+    fn new((offset, extend, shift): Self) -> Self::Output {
+        shifted_by::<Dest>(shift).map(|shifted| Extended::new(offset.into(), extend, shifted))
     }
 }
 
 /// Creates a shifted register with a specific shift size. Please note that allowed the shift size depeds on the
 /// destination register size. For 64-bit registers, the shift is either 0 or 3, and for 32-bit registers, the shift is
 /// either 0 or 2.
-pub fn shifted_by<Dest: LdrDestShiftOption, Offset: LdrOffsetExtendOption>(
-    reg: Offset,
-    shift: u32,
-) -> Result<Shifted<Dest, Offset>, ShiftedError> {
+fn shifted_by<Dest: LdrDestShiftOption>(shift: u32) -> Result<LdrShift, ShiftedError> {
     let accepted = Dest::SHIFT_SIZE;
-    let shifted = if shift == 0 {
-        LdrShift::Unshifted
+    if shift == 0 {
+        Ok(LdrShift::Unshifted)
     } else if shift == accepted {
-        LdrShift::Shifted
+        Ok(LdrShift::Shifted)
     } else {
-        return Err(ShiftedError::InvalidShiftSize { shift, accepted });
-    };
-    Ok(Shifted {
-        offset: reg,
-        shifted,
-        phantom: std::marker::PhantomData,
-    })
+        Err(ShiftedError::InvalidShiftSize { shift, accepted })
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -138,7 +205,7 @@ pub enum ShiftedError {
     InvalidShiftSize { shift: u32, accepted: u32 },
 }
 
-use std::fmt;
+use std::{fmt, marker::PhantomData};
 impl fmt::Display for ShiftedError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
@@ -150,24 +217,4 @@ impl fmt::Display for ShiftedError {
             }
         }
     }
-}
-
-/// Represents whether the register is shifted by the destination register size or not.
-#[repr(u8)]
-pub enum LdrShift {
-    Unshifted = 0,
-    Shifted = 1,
-}
-
-impl From<LdrShift> for BitValue<1> {
-    fn from(value: LdrShift) -> Self {
-        (value as u8).into()
-    }
-}
-
-/// Represents a register with possible shift applied to it.
-pub struct Shifted<Dest, Reg> {
-    pub offset: Reg,
-    pub shifted: LdrShift,
-    phantom: std::marker::PhantomData<Dest>,
 }

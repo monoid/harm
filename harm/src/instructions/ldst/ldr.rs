@@ -18,7 +18,7 @@
 //!
 //! # Examples:
 //! ```
-//! # use harm::instructions::ldst::{ldr, extended, shifted, shifted_by, LdrExtendOption32, LdrShift};
+//! # use harm::instructions::ldst::{ldr, ext, LdrExtendOption32, LdrShift};
 //! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
 //! use LdrExtendOption32::*;
@@ -26,23 +26,17 @@
 //! ldr(W1, X2);        // LDR W1, [X2]
 //! ldr(W1, (X2,));     // LDR W1, [X2]
 //! ldr(W1, (X2, X3));  // LDR W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend speicifer (sxtw or uxtw):
-//! ldr(W1, (X2, extended(W3, UXTW))); // ldr w1, [x2, w3, uxtw]
-//! ldr(W1, (X2, extended(shifted(W3, LdrShift::Shifted), UXTW))); // ldr w1, [x2, w3, uxtw #2]
-//! ldr(W1, (X2, extended(W3, UXTW))); // ldr w1, [x2, w3, uxtw]
-//! ldr(X1, (X2, extended(W3, UXTW))); // ldr x1, [x2, w3, uxtw]
-//! ldr(X1, (X2, extended(shifted(W3, LdrShift::Shifted), UXTW))); // ldr x1, [x2, w3, uxtw #3]
-//! # // ldr(X1, (X2, shifted_by(W3, 3).unwrap())); // ldr x1, [x2, w3, uxtw 3]
-//! # // TODO ldr(W1, (X2, (W3, UXTW, 3))) // !!!
-//! # // TODO ldr(X1, (X2, uxtw(W3, 2))).unwrap();  // LDR X1, [X2, W3 uxtw 3]
-//! # // TODO ldr(X1, (X2, sxtw(W3, 2))).unwrap();  // LDR X1, [X2, W3 sxtw 3]
-//! # // TODO ldr(X1, (X2, uxtw(W3, 2).unwrap()));  // LDR X1, [X2, W3 uxtw 3]
-//! # // TODO ldr(X1, (X2, sxtw(W3, 2).unwrap()));  // LDR X1, [X2, W3 sxtw 3]
-//! # // TODO uxtw/sxtw functions
+//! ldr(W1, (X2, ext((W3, UXTW)))); // ldr w1, [x2, w3, uxtw]
+//! ldr(W1, (X2, ext((W3, UXTW, LdrShift::Shifted)))); // ldr w1, [x2, w3, uxtw #2]
+//! ldr(W1, (X2, ext((W3, UXTW)))); // ldr w1, [x2, w3, uxtw]
+//! ldr(X1, (X2, ext((W3, UXTW)))); // ldr x1, [x2, w3, uxtw]
+//! ldr(X1, (X2, ext((W3, UXTW, LdrShift::Shifted)))); // ldr x1, [x2, w3, uxtw #3]
+//! ldr(X1, (X2, ext((W3, UXTW, 3)))).unwrap(); // ldr x1, [x2, w3, uxtw #3]
 //! ```
 //!
-//! Please note, that `uxtw` and `sxtw` can be used only with 32-bit register, and shift can be only either 0 or 2. The
-//! `lsl` and `sxtx` can be used only with 64-bit registers, and while they produce different bit patterns, they are
-//! equivalent; shift can be only 0 or 3.
+//! Please note, that `uxtw` and `sxtw` can be used only with 32-bit register, and shift can be only either 0
+//! (unshifted) or 2 (shifted). The `lsl` and `sxtx` can be used only with 64-bit registers, and while they produce
+//! different bit patterns, they are equivalent; shift can be only either 0 (unshifted) or 3 (shifted).
 //!
 //! # `LDR`: Register base with immediate offset
 //!
@@ -134,10 +128,11 @@ use crate::{
 };
 
 /// `LDR` with 64-bit destination, base register with extended 64-bit register offset with scale.
-impl<Base, Ext> MakeLoad<Reg64, (Base, Ext)> for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg64>)>
+impl<Base, Ext> MakeLoad<Reg64, (Base, Ext)>
+    for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero64>)>
 where
     Base: Into<RegOrSp64>,
-    Ext: Into<Extended<Reg64, Reg64>>,
+    Ext: Into<Extended<Reg64, RegOrZero64>>,
 {
     type Output = Self;
 
@@ -150,14 +145,14 @@ where
     }
 }
 
-impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg64>)> {
+impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero64>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
         let code = LDR_64_ldst_regoff(
-            offset.shifted.offset.code(),
+            offset.offset.code(),
             (offset.extend as u8).into(),
-            offset.shifted.shifted.into(),
+            offset.shifted.into(),
             base.code(),
             self.dst.code(),
         );
@@ -166,10 +161,11 @@ impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg64>)> {
 }
 
 /// `LDR` with 64-bit destination, base register with extended 32-bit register offset with scale.
-impl<Base, Ext> MakeLoad<Reg64, (Base, Ext)> for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg32>)>
+impl<Base, Ext> MakeLoad<Reg64, (Base, Ext)>
+    for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero32>)>
 where
     Base: Into<RegOrSp64>,
-    Ext: Into<Extended<Reg64, Reg32>>,
+    Ext: Into<Extended<Reg64, RegOrZero32>>,
 {
     type Output = Self;
 
@@ -182,14 +178,14 @@ where
     }
 }
 
-impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg32>)> {
+impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, RegOrZero32>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
         let code = LDR_64_ldst_regoff(
-            offset.shifted.offset.code(),
+            offset.offset.code(),
             (offset.extend as u8).into(),
-            offset.shifted.shifted.into(),
+            offset.shifted.into(),
             base.code(),
             self.dst.code(),
         );
@@ -198,10 +194,11 @@ impl Instruction for Load<Reg64, (RegOrSp64, Extended<Reg64, Reg32>)> {
 }
 
 /// `LDR` with 32-bit destination, base register with extended 64-bit register offset with scale.
-impl<Base, Ext> MakeLoad<Reg32, (Base, Ext)> for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg64>)>
+impl<Base, Ext> MakeLoad<Reg32, (Base, Ext)>
+    for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero64>)>
 where
     Base: Into<RegOrSp64>,
-    Ext: Into<Extended<Reg32, Reg64>>,
+    Ext: Into<Extended<Reg32, RegOrZero64>>,
 {
     type Output = Self;
 
@@ -214,14 +211,14 @@ where
     }
 }
 
-impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg64>)> {
+impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero64>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
         let code = LDR_32_ldst_regoff(
-            offset.shifted.offset.code(),
+            offset.offset.code(),
             (offset.extend as u8).into(),
-            offset.shifted.shifted.into(),
+            offset.shifted.into(),
             base.code(),
             self.dst.code(),
         );
@@ -230,10 +227,11 @@ impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg64>)> {
 }
 
 /// `LDR` with 32-bit destination, base register with extended 32-bit register offset with scale.
-impl<Base, Ext> MakeLoad<Reg32, (Base, Ext)> for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg32>)>
+impl<Base, Ext> MakeLoad<Reg32, (Base, Ext)>
+    for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero32>)>
 where
     Base: Into<RegOrSp64>,
-    Ext: Into<Extended<Reg32, Reg32>>,
+    Ext: Into<Extended<Reg32, RegOrZero32>>,
 {
     type Output = Self;
 
@@ -288,14 +286,14 @@ where
         addr.map(|addr| Load::new(dst, addr))
     }
 }
-impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, Reg32>)> {
+impl Instruction for Load<Reg32, (RegOrSp64, Extended<Reg32, RegOrZero32>)> {
     #[inline]
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, offset) = self.addr;
         let code = LDR_32_ldst_regoff(
-            offset.shifted.offset.code(),
+            offset.offset.code(),
             (offset.extend as u8).into(),
-            offset.shifted.shifted.into(),
+            offset.shifted.into(),
             base.code(),
             self.dst.code(),
         );
@@ -760,28 +758,32 @@ f85d6fe1	ldr x1, [sp, #-0x2a]!
 ";
     test_cases! {
         LDR_REG_EXT_DB, untested_ldr_reg_ext_db;
-        test_ldr_r64_r64_r32_sxtw, ldr(X2, (X8, extended(W3, SXTW))), "ldr x2, [x8, w3, sxtw]";
-        test_ldr_r64_r64_r32_uxtw, ldr(X2, (X8, extended(W3, UXTW))), "ldr x2, [x8, w3, uxtw]";
-        test_ldr_r32_r64_r32_sxtw, ldr(W2, (X8, extended(W3, SXTW))), "ldr w2, [x8, w3, sxtw]";
-        test_ldr_r32_r64_r32_uxtw, ldr(W2, (X8, extended(W3, UXTW))), "ldr w2, [x8, w3, uxtw]";
-        test_ldr_r32_r64_r64_sxtx, ldr(W2, (X8, extended(X3, SXTX))), "ldr w2, [x8, x3, sxtx]";
-        test_ldr_r64_r64_r64_sxtx, ldr(X2, (X8, extended(X3, SXTX))), "ldr x2, [x8, x3, sxtx]";
-        test_ldr_r32_r64_r32_sxtw_0, ldr(W2, (X8, extended(shifted_by(W3, 0).unwrap(), SXTW))), "ldr w2, [x8, w3, sxtw #0]";
-        test_ldr_r32_r64_r32_sxtw_2, ldr(W2, (X8, extended(shifted_by(W3, 2).unwrap(), SXTW))), "ldr w2, [x8, w3, sxtw #2]";
-        test_ldr_r32_r64_r32_uxtw_0, ldr(W2, (X8, extended(shifted_by(W3, 0).unwrap(), UXTW))), "ldr w2, [x8, w3, uxtw #0]";
-        test_ldr_r32_r64_r32_uxtw_2, ldr(W2, (X8, extended(shifted_by(W3, 2).unwrap(), UXTW))), "ldr w2, [x8, w3, uxtw #2]";
-        test_ldr_r64_r64_r32_sxtw_0, ldr(X2, (X8, extended(shifted_by(W3, 0).unwrap(), SXTW))), "ldr x2, [x8, w3, sxtw #0]";
-        test_ldr_r64_r64_r32_sxtw_3, ldr(X2, (X8, extended(shifted_by(W3, 3).unwrap(), SXTW))), "ldr x2, [x8, w3, sxtw #3]";
-        test_ldr_r64_r64_r32_uxtw_0, ldr(X2, (X8, extended(shifted_by(W3, 0).unwrap(), UXTW))), "ldr x2, [x8, w3, uxtw #0]";
-        test_ldr_r64_r64_r32_uxtw_3, ldr(X2, (X8, extended(shifted_by(W3, 3).unwrap(), UXTW))), "ldr x2, [x8, w3, uxtw #3]";
-        test_ldr_r32_r64_r64_lsl_0, ldr(W2, (X8, extended(shifted_by(X3, 0).unwrap(), LSL))), "ldr w2, [x8, x3, lsl #0]";
-        test_ldr_r32_r64_r64_lsl_2, ldr(W2, (X8, extended(shifted_by(X3, 2).unwrap(), LSL))), "ldr w2, [x8, x3, lsl #2]";
-        test_ldr_r32_r64_r64_sxtx_0, ldr(W2, (X8, extended(shifted_by(X3, 0).unwrap(), SXTX))), "ldr w2, [x8, x3, sxtx #0]";
-        test_ldr_r32_r64_r64_sxtx_2, ldr(W2, (X8, extended(shifted_by(X3, 2).unwrap(), SXTX))), "ldr w2, [x8, x3, sxtx #2]";
-        test_ldr_r64_r64_r64_lsl_0, ldr(X2, (X8, extended(shifted_by(X3, 0).unwrap(), LSL))), "ldr x2, [x8, x3, lsl #0]";
-        test_ldr_r64_r64_r64_lsl_3, ldr(X2, (X8, extended(shifted_by(X3, 3).unwrap(), LSL))), "ldr x2, [x8, x3, lsl #3]";
-        test_ldr_r64_r64_r32_sxtx_0, ldr(X2, (X8, extended(shifted_by(X3, 0).unwrap(), SXTX))), "ldr x2, [x8, x3, sxtx #0]";
-        test_ldr_r64_r64_r32_sxtx_3, ldr(X2, (X8, extended(shifted_by(X3, 3).unwrap(), SXTX))), "ldr x2, [x8, x3, sxtx #3]";
+        test_ldr_r64_r64_r32_sxtw, ldr(X2, (X8, ext((W3, SXTW)))), "ldr x2, [x8, w3, sxtw]";
+        test_ldr_r64_r64_r32_uxtw, ldr(X2, (X8, ext((W3, UXTW)))), "ldr x2, [x8, w3, uxtw]";
+        test_ldr_r32_r64_r32_sxtw, ldr(W2, (X8, ext((W3, SXTW)))), "ldr w2, [x8, w3, sxtw]";
+        test_ldr_r32_r64_r32_uxtw, ldr(W2, (X8, ext((W3, UXTW)))), "ldr w2, [x8, w3, uxtw]";
+        test_ldr_r32_r64_r64_sxtx, ldr(W2, (X8, ext((X3, SXTX)))), "ldr w2, [x8, x3, sxtx]";
+        test_ldr_r64_r64_r64_sxtx, ldr(X2, (X8, ext((X3, SXTX)))), "ldr x2, [x8, x3, sxtx]";
+        test_ldr_r64_r64_xzr_sxtx, ldr(X2, (X8, ext((XZR, SXTX)))), "ldr x2, [x8, xzr, sxtx]";
+        test_ldr_r64_r64_xzr_lsl_3, ldr(X2, (X8, ext((XZR, LSL, 3)))).unwrap(), "ldr x2, [x8, xzr, lsl #3]";
+        test_ldr_r64_r64_wzr_sxtw, ldr(X2, (X8, ext((WZR, SXTW)))), "ldr x2, [x8, wzr, sxtw]";
+        test_ldr_r64_r64_wzr_uxtx, ldr(X2, (X8, ext((WZR, UXTW)))), "ldr x2, [x8, wzr, uxtw]";
+        test_ldr_r32_r64_r32_sxtw_0, ldr(W2, (X8, ext((W3, SXTW, 0)))).unwrap(), "ldr w2, [x8, w3, sxtw #0]";
+        test_ldr_r32_r64_r32_sxtw_2, ldr(W2, (X8, ext((W3, SXTW, 2)))).unwrap(), "ldr w2, [x8, w3, sxtw #2]";
+        test_ldr_r32_r64_r32_uxtw_0, ldr(W2, (X8, ext((W3, UXTW, 0)))).unwrap(), "ldr w2, [x8, w3, uxtw #0]";
+        test_ldr_r32_r64_r32_uxtw_2, ldr(W2, (X8, ext((W3, UXTW, 2)))).unwrap(), "ldr w2, [x8, w3, uxtw #2]";
+        test_ldr_r64_r64_r32_sxtw_0, ldr(X2, (X8, ext((W3, SXTW, 0)))).unwrap(), "ldr x2, [x8, w3, sxtw #0]";
+        test_ldr_r64_r64_r32_sxtw_3, ldr(X2, (X8, ext((W3, SXTW, 3)))).unwrap(), "ldr x2, [x8, w3, sxtw #3]";
+        test_ldr_r64_r64_r32_uxtw_0, ldr(X2, (X8, ext((W3, UXTW, 0)))).unwrap(), "ldr x2, [x8, w3, uxtw #0]";
+        test_ldr_r64_r64_r32_uxtw_3, ldr(X2, (X8, ext((W3, UXTW, 3)))).unwrap(), "ldr x2, [x8, w3, uxtw #3]";
+        test_ldr_r32_r64_r64_lsl_0, ldr(W2, (X8, ext((X3, LSL, 0)))).unwrap(), "ldr w2, [x8, x3, lsl #0]";
+        test_ldr_r32_r64_r64_lsl_2, ldr(W2, (X8, ext((X3, LSL, 2)))).unwrap(), "ldr w2, [x8, x3, lsl #2]";
+        test_ldr_r32_r64_r64_sxtx_0, ldr(W2, (X8, ext((X3, SXTX, 0)))).unwrap(), "ldr w2, [x8, x3, sxtx #0]";
+        test_ldr_r32_r64_r64_sxtx_2, ldr(W2, (X8, ext((X3, SXTX, 2)))).unwrap(), "ldr w2, [x8, x3, sxtx #2]";
+        test_ldr_r64_r64_r64_lsl_0, ldr(X2, (X8, ext((X3, LSL, 0)))).unwrap(), "ldr x2, [x8, x3, lsl #0]";
+        test_ldr_r64_r64_r64_lsl_3, ldr(X2, (X8, ext((X3, LSL, 3)))).unwrap(), "ldr x2, [x8, x3, lsl #3]";
+        test_ldr_r64_r64_r32_sxtx_0, ldr(X2, (X8, ext((X3, SXTX, 0)))).unwrap(), "ldr x2, [x8, x3, sxtx #0]";
+        test_ldr_r64_r64_r32_sxtx_3, ldr(X2, (X8, ext((X3, SXTX, 3)))).unwrap(), "ldr x2, [x8, x3, sxtx #3]";
         test_ldr_r32_r64_r64, ldr(W2, (X8, X3)), "ldr w2, [x8, x3]";
         test_ldr_r32_rsp_r64, ldr(W2, (SP, X3)), "ldr w2, [sp, x3]";
         test_ldr_r64_r64_r64, ldr(X2, (X8, X3)), "ldr x2, [x8, x3]";
