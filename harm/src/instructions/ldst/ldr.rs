@@ -307,7 +307,8 @@ where
 }
 
 /// `LDR` with 64-bit destination, bare base register.
-impl<Tgt64, Base> MakeLoad<Tgt64, Base> for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
+impl<Tgt64, Base> MakeLoad<Tgt64, Base>
+    for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero64>)>
 where
     Tgt64: Into<RegOrZero64>,
     Base: Into<RegOrSp64>,
@@ -319,13 +320,21 @@ where
         Self {
             dst: dst.into(),
             // TODO does the spec says something specific?
-            addr: (base.into(), RegOrZero64::XZR),
+            addr: (
+                base.into(),
+                Extended::new(
+                    RegOrZero64::XZR,
+                    LdrExtendOption64::LSL,
+                    LdrShift::Unshifted,
+                ),
+            ),
         }
     }
 }
 
 /// `LDR` with 64-bit destination, bare base register as a tuple.
-impl<Tgt64, Base> MakeLoad<Tgt64, (Base,)> for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
+impl<Tgt64, Base> MakeLoad<Tgt64, (Base,)>
+    for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero64>)>
 where
     Tgt64: Into<RegOrZero64>,
     Base: Into<RegOrSp64>,
@@ -336,14 +345,21 @@ where
     fn new(dst: Tgt64, (base,): (Base,)) -> Self {
         Self {
             dst: dst.into(),
-            addr: (base.into(), RegOrZero64::XZR),
+            addr: (
+                base.into(),
+                Extended::new(
+                    RegOrZero64::XZR,
+                    LdrExtendOption64::LSL,
+                    LdrShift::Unshifted,
+                ),
+            ),
         }
     }
 }
 
 /// `LDR` with 64-bit destination, base register with 64-bit offset without scaling.
 impl<Tgt64, Base, OffsetReg> MakeLoad<Tgt64, (Base, OffsetReg)>
-    for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
+    for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero64>)>
 where
     Tgt64: Into<RegOrZero64>,
     Base: Into<RegOrSp64>,
@@ -355,13 +371,17 @@ where
     fn new(dst: Tgt64, (base, offset): (Base, OffsetReg)) -> Self {
         Self {
             dst: dst.into(),
-            addr: (base.into(), offset.into()),
+            addr: (
+                base.into(),
+                Extended::new(offset.into(), LdrExtendOption64::LSL, LdrShift::Unshifted),
+            ),
         }
     }
 }
 
 /// `LDR` with 32-bit destination, bare base register.
-impl<Tgt32, Base> MakeLoad<Tgt32, Base> for Load<RegOrZero32, (RegOrSp64, RegOrZero64)>
+impl<Tgt32, Base> MakeLoad<Tgt32, Base>
+    for Load<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)>
 where
     Tgt32: Into<RegOrZero32>,
     Base: Into<RegOrSp64>,
@@ -372,13 +392,21 @@ where
     fn new(dst: Tgt32, base: Base) -> Self {
         Self {
             dst: dst.into(),
-            addr: (base.into(), RegOrZero64::XZR),
+            addr: (
+                base.into(),
+                Extended::new(
+                    RegOrZero64::XZR,
+                    LdrExtendOption64::LSL,
+                    LdrShift::Unshifted,
+                ),
+            ),
         }
     }
 }
 
 /// `LDR` with 32-bit destination, bare base register as a tuple.
-impl<Tgt32, Base> MakeLoad<Tgt32, (Base,)> for Load<RegOrZero32, (RegOrSp64, RegOrZero64)>
+impl<Tgt32, Base> MakeLoad<Tgt32, (Base,)>
+    for Load<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)>
 where
     Tgt32: Into<RegOrZero32>,
     Base: Into<RegOrSp64>,
@@ -389,28 +417,21 @@ where
     fn new(dst: Tgt32, (base,): (Base,)) -> Self {
         Self {
             dst: dst.into(),
-            addr: (base.into(), RegOrZero64::XZR),
+            addr: (
+                base.into(),
+                Extended::new(
+                    RegOrZero64::XZR,
+                    LdrExtendOption64::LSL,
+                    LdrShift::Unshifted,
+                ),
+            ),
         }
     }
 }
 
-impl Instruction for Load<RegOrZero64, (RegOrSp64, RegOrZero64)> {
-    #[inline]
-    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let (base, offset) = self.addr;
-        let code = LDR_64_ldst_regoff(
-            offset.code(),
-            (LdrExtendOption64::default() as u8).into(),
-            0b0.into(),
-            base.code(),
-            self.dst.code(),
-        );
-        std::iter::once(code)
-    }
-}
-
 /// `LDR` with 32-bit destination, base register with 64-bit offset without scaling.
-impl<Tgt32, B, O> MakeLoad<Tgt32, (B, O)> for Load<RegOrZero32, (RegOrSp64, RegOrZero64)>
+impl<Tgt32, B, O> MakeLoad<Tgt32, (B, O)>
+    for Load<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)>
 where
     Tgt32: Into<RegOrZero32>,
     B: Into<RegOrSp64>,
@@ -422,26 +443,18 @@ where
     fn new(dst: Tgt32, (base, offset): (B, O)) -> Self {
         Self {
             dst: dst.into(),
-            addr: (base.into(), offset.into()),
+            addr: (
+                base.into(),
+                Extended::new(offset.into(), LdrExtendOption64::LSL, LdrShift::Unshifted),
+            ),
         }
     }
 }
 
-impl Instruction for Load<RegOrZero32, (RegOrSp64, RegOrZero64)> {
-    #[inline]
-    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let (base, offset) = self.addr;
-        let code = LDR_32_ldst_regoff(
-            offset.code(),
-            (LdrExtendOption64::default() as u8).into(),
-            0b0.into(),
-            base.code(),
-            self.dst.code(),
-        );
-        std::iter::once(code)
-    }
-}
-
+// ####################################################################
+// ## Scaled offset
+//
+//
 /// `LDR` with 32-bit destination, base register with aligned immediate offset.
 impl<Tgt32, B> MakeLoad<Tgt32, (B, ScaledOffset32)>
     for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
