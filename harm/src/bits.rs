@@ -6,6 +6,7 @@ use aarchmrs_types::BitValue;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum BitError {
     Overflow { significant_bits: u8, align: u8 },
+    SignOutRange,
     Alignment { align: u8 },
 }
 
@@ -19,6 +20,9 @@ impl fmt::Display for BitError {
                 align,
             } => {
                 write!(f, "Value overflow for {} bits", significant_bits + align)
+            }
+            BitError::SignOutRange => {
+                write!(f, "Cannot represent the value as signed/unsigned")
             }
             BitError::Alignment { align } => {
                 write!(f, "Value not aligned to {align} bits")
@@ -59,6 +63,13 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> UBitValue<SIGNIFICANT_BITS, 
                 significant_bits: SIGNIFICANT_BITS as _,
                 align: ALIGN as _,
             })
+        }
+    }
+
+    pub fn new_i32(value: i32) -> Result<Self, BitError> {
+        match value.try_into() {
+            Ok(unsigned) => Self::new(unsigned),
+            Err(_) => Err(BitError::SignOutRange),
         }
     }
 
@@ -103,6 +114,13 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> SBitValue<SIGNIFICANT_BITS, 
                 significant_bits: SIGNIFICANT_BITS as _,
                 align: ALIGN as _,
             })
+        }
+    }
+
+    pub fn new_u32(value: u32) -> Result<Self, BitError> {
+        match value.try_into() {
+            Ok(signed) => Self::new(signed),
+            Err(_) => Err(BitError::SignOutRange),
         }
     }
 
@@ -221,5 +239,53 @@ mod tests {
         let val = S5::new(-7).unwrap();
         let bv: BitValue<5> = val.into();
         assert_eq!(bv.0, val.bits());
+    }
+
+    #[test]
+    fn test_ubitvalue_new_i32() {
+        let res = UBitValue::<7, 1>::new_i32(42);
+        assert_eq!(res, UBitValue::<7, 1>::new(42))
+    }
+
+    #[test]
+    fn test_ubitvalue_new_i32_overflow_error() {
+        let res = UBitValue::<7, 1>::new_i32(256);
+        assert_eq!(
+            res,
+            Err(BitError::Overflow {
+                significant_bits: 7,
+                align: 1
+            })
+        );
+    }
+
+    #[test]
+    fn test_ubitvalue_new_i32_sign_error() {
+        let res = UBitValue::<7, 1>::new_i32(-1);
+        assert_eq!(res, Err(BitError::SignOutRange));
+    }
+
+    #[test]
+    fn test_sbitvalue_new_u32() {
+        let res = SBitValue::<7, 1>::new_u32(42);
+        assert_eq!(res, SBitValue::<7, 1>::new(42))
+    }
+
+    #[test]
+    fn test_sbitvalue_new_u32_overflow_error() {
+        let res = SBitValue::<9>::new_u32(256);
+        assert_eq!(
+            res,
+            Err(BitError::Overflow {
+                significant_bits: 9,
+                align: 0
+            })
+        );
+    }
+
+    #[test]
+    fn test_sbitvalue_new_u32_sign_error() {
+        let res = SBitValue::<8>::new_u32(u32::MAX);
+        assert_eq!(res, Err(BitError::SignOutRange));
     }
 }
