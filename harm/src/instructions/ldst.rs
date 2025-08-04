@@ -3,6 +3,8 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+mod macros;
+
 mod increment;
 pub mod ldr;
 mod shift_extend;
