@@ -455,8 +455,8 @@ impl Instruction for Load<RegOrZero64, (RegOrSp64, ScaledOffset64)> {
     }
 }
 
-/// `LDR` with 64-bit destination, base register with immediate offset. It is fallible, as the offset is has to be
-/// properly aligned.
+/// `LDR` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have
+/// specific range and alignment.
 impl<Tgt64, B> MakeLoad<Tgt64, (B, u32)> for Load<RegOrZero64, (RegOrSp64, ScaledOffset64)>
 where
     Tgt64: Into<RegOrZero64>,
@@ -474,6 +474,24 @@ where
     }
 }
 
+/// `LDR` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have
+/// specific range and alignment.
+impl<Tgt64, B> MakeLoad<Tgt64, (B, i32)> for Load<RegOrZero64, (RegOrSp64, ScaledOffset64)>
+where
+    Tgt64: Into<RegOrZero64>,
+    B: Into<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+
+    #[inline]
+    fn new(dst: Tgt64, (base, offset): (B, i32)) -> Self::Output {
+        let offset = ScaledOffset64::new_i32(offset)?;
+        Ok(Self {
+            dst: dst.into(),
+            addr: (base.into(), offset),
+        })
+    }
+}
 impl<Dest: Into<RegOrZero64>, Base: Into<RegOrSp64>> MakeLoad<Dest, (Inc<LdStIncOffset>, Base)>
     for Load<RegOrZero64, (Inc<LdStIncOffset>, RegOrSp64)>
 {
@@ -545,8 +563,8 @@ impl Instruction for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)> {
     }
 }
 
-/// `LDR` with 32-bit destination, base register with immediate offset. It is fallible, as the offset is has to be
-/// properly aligned.
+/// `LDR` with 32-bit destination, base register with immediate offset. It is fallible, as the offset is has to have
+/// specific range and alignment.
 impl<Tgt32, B> MakeLoad<Tgt32, (B, u32)> for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
 where
     Tgt32: Into<RegOrZero32>,
@@ -557,6 +575,25 @@ where
     #[inline]
     fn new(dst: Tgt32, (base, offset): (B, u32)) -> Self::Output {
         let offset = ScaledOffset32::new(offset)?;
+        Ok(Self {
+            dst: dst.into(),
+            addr: (base.into(), offset),
+        })
+    }
+}
+
+/// `LDR` with 32-bit destination, base register with immediate offset. It is fallible, as the offset is has to have
+/// specific range and alignment.
+impl<Tgt32, B> MakeLoad<Tgt32, (B, i32)> for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
+where
+    Tgt32: Into<RegOrZero32>,
+    B: Into<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+
+    #[inline]
+    fn new(dst: Tgt32, (base, offset): (B, i32)) -> Self::Output {
+        let offset = ScaledOffset32::new_i32(offset)?;
         Ok(Self {
             dst: dst.into(),
             addr: (base.into(), offset),
@@ -863,10 +900,14 @@ f85d6fe1	ldr x1, [sp, #-0x2a]!
         test_ldr_r32_sp_scaled_imm, ldr(W2, (SP, UBitValue::<12, 2>::new(0x190).unwrap())), "ldr w2, [sp, #0x190]";
         test_ldr_r64_r64_scaled_imm, ldr(X2, (X8, UBitValue::<12, 3>::new(0x190).unwrap())), "ldr x2, [x8, #0x190]";
         test_ldr_r64_sp_scaled_imm, ldr(X2, (SP, UBitValue::<12, 3>::new(0x190).unwrap())), "ldr x2, [sp, #0x190]";
-        test_ldr_r32_r64_scaled_imm2, ldr(W2, (X8, 0x190)).unwrap(), "ldr w2, [x8, #0x190]";
-        test_ldr_r64_sp_scaled_imm2, ldr(X2, (SP, 0x190)).unwrap(), "ldr x2, [sp, #0x190]";
-        test_ldr_wzr_r64_scaled_imm, ldr(WZR, (X8, 0x190)).unwrap(), "ldr wzr, [x8, #0x190]";
-        test_ldr_xzr_sp_scaled_imm, ldr(XZR, (SP, 0x190)).unwrap(), "ldr xzr, [sp, #0x190]";
+        test_ldr_r32_r64_scaled_imm2, ldr(W2, (X8, 0x190u32)).unwrap(), "ldr w2, [x8, #0x190]";
+        test_ldr_r64_sp_scaled_imm2, ldr(X2, (SP, 0x190u32)).unwrap(), "ldr x2, [sp, #0x190]";
+        test_ldr_wzr_r64_scaled_imm2, ldr(WZR, (X8, 0x190u32)).unwrap(), "ldr wzr, [x8, #0x190]";
+        test_ldr_xzr_sp_scaled_imm2, ldr(XZR, (SP, 0x190u32)).unwrap(), "ldr xzr, [sp, #0x190]";
+        test_ldr_r32_r64_scaled_imm3, ldr(W2, (X8, 0x190i32)).unwrap(), "ldr w2, [x8, #0x190]";
+        test_ldr_r64_sp_scaled_imm3, ldr(X2, (SP, 0x190i32)).unwrap(), "ldr x2, [sp, #0x190]";
+        test_ldr_wzr_r64_scaled_imm3, ldr(WZR, (X8, 0x190i32)).unwrap(), "ldr wzr, [x8, #0x190]";
+        test_ldr_xzr_sp_scaled_imm3, ldr(XZR, (SP, 0x190i32)).unwrap(), "ldr xzr, [sp, #0x190]";
     }
 
     test_cases! {
