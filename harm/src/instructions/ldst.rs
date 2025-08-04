@@ -8,6 +8,7 @@ mod macros;
 mod increment;
 pub mod ldr;
 mod shift_extend;
+mod str;
 
 pub use self::increment::*;
 pub use self::ldr::*;
