@@ -120,13 +120,39 @@ use aarchmrs_instructions::A64::ldst::{
 };
 
 use super::shift_extend::*;
-use super::{Inc, LdStIncOffset, LdStPcOffset, Load, MakeLoad, Pc, ScaledOffset32, ScaledOffset64};
+use super::{Inc, LdStIncOffset, LdStPcOffset, Pc, ScaledOffset32, ScaledOffset64};
 use crate::{
     bits::BitError,
     instructions::Instruction,
     register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
 };
 
+/// A `LDR` instruction with a destination and an address.
+pub struct Load<Dst, Addr> {
+    dst: Dst,
+    addr: Addr,
+}
+
+impl<Dst, Addr> Load<Dst, Addr> {
+    pub fn dst(&self) -> &Dst {
+        &self.dst
+    }
+
+    pub fn addr(&self) -> &Addr {
+        &self.addr
+    }
+}
+
+/// Defines possible was to construct a `Load` instruction.
+// TODO sealed trait?
+pub trait MakeLoad<Dst, Addr> {
+    /// Allows defining both faillible and infallible constructors.
+    type Output;
+    fn new(dst: Dst, addr: Addr) -> Self::Output;
+}
+//
+// ## LDR (register offset)
+//
 /// `LDR` with 64-bit destination, base register with extended 64-bit register offset with scale.
 impl<Tgt64, Base, Ext> MakeLoad<Tgt64, (Base, Ext)>
     for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero64>)>
@@ -188,6 +214,75 @@ impl Instruction for Load<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZe
             offset.offset.code(),
             (offset.extend as u8).into(),
             offset.shifted.into(),
+            base.code(),
+            self.dst.code(),
+        );
+        std::iter::once(code)
+    }
+}
+
+/// `LDR` with 64-bit destination, bare base register.
+impl<Tgt64, Base> MakeLoad<Tgt64, Base> for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
+where
+    Tgt64: Into<RegOrZero64>,
+    Base: Into<RegOrSp64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Tgt64, base: Base) -> Self {
+        Self {
+            dst: dst.into(),
+            // TODO does the spec says something specific?
+            addr: (base.into(), RegOrZero64::XZR),
+        }
+    }
+}
+
+/// `LDR` with 64-bit destination, bare base register as a tuple.
+impl<Tgt64, Base> MakeLoad<Tgt64, (Base,)> for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
+where
+    Tgt64: Into<RegOrZero64>,
+    Base: Into<RegOrSp64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Tgt64, (base,): (Base,)) -> Self {
+        Self {
+            dst: dst.into(),
+            addr: (base.into(), RegOrZero64::XZR),
+        }
+    }
+}
+
+/// `LDR` with 64-bit destination, base register with 64-bit offset without scaling.
+impl<Tgt64, Base, OffsetReg> MakeLoad<Tgt64, (Base, OffsetReg)>
+    for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
+where
+    Tgt64: Into<RegOrZero64>,
+    Base: Into<RegOrSp64>,
+    OffsetReg: Into<RegOrZero64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Tgt64, (base, offset): (Base, OffsetReg)) -> Self {
+        Self {
+            dst: dst.into(),
+            addr: (base.into(), offset.into()),
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero64, (RegOrSp64, RegOrZero64)> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
+        let code = LDR_64_ldst_regoff(
+            offset.code(),
+            (LdrExtendOption64::default() as u8).into(),
+            0b0.into(),
             base.code(),
             self.dst.code(),
         );
@@ -263,103 +358,6 @@ impl Instruction for Load<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZe
     }
 }
 
-/// `LDR` with fallible offset that delegates to non-faillible variants.
-impl<DestInp, DestOut, BaseInp, Ext, Err> MakeLoad<DestInp, (BaseInp, Result<Ext, Err>)>
-    for Load<DestOut, (RegOrSp64, Ext)>
-where
-    Load<DestOut, (RegOrSp64, Ext)>: MakeLoad<DestInp, (BaseInp, Ext)>,
-    RegOrSp64: From<BaseInp>,
-{
-    type Output = Result<<Self as MakeLoad<DestInp, (BaseInp, Ext)>>::Output, Err>;
-
-    #[inline]
-    fn new(dst: DestInp, (base, offset): (BaseInp, Result<Ext, Err>)) -> Self::Output {
-        offset.map(|offset| Load::new(dst, (base, offset)))
-    }
-}
-
-/// `LDR` with fallible offset that delegates to non-faillible variants.
-impl<DestInp, DestOut, BaseInp, Ext, Err> MakeLoad<DestInp, (Result<Ext, Err>, BaseInp)>
-    for Load<DestOut, (Ext, RegOrSp64)>
-where
-    Load<DestOut, (Ext, RegOrSp64)>: MakeLoad<DestInp, (Ext, BaseInp)>,
-    RegOrSp64: From<BaseInp>,
-{
-    type Output = Result<<Self as MakeLoad<DestInp, (Ext, BaseInp)>>::Output, Err>;
-
-    #[inline]
-    fn new(dst: DestInp, (ext, base): (Result<Ext, Err>, BaseInp)) -> Self::Output {
-        ext.map(|ext| Load::new(dst, (ext, base)))
-    }
-}
-
-/// `LDR` with fallible address that delegates to non-faillible variants.
-impl<DestInp, DestOut, Addr, Err> MakeLoad<DestInp, Result<Addr, Err>> for Load<DestOut, Addr>
-where
-    Load<DestOut, Addr>: MakeLoad<DestInp, Addr>,
-{
-    type Output = Result<<Self as MakeLoad<DestInp, Addr>>::Output, Err>;
-
-    #[inline]
-    fn new(dst: DestInp, addr: Result<Addr, Err>) -> Self::Output {
-        addr.map(|addr| Load::new(dst, addr))
-    }
-}
-
-/// `LDR` with 64-bit destination, bare base register.
-impl<Tgt64, Base> MakeLoad<Tgt64, Base> for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
-where
-    Tgt64: Into<RegOrZero64>,
-    Base: Into<RegOrSp64>,
-{
-    type Output = Self;
-
-    #[inline]
-    fn new(dst: Tgt64, base: Base) -> Self {
-        Self {
-            dst: dst.into(),
-            // TODO does the spec says something specific?
-            addr: (base.into(), RegOrZero64::XZR),
-        }
-    }
-}
-
-/// `LDR` with 64-bit destination, bare base register as a tuple.
-impl<Tgt64, Base> MakeLoad<Tgt64, (Base,)> for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
-where
-    Tgt64: Into<RegOrZero64>,
-    Base: Into<RegOrSp64>,
-{
-    type Output = Self;
-
-    #[inline]
-    fn new(dst: Tgt64, (base,): (Base,)) -> Self {
-        Self {
-            dst: dst.into(),
-            addr: (base.into(), RegOrZero64::XZR),
-        }
-    }
-}
-
-/// `LDR` with 64-bit destination, base register with 64-bit offset without scaling.
-impl<Tgt64, Base, OffsetReg> MakeLoad<Tgt64, (Base, OffsetReg)>
-    for Load<RegOrZero64, (RegOrSp64, RegOrZero64)>
-where
-    Tgt64: Into<RegOrZero64>,
-    Base: Into<RegOrSp64>,
-    OffsetReg: Into<RegOrZero64>,
-{
-    type Output = Self;
-
-    #[inline]
-    fn new(dst: Tgt64, (base, offset): (Base, OffsetReg)) -> Self {
-        Self {
-            dst: dst.into(),
-            addr: (base.into(), offset.into()),
-        }
-    }
-}
-
 /// `LDR` with 32-bit destination, bare base register.
 impl<Tgt32, Base> MakeLoad<Tgt32, Base> for Load<RegOrZero32, (RegOrSp64, RegOrZero64)>
 where
@@ -391,21 +389,6 @@ where
             dst: dst.into(),
             addr: (base.into(), RegOrZero64::XZR),
         }
-    }
-}
-
-impl Instruction for Load<RegOrZero64, (RegOrSp64, RegOrZero64)> {
-    #[inline]
-    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let (base, offset) = self.addr;
-        let code = LDR_64_ldst_regoff(
-            offset.code(),
-            (LdrExtendOption64::default() as u8).into(),
-            0b0.into(),
-            base.code(),
-            self.dst.code(),
-        );
-        std::iter::once(code)
     }
 }
 
@@ -442,33 +425,9 @@ impl Instruction for Load<RegOrZero32, (RegOrSp64, RegOrZero64)> {
     }
 }
 
-/// `LDR` with 32-bit destination, base register with aligned immediate offset.
-impl<Tgt32, B> MakeLoad<Tgt32, (B, ScaledOffset32)>
-    for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
-where
-    Tgt32: Into<RegOrZero32>,
-    B: Into<RegOrSp64>,
-{
-    type Output = Self;
-
-    #[inline]
-    fn new(dst: Tgt32, (base, offset): (B, ScaledOffset32)) -> Self {
-        Self {
-            dst: dst.into(),
-            addr: (base.into(), offset),
-        }
-    }
-}
-
-impl Instruction for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)> {
-    #[inline]
-    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let (base, offset) = self.addr;
-        let code = LDR_32_ldst_pos(offset.into(), base.code(), self.dst.code());
-        std::iter::once(code)
-    }
-}
-
+//
+// ## LDR (immediate offset)
+//
 /// `LDR` with 64-bit destination, base register with aligned immediate offset.
 impl<Tgt64, B> MakeLoad<Tgt64, (B, ScaledOffset64)>
     for Load<RegOrZero64, (RegOrSp64, ScaledOffset64)>
@@ -493,25 +452,6 @@ impl Instruction for Load<RegOrZero64, (RegOrSp64, ScaledOffset64)> {
         let (base, offset) = self.addr;
         let code = LDR_64_ldst_pos(offset.into(), base.code(), self.dst.code());
         std::iter::once(code)
-    }
-}
-
-/// `LDR` with 32-bit destination, base register with immediate offset. It is fallible, as the offset is has to be
-/// properly aligned.
-impl<Tgt32, B> MakeLoad<Tgt32, (B, u32)> for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
-where
-    Tgt32: Into<RegOrZero32>,
-    B: Into<RegOrSp64>,
-{
-    type Output = Result<Self, BitError>;
-
-    #[inline]
-    fn new(dst: Tgt32, (base, offset): (B, u32)) -> Self::Output {
-        let offset = ScaledOffset32::new(offset)?;
-        Ok(Self {
-            dst: dst.into(),
-            addr: (base.into(), offset),
-        })
     }
 }
 
@@ -556,28 +496,6 @@ impl Instruction for Load<RegOrZero64, (Inc<LdStIncOffset>, RegOrSp64)> {
     }
 }
 
-impl<Dest: Into<RegOrZero32>, Base: Into<RegOrSp64>> MakeLoad<Dest, (Inc<LdStIncOffset>, Base)>
-    for Load<RegOrZero32, (Inc<LdStIncOffset>, RegOrSp64)>
-{
-    type Output = Self;
-
-    fn new(dst: Dest, (inc, base): (Inc<LdStIncOffset>, Base)) -> Self {
-        Self {
-            dst: dst.into(),
-            addr: (inc, base.into()),
-        }
-    }
-}
-
-impl Instruction for Load<RegOrZero32, (Inc<LdStIncOffset>, RegOrSp64)> {
-    #[inline]
-    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
-        let (inc, base) = self.addr;
-        let code = LDR_32_ldst_immpre(inc.offset.into(), base.code(), self.dst.code());
-        std::iter::once(code)
-    }
-}
-
 impl<Dest: Into<RegOrZero64>, Base: Into<RegOrSp64>> MakeLoad<Dest, (Base, Inc<LdStIncOffset>)>
     for Load<RegOrZero64, (RegOrSp64, Inc<LdStIncOffset>)>
 {
@@ -596,6 +514,74 @@ impl Instruction for Load<RegOrZero64, (RegOrSp64, Inc<LdStIncOffset>)> {
     fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
         let (base, inc) = self.addr;
         let code = LDR_64_ldst_immpost(inc.offset.into(), base.code(), self.dst.code());
+        std::iter::once(code)
+    }
+}
+
+/// `LDR` with 32-bit destination, base register with aligned immediate offset.
+impl<Tgt32, B> MakeLoad<Tgt32, (B, ScaledOffset32)>
+    for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
+where
+    Tgt32: Into<RegOrZero32>,
+    B: Into<RegOrSp64>,
+{
+    type Output = Self;
+
+    #[inline]
+    fn new(dst: Tgt32, (base, offset): (B, ScaledOffset32)) -> Self {
+        Self {
+            dst: dst.into(),
+            addr: (base.into(), offset),
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (base, offset) = self.addr;
+        let code = LDR_32_ldst_pos(offset.into(), base.code(), self.dst.code());
+        std::iter::once(code)
+    }
+}
+
+/// `LDR` with 32-bit destination, base register with immediate offset. It is fallible, as the offset is has to be
+/// properly aligned.
+impl<Tgt32, B> MakeLoad<Tgt32, (B, u32)> for Load<RegOrZero32, (RegOrSp64, ScaledOffset32)>
+where
+    Tgt32: Into<RegOrZero32>,
+    B: Into<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+
+    #[inline]
+    fn new(dst: Tgt32, (base, offset): (B, u32)) -> Self::Output {
+        let offset = ScaledOffset32::new(offset)?;
+        Ok(Self {
+            dst: dst.into(),
+            addr: (base.into(), offset),
+        })
+    }
+}
+
+impl<Dest: Into<RegOrZero32>, Base: Into<RegOrSp64>> MakeLoad<Dest, (Inc<LdStIncOffset>, Base)>
+    for Load<RegOrZero32, (Inc<LdStIncOffset>, RegOrSp64)>
+{
+    type Output = Self;
+
+    fn new(dst: Dest, (inc, base): (Inc<LdStIncOffset>, Base)) -> Self {
+        Self {
+            dst: dst.into(),
+            addr: (inc, base.into()),
+        }
+    }
+}
+
+impl Instruction for Load<RegOrZero32, (Inc<LdStIncOffset>, RegOrSp64)> {
+    #[inline]
+    fn represent(self) -> impl Iterator<Item = aarchmrs_types::InstructionCode> + 'static {
+        let (inc, base) = self.addr;
+        let code = LDR_32_ldst_immpre(inc.offset.into(), base.code(), self.dst.code());
         std::iter::once(code)
     }
 }
@@ -622,6 +608,9 @@ impl Instruction for Load<RegOrZero32, (RegOrSp64, Inc<LdStIncOffset>)> {
     }
 }
 
+//
+// ## LDR (PC-relative literal)
+//
 impl<Dest> MakeLoad<Dest, (Pc, LdStPcOffset)> for Load<RegOrZero64, (Pc, LdStPcOffset)>
 where
     Dest: Into<RegOrZero64>,
@@ -667,6 +656,52 @@ impl Instruction for Load<RegOrZero32, (Pc, LdStPcOffset)> {
         let (_pc, offset) = self.addr;
         let code = LDR_32_loadlit(offset.into(), self.dst.code());
         std::iter::once(code)
+    }
+}
+
+//
+// ## Faillible
+//
+/// `LDR` with fallible offset that delegates to non-faillible variants.
+impl<DestInp, DestOut, BaseInp, Ext, Err> MakeLoad<DestInp, (BaseInp, Result<Ext, Err>)>
+    for Load<DestOut, (RegOrSp64, Ext)>
+where
+    Load<DestOut, (RegOrSp64, Ext)>: MakeLoad<DestInp, (BaseInp, Ext)>,
+    RegOrSp64: From<BaseInp>,
+{
+    type Output = Result<<Self as MakeLoad<DestInp, (BaseInp, Ext)>>::Output, Err>;
+
+    #[inline]
+    fn new(dst: DestInp, (base, offset): (BaseInp, Result<Ext, Err>)) -> Self::Output {
+        offset.map(|offset| Load::new(dst, (base, offset)))
+    }
+}
+
+/// `LDR` with fallible offset that delegates to non-faillible variants.
+impl<DestInp, DestOut, BaseInp, Ext, Err> MakeLoad<DestInp, (Result<Ext, Err>, BaseInp)>
+    for Load<DestOut, (Ext, RegOrSp64)>
+where
+    Load<DestOut, (Ext, RegOrSp64)>: MakeLoad<DestInp, (Ext, BaseInp)>,
+    RegOrSp64: From<BaseInp>,
+{
+    type Output = Result<<Self as MakeLoad<DestInp, (Ext, BaseInp)>>::Output, Err>;
+
+    #[inline]
+    fn new(dst: DestInp, (ext, base): (Result<Ext, Err>, BaseInp)) -> Self::Output {
+        ext.map(|ext| Load::new(dst, (ext, base)))
+    }
+}
+
+/// `LDR` with fallible address that delegates to non-faillible variants.
+impl<DestInp, DestOut, Addr, Err> MakeLoad<DestInp, Result<Addr, Err>> for Load<DestOut, Addr>
+where
+    Load<DestOut, Addr>: MakeLoad<DestInp, Addr>,
+{
+    type Output = Result<<Self as MakeLoad<DestInp, Addr>>::Output, Err>;
+
+    #[inline]
+    fn new(dst: DestInp, addr: Result<Addr, Err>) -> Self::Output {
+        addr.map(|addr| Load::new(dst, addr))
     }
 }
 
