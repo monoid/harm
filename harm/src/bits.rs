@@ -43,8 +43,8 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> UBitValue<SIGNIFICANT_BITS, 
     );
 
     pub const fn new(value: u32) -> Result<Self, BitError> {
-        let _ = Self::CHECK_MIN;
-        let _ = Self::CHECK_MAX;
+        let () = Self::CHECK_MIN;
+        let () = Self::CHECK_MAX;
 
         let shifted_value = {
             if value == (value >> ALIGN) << ALIGN {
