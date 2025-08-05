@@ -11,10 +11,12 @@ mod ldr;
 mod ldrb;
 mod shift_extend;
 mod str;
+mod ldrsb;
 
 pub use self::increment::*;
 pub use self::ldr::*;
 pub use self::ldrb::*;
+pub use self::ldrsb::*;
 pub use self::shift_extend::*;
 pub use self::str::*;
 use crate::bits::{SBitValue, UBitValue};
