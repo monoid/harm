@@ -5,13 +5,16 @@
 
 macro_rules! define_reg_offset_rules {
     ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr) => {
+        define_reg_offset_rules!($name, $trait_name, $mnem, $rt, $bitness, $rt);
+    };
+    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $shift:ty) => {
         /// `LDR` with 64-bit destination, base register with extended 64-bit register offset with scale.
         impl<Rt, Base, Ext> $trait_name<Rt, (Base, Ext)>
-            for $name<$rt, (RegOrSp64, Extended<$rt, RegOrZero64>)>
+            for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero64>)>
         where
             Rt: Into<$rt>,
             Base: Into<RegOrSp64>,
-            Ext: Into<Extended<$rt, RegOrZero64>>,
+            Ext: Into<Extended<$shift, RegOrZero64>>,
         {
             type Output = Self;
 
@@ -26,11 +29,11 @@ macro_rules! define_reg_offset_rules {
 
         /// `LDR` with 64-bit destination, base register with extended 32-bit register offset with scale.
         impl<Rt, Base, Ext> $trait_name<Rt, (Base, Ext)>
-            for $name<$rt, (RegOrSp64, Extended<$rt, RegOrZero32>)>
+            for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero32>)>
         where
             Rt: Into<$rt>,
             Base: Into<RegOrSp64>,
-            Ext: Into<Extended<$rt, RegOrZero32>>,
+            Ext: Into<Extended<$shift, RegOrZero32>>,
         {
             type Output = Self;
 
@@ -98,7 +101,7 @@ macro_rules! define_reg_offset_rules {
         }
 
         ::paste::paste! {
-            impl Instruction for $name<$rt, (RegOrSp64, Extended<$rt, RegOrZero64>)> {
+            impl Instruction for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero64>)> {
                 #[inline]
                 fn represent(self) -> impl Iterator<Item = crate::InstructionCode> + 'static {
                     let (base, offset) = self.addr;
@@ -113,7 +116,7 @@ macro_rules! define_reg_offset_rules {
                 }
             }
 
-            impl Instruction for $name<$rt, (RegOrSp64, Extended<$rt, RegOrZero32>)> {
+            impl Instruction for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero32>)> {
                 #[inline]
                 fn represent(self) -> impl Iterator<Item = crate::InstructionCode> + 'static {
                     let (base, offset) = self.addr;

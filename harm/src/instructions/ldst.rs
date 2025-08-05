@@ -7,13 +7,16 @@
 pub(crate) mod macros;
 
 mod increment;
-pub mod ldr;
+mod ldr;
+mod ldrb;
 mod shift_extend;
 mod str;
 
 pub use self::increment::*;
 pub use self::ldr::*;
+pub use self::ldrb::*;
 pub use self::shift_extend::*;
+pub use self::str::*;
 use crate::bits::{SBitValue, UBitValue};
 
 pub type LdStPcOffset = SBitValue<19, 2>;
@@ -22,6 +25,7 @@ pub type LdStPcOffset = SBitValue<19, 2>;
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct Pc;
 
+pub type ScaledOffset8 = UBitValue<12, 0>;
 pub type ScaledOffset32 = UBitValue<12, 2>;
 pub type ScaledOffset64 = UBitValue<12, 3>;
 

@@ -191,10 +191,11 @@ where
 /// either 0 or 2.
 fn shifted_by<Dest: LdrDestShiftOption>(shift: u32) -> Result<LdrShift, ShiftedError> {
     let accepted = Dest::SHIFT_SIZE;
-    if shift == 0 {
-        Ok(LdrShift::Unshifted)
-    } else if shift == accepted {
+    // N.B.: for LDRB/LDRSB shift is 0, and it has to be Shifted
+    if shift == accepted {
         Ok(LdrShift::Shifted)
+    } else if shift == 0 {
+        Ok(LdrShift::Unshifted)
     } else {
         Err(ShiftedError::InvalidShiftSize { shift, accepted })
     }
