@@ -15,12 +15,14 @@ mod shift_extend;
 mod str;
 mod strb;
 mod strh;
+mod ldrsh;
 
 pub use self::increment::*;
 pub use self::ldr::*;
 pub use self::ldrb::*;
 pub use self::ldrh::*;
 pub use self::ldrsb::*;
+pub use self::ldrsh::*;
 pub use self::shift_extend::*;
 pub use self::str::*;
 pub use self::strb::*;
