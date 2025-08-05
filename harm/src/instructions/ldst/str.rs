@@ -43,7 +43,7 @@
 //! LDR with register base with immediate offset has an unsigned offset aligned by destination register size.
 //! For example, if the desination register is `W1`, the offset has be aligned by 4 bytes (two lower bits are clear),
 //! and if it is `X1`, the offset has to be aligned by 8 bytes (three lower bits are clear).  The offset has 12
-//! significan bytes available.
+//! significan bits available.
 //!
 //! You may also a `u32` offset value, and a error is returned if the value doesn't fit the offset pattern.
 //!
@@ -122,7 +122,6 @@ use super::shift_extend::*;
 use super::{Inc, LdStIncOffset, ScaledOffset32, ScaledOffset64};
 use crate::{
     bits::BitError,
-    define_fallible_rules, define_imm_offset_rules, define_reg_offset_rules,
     instructions::Instruction,
     register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
 };

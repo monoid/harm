@@ -3,7 +3,6 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-#[macro_export]
 macro_rules! define_reg_offset_rules {
     ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr) => {
         /// `LDR` with 64-bit destination, base register with extended 64-bit register offset with scale.
@@ -147,7 +146,6 @@ macro_rules! define_reg_offset_rules {
     };
 }
 
-#[macro_export]
 macro_rules! define_imm_offset_rules {
     ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty) => {
         /// `LDR` with 64-bit destination, base register with aligned immediate offset.
@@ -264,12 +262,10 @@ macro_rules! define_imm_offset_rules {
     };
 }
 
-#[macro_export]
 macro_rules! define_unscaled_imm_offset_rules {
     ($name:ident, $make_name:ident, $mnem:ident, $rt:ty, $bitness:expr) => {};
 }
 
-#[macro_export]
 macro_rules! define_pc_offset_rules {
     ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr) => {
         #[doc = "`"]
