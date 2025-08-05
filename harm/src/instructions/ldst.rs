@@ -12,11 +12,13 @@ mod ldrb;
 mod shift_extend;
 mod str;
 mod ldrsb;
+mod ldrh;
 
 pub use self::increment::*;
 pub use self::ldr::*;
 pub use self::ldrb::*;
 pub use self::ldrsb::*;
+pub use self::ldrh::*;
 pub use self::shift_extend::*;
 pub use self::str::*;
 use crate::bits::{SBitValue, UBitValue};
@@ -28,7 +30,14 @@ pub type LdStPcOffset = SBitValue<19, 2>;
 pub struct Pc;
 
 pub type ScaledOffset8 = UBitValue<12, 0>;
+pub type ScaledOffset16 = UBitValue<12, 1>;
 pub type ScaledOffset32 = UBitValue<12, 2>;
 pub type ScaledOffset64 = UBitValue<12, 3>;
 
 pub type UnscaledOffset = SBitValue<9>;
+
+pub struct HalfShift;
+
+impl LdrDestShiftOption for HalfShift {
+    const SHIFT_SIZE: u32 = 1;
+}
