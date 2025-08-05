@@ -18,19 +18,19 @@
 //!
 //! # Examples:
 //! ```
-//! # use harm::instructions::ldst::{ldrsb, ext, LdrExtendOption32, LdrShift};
+//! # use harm::instructions::ldst::{ldrsb, ext, LdStExtendOption32, LdStShift};
 //! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
-//! use LdrExtendOption32::*;
+//! use LdStExtendOption32::*;
 //!
 //! ldrsb(W1, X2);        // LDRSB W1, [X2]
 //! ldrsb(W1, (X2,));     // LDRSB W1, [X2]
 //! ldrsb(W1, (X2, X3));  // LDRSB W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend speicifer (sxtw or uxtw):
 //! ldrsb(W1, (X2, ext((W3, UXTW)))); // ldrsb w1, [x2, w3, uxtw]
-//! ldrsb(W1, (X2, ext((W3, UXTW, LdrShift::Shifted)))); // ldrsb w1, [x2, w3, uxtw #0]
+//! ldrsb(W1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldrsb w1, [x2, w3, uxtw #0]
 //! ldrsb(W1, (X2, ext((W3, UXTW)))); // ldrsb w1, [x2, w3, uxtw]
 //! ldrsb(X1, (X2, ext((W3, UXTW)))); // ldrsb x1, [x2, w3, uxtw]
-//! ldrsb(X1, (X2, ext((W3, UXTW, LdrShift::Shifted)))); // ldrsb x1, [x2, w3, uxtw #0]
+//! ldrsb(X1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldrsb x1, [x2, w3, uxtw #0]
 //! ldrsb(X1, (X2, ext((W3, UXTW, 0)))).unwrap(); // ldrsb x1, [x2, w3, uxtw #0]
 //! ```
 //!
@@ -87,8 +87,8 @@ use aarchmrs_instructions::A64::ldst::{
     },
 };
 
-use super::{shift_extend::*, ByteShift};
-use super::{Inc, LdStIncOffset, ScaledOffset8};
+use super::shift_extend::*;
+use super::{ByteShift, Inc, LdStIncOffset, ScaledOffset8};
 use crate::bits::BitError;
 use crate::instructions::Instruction;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
@@ -155,8 +155,8 @@ mod tests {
         bits::UBitValue,
         instructions::ldst::{inc, postinc, preinc},
     };
-    use LdrExtendOption32::*;
-    use LdrExtendOption64::*;
+    use LdStExtendOption32::*;
+    use LdStExtendOption64::*;
     use RegOrSp64::SP;
     use RegOrZero32::WZR;
     use RegOrZero64::XZR;

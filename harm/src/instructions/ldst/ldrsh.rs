@@ -18,19 +18,19 @@
 //!
 //! # Examples:
 //! ```
-//! # use harm::instructions::ldst::{ldrsh, ext, LdrExtendOption32, LdrShift};
+//! # use harm::instructions::ldst::{ldrsh, ext, LdStExtendOption32, LdStShift};
 //! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
-//! use LdrExtendOption32::*;
+//! use LdStExtendOption32::*;
 //!
 //! ldrsh(W1, X2);        // LDRSH W1, [X2]
 //! ldrsh(W1, (X2,));     // LDRSH W1, [X2]
 //! ldrsh(W1, (X2, X3));  // LDRSH W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend speicifer (sxtw or uxtw):
 //! ldrsh(W1, (X2, ext((W3, UXTW)))); // ldrsh w1, [x2, w3, uxtw]
-//! ldrsh(W1, (X2, ext((W3, UXTW, LdrShift::Shifted)))); // ldrsh w1, [x2, w3, uxtw #0]
+//! ldrsh(W1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldrsh w1, [x2, w3, uxtw #0]
 //! ldrsh(W1, (X2, ext((W3, UXTW)))); // ldrsh w1, [x2, w3, uxtw]
 //! ldrsh(X1, (X2, ext((W3, UXTW)))); // ldrsh x1, [x2, w3, uxtw]
-//! ldrsh(X1, (X2, ext((W3, UXTW, LdrShift::Shifted)))); // ldrsh x1, [x2, w3, uxtw #0]
+//! ldrsh(X1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldrsh x1, [x2, w3, uxtw #0]
 //! ldrsh(X1, (X2, ext((W3, UXTW, 0)))).unwrap(); // ldrsh x1, [x2, w3, uxtw #0]
 //! ```
 //!
@@ -88,7 +88,7 @@ use aarchmrs_instructions::A64::ldst::{
 };
 
 use super::shift_extend::*;
-use super::{HalfShift, LdStIncOffset, ScaledOffset16, Inc};
+use super::{HalfShift, Inc, LdStIncOffset, ScaledOffset16};
 use crate::bits::BitError;
 use crate::instructions::Instruction;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
@@ -155,8 +155,8 @@ mod tests {
         bits::UBitValue,
         instructions::ldst::{inc, postinc, preinc},
     };
-    use LdrExtendOption32::*;
-    use LdrExtendOption64::*;
+    use LdStExtendOption32::*;
+    use LdStExtendOption64::*;
     use RegOrSp64::SP;
     use RegOrZero32::WZR;
     use RegOrZero64::XZR;

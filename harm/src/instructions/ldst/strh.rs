@@ -18,17 +18,17 @@
 //!
 //! # Examples:
 //! ```
-//! # use harm::instructions::ldst::{strh, ext, LdrExtendOption32, LdrShift};
+//! # use harm::instructions::ldst::{strh, ext, LdStExtendOption32, LdStShift};
 //! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
-//! use LdrExtendOption32::*;
+//! use LdStExtendOption32::*;
 //!
 //! strh(W1, X2);        // STRH W1, [X2]
 //! strh(W1, (X2,));     // STRH W1, [X2]
 //! strh(W1, (X2, X3));  // STRH W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend speicifer (sxtw or uxtw):
 //! strh(W1, (X2, ext((W3, UXTW)))); // strh w1, [x2, w3, uxtw]
-//! strh(W1, (X2, ext((W3, UXTW, LdrShift::Unshifted)))); // strh w1, [x2, w3, uxtw #0]
-//! strh(W1, (X2, ext((W3, UXTW, LdrShift::Shifted)))); // strh w1, [x2, w3, uxtw #1]
+//! strh(W1, (X2, ext((W3, UXTW, LdStShift::Unshifted)))); // strh w1, [x2, w3, uxtw #0]
+//! strh(W1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // strh w1, [x2, w3, uxtw #1]
 //! strh(W1, (X2, ext((W3, UXTW)))); // strh w1, [x2, w3, uxtw]
 //! ```
 //!
@@ -144,8 +144,8 @@ mod tests {
         bits::UBitValue,
         instructions::ldst::{inc, postinc, preinc},
     };
-    use LdrExtendOption32::*;
-    use LdrExtendOption64::*;
+    use LdStExtendOption32::*;
+    use LdStExtendOption64::*;
     use RegOrSp64::SP;
     use RegOrZero32::WZR;
     use RegOrZero64::XZR;

@@ -137,7 +137,7 @@ macro_rules! define_reg_offset_rules {
                     let (base, offset) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ldst_regoff>](
                         offset.code(),
-                        (LdrExtendOption64::default() as u8).into(),
+                        (LdStExtendOption64::default() as u8).into(),
                         0b0.into(),
                         base.code(),
                         self.rt.code(),

@@ -18,16 +18,16 @@
 //!
 //! # Examples:
 //! ```
-//! # use harm::instructions::ldst::{strb, ext, LdrExtendOption32, LdrShift};
+//! # use harm::instructions::ldst::{strb, ext, LdStExtendOption32, LdStShift};
 //! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
-//! use LdrExtendOption32::*;
+//! use LdStExtendOption32::*;
 //!
 //! strb(W1, X2);        // STRB W1, [X2]
 //! strb(W1, (X2,));     // STRB W1, [X2]
 //! strb(W1, (X2, X3));  // STRB W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend speicifer (sxtw or uxtw):
 //! strb(W1, (X2, ext((W3, UXTW)))); // strb w1, [x2, w3, uxtw]
-//! strb(W1, (X2, ext((W3, UXTW, LdrShift::Shifted)))); // strb w1, [x2, w3, uxtw #0]
+//! strb(W1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // strb w1, [x2, w3, uxtw #0]
 //! strb(W1, (X2, ext((W3, UXTW)))); // strb w1, [x2, w3, uxtw]
 //! ```
 //!
@@ -73,7 +73,8 @@ use aarchmrs_instructions::A64::ldst::{
     ldst_regoff::STRB_32B_ldst_regoff::STRB_32B_ldst_regoff,
 };
 
-use super::{shift_extend::*, ByteShift, Inc, LdStIncOffset, ScaledOffset8};
+use super::shift_extend::*;
+use super::{ByteShift, Inc, LdStIncOffset, ScaledOffset8};
 use crate::{
     bits::BitError,
     instructions::Instruction,
@@ -141,8 +142,8 @@ mod tests {
         bits::UBitValue,
         instructions::ldst::{inc, postinc, preinc},
     };
-    use LdrExtendOption32::*;
-    use LdrExtendOption64::*;
+    use LdStExtendOption32::*;
+    use LdStExtendOption64::*;
     use RegOrSp64::SP;
     use RegOrZero32::WZR;
     use RegOrZero64::XZR;

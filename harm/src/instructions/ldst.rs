@@ -11,11 +11,12 @@ mod ldr;
 mod ldrb;
 mod ldrh;
 mod ldrsb;
+mod ldrsh;
+mod ldrsw;
 mod shift_extend;
 mod str;
 mod strb;
 mod strh;
-mod ldrsh;
 
 pub use self::increment::*;
 pub use self::ldr::*;
@@ -23,6 +24,7 @@ pub use self::ldrb::*;
 pub use self::ldrh::*;
 pub use self::ldrsb::*;
 pub use self::ldrsh::*;
+pub use self::ldrsw::*;
 pub use self::shift_extend::*;
 pub use self::str::*;
 pub use self::strb::*;
@@ -44,12 +46,12 @@ pub type UnscaledOffset = SBitValue<9>;
 
 pub struct ByteShift;
 
-impl LdrDestShiftOption for ByteShift {
+impl LdStDestShiftOption for ByteShift {
     const SHIFT_SIZE: u32 = 0;
 }
 
 pub struct HalfShift;
 
-impl LdrDestShiftOption for HalfShift {
+impl LdStDestShiftOption for HalfShift {
     const SHIFT_SIZE: u32 = 1;
 }
