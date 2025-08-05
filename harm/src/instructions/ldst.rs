@@ -9,18 +9,20 @@ pub(crate) mod macros;
 mod increment;
 mod ldr;
 mod ldrb;
+mod ldrh;
+mod ldrsb;
 mod shift_extend;
 mod str;
-mod ldrsb;
-mod ldrh;
+mod strb;
 
 pub use self::increment::*;
 pub use self::ldr::*;
 pub use self::ldrb::*;
-pub use self::ldrsb::*;
 pub use self::ldrh::*;
+pub use self::ldrsb::*;
 pub use self::shift_extend::*;
 pub use self::str::*;
+pub use self::strb::*;
 use crate::bits::{SBitValue, UBitValue};
 
 pub type LdStPcOffset = SBitValue<19, 2>;
@@ -35,6 +37,12 @@ pub type ScaledOffset32 = UBitValue<12, 2>;
 pub type ScaledOffset64 = UBitValue<12, 3>;
 
 pub type UnscaledOffset = SBitValue<9>;
+
+pub struct ByteShift;
+
+impl LdrDestShiftOption for ByteShift {
+    const SHIFT_SIZE: u32 = 0;
+}
 
 pub struct HalfShift;
 

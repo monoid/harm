@@ -73,7 +73,7 @@ use aarchmrs_instructions::A64::ldst::{
     ldst_regoff::LDRB_32B_ldst_regoff::LDRB_32B_ldst_regoff,
 };
 
-use super::{Inc, LdStIncOffset, ScaledOffset8, shift_extend::*};
+use super::{shift_extend::*, ByteShift, Inc, LdStIncOffset, ScaledOffset8};
 use crate::{
     bits::BitError,
     instructions::Instruction,
@@ -102,13 +102,6 @@ pub trait MakeLdrb<Rt, Addr> {
     /// Allows defining both faillible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-
-// TODO should be common type, as shared by LDRSB
-pub struct ByteShift;
-
-impl LdrDestShiftOption for ByteShift {
-    const SHIFT_SIZE: u32 = 0;
 }
 
 //
