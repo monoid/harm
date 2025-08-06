@@ -266,7 +266,50 @@ macro_rules! define_imm_offset_rules {
 }
 
 macro_rules! define_unscaled_imm_offset_rules {
-    ($name:ident, $make_name:ident, $mnem:ident, $rt:ty, $bitness:expr) => {};
+    ($name:ident, $make_name:ident, $mnem:ident, $rt:ty, $bitness:expr) => {
+        impl<Rt, Base> $make_name<Rt, (Base, UnscaledOffset)>
+            for $name<$rt, (RegOrSp64, UnscaledOffset)>
+        where
+            Rt: Into<$rt>,
+            Base: Into<RegOrSp64>,
+        {
+            type Output = Self;
+
+            fn new(rt: Rt, (base, offset): (Base, UnscaledOffset)) -> Self::Output {
+                Self {
+                    rt: rt.into(),
+                    addr: (base.into(), offset),
+                }
+            }
+        }
+
+        impl<Rt, Base> $make_name<Rt, (Base, i32)>
+            for $name<$rt, (RegOrSp64, UnscaledOffset)>
+        where
+            Rt: Into<$rt>,
+            Base: Into<RegOrSp64>,
+        {
+            type Output = Result<Self, BitError>;
+
+            fn new(rt: Rt, (base, offset): (Base, i32)) -> Self::Output {
+                UnscaledOffset::new(offset).map(|offset| Self {
+                    rt: rt.into(),
+                    addr: (base.into(), offset),
+                })
+            }
+        }
+
+        ::paste::paste! {
+            impl Instruction for $name<$rt, (RegOrSp64, UnscaledOffset)> {
+                #[inline]
+                fn represent(self) -> impl Iterator<Item = crate::InstructionCode> + 'static {
+                    let (base, offset) = self.addr;
+                    let code = [<$mnem:upper _ $bitness _ldst_unscaled>](offset.into(), base.code(), self.rt.code());
+                    ::std::iter::once(code)
+                }
+            }
+        }
+    };
 }
 
 macro_rules! define_pc_offset_rules {

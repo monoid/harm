@@ -7,13 +7,15 @@
 pub(crate) mod macros;
 
 mod increment;
+mod shift_extend;
+
 mod ldr;
 mod ldrb;
 mod ldrh;
 mod ldrsb;
 mod ldrsh;
 mod ldrsw;
-mod shift_extend;
+mod ldur;
 mod str;
 mod strb;
 mod strh;
@@ -25,6 +27,7 @@ pub use self::ldrh::*;
 pub use self::ldrsb::*;
 pub use self::ldrsh::*;
 pub use self::ldrsw::*;
+pub use self::ldur::*;
 pub use self::shift_extend::*;
 pub use self::str::*;
 pub use self::strb::*;
