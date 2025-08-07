@@ -1,11 +1,11 @@
 use clap::Parser as ClapParser;
-use itertools::Itertools;
+use itertools::Itertools as _;
 use nom::{
     IResult, Parser as _,
     branch::alt,
     bytes::complete::tag,
-    character::complete::none_of,
-    combinator::{cut, eof, map},
+    character::complete::{anychar, none_of},
+    combinator::{cut, map},
     multi::{many, separated_list0},
     sequence::{preceded, terminated},
 };
@@ -25,6 +25,7 @@ fn main() {
 fn variants(pattern: &str) -> impl Iterator<Item = String> {
     nom::combinator::all_consuming(parse)
         .parse(pattern)
+        // It is not a public tool, so panicing is OK.
         .unwrap()
         .1
 }
@@ -66,7 +67,6 @@ where
 
 fn parse(inp: &str) -> IResult<&str, IterClone<String>> {
     alt((
-        map(eof, |_| IterClone::new(std::iter::once(String::new()))),
         map(many(1.., parse_item), |items: Vec<_>| {
             IterClone::new(
                 items
@@ -75,6 +75,7 @@ fn parse(inp: &str) -> IResult<&str, IterClone<String>> {
                     .map(|prod| format!("{}", prod.into_iter().format(""))),
             )
         }),
+        map(tag(""), |_| IterClone::new(std::iter::once(String::new()))),
     ))
     .parse(inp)
 }
@@ -82,9 +83,10 @@ fn parse(inp: &str) -> IResult<&str, IterClone<String>> {
 fn parse_item(inp: &str) -> IResult<&str, IterClone<String>> {
     alt((
         preceded(tag("("), cut(terminated(parse_alt, tag(")")))),
-        map(many(1.., none_of("(|)")), |c: String| {
-            IterClone::new(std::iter::once(c))
-        }),
+        map(
+            many(1.., alt((preceded(tag("\\"), anychar), none_of("(|\\)")))),
+            |c: String| IterClone::new(std::iter::once(c)),
+        ),
     ))
     .parse(inp)
 }
@@ -165,5 +167,29 @@ mod tests {
     fn test_patterns_nested3() {
         let var = variants("(a|b(c|d)e)").collect_vec();
         assert_eq!(var, &["a", "bce", "bde"]);
+    }
+
+    #[test]
+    fn test_patterns_empty() {
+        let var = variants("(|b(c|)e)").collect_vec();
+        assert_eq!(var, &["", "bce", "be"]);
+    }
+
+    #[test]
+    fn test_patterns_esc1() {
+        let var = variants("(a|b\\(c|d\\)e)").collect_vec();
+        assert_eq!(var, &["a", "b(c", "d)e"]);
+    }
+
+    #[test]
+    fn test_patterns_esc2() {
+        let var = variants("(a\\|b\\(c|d\\)e)").collect_vec();
+        assert_eq!(var, &["a|b(c", "d)e"]);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_patterns_esc3() {
+        let _var = variants("\\").collect_vec();
     }
 }
