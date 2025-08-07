@@ -26,7 +26,7 @@ pub const AARCHMRS_2025_03_MD5: [u8; 16] = hex_literal::hex!("9d2b1867aac5f76ae8
 pub const AARCHMRS_2025_03_SIZE: u64 = 4770765;
 pub const AARCHMRS_INSTRUCTIONS_FILE: &str = "Instructions.json";
 
-const FEATURES: [&'static str; 3] = ["A64", "A32", "T32"];
+const FEATURES: [&str; 3] = ["A64", "A32", "T32"];
 
 pub fn gen_instructions(
     dest_dir: &Path,

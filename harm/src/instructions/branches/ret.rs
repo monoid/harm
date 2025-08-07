@@ -18,6 +18,7 @@ pub fn ret() -> Ret {
 pub struct Ret(RegOrZero64);
 
 impl Ret {
+    #[allow(clippy::new_without_default)]
     #[inline]
     pub fn new() -> Self {
         Ret(RegOrZero64::Reg(Reg64::LR))

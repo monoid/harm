@@ -4,7 +4,8 @@
  */
 
 use aarchmrs_instructions::A64::ldst::ldst_unscaled::{
-    LDURSB_32_ldst_unscaled::LDURSB_32_ldst_unscaled, LDURSB_64_ldst_unscaled::LDURSB_64_ldst_unscaled,
+    LDURSB_32_ldst_unscaled::LDURSB_32_ldst_unscaled,
+    LDURSB_64_ldst_unscaled::LDURSB_64_ldst_unscaled,
 };
 
 use crate::bits::BitError;

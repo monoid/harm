@@ -15,7 +15,7 @@ fn main() -> eyre::Result<()> {
     }
     let obj_file = tempfile::Builder::new().suffix(".o").tempfile()?;
 
-    run_cc(&asm_file.path(), obj_file.path()).unwrap();
+    run_cc(asm_file.path(), obj_file.path()).unwrap();
     let asm = run_disassembler(obj_file.path()).unwrap();
     let asm = clean_disassembler(asm.as_str(), &orig_lines)?;
     eprintln!("===========================================================================");

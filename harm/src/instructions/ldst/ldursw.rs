@@ -3,9 +3,7 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use aarchmrs_instructions::A64::ldst::ldst_unscaled::{
-    LDURSW_64_ldst_unscaled::LDURSW_64_ldst_unscaled,
-};
+use aarchmrs_instructions::A64::ldst::ldst_unscaled::LDURSW_64_ldst_unscaled::LDURSW_64_ldst_unscaled;
 
 use crate::bits::BitError;
 use crate::instructions::Instruction;
