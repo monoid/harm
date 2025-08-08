@@ -3,6 +3,7 @@
  * This document is Non-confidential and licensed under the BSD 3-clause license.
  */
 
+#![no_std]
 #![allow(
     non_snake_case,
     non_camel_case_types,

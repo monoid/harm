@@ -33,11 +33,11 @@ impl FromHex for InstructionCode {
 }
 
 impl ToHex for InstructionCode {
-    fn encode_hex<T: std::iter::FromIterator<char>>(&self) -> T {
+    fn encode_hex<T: core::iter::FromIterator<char>>(&self) -> T {
         <[u8; 4]>::encode_hex(&self.unpack().to_be_bytes())
     }
 
-    fn encode_hex_upper<T: std::iter::FromIterator<char>>(&self) -> T {
+    fn encode_hex_upper<T: core::iter::FromIterator<char>>(&self) -> T {
         <[u8; 4]>::encode_hex_upper(&self.unpack().to_be_bytes())
     }
 }
@@ -45,6 +45,7 @@ impl ToHex for InstructionCode {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use alloc::string::String;
 
     #[test]
     fn test_from_u32() {
