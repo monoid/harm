@@ -71,7 +71,7 @@ impl Instruction for Branch<PcDst> {
             Some(cond) => branch_cond(self.dst.0, cond),
             None => branch_nocond(self.dst.0),
         };
-        std::iter::once(code)
+        core::iter::once(code)
     }
 }
 
@@ -119,7 +119,7 @@ impl Instruction for CompareBranch<Reg64> {
         } else {
             compbranch::CBNZ_64_compbranch::CBNZ_64_compbranch(self.offset.into(), self.reg.code())
         };
-        std::iter::once(code)
+        core::iter::once(code)
     }
 }
 
@@ -132,7 +132,7 @@ impl Instruction for CompareBranch<Reg32> {
         } else {
             compbranch::CBNZ_32_compbranch::CBNZ_32_compbranch(self.offset.into(), self.reg.code())
         };
-        std::iter::once(code)
+        core::iter::once(code)
     }
 }
 
@@ -152,6 +152,8 @@ where
 
 #[cfg(test)]
 mod tests {
+    use alloc::vec;
+    use alloc::vec::Vec;
     use super::*;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;

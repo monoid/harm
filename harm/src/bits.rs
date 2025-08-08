@@ -1,5 +1,5 @@
-use std::convert::From;
-use std::fmt;
+use core::convert::From;
+use core::fmt;
 
 use aarchmrs_types::BitValue;
 
@@ -10,10 +10,10 @@ pub enum BitError {
     Alignment { align: u8 },
 }
 
-impl std::error::Error for BitError {}
+impl core::error::Error for BitError {}
 
 impl fmt::Display for BitError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         match self {
             BitError::Overflow {
                 significant_bits,

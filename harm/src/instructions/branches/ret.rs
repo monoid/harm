@@ -35,12 +35,14 @@ impl Instruction for Ret {
     fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static {
         let reg = self.0;
         let code = RET_64R_branch_reg(reg.code());
-        std::iter::once(code)
+        core::iter::once(code)
     }
 }
 
 #[cfg(test)]
 mod tests {
+        use alloc::vec;
+    use alloc::vec::Vec;
     use super::*;
 
     #[test]
