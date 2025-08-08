@@ -10,6 +10,7 @@ use crate::{
 
 pub type LdStIncOffset = SBitValue<9>;
 
+#[derive(Copy, Clone, Debug)]
 pub struct Inc<Offset> {
     pub offset: Offset,
 }

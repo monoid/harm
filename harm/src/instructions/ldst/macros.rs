@@ -101,48 +101,45 @@ macro_rules! define_reg_offset_rules {
         }
 
         ::paste::paste! {
-            impl Instruction for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero64>)> {
+            impl RawInstruction for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero64>)> {
                 #[inline]
-                fn represent(self) -> impl Iterator<Item = crate::InstructionCode> + 'static {
+                fn to_code(&self) -> crate::InstructionCode {
                     let (base, offset) = self.addr;
-                    let code = [<$mnem:upper _ $bitness _ldst_regoff>](
+                    [<$mnem:upper _ $bitness _ldst_regoff>](
                         offset.offset.code(),
                         (offset.extend as u8).into(),
                         offset.shifted.into(),
                         base.code(),
                         self.rt.code(),
-                    );
-                    core::iter::once(code)
+                    )
                 }
             }
 
-            impl Instruction for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero32>)> {
+            impl RawInstruction for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero32>)> {
                 #[inline]
-                fn represent(self) -> impl Iterator<Item = crate::InstructionCode> + 'static {
+                fn to_code(&self) -> crate::InstructionCode {
                     let (base, offset) = self.addr;
-                    let code = [<$mnem:upper _ $bitness _ldst_regoff>](
+                    [<$mnem:upper _ $bitness _ldst_regoff>](
                         offset.offset.code(),
                         (offset.extend as u8).into(),
                         offset.shifted.into(),
                         base.code(),
                         self.rt.code(),
-                    );
-                    core::iter::once(code)
+                    )
                 }
             }
 
-            impl Instruction for $name<$rt, (RegOrSp64, RegOrZero64)> {
+            impl RawInstruction for $name<$rt, (RegOrSp64, RegOrZero64)> {
                 #[inline]
-                fn represent(self) -> impl Iterator<Item = crate::InstructionCode> + 'static {
+                fn to_code(&self) -> crate::InstructionCode {
                     let (base, offset) = self.addr;
-                    let code = [<$mnem:upper _ $bitness _ldst_regoff>](
+                    [<$mnem:upper _ $bitness _ldst_regoff>](
                         offset.code(),
                         (LdStExtendOption64::default() as u8).into(),
                         0b0.into(),
                         base.code(),
                         self.rt.code(),
-                    );
-                    core::iter::once(code)
+                    )
                 }
             }
         }
@@ -234,31 +231,31 @@ macro_rules! define_imm_offset_rules {
         }
 
         ::paste::paste! {
-            impl $crate::instructions::Instruction for $name<$rt, (RegOrSp64, $offset_type)> {
+            impl $crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, $offset_type)> {
                 #[inline]
-                fn represent(self) -> impl ::core::iter::Iterator<Item = $crate::InstructionCode> + 'static {
+                fn to_code(&self) -> crate::InstructionCode {
                     let (base, offset) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ldst_pos>](offset.into(), base.code(), self.rt.code());
-                    ::core::iter::once(code)
+                    code
                 }
             }
 
-            impl $crate::instructions::Instruction for $name<$rt, (Inc<LdStIncOffset>, RegOrSp64)> {
+            impl $crate::instructions::RawInstruction for $name<$rt, (Inc<LdStIncOffset>, RegOrSp64)> {
                 #[inline]
-                fn represent(self) -> impl ::core::iter::Iterator<Item = $crate::InstructionCode> + 'static {
+                fn to_code(&self) -> crate::InstructionCode {
                     let (inc, base) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ldst_immpre>](inc.offset.into(), base.code(), self.rt.code());
-                    ::core::iter::once(code)
+                    code
                 }
             }
 
-            impl $crate::instructions::Instruction for $name<$rt, (RegOrSp64, Inc<LdStIncOffset>)> {
+            impl $crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, Inc<LdStIncOffset>)> {
                 #[inline]
-                fn represent(self) -> impl ::core::iter::Iterator<Item = $crate::InstructionCode> + 'static {
+                fn to_code(&self) -> crate::InstructionCode {
                     let (base, inc) = self.addr;
 
                     let code = [<$mnem:upper _ $bitness _ldst_immpost>](inc.offset.into(), base.code(), self.rt.code());
-                    ::core::iter::once(code)
+                    code
                 }
             }
         }
@@ -300,12 +297,11 @@ macro_rules! define_unscaled_imm_offset_rules {
         }
 
         ::paste::paste! {
-            impl Instruction for $name<$rt, (RegOrSp64, UnscaledOffset)> {
+            impl RawInstruction for $name<$rt, (RegOrSp64, UnscaledOffset)> {
                 #[inline]
-                fn represent(self) -> impl Iterator<Item = crate::InstructionCode> + 'static {
+                fn to_code(&self) -> crate::InstructionCode {
                     let (base, offset) = self.addr;
-                    let code = [<$mnem:upper _ $bitness _ldst_unscaled>](offset.into(), base.code(), self.rt.code());
-                    ::core::iter::once(code)
+                    [<$mnem:upper _ $bitness _ldst_unscaled>](offset.into(), base.code(), self.rt.code())
                 }
             }
         }
@@ -353,12 +349,12 @@ macro_rules! define_pc_offset_rules {
         }
 
         ::paste::paste! {
-            impl $crate::instructions::Instruction for $name<$rt, ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)> {
+            impl $crate::instructions::RawInstruction for $name<$rt, ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)> {
                 #[inline]
-                fn represent(self) -> impl ::core::iter::Iterator<Item = $crate::InstructionCode> + 'static {
+                fn to_code(&self) -> crate::InstructionCode {
                     let (_pc, offset) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ loadlit>](offset.into(), self.rt.code());
-                    ::core::iter::once(code)
+                    code
                 }
             }
         }

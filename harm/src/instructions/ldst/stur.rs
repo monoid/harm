@@ -8,7 +8,7 @@ use aarchmrs_instructions::A64::ldst::ldst_unscaled::{
 };
 
 use crate::bits::BitError;
-use crate::instructions::Instruction;
+use crate::instructions::RawInstruction;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
 
 use super::UnscaledOffset;
@@ -56,6 +56,7 @@ mod tests {
     use harm_test_utils::test_cases;
 
     use super::*;
+    use crate::instructions::InstructionSeq;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
     use RegOrSp64::SP;

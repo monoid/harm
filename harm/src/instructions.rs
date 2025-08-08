@@ -5,20 +5,60 @@
 
 use aarchmrs_types::InstructionCode;
 
+use crate::reloc::Reloc;
+
 pub mod arith;
 pub mod branches;
 pub mod ldst;
 
+pub trait RawInstruction {
+    fn to_code(&self) -> InstructionCode;
+}
+
+pub trait RelocatableInstruction {
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Reloc>);
+}
+
+impl<I> RelocatableInstruction for I
+where
+    I: RawInstruction,
+{
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Reloc>) {
+        (self.to_code(), None)
+    }
+}
+
+/// Sequence of instructions with relocations.
+///
+/// Some virtual instruction may be assembled to multiple real instructions. For example, `mov xN, imm64` can be
+/// expanded into up to four `movk` instructions. Another example is macros-like constructions: a user may define it by
+/// implementing the `InstructionSeq` trait.
 // It should be &self, but rustc bug makes the impl infected by its lifetime:
 // https://github.com/rust-lang/rust/issues/42940
 // When the bug is fixed, it can be changed to &self.
 // // OTOH, currently all implementations are `Copy`.
-pub trait Instruction: Sized {
-    fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static;
+pub trait InstructionSeq: Sized {
+    fn encode(self) -> impl Iterator<Item = (InstructionCode, Option<Reloc>)> + 'static;
 
     #[inline]
+    fn instructions(self) -> impl Iterator<Item = InstructionCode> + 'static {
+        self.encode().map(|(inst, _rel)| inst)
+    }
+
+    // Compatibility with dynasmrt.  A feature gate?
+    #[inline]
     fn bytes(self) -> impl Iterator<Item = u8> + 'static {
-        self.represent().flat_map(|i| i.0)
+        self.encode().flat_map(|(inst, _rel)| inst.0)
+    }
+}
+
+impl<I> InstructionSeq for I
+where
+    I: RelocatableInstruction,
+{
+    fn encode(self) -> impl Iterator<Item = (InstructionCode, Option<Reloc>)> + 'static {
+        let code = self.to_code_with_reloc();
+        core::iter::once(code)
     }
 }
 
