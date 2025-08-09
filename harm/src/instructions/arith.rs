@@ -90,7 +90,7 @@ macro_rules! define_arith_shift {
                 fn represent(self) -> impl Iterator<Item = InstructionCode> {
                     let opcode = self.add_opcode();
 
-                    std::iter::once(opcode)
+                    core::iter::once(opcode)
                 }
             }
         }
@@ -146,7 +146,7 @@ macro_rules! define_arith_imm12 {
                     let opcode =
                         [<$name:upper _ $bits _ $cmd _imm>](shift.into(), imm12.into(), rn.into(), rd.into());
 
-                    std::iter::once(opcode)
+                    core::iter::once(opcode)
                 }
             }
         }
@@ -248,7 +248,7 @@ macro_rules! define_arith_extend {
                 fn represent(self) -> impl Iterator<Item = InstructionCode> {
                     let opcode = self.add_opcode();
 
-                    std::iter::once(opcode)
+                    core::iter::once(opcode)
                 }
             }
         }

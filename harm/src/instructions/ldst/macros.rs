@@ -112,7 +112,7 @@ macro_rules! define_reg_offset_rules {
                         base.code(),
                         self.rt.code(),
                     );
-                    std::iter::once(code)
+                    core::iter::once(code)
                 }
             }
 
@@ -127,7 +127,7 @@ macro_rules! define_reg_offset_rules {
                         base.code(),
                         self.rt.code(),
                     );
-                    std::iter::once(code)
+                    core::iter::once(code)
                 }
             }
 
@@ -142,7 +142,7 @@ macro_rules! define_reg_offset_rules {
                         base.code(),
                         self.rt.code(),
                     );
-                    std::iter::once(code)
+                    core::iter::once(code)
                 }
             }
         }
@@ -305,7 +305,7 @@ macro_rules! define_unscaled_imm_offset_rules {
                 fn represent(self) -> impl Iterator<Item = crate::InstructionCode> + 'static {
                     let (base, offset) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ldst_unscaled>](offset.into(), base.code(), self.rt.code());
-                    ::std::iter::once(code)
+                    ::core::iter::once(code)
                 }
             }
         }

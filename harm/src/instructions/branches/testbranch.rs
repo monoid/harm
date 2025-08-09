@@ -67,7 +67,7 @@ impl Instruction for TestBranch<RegOrZero64, UBitValue<6>> {
                 self.reg.code(),
             )
         };
-        std::iter::once(opcode)
+        core::iter::once(opcode)
     }
 }
 
@@ -82,7 +82,7 @@ impl Instruction for TestBranch<RegOrZero32, UBitValue<5>> {
         } else {
             TBZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.code())
         };
-        std::iter::once(opcode)
+        core::iter::once(opcode)
     }
 }
 
@@ -106,6 +106,8 @@ where
 
 #[cfg(test)]
 mod tests {
+        use alloc::vec;
+    use alloc::vec::Vec;
     use super::*;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;

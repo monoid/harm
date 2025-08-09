@@ -7,10 +7,11 @@ macro_rules! test_cases {
         $(
             #[test]
             fn $test_name() {
-                let inst: Vec<_> = $expr.represent().collect();
+                extern crate alloc;
+                let inst: alloc::vec::Vec<_> = $expr.represent().collect();
                 assert_eq!(
                     inst,
-                    vec![$($crate::db($db_data, $key)),*]
+                    alloc::vec![$($crate::db($db_data, $key)),*]
         );
             }
         )*
@@ -18,10 +19,11 @@ macro_rules! test_cases {
     ($db_data:expr, $completeness_test:ident; $($test_name:ident, $expr:expr, $($key:expr),+;)*) => {
         #[test]
         fn $completeness_test() {
+            extern crate alloc;
             let mut db = $crate::Db::new($db_data).unwrap_or_else(|e| panic!("{e}"));
-            let keys = vec![$($($key,)+)*].into_iter().collect::<std::collections::HashSet<_>>();
-            let db_keys = db.keys().collect::<std::collections::HashSet<_>>();
-            let mut untested_keys = db_keys.difference(&keys).collect::<Vec<_>>();
+            let keys = alloc::vec![$($($key,)+)*].into_iter().collect::<alloc::collections::BTreeSet<_>>();
+            let db_keys = db.keys().collect::<alloc::collections::BTreeSet<_>>();
+            let mut untested_keys = db_keys.difference(&keys).collect::<alloc::vec::Vec<_>>();
             untested_keys.sort_unstable();
             assert!(
                 untested_keys.is_empty(),

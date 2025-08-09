@@ -206,7 +206,7 @@ pub enum ShiftedError {
     InvalidShiftSize { shift: u32, accepted: u32 },
 }
 
-use std::{fmt, marker::PhantomData};
+use core::{fmt, marker::PhantomData};
 impl fmt::Display for ShiftedError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {

@@ -10,4 +10,7 @@ keywords = ["arm", "aarch64", "assembler", "jit"]
 categories = ["hardware-support"]
 
 [dependencies]
-hex = "0.4.3"
+hex = { version = "0.4.3", default-features = false }
+
+[dev-dependencies]
+hex = { version = "0.4.3" }
