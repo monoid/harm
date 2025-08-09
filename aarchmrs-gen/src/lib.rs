@@ -83,7 +83,7 @@ pub fn gen_instructions(
 
     let mod_file = if r#mod { "mod.rs" } else { "lib.rs" };
     let mod_path = dest_dir.join(mod_file);
-    let clippy_allow_pragma = quote::quote! {
+    let pragmas = quote::quote! {
         #![no_std]
         #![allow(
             non_snake_case, non_camel_case_types, clippy::identity_op, clippy::too_many_arguments, clippy::module_inception
@@ -92,7 +92,7 @@ pub fn gen_instructions(
     write_mod(
         &mod_path,
         &lib_mods,
-        &clippy_allow_pragma,
+        &pragmas,
         &data._meta.license,
     )?;
 

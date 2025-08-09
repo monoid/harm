@@ -5,8 +5,7 @@
 
 #![no_std]
 
-#[cfg(test)]
-extern crate alloc;
+
 
 pub(crate) mod bit_value;
 pub(crate) mod instruction_code;
