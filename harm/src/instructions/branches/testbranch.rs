@@ -106,13 +106,13 @@ where
 
 #[cfg(test)]
 mod tests {
-        use alloc::vec;
-    use alloc::vec::Vec;
     use super::*;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
     use crate::register::RegOrZero32::WZR;
     use crate::register::RegOrZero64::XZR;
+    use alloc::vec;
+    use alloc::vec::Vec;
 
     #[test]
     fn test_tbz_64_big_pos() {

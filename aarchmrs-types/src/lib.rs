@@ -5,8 +5,6 @@
 
 #![no_std]
 
-
-
 pub(crate) mod bit_value;
 pub(crate) mod instruction_code;
 

@@ -89,12 +89,7 @@ pub fn gen_instructions(
             non_snake_case, non_camel_case_types, clippy::identity_op, clippy::too_many_arguments, clippy::module_inception
         )]
     };
-    write_mod(
-        &mod_path,
-        &lib_mods,
-        &pragmas,
-        &data._meta.license,
-    )?;
+    write_mod(&mod_path, &lib_mods, &pragmas, &data._meta.license)?;
 
     Ok(())
 }

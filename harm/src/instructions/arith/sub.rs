@@ -62,9 +62,9 @@ define_arith_imm12!(Sub, 64, addsub, Reg64, RegOrSp64);
 
 #[cfg(test)]
 mod tests {
-        use alloc::vec;
-    use alloc::vec::Vec;
     use super::*;
+    use alloc::vec;
+    use alloc::vec::Vec;
 
     #[test]
     fn test_sub_sp_64_const_0x823() {

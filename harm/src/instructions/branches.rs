@@ -152,11 +152,11 @@ where
 
 #[cfg(test)]
 mod tests {
-    use alloc::vec;
-    use alloc::vec::Vec;
     use super::*;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
+    use alloc::vec;
+    use alloc::vec::Vec;
 
     #[test]
     fn test_cbnz_64_pos() {

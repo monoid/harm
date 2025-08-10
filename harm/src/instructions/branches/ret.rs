@@ -41,9 +41,9 @@ impl Instruction for Ret {
 
 #[cfg(test)]
 mod tests {
-        use alloc::vec;
-    use alloc::vec::Vec;
     use super::*;
+    use alloc::vec;
+    use alloc::vec::Vec;
 
     #[test]
     fn test_ret() {
