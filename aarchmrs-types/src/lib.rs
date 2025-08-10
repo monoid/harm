@@ -3,6 +3,8 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+#![no_std]
+
 pub(crate) mod bit_value;
 pub(crate) mod instruction_code;
 

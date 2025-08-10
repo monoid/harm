@@ -67,7 +67,7 @@ impl Instruction for TestBranch<RegOrZero64, UBitValue<6>> {
                 self.reg.code(),
             )
         };
-        std::iter::once(opcode)
+        core::iter::once(opcode)
     }
 }
 
@@ -82,7 +82,7 @@ impl Instruction for TestBranch<RegOrZero32, UBitValue<5>> {
         } else {
             TBZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.code())
         };
-        std::iter::once(opcode)
+        core::iter::once(opcode)
     }
 }
 
@@ -111,6 +111,8 @@ mod tests {
     use crate::register::Reg64::*;
     use crate::register::RegOrZero32::WZR;
     use crate::register::RegOrZero64::XZR;
+    use alloc::vec;
+    use alloc::vec::Vec;
 
     #[test]
     fn test_tbz_64_big_pos() {
