@@ -4,6 +4,16 @@
  */
 
 #![no_std]
+#![forbid(unsafe_code)]
+#![deny(
+    dead_code,
+    nonstandard_style,
+    unused_imports,
+    unused_mut,
+    unused_variables,
+    unused_unsafe,
+    unreachable_patterns
+)]
 
 pub(crate) mod bit_value;
 pub(crate) mod instruction_code;

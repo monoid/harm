@@ -154,6 +154,7 @@ where
 
 #[cfg(test)]
 mod tests {
+    extern crate alloc;
     use super::*;
     use crate::instructions::InstructionSeq;
     use crate::register::Reg32::*;
