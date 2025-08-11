@@ -106,6 +106,7 @@ where
 
 #[cfg(test)]
 mod tests {
+    extern crate alloc;
     use harm_test_utils::inst;
 
     use super::*;
