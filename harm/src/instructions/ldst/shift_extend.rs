@@ -8,6 +8,7 @@ use aarchmrs_types::BitValue;
 use crate::register::{Reg32, Reg64, RegOrZero32, RegOrZero64};
 
 /// Represents whether the register is shifted by the destination register size or not.
+#[derive(Copy, Clone, Debug)]
 #[repr(u8)]
 pub enum LdStShift {
     Unshifted = 0,
@@ -44,7 +45,7 @@ pub trait LdStDestShiftOption {
     const SHIFT_SIZE: u32;
 }
 pub trait LdStOffsetExtendOption {
-    type ExtendOption;
+    type ExtendOption: Copy + core::fmt::Debug;
 }
 
 impl LdStDestShiftOption for Reg64 {
@@ -85,6 +86,7 @@ pub trait MakeExtended<Dest> {
     fn new(args: Self) -> Self::Output;
 }
 
+#[derive(Copy, Clone, Debug)]
 pub struct Extended<Dest, Offset: LdStOffsetExtendOption> {
     pub offset: Offset,
     pub extend: <Offset as LdStOffsetExtendOption>::ExtendOption,
@@ -140,6 +142,7 @@ where
         Extended::new(offset.into(), extend, LdStShift::Unshifted)
     }
 }
+
 impl<Dest, R64> MakeExtended<Dest> for (R64, LdStExtendOption64, LdStShift)
 where
     RegOrZero64: From<R64>,
@@ -189,9 +192,9 @@ where
 /// Creates a shifted register with a specific shift size. Please note that allowed the shift size depeds on the
 /// destination register size. For 64-bit registers, the shift is either 0 or 3, and for 32-bit registers, the shift is
 /// either 0 or 2.
-fn shifted_by<Dest: LdStDestShiftOption>(shift: u32) -> Result<LdStShift, ShiftedError> {
+const fn shifted_by<Dest: LdStDestShiftOption>(shift: u32) -> Result<LdStShift, ShiftedError> {
     let accepted = Dest::SHIFT_SIZE;
-    // N.B.: for LDRB/LDRSB shift is 0, and it has to be Shifted
+    // N.B.: for LDRB/LDRSB the SHIFT_SIZE is 0, and it has to map to Shifted.
     if shift == accepted {
         Ok(LdStShift::Shifted)
     } else if shift == 0 {

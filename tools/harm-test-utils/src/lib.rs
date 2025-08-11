@@ -8,10 +8,10 @@ macro_rules! test_cases {
             #[test]
             fn $test_name() {
                 extern crate alloc;
-                let inst: alloc::vec::Vec<_> = $expr.represent().collect();
+                let inst: alloc::vec::Vec<_> = $expr.encode().collect();
                 assert_eq!(
                     inst,
-                    [$($crate::db($db_data, $key)),*]
+                    [$(($crate::db($db_data, $key), None)),*]
         );
             }
         )*
@@ -33,5 +33,15 @@ macro_rules! test_cases {
         }
 
         test_cases!($db_data; $($test_name, $expr, $($key),+;)*);
+    }
+}
+
+#[macro_export]
+macro_rules! inst {
+    ($([$b0:expr, $b1:expr, $b2:expr, $b3:expr]),*) => {
+        [$((InstructionCode([$b0, $b1, $b2, $b3]), None)),*]
+    };
+    ($($code:literal),*) => {
+        [$((InstructionCode::from_u32($code), None)),*]
     }
 }

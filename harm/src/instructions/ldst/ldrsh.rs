@@ -90,7 +90,7 @@ use aarchmrs_instructions::A64::ldst::{
 use super::shift_extend::*;
 use super::{HalfShift, Inc, LdStIncOffset, ScaledOffset16};
 use crate::bits::BitError;
-use crate::instructions::Instruction;
+use crate::instructions::RawInstruction;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
 
 /// A `LDRSH` instruction with a destination and an address.
@@ -149,6 +149,7 @@ mod tests {
     use harm_test_utils::test_cases;
 
     use super::*;
+    use crate::instructions::InstructionSeq;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
     use crate::{

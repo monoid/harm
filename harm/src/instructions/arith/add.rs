@@ -17,7 +17,7 @@ use aarchmrs_types::InstructionCode;
 
 use super::{Error, Extend, ExtendMode, ExtendedReg, Shift, ShiftMode, ShiftedReg};
 use crate::{
-    instructions::Instruction,
+    instructions::RawInstruction,
     register::{IntoCode as _, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
 };
 
@@ -66,6 +66,7 @@ mod tests {
     use harm_test_utils::test_cases;
 
     use super::*;
+    use crate::instructions::InstructionSeq;
     use Reg32::*;
     use Reg64::*;
     use RegOrSp32::Reg as Reg3S;

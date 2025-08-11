@@ -6,7 +6,7 @@
 use aarchmrs_instructions::A64::control::branch_reg::RET_64R_branch_reg::RET_64R_branch_reg;
 use aarchmrs_types::InstructionCode;
 
-use super::Instruction;
+use super::RawInstruction;
 use crate::register::{IntoCode as _, Reg64, RegOrZero64};
 
 #[inline]
@@ -31,17 +31,19 @@ impl Ret {
     }
 }
 
-impl Instruction for Ret {
-    fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static {
+impl RawInstruction for Ret {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
         let reg = self.0;
-        let code = RET_64R_branch_reg(reg.code());
-        core::iter::once(code)
+
+        RET_64R_branch_reg(reg.code())
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::instructions::InstructionSeq;
     use harm_test_utils::test_cases;
 
     const RET_DB: &str = "

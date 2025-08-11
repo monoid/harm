@@ -77,7 +77,7 @@ use super::shift_extend::*;
 use super::{ByteShift, Inc, LdStIncOffset, ScaledOffset8};
 use crate::{
     bits::BitError,
-    instructions::Instruction,
+    instructions::RawInstruction,
     register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
 };
 
@@ -136,6 +136,7 @@ mod tests {
     use harm_test_utils::test_cases;
 
     use super::*;
+    use crate::instructions::InstructionSeq;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
     use crate::{

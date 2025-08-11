@@ -21,15 +21,15 @@ macro_rules! define_arith_shift {
                 }
             }
 
-            impl Instruction for $name<$reg, $reg> {
+            impl RawInstruction for $name<$reg, $reg> {
                 #[inline]
-                fn represent(self) -> impl Iterator<Item = InstructionCode> {
+                fn to_code(&self) -> InstructionCode {
                     $name {
                         dst: $ztype::Reg(self.dst),
                         src1: $ztype::Reg(self.src1),
                         src2: ShiftedReg::new($ztype::Reg(self.src2)),
                     }
-                    .represent()
+                    .to_code()
                 }
             }
 
@@ -66,9 +66,11 @@ macro_rules! define_arith_shift {
                     self.src2.shift = Shift { mode, amount };
                     self
                 }
+            }
 
+            impl RawInstruction for $name<$ztype, ShiftedReg<$ztype>> {
                 #[inline]
-                fn add_opcode(&self) -> InstructionCode {
+                fn to_code(&self) -> InstructionCode {
                     let shift = self.src2.shift.mode as u8;
                     let rm = self.src2.reg.code();
                     let shift_amount_imm6 = self.src2.shift.amount;
@@ -82,15 +84,6 @@ macro_rules! define_arith_shift {
                         rn.into(),
                         rd.into(),
                     )
-                }
-            }
-
-            impl Instruction for $name<$ztype, ShiftedReg<$ztype>> {
-                #[inline]
-                fn represent(self) -> impl Iterator<Item = InstructionCode> {
-                    let opcode = self.add_opcode();
-
-                    core::iter::once(opcode)
                 }
             }
         }
@@ -112,13 +105,13 @@ macro_rules! define_arith_imm12 {
                 }
             }
 
-            impl Instruction for $name<$reg, u32> {
+            impl RawInstruction for $name<$reg, u32> {
                 #[inline]
-                fn represent(self) -> impl Iterator<Item = InstructionCode> {
+                fn to_code(&self) -> InstructionCode {
                     let dst = $etype::Reg(self.dst);
                     let src1 = $etype::Reg(self.src1);
                     let src2 = self.src2;
-                    $name::<$etype, u32> { dst, src1, src2 }.represent()
+                    $name::<$etype, u32> { dst, src1, src2 }.to_code()
                 }
             }
 
@@ -134,19 +127,16 @@ macro_rules! define_arith_imm12 {
                 }
             }
 
-            impl Instruction for $name<$etype, u32> {
+            impl RawInstruction for $name<$etype, u32> {
                 #[inline]
-                fn represent(self) -> impl Iterator<Item = InstructionCode> {
+                fn to_code(&self) -> InstructionCode {
                     let shift = self.src2 & ((1 << 12) - 1) == 0;
                     let imm12 = if shift { self.src2 >> 12 } else { self.src2 };
                     assert!(imm12 < (1 << 12));
                     let rn = self.src1.code();
                     let rd = self.dst.code();
 
-                    let opcode =
-                        [<$name:upper _ $bits _ $cmd _imm>](shift.into(), imm12.into(), rn.into(), rd.into());
-
-                    core::iter::once(opcode)
+                    [<$name:upper _ $bits _ $cmd _imm>](shift.into(), imm12.into(), rn.into(), rd.into())
                 }
             }
         }
@@ -219,19 +209,6 @@ macro_rules! define_arith_extend {
                     self.src2.extend = Extend { mode, amount };
                     self
                 }
-
-                #[inline]
-                fn add_opcode(&self) -> InstructionCode {
-                    let option = self.src2.extend.mode as u8;
-                    let rm = self.src2.reg.code();
-                    let imm3 = self.src2.extend.amount;
-                    let rn = self.src1.code();
-                    let rd = self.dst.code();
-
-                    [<$name:upper _ $bits _ $cmd _ext>](
-                        rm.into(), option.into(), imm3.into(), rn.into(), rd.into()
-                    )
-                }
             }
 
             impl $name<$stype, $ztype> {
@@ -243,12 +220,18 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl Instruction for $name<$stype, ExtendedReg<$ztype>> {
+            impl RawInstruction for $name<$stype, ExtendedReg<$ztype>> {
                 #[inline]
-                fn represent(self) -> impl Iterator<Item = InstructionCode> {
-                    let opcode = self.add_opcode();
+                fn to_code(&self) -> InstructionCode {
+                    let option = self.src2.extend.mode as u8;
+                    let rm = self.src2.reg.code();
+                    let imm3 = self.src2.extend.amount;
+                    let rn = self.src1.code();
+                    let rd = self.dst.code();
 
-                    core::iter::once(opcode)
+                    [<$name:upper _ $bits _ $cmd _ext>](
+                        rm.into(), option.into(), imm3.into(), rn.into(), rd.into()
+                    )
                 }
             }
         }
@@ -363,7 +346,7 @@ pub struct Extend {
     amount: u8,
 }
 
-pub(crate) fn validate_imm12(imm12: u32) -> Result<u32, Error> {
+pub(crate) const fn validate_imm12(imm12: u32) -> Result<u32, Error> {
     const BITS_12: u32 = (1 << 12) - 1;
     if imm12 <= BITS_12 {
         Ok(imm12)

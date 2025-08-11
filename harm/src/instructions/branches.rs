@@ -12,7 +12,7 @@ use aarchmrs_instructions::A64::control::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::{BranchCond, Instruction};
+use super::{BranchCond, RawInstruction};
 use crate::{
     bits::SBitValue,
     register::{IntoCode as _, Reg32, Reg64},
@@ -63,15 +63,16 @@ impl Branch<PcDst> {
     }
 }
 
-impl Instruction for Branch<PcDst> {
-    fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static {
+impl RawInstruction for Branch<PcDst> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
         // TODO first offset is 19 bits, the second is 29 bits!
         // what to do with the possible overflow?
-        let code = match self.condition {
+
+        match self.condition {
             Some(cond) => branch_cond(self.dst.0, cond),
             None => branch_nocond(self.dst.0),
-        };
-        core::iter::once(code)
+        }
     }
 }
 
@@ -111,28 +112,29 @@ impl MakeCompareBranch<Reg32> for CompareBranch<Reg32> {
     }
 }
 
-impl Instruction for CompareBranch<Reg64> {
-    fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static {
+impl RawInstruction for CompareBranch<Reg64> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
         use aarchmrs_instructions::A64::control::compbranch;
-        let code = if self.equal {
+
+        if self.equal {
             compbranch::CBZ_64_compbranch::CBZ_64_compbranch(self.offset.into(), self.reg.code())
         } else {
             compbranch::CBNZ_64_compbranch::CBNZ_64_compbranch(self.offset.into(), self.reg.code())
-        };
-        core::iter::once(code)
+        }
     }
 }
 
-impl Instruction for CompareBranch<Reg32> {
-    fn represent(self) -> impl Iterator<Item = InstructionCode> + 'static {
+impl RawInstruction for CompareBranch<Reg32> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
         use aarchmrs_instructions::A64::control::compbranch;
 
-        let code = if self.equal {
+        if self.equal {
             compbranch::CBZ_32_compbranch::CBZ_32_compbranch(self.offset.into(), self.reg.code())
         } else {
             compbranch::CBNZ_32_compbranch::CBNZ_32_compbranch(self.offset.into(), self.reg.code())
-        };
-        core::iter::once(code)
+        }
     }
 }
 
@@ -153,71 +155,81 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::instructions::InstructionSeq;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
     use alloc::vec::Vec;
+    use harm_test_utils::inst;
 
     #[test]
     fn test_cbnz_64_pos() {
         let offset = SBitValue::new(8).unwrap();
         let it = cbnz(X2, offset);
-        let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, [InstructionCode([0x42, 0x00, 0x00, 0xb5])]); // 0xb5000042
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0x42, 0x00, 0x00, 0xb5])); // 0xb5000042
     }
 
     #[test]
     fn test_cbnz_64_neg() {
         let offset = SBitValue::new(-8).unwrap();
         let it = cbnz(X2, offset);
-        let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, [InstructionCode([0xc2, 0xff, 0xff, 0xb5])]); // 0xb5ffffc2
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0xc2, 0xff, 0xff, 0xb5])); // 0xb5ffffc2
     }
 
     #[test]
     fn test_cbz_64_pos() {
         let offset = SBitValue::new(8).unwrap();
         let it = cbz(X2, offset);
-        let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, [InstructionCode([0x42, 0x00, 0x00, 0xb4])]); // 0xb4000042
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0x42, 0x00, 0x00, 0xb4])); // 0xb4000042
     }
 
     #[test]
     fn test_cbz_64_neg() {
         let offset = SBitValue::new(-8).unwrap();
         let it = cbz(X2, offset);
-        let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, [InstructionCode([0xc2, 0xff, 0xff, 0xb4])]); // 0xb4ffffc2
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0xc2, 0xff, 0xff, 0xb4])); // 0xb4ffffc2
     }
 
     #[test]
     fn test_cbnz_32_pos() {
         let offset = SBitValue::new(8).unwrap();
         let it = cbnz(W2, offset);
-        let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, [InstructionCode([0x42, 0x00, 0x00, 0x35])]); // 35000042
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0x42, 0x00, 0x00, 0x35])); // 35000042
     }
 
     #[test]
     fn test_cbnz_32_neg() {
         let offset = SBitValue::new(-8).unwrap();
         let it = cbnz(W2, offset);
-        let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, [InstructionCode([0xc2, 0xff, 0xff, 0x35])]); // 35ffffc2
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0xc2, 0xff, 0xff, 0x35])); // 35ffffc2
     }
 
     #[test]
     fn test_cbz_32_pos() {
         let offset = SBitValue::new(8).unwrap();
         let it = cbz(W2, offset);
-        let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, [InstructionCode([0x42, 0x00, 0x00, 0x34])]); // 0x34000042
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0x42, 0x00, 0x00, 0x34])); // 0x34000042
     }
 
     #[test]
     fn test_cbz_32_neg() {
         let offset = SBitValue::new(-8).unwrap();
         let it = cbz(W2, offset);
-        let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, [InstructionCode([0xc2, 0xff, 0xff, 0x34])]); // 0x34ffffc2
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0xc2, 0xff, 0xff, 0x34])); // 0x34ffffc2
     }
 }

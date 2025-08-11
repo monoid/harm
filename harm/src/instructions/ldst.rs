@@ -63,12 +63,14 @@ pub type ScaledOffset64 = UBitValue<12, 3>;
 
 pub type UnscaledOffset = SBitValue<9>;
 
+#[derive(Copy, Clone, Debug)]
 pub struct ByteShift;
 
 impl LdStDestShiftOption for ByteShift {
     const SHIFT_SIZE: u32 = 0;
 }
 
+#[derive(Copy, Clone, Debug)]
 pub struct HalfShift;
 
 impl LdStDestShiftOption for HalfShift {
