@@ -42,20 +42,16 @@ impl Instruction for Ret {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use alloc::vec;
-    use alloc::vec::Vec;
+    use harm_test_utils::test_cases;
 
-    #[test]
-    fn test_ret() {
-        let ret_inst = ret();
-        let codes: Vec<InstructionCode> = ret_inst.represent().collect();
-        assert_eq!(codes, vec![InstructionCode::from_u32(0xd65f03c0)]);
-    }
+    const RET_DB: &str = "
+d65f03c0	ret
+d65f0060	ret x3
+";
 
-    #[test]
-    fn test_ret_reg() {
-        let ret_inst = ret().reg(Reg64::X3);
-        let codes: Vec<InstructionCode> = ret_inst.represent().collect();
-        assert_eq!(codes, vec![InstructionCode::from_u32(0xd65f0060)]);
-    }
+    test_cases!(
+        RET_DB, untested_ret_db;
+        test_ret, ret(), "ret";
+        test_ret_reg, ret().reg(Reg64::X3), "ret x3";
+    );
 }

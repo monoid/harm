@@ -155,7 +155,6 @@ mod tests {
     use super::*;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
-    use alloc::vec;
     use alloc::vec::Vec;
 
     #[test]
@@ -163,7 +162,7 @@ mod tests {
         let offset = SBitValue::new(8).unwrap();
         let it = cbnz(X2, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0x42, 0x00, 0x00, 0xb5])]); // 0xb5000042
+        assert_eq!(words, [InstructionCode([0x42, 0x00, 0x00, 0xb5])]); // 0xb5000042
     }
 
     #[test]
@@ -171,7 +170,7 @@ mod tests {
         let offset = SBitValue::new(-8).unwrap();
         let it = cbnz(X2, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0xc2, 0xff, 0xff, 0xb5])]); // 0xb5ffffc2
+        assert_eq!(words, [InstructionCode([0xc2, 0xff, 0xff, 0xb5])]); // 0xb5ffffc2
     }
 
     #[test]
@@ -179,7 +178,7 @@ mod tests {
         let offset = SBitValue::new(8).unwrap();
         let it = cbz(X2, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0x42, 0x00, 0x00, 0xb4])]); // 0xb4000042
+        assert_eq!(words, [InstructionCode([0x42, 0x00, 0x00, 0xb4])]); // 0xb4000042
     }
 
     #[test]
@@ -187,7 +186,7 @@ mod tests {
         let offset = SBitValue::new(-8).unwrap();
         let it = cbz(X2, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0xc2, 0xff, 0xff, 0xb4])]); // 0xb4ffffc2
+        assert_eq!(words, [InstructionCode([0xc2, 0xff, 0xff, 0xb4])]); // 0xb4ffffc2
     }
 
     #[test]
@@ -195,7 +194,7 @@ mod tests {
         let offset = SBitValue::new(8).unwrap();
         let it = cbnz(W2, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0x42, 0x00, 0x00, 0x35])]); // 35000042
+        assert_eq!(words, [InstructionCode([0x42, 0x00, 0x00, 0x35])]); // 35000042
     }
 
     #[test]
@@ -203,7 +202,7 @@ mod tests {
         let offset = SBitValue::new(-8).unwrap();
         let it = cbnz(W2, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0xc2, 0xff, 0xff, 0x35])]); // 35ffffc2
+        assert_eq!(words, [InstructionCode([0xc2, 0xff, 0xff, 0x35])]); // 35ffffc2
     }
 
     #[test]
@@ -211,7 +210,7 @@ mod tests {
         let offset = SBitValue::new(8).unwrap();
         let it = cbz(W2, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0x42, 0x00, 0x00, 0x34])]); // 0x34000042
+        assert_eq!(words, [InstructionCode([0x42, 0x00, 0x00, 0x34])]); // 0x34000042
     }
 
     #[test]
@@ -219,6 +218,6 @@ mod tests {
         let offset = SBitValue::new(-8).unwrap();
         let it = cbz(W2, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0xc2, 0xff, 0xff, 0x34])]); // 0x34ffffc2
+        assert_eq!(words, [InstructionCode([0xc2, 0xff, 0xff, 0x34])]); // 0x34ffffc2
     }
 }

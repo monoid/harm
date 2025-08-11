@@ -111,7 +111,6 @@ mod tests {
     use crate::register::Reg64::*;
     use crate::register::RegOrZero32::WZR;
     use crate::register::RegOrZero64::XZR;
-    use alloc::vec;
     use alloc::vec::Vec;
 
     #[test]
@@ -121,7 +120,7 @@ mod tests {
         let it = tbz(X2, bit, offset);
         let words: Vec<_> = it.represent().collect();
         // tbz x2, 42, 76
-        assert_eq!(words, vec![InstructionCode([0x62, 0x02, 0x50, 0xb6])]); // 0xb6500262
+        assert_eq!(words, [InstructionCode([0x62, 0x02, 0x50, 0xb6])]); // 0xb6500262
     }
 
     #[test]
@@ -131,7 +130,7 @@ mod tests {
         let it = tbz(X2, bit, offset);
         let words: Vec<_> = it.represent().collect();
 
-        assert_eq!(words, vec![InstructionCode([0x62, 0x02, 0xe8, 0x36])]); // 0x36e80262
+        assert_eq!(words, [InstructionCode([0x62, 0x02, 0xe8, 0x36])]); // 0x36e80262
     }
 
     #[test]
@@ -140,7 +139,7 @@ mod tests {
         let bit = UBitValue::new(42).unwrap();
         let it = tbz(XZR, bit, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0x7f, 0x02, 0x50, 0xb6])]); // 0xb650027f
+        assert_eq!(words, [InstructionCode([0x7f, 0x02, 0x50, 0xb6])]); // 0xb650027f
     }
 
     #[test]
@@ -149,7 +148,7 @@ mod tests {
         let bit = UBitValue::new(29).unwrap();
         let it = tbz(XZR, bit, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0x7f, 0x02, 0xe8, 0x36])]); // 0x36e8027f
+        assert_eq!(words, [InstructionCode([0x7f, 0x02, 0xe8, 0x36])]); // 0x36e8027f
     }
 
     #[test]
@@ -158,7 +157,7 @@ mod tests {
         let bit = UBitValue::new(29).unwrap();
         let it = tbz(W2, bit, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0x62, 0x02, 0xe8, 0x36])]); // 0x36e80262
+        assert_eq!(words, [InstructionCode([0x62, 0x02, 0xe8, 0x36])]); // 0x36e80262
     }
 
     #[test]
@@ -167,6 +166,6 @@ mod tests {
         let bit = UBitValue::new(29).unwrap();
         let it = tbz(WZR, bit, offset);
         let words: Vec<_> = it.represent().collect();
-        assert_eq!(words, vec![InstructionCode([0x7f, 0x02, 0xe8, 0x36])]); // 0x36e8027f
+        assert_eq!(words, [InstructionCode([0x7f, 0x02, 0xe8, 0x36])]); // 0x36e8027f
     }
 }
