@@ -11,7 +11,7 @@ macro_rules! test_cases {
                 let inst: alloc::vec::Vec<_> = $expr.represent().collect();
                 assert_eq!(
                     inst,
-                    alloc::vec![$($crate::db($db_data, $key)),*]
+                    [$($crate::db($db_data, $key)),*]
         );
             }
         )*
@@ -21,7 +21,7 @@ macro_rules! test_cases {
         fn $completeness_test() {
             extern crate alloc;
             let mut db = $crate::Db::new($db_data).unwrap_or_else(|e| panic!("{e}"));
-            let keys = alloc::vec![$($($key,)+)*].into_iter().collect::<alloc::collections::BTreeSet<_>>();
+            let keys = [$($($key,)+)*].into_iter().collect::<alloc::collections::BTreeSet<_>>();
             let db_keys = db.keys().collect::<alloc::collections::BTreeSet<_>>();
             let mut untested_keys = db_keys.difference(&keys).collect::<alloc::vec::Vec<_>>();
             untested_keys.sort_unstable();
