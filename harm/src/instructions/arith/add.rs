@@ -68,9 +68,9 @@ mod tests {
     use super::*;
     use Reg32::*;
     use Reg64::*;
+    use RegOrSp32::Reg as Reg3S;
     use RegOrSp32::WSP;
     use RegOrSp64::Reg as RegS;
-    use RegOrSp32::Reg as Reg3S;
     use RegOrSp64::SP;
     use RegOrZero32::WZR;
     use RegOrZero64::Reg as RegZ;
