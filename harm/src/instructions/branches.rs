@@ -12,82 +12,133 @@ use aarchmrs_instructions::A64::control::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::{BranchCond, RawInstruction};
+use super::RawInstruction;
 use crate::{
-    bits::SBitValue,
+    bits::{BitError, SBitValue},
     register::{IntoCode as _, Reg32, Reg64},
 };
 
 pub use self::ret::*;
 pub use self::testbranch::*;
 
-#[inline]
-pub fn b(offset: PcOffset) -> Branch<PcDst> {
-    Branch::new(PcDst(offset))
-}
-
-#[inline]
-pub fn b_cond(cond: BranchCond, offset: PcOffset) -> Branch<PcDst> {
-    Branch::new(PcDst(offset)).when(cond)
-}
-
-#[derive(Debug, Copy, Clone)]
-pub struct Branch<Dst> {
-    pub dst: Dst,
-    pub condition: Option<BranchCond>,
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+#[repr(u8)]
+pub enum BranchCond {
+    EQ = 0b0000, // equal
+    NE = 0b0001, // not equal
+    CS = 0b0010, // carry set
+    CC = 0b0011, // carry clear
+    MI = 0b0100, // minus
+    PL = 0b0101, // plus
+    VS = 0b0110, // no overflow
+    VC = 0b0111, // overflow
+    HI = 0b1000, // unsigned higher
+    LS = 0b1001, // unsigned lower or same
+    GE = 0b1010, // signed greater or equal
+    LT = 0b1011, // signed less than
+    GT = 0b1100, // signed greater than
+    LE = 0b1101, // signed less than or equal
+    AL = 0b1110, // always
+    NV = 0b1111, // always
 }
 
 pub type PcOffset = i32;
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub struct PcDst(pub PcOffset);
+pub type BranchOffset = SBitValue<26, 2>;
+pub type BranchCondOffset = SBitValue<19, 2>;
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-pub struct RegDst(pub Reg64);
+pub trait MakeBranch<Args> {
+    type Output;
 
-impl<T> Branch<T> {
-    #[inline]
-    pub fn new(dst: T) -> Self {
-        Self {
-            dst,
-            condition: None,
-        }
+    fn make(args: Args) -> Self::Output;
+}
+
+pub trait MakeBranchCond<Args> {
+    type Output;
+
+    fn make(cond: BranchCond, args: Args) -> Self::Output;
+}
+
+#[inline]
+pub fn b<InpArgs, RealArgs>(args: InpArgs) -> <Branch<RealArgs> as MakeBranch<InpArgs>>::Output
+where
+    Branch<RealArgs>: MakeBranch<InpArgs>,
+{
+    <Branch<RealArgs> as MakeBranch<InpArgs>>::make(args)
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct Branch<B>(B);
+
+impl MakeBranch<BranchOffset> for Branch<BranchOffset> {
+    type Output = Self;
+
+    fn make(offset: BranchOffset) -> Self::Output {
+        Self(offset)
     }
 }
 
-impl Branch<PcDst> {
-    #[inline]
-    pub fn when(mut self, cond: BranchCond) -> Self {
-        self.condition = Some(cond);
-        self
+impl MakeBranch<i32> for Branch<BranchOffset> {
+    type Output = Result<Self, BitError>;
+
+    fn make(offset: i32) -> Self::Output {
+        SBitValue::new(offset).map(Self)
     }
 }
 
-impl RawInstruction for Branch<PcDst> {
+#[cfg(feature = "rich_api")]
+impl<S, D> MakeBranch<(BranchCond, S)> for Branch<(BranchCond, D)>
+where
+    Branch<(BranchCond, D)>: MakeBranchCond<S>,
+{
+    type Output = <Branch<(BranchCond, D)> as MakeBranchCond<S>>::Output;
+
+    fn make((cond, addr): (BranchCond, S)) -> Self::Output {
+        <Branch<(BranchCond, D)> as MakeBranchCond<S>>::make(cond, addr)
+    }
+}
+
+impl RawInstruction for Branch<BranchOffset> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
-        // TODO first offset is 19 bits, the second is 29 bits!
-        // what to do with the possible overflow?
-
-        match self.condition {
-            Some(cond) => branch_cond(self.dst.0, cond),
-            None => branch_nocond(self.dst.0),
-        }
+        let imm26 = self.0;
+        B_only_branch_imm(imm26.into())
     }
 }
 
-fn branch_cond(offset: PcOffset, cond: BranchCond) -> InstructionCode {
-    // TODO validate alignment and size
-    let imm19 = (offset as u32 / 4) & ((1 << 20) - 1);
-    let cond = cond as u32;
-
-    B_only_condbranch(imm19.into(), cond.into())
+#[inline]
+pub fn b_cond<InpAddr, RealAddr>(
+    cond: BranchCond,
+    offset: InpAddr,
+) -> <Branch<(BranchCond, RealAddr)> as MakeBranchCond<InpAddr>>::Output
+where
+    Branch<(BranchCond, RealAddr)>: MakeBranchCond<InpAddr>,
+{
+    <Branch<_> as MakeBranchCond<InpAddr>>::make(cond, offset)
 }
 
-fn branch_nocond(offset: PcOffset) -> InstructionCode {
-    // TODO validate alignment and size
-    let imm26 = (offset as u32 / 4) & ((1 << 27) - 1);
-    B_only_branch_imm(imm26.into())
+impl MakeBranchCond<BranchCondOffset> for Branch<(BranchCond, BranchCondOffset)> {
+    type Output = Self;
+
+    fn make(cond: BranchCond, addr: BranchCondOffset) -> Self::Output {
+        Self((cond, addr))
+    }
+}
+
+impl MakeBranchCond<i32> for Branch<(BranchCond, BranchCondOffset)> {
+    type Output = Result<Self, BitError>;
+
+    fn make(cond: BranchCond, offset: i32) -> Self::Output {
+        SBitValue::new(offset).map(|offset| Self((cond, offset)))
+    }
+}
+
+impl RawInstruction for Branch<(BranchCond, BranchCondOffset)> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        let (cond, imm19) = self.0;
+        B_only_condbranch(imm19.into(), (cond as u8).into())
+    }
 }
 
 pub struct CompareBranch<Reg> {
@@ -161,6 +212,90 @@ mod tests {
     use crate::register::Reg64::*;
     use alloc::vec::Vec;
     use harm_test_utils::inst;
+
+    #[test]
+    fn test_b_i32() {
+        let it = b(0x48);
+        let codes: Vec<_> = it.unwrap().encode().collect();
+        // TODO check
+        assert_eq!(codes, inst!(0x14000012));
+    }
+
+    #[test]
+    fn test_b_i32_neg() {
+        let it = b(-0x48);
+        let codes: Vec<_> = it.unwrap().encode().collect();
+        // TODO check
+        assert_eq!(codes, inst!(0x17ffffee));
+    }
+
+    #[test]
+    fn test_b_sbits() {
+        let offset = BranchOffset::new(48).unwrap();
+        let it = b(offset);
+        let codes: Vec<_> = it.encode().collect();
+        // TODO check
+        assert_eq!(codes, inst!(0x1400000c));
+    }
+
+    #[test]
+    fn test_b_cond_i32() {
+        use BranchCond::*;
+        let it = b_cond(EQ, 0x48);
+        let codes: Vec<_> = it.unwrap().encode().collect();
+        // TODO check
+        assert_eq!(codes, inst!(0x54000240));
+    }
+
+    #[test]
+    fn test_b_cond_i32_neg() {
+        use BranchCond::*;
+        let it = b_cond(EQ, -0x48);
+        let codes: Vec<_> = it.unwrap().encode().collect();
+        // TODO check
+        assert_eq!(codes, inst!(0x54fffdc0));
+    }
+
+    #[test]
+    fn test_b_cond_sbits() {
+        use BranchCond::*;
+        let offset = BranchCondOffset::new(0x48).unwrap();
+        let it = b_cond(EQ, offset);
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!(0x54000240));
+    }
+
+    #[test]
+    fn test_b_overflow() {
+        // 1 bit of sign + 25 bits + 2 bits of offset
+        assert!(b(1 << 27).is_err());
+        assert!(b((1 << 27) - 1).is_err());
+        assert!(b((1 << 27) - 4).is_ok());
+        assert!(b(-((1 << 27) + 4)).is_err());
+        assert!(b(-(1 << 27)).is_ok());
+        assert!(b((1 << 27) - 4).is_ok());
+    }
+
+    #[test]
+    fn test_b_cond_overflow() {
+        use BranchCond::*;
+        // 1 bit of sign + 18 bits + 2 bits of offset
+        assert!(b_cond(EQ, 1 << 20).is_err());
+        assert!(b_cond(NE, (1 << 20) - 1).is_err());
+        assert!(b_cond(GT, (1 << 20) - 4).is_ok());
+        assert!(b_cond(LE, -((1 << 20) + 4)).is_err());
+        assert!(b_cond(PL, -(1 << 20)).is_ok());
+        assert!(b_cond(VC, (1 << 20) - 4).is_ok());
+    }
+
+    #[test]
+    #[cfg(feature = "rich_api")]
+    fn test_b_vs_bcond() {
+        use BranchCond::*;
+
+        assert_eq!(b((EQ, 42)), b_cond(EQ, 42));
+        assert_eq!(b((GT, 0x23456789)), b_cond(GT, 0x23456789));
+    }
 
     #[test]
     fn test_cbnz_64_pos() {

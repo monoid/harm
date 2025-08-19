@@ -17,3 +17,7 @@ paste = "1.0.15"
 
 [dev-dependencies]
 harm-test-utils = { workspace = true }
+
+[features]
+default = ["rich_api"]
+rich_api = []
