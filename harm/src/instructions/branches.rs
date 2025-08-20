@@ -82,7 +82,7 @@ impl MakeBranch<i32> for Branch<BranchOffset> {
     type Output = Result<Self, BitError>;
 
     fn make(offset: i32) -> Self::Output {
-        SBitValue::new(offset).map(Self)
+        BranchOffset::try_from(offset).map(Self)
     }
 }
 
@@ -129,7 +129,7 @@ impl MakeBranchCond<i32> for Branch<(BranchCond, BranchCondOffset)> {
     type Output = Result<Self, BitError>;
 
     fn make(cond: BranchCond, offset: i32) -> Self::Output {
-        SBitValue::new(offset).map(|offset| Self((cond, offset)))
+        BranchCondOffset::try_from(offset).map(|offset| Self((cond, offset)))
     }
 }
 

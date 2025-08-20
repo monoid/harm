@@ -78,6 +78,28 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> UBitValue<SIGNIFICANT_BITS, 
     }
 }
 
+impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<u32>
+    for UBitValue<SIGNIFICANT_BITS, ALIGN>
+{
+    type Error = BitError;
+
+    #[inline]
+    fn try_from(value: u32) -> Result<Self, Self::Error> {
+        Self::new(value)
+    }
+}
+
+impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<i32>
+    for UBitValue<SIGNIFICANT_BITS, ALIGN>
+{
+    type Error = BitError;
+
+    #[inline]
+    fn try_from(value: i32) -> Result<Self, Self::Error> {
+        Self::new_i32(value)
+    }
+}
+
 impl From<bool> for UBitValue<1> {
     fn from(value: bool) -> Self {
         Self(value as u32)
@@ -89,6 +111,28 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> From<UBitValue<SIGNIFICANT_B
 {
     fn from(value: UBitValue<SIGNIFICANT_BITS, ALIGN>) -> Self {
         Self(value.0)
+    }
+}
+
+impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<u32>
+    for SBitValue<SIGNIFICANT_BITS, ALIGN>
+{
+    type Error = BitError;
+
+    #[inline]
+    fn try_from(value: u32) -> Result<Self, Self::Error> {
+        Self::new_u32(value)
+    }
+}
+
+impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<i32>
+    for SBitValue<SIGNIFICANT_BITS, ALIGN>
+{
+    type Error = BitError;
+
+    #[inline]
+    fn try_from(value: i32) -> Result<Self, Self::Error> {
+        Self::new(value)
     }
 }
 
