@@ -177,7 +177,7 @@ macro_rules! define_imm_offset_rules {
 
             #[inline]
             fn new(rt: Rt, (base, offset): (B, u32)) -> Self::Output {
-                let offset = <$offset_type>::new(offset)?;
+                let offset = <$offset_type>::try_from(offset)?;
                 Ok(Self {
                     rt: rt.into(),
                     addr: (base.into(), offset),
@@ -196,7 +196,7 @@ macro_rules! define_imm_offset_rules {
 
             #[inline]
             fn new(rt: Rt, (base, offset): (B, i32)) -> Self::Output {
-                let offset = <$offset_type>::new_i32(offset)?;
+                let offset = <$offset_type>::try_from(offset)?;
                 Ok(Self {
                     rt: rt.into(),
                     addr: (base.into(), offset),
@@ -289,7 +289,7 @@ macro_rules! define_unscaled_imm_offset_rules {
             type Output = Result<Self, BitError>;
 
             fn new(rt: Rt, (base, offset): (Base, i32)) -> Self::Output {
-                UnscaledOffset::new(offset).map(|offset| Self {
+                UnscaledOffset::try_from(offset).map(|offset| Self {
                     rt: rt.into(),
                     addr: (base.into(), offset),
                 })
@@ -341,7 +341,7 @@ macro_rules! define_pc_offset_rules {
 
             #[inline]
             fn new(rt: Rt, (pc, offset): ($crate::instructions::ldst::Pc, i32)) -> Self::Output {
-                $crate::instructions::ldst::LdStPcOffset::new(offset).map(|offset| Self {
+                $crate::instructions::ldst::LdStPcOffset::try_from(offset).map(|offset| Self {
                     rt: rt.into(),
                     addr: (pc, offset)
                 })
