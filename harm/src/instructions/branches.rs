@@ -3,7 +3,7 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-pub mod ret;
+pub(crate) mod reg;
 pub(crate) mod testbranch;
 
 use aarchmrs_instructions::A64::control::{
@@ -18,7 +18,7 @@ use crate::{
     register::{IntoCode as _, Reg32, Reg64},
 };
 
-pub use self::ret::*;
+pub use self::reg::*;
 pub use self::testbranch::*;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
