@@ -7,7 +7,7 @@ pub(crate) mod reg;
 pub(crate) mod testbranch;
 
 use aarchmrs_instructions::A64::control::{
-    branch_imm::B_only_branch_imm::B_only_branch_imm, // TODO BL: branch with link
+    branch_imm::B_only_branch_imm::B_only_branch_imm,
     condbranch::B_only_condbranch::B_only_condbranch, // TODO BC: branch consistent conditionally
 };
 use aarchmrs_types::InstructionCode;
@@ -15,7 +15,7 @@ use aarchmrs_types::InstructionCode;
 use super::RawInstruction;
 use crate::{
     bits::{BitError, SBitValue},
-    register::{IntoCode as _, Reg32, Reg64},
+    register::{IntoCode as _, RegOrZero32, RegOrZero64},
 };
 
 pub use self::reg::*;
@@ -42,10 +42,10 @@ pub enum BranchCond {
     NV = 0b1111, // always
 }
 
-pub type PcOffset = i32;
-
 pub type BranchOffset = SBitValue<26, 2>;
 pub type BranchCondOffset = SBitValue<19, 2>;
+
+pub type CompareBranchOffset = SBitValue<19, 2>;
 
 pub trait MakeBranch<Args> {
     type Output;
@@ -73,6 +73,7 @@ pub struct Branch<B>(B);
 impl MakeBranch<BranchOffset> for Branch<BranchOffset> {
     type Output = Self;
 
+    #[inline]
     fn make(offset: BranchOffset) -> Self::Output {
         Self(offset)
     }
@@ -81,6 +82,7 @@ impl MakeBranch<BranchOffset> for Branch<BranchOffset> {
 impl MakeBranch<i32> for Branch<BranchOffset> {
     type Output = Result<Self, BitError>;
 
+    #[inline]
     fn make(offset: i32) -> Self::Output {
         BranchOffset::try_from(offset).map(Self)
     }
@@ -106,7 +108,6 @@ impl RawInstruction for Branch<BranchOffset> {
     }
 }
 
-#[inline]
 pub fn b_cond<InpAddr, RealAddr>(
     cond: BranchCond,
     offset: InpAddr,
@@ -120,6 +121,7 @@ where
 impl MakeBranchCond<BranchCondOffset> for Branch<(BranchCond, BranchCondOffset)> {
     type Output = Self;
 
+    #[inline]
     fn make(cond: BranchCond, addr: BranchCondOffset) -> Self::Output {
         Self((cond, addr))
     }
@@ -128,6 +130,7 @@ impl MakeBranchCond<BranchCondOffset> for Branch<(BranchCond, BranchCondOffset)>
 impl MakeBranchCond<i32> for Branch<(BranchCond, BranchCondOffset)> {
     type Output = Result<Self, BitError>;
 
+    #[inline]
     fn make(cond: BranchCond, offset: i32) -> Self::Output {
         BranchCondOffset::try_from(offset).map(|offset| Self((cond, offset)))
     }
@@ -144,26 +147,78 @@ impl RawInstruction for Branch<(BranchCond, BranchCondOffset)> {
 pub struct CompareBranch<Reg> {
     equal: bool,
     reg: Reg,
-    offset: SBitValue<19, 2>,
+    offset: CompareBranchOffset,
 }
 
-pub trait MakeCompareBranch<Reg>: Sized {
-    fn new(equal: bool, reg: Reg, offset: SBitValue<19, 2>) -> Self;
+pub trait MakeCompareBranch<Reg, Offset>: Sized {
+    type Output;
+
+    fn new(equal: bool, reg: Reg, offset: Offset) -> Self::Output;
 }
 
-impl MakeCompareBranch<Reg64> for CompareBranch<Reg64> {
-    fn new(equal: bool, reg: Reg64, offset: SBitValue<19, 2>) -> Self {
-        Self { equal, reg, offset }
+impl<R64> MakeCompareBranch<R64, CompareBranchOffset> for CompareBranch<RegOrZero64>
+where
+    R64: Into<RegOrZero64>,
+{
+    type Output = Self;
+
+    fn new(equal: bool, reg: R64, offset: CompareBranchOffset) -> Self {
+        Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        }
     }
 }
 
-impl MakeCompareBranch<Reg32> for CompareBranch<Reg32> {
-    fn new(equal: bool, reg: Reg32, offset: SBitValue<19, 2>) -> Self {
-        Self { equal, reg, offset }
+// N.B. joining these two implementation abstracting over `RegDst` in `CompareBranch<RegDst>`
+// doesn't work: Rust doesn't seems to be able to deduce the `RegDst` type
+impl<RegSrc> MakeCompareBranch<RegSrc, i32> for CompareBranch<RegOrZero64>
+where
+    RegOrZero64: From<RegSrc>,
+{
+    type Output = Result<Self, BitError>;
+
+    fn new(equal: bool, reg: RegSrc, offset: i32) -> Result<Self, BitError> {
+        CompareBranchOffset::try_from(offset).map(|offset| Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        })
     }
 }
 
-impl RawInstruction for CompareBranch<Reg64> {
+impl<RegSrc> MakeCompareBranch<RegSrc, i32> for CompareBranch<RegOrZero32>
+where
+    RegOrZero32: From<RegSrc>,
+{
+    type Output = Result<Self, BitError>;
+
+    fn new(equal: bool, reg: RegSrc, offset: i32) -> Result<Self, BitError> {
+        CompareBranchOffset::try_from(offset).map(|offset| Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        })
+    }
+}
+
+impl<R32> MakeCompareBranch<R32, CompareBranchOffset> for CompareBranch<RegOrZero32>
+where
+    R32: Into<RegOrZero32>,
+{
+    type Output = Self;
+
+    fn new(equal: bool, reg: R32, offset: CompareBranchOffset) -> Self {
+        Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        }
+    }
+}
+
+impl RawInstruction for CompareBranch<RegOrZero64> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
         use aarchmrs_instructions::A64::control::compbranch;
@@ -176,7 +231,7 @@ impl RawInstruction for CompareBranch<Reg64> {
     }
 }
 
-impl RawInstruction for CompareBranch<Reg32> {
+impl RawInstruction for CompareBranch<RegOrZero32> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
         use aarchmrs_instructions::A64::control::compbranch;
@@ -189,18 +244,24 @@ impl RawInstruction for CompareBranch<Reg32> {
     }
 }
 
-pub fn cbnz<Reg>(reg: Reg, offset: SBitValue<19, 2>) -> CompareBranch<Reg>
+pub fn cbz<RegSrc, Offset, RegDst>(
+    reg: RegSrc,
+    offset: Offset,
+) -> <CompareBranch<RegDst> as MakeCompareBranch<RegSrc, Offset>>::Output
 where
-    CompareBranch<Reg>: MakeCompareBranch<Reg>,
-{
-    CompareBranch::new(false, reg, offset)
-}
-
-pub fn cbz<Reg>(reg: Reg, offset: SBitValue<19, 2>) -> CompareBranch<Reg>
-where
-    CompareBranch<Reg>: MakeCompareBranch<Reg>,
+    CompareBranch<RegDst>: MakeCompareBranch<RegSrc, Offset>,
 {
     CompareBranch::new(true, reg, offset)
+}
+
+pub fn cbnz<RegSrc, Offset, RegDst>(
+    reg: RegSrc,
+    offset: Offset,
+) -> <CompareBranch<RegDst> as MakeCompareBranch<RegSrc, Offset>>::Output
+where
+    CompareBranch<RegDst>: MakeCompareBranch<RegSrc, Offset>,
+{
+    CompareBranch::new(false, reg, offset)
 }
 
 #[cfg(test)]
@@ -210,6 +271,8 @@ mod tests {
     use crate::instructions::InstructionSeq;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
+    use crate::register::RegOrZero32::WZR;
+    use crate::register::RegOrZero64::XZR;
     use alloc::vec::Vec;
     use harm_test_utils::inst;
 
@@ -316,9 +379,34 @@ mod tests {
     }
 
     #[test]
+    fn test_cbnz_xzr_pos() {
+        let offset = SBitValue::new(8).unwrap();
+        let it = cbnz(XZR, offset);
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!(0xb500005f));
+    }
+
+    #[test]
+    fn test_cbnz_64_i32() {
+        let it = cbnz(X2, 8).unwrap();
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0x42, 0x00, 0x00, 0xb5])); // 0xb5000042
+    }
+
+    #[test]
     fn test_cbz_64_pos() {
         let offset = SBitValue::new(8).unwrap();
         let it = cbz(X2, offset);
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!([0x42, 0x00, 0x00, 0xb4])); // 0xb4000042
+    }
+
+    #[test]
+    fn test_cbz_64_i32() {
+        let it = cbz(X2, 8).unwrap();
 
         let codes: Vec<_> = it.encode().collect();
         assert_eq!(codes, inst!([0x42, 0x00, 0x00, 0xb4])); // 0xb4000042
@@ -331,6 +419,14 @@ mod tests {
 
         let codes: Vec<_> = it.encode().collect();
         assert_eq!(codes, inst!([0xc2, 0xff, 0xff, 0xb4])); // 0xb4ffffc2
+    }
+
+    #[test]
+    fn test_cbz_xzr_pos() {
+        let offset = SBitValue::new(8).unwrap();
+        let it = cbz(XZR, offset);
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!(0xb400005f))
     }
 
     #[test]
@@ -352,6 +448,14 @@ mod tests {
     }
 
     #[test]
+    fn test_cbnz_32_i32() {
+        let it = cbnz(W2, 8).unwrap();
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!(0x35000042));
+    }
+
+    #[test]
     fn test_cbz_32_pos() {
         let offset = SBitValue::new(8).unwrap();
         let it = cbz(W2, offset);
@@ -367,5 +471,21 @@ mod tests {
 
         let codes: Vec<_> = it.encode().collect();
         assert_eq!(codes, inst!([0xc2, 0xff, 0xff, 0x34])); // 0x34ffffc2
+    }
+
+    #[test]
+    fn test_cbz_wzr_pos() {
+        let offset = SBitValue::new(8).unwrap();
+        let it = cbz(WZR, offset);
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!(0x3400005f))
+    }
+
+    #[test]
+    fn test_cbz_32_i32() {
+        let it = cbz(W2, 8).unwrap();
+
+        let codes: Vec<_> = it.encode().collect();
+        assert_eq!(codes, inst!(0x34000042));
     }
 }
