@@ -16,7 +16,6 @@ macro_rules! define_arith_shift {
                         $ztype::Reg(self.src1),
                         ShiftedReg::new($ztype::Reg(self.src2)),
                     )
-                        .expect("internal error: cannot happen")
                         .shift(mode, amount)
                 }
             }
@@ -34,9 +33,11 @@ macro_rules! define_arith_shift {
             }
 
             impl [<Make $name>]<$ztype, $ztype, $ztype> for $name<$ztype, $ztype, $ztype> {
+                type Output = Self;
+
                 #[inline]
-                fn new(dst: $ztype, src1: $ztype, src2: $ztype) -> Result<Self, Error> {
-                    Ok(Self { dst, src1, src2 })
+                fn new(dst: $ztype, src1: $ztype, src2: $ztype) -> Self {
+                    Self { dst, src1, src2 }
                 }
             }
 
@@ -44,19 +45,20 @@ macro_rules! define_arith_shift {
                 #[inline]
                 pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ShiftedReg::new(self.src2))
-                        .expect("internal error: cannot happen")
                         .shift(mode, amount)
                 }
             }
 
             impl [<Make $name>]<$ztype, $ztype, ShiftedReg<$ztype>> for $name<$ztype, $ztype, ShiftedReg<$ztype>> {
+                type Output = Self;
+
                 #[inline]
                 fn new(
                     dst: $ztype,
                     src1: $ztype,
                     src2: ShiftedReg<$ztype>,
-                ) -> Result<Self, Error> {
-                    Ok(Self { dst, src1, src2 })
+                ) -> Self {
+                    Self { dst, src1, src2 }
                 }
             }
 
@@ -94,6 +96,8 @@ macro_rules! define_arith_imm12 {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $etype:ty) => {
         ::paste::paste! {
             impl [<Make $name>]<$reg, $reg, u32> for $name<$reg, $reg, u32> {
+                type Output = Result<Self, Error>;
+
                 #[inline]
                 fn new(dst: $reg, src1: $reg, src2: u32) -> Result<Self, Error> {
                     let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
@@ -116,6 +120,8 @@ macro_rules! define_arith_imm12 {
             }
 
             impl [<Make $name>]<$etype, $etype, u32> for $name<$etype, $etype, u32> {
+                type Output = Result<Self, Error>;
+
                 #[inline]
                 fn new(dst: $etype, src1: $etype, src2: u32) -> Result<Self, Error> {
                     let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
@@ -158,22 +164,25 @@ macro_rules! define_arith_extend {
                         <$stype>::Reg(self.src1),
                         ExtendedReg::new(<$ztype>::Reg(self.src2)),
                     )
-                    .expect("internal error: cannot happen")
                     .extend(mode, amount)
                 }
             }
 
             impl [<Make $name>]<$stype, $stype, $ztype> for $name<$stype, $stype, $ztype> {
+                type Output = Self;
+
                 #[inline]
-                fn new(dst: $stype, src1: $stype, src2: $ztype) -> Result<Self, Error> {
-                    Ok(Self { dst, src1, src2 })
+                fn new(dst: $stype, src1: $stype, src2: $ztype) -> Self {
+                    Self { dst, src1, src2 }
                 }
             }
 
             impl [<Make $name>]<$stype, $stype, $reg> for $name<$stype, $stype, $reg> {
+                type Output = Self;
+
                 #[inline]
-                fn new(dst: $stype, src1: $stype, src2: $reg) -> Result<Self, Error> {
-                    Ok(Self { dst, src1, src2 })
+                fn new(dst: $stype, src1: $stype, src2: $reg) -> Self {
+                    Self { dst, src1, src2 }
                 }
             }
 
@@ -185,7 +194,6 @@ macro_rules! define_arith_extend {
                     amount: u8,
                 ) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ExtendedReg::new(self.src2.into()))
-                        .expect("internal error: cannot happen")
                         .extend(mode, amount)
                 }
             }
@@ -193,13 +201,15 @@ macro_rules! define_arith_extend {
             impl [<Make $name>]<$stype, $stype, ExtendedReg<$ztype>>
                 for $name<$stype, $stype, ExtendedReg<$ztype>>
             {
+                type Output = Self;
+
                 #[inline]
                 fn new(
                     dst: $stype,
                     src1: $stype,
                     src2: ExtendedReg<$ztype>,
-                ) -> Result<Self, Error> {
-                    Ok(Self { dst, src1, src2 })
+                ) -> Self {
+                    Self { dst, src1, src2 }
                 }
             }
 
@@ -215,7 +225,6 @@ macro_rules! define_arith_extend {
                 #[inline]
                 pub fn extend(self, mode: ExtendMode, amount: u8) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ExtendedReg::new(self.src2))
-                        .expect("internal error: cannot happen")
                         .extend(mode, amount)
                 }
             }
