@@ -3,7 +3,10 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use crate::register::{Reg32, Reg64, RegOrZero32, RegOrZero64};
+use crate::{
+    bits::UBitValue,
+    register::{Reg32, Reg64, RegOrZero32, RegOrZero64},
+};
 
 macro_rules! define_arith_shift {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $ztype:ty) => {
@@ -32,12 +35,16 @@ macro_rules! define_arith_shift {
                 }
             }
 
-            impl [<Make $name>]<$ztype, $ztype, $ztype> for $name<$ztype, $ztype, $ztype> {
+            impl<Src1, Src2> [<Make $name>]<$ztype, Src1, Src2> for $name<$ztype, $ztype, $ztype>
+            where
+                Src1: Into<$ztype>,
+                Src2: Into<$ztype>,
+            {
                 type Output = Self;
 
                 #[inline]
-                fn new(dst: $ztype, src1: $ztype, src2: $ztype) -> Self {
-                    Self { dst, src1, src2 }
+                fn new(dst: $ztype, src1: Src1, src2: Src2) -> Self {
+                    Self { dst, src1: src1.into(), src2: src2.into() }
                 }
             }
 
@@ -49,16 +56,20 @@ macro_rules! define_arith_shift {
                 }
             }
 
-            impl [<Make $name>]<$ztype, $ztype, ShiftedReg<$ztype>> for $name<$ztype, $ztype, ShiftedReg<$ztype>> {
+            impl<Dst, Src1> [<Make $name>]<Dst, Src1, ShiftedReg<$ztype>> for $name<$ztype, $ztype, ShiftedReg<$ztype>>
+            where
+                Dst: Into<$ztype>,
+                Src1: Into<$ztype>,
+            {
                 type Output = Self;
 
                 #[inline]
                 fn new(
-                    dst: $ztype,
-                    src1: $ztype,
+                    dst: Dst,
+                    src1: Src1,
                     src2: ShiftedReg<$ztype>,
                 ) -> Self {
-                    Self { dst, src1, src2 }
+                    Self { dst: dst.into(), src1: src1.into(), src2 }
                 }
             }
 
@@ -92,42 +103,39 @@ macro_rules! define_arith_shift {
     }
 }
 
+// TODO instead of u32, use Or<UBitValue<12>, UBitValue<12, 12>>.
 macro_rules! define_arith_imm12 {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $etype:ty) => {
         ::paste::paste! {
-            impl [<Make $name>]<$reg, $reg, u32> for $name<$reg, $reg, u32> {
+            impl<Src> [<Make $name>]<$reg, Src, u32> for $name<$etype, $etype, u32>
+            where
+                Src: Into<$etype>
+            {
                 type Output = Result<Self, Error>;
 
                 #[inline]
-                fn new(dst: $reg, src1: $reg, src2: u32) -> Result<Self, Error> {
+                fn new(dst: $reg, src1: Src, src2: u32) -> Result<Self, Error> {
                     let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
                     Ok(Self {
-                        dst,
-                        src1,
+                        dst: dst.into(),
+                        src1: src1.into(),
                         src2: imm12,
                     })
                 }
             }
 
-            impl RawInstruction for $name<$reg, $reg, u32> {
-                #[inline]
-                fn to_code(&self) -> InstructionCode {
-                    let dst = $etype::Reg(self.dst);
-                    let src1 = $etype::Reg(self.src1);
-                    let src2 = self.src2;
-                    $name::<$etype, $etype, u32> { dst, src1, src2 }.to_code()
-                }
-            }
-
-            impl [<Make $name>]<$etype, $etype, u32> for $name<$etype, $etype, u32> {
+            impl<Src> [<Make $name>]<$etype, Src, u32> for $name<$etype, $etype, u32>
+            where
+                Src: Into<$etype>,
+            {
                 type Output = Result<Self, Error>;
 
                 #[inline]
-                fn new(dst: $etype, src1: $etype, src2: u32) -> Result<Self, Error> {
+                fn new(dst: $etype, src1: Src, src2: u32) -> Result<Self, Error> {
                     let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
                     Ok(Self {
                         dst,
-                        src1,
+                        src1: src1.into(),
                         src2: imm12,
                     })
                 }
@@ -168,21 +176,15 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl [<Make $name>]<$stype, $stype, $ztype> for $name<$stype, $stype, $ztype> {
+            impl<Src1, Src2> [<Make $name>]<$stype, Src1, Src2> for $name<$stype, $stype, $ztype>
+            where Src1: Into<$stype>,
+                  Src2: Into<$ztype>
+            {
                 type Output = Self;
 
                 #[inline]
-                fn new(dst: $stype, src1: $stype, src2: $ztype) -> Self {
-                    Self { dst, src1, src2 }
-                }
-            }
-
-            impl [<Make $name>]<$stype, $stype, $reg> for $name<$stype, $stype, $reg> {
-                type Output = Self;
-
-                #[inline]
-                fn new(dst: $stype, src1: $stype, src2: $reg) -> Self {
-                    Self { dst, src1, src2 }
+                fn new(dst: $stype, src1: Src1, src2: Src2) -> Self {
+                    Self { dst, src1: src1.into(), src2: src2.into() }
                 }
             }
 
@@ -324,12 +326,14 @@ impl<T> ExtendedReg<T> {
 }
 
 impl From<Reg64> for ExtendedReg<RegOrZero64> {
+    #[inline]
     fn from(value: Reg64) -> Self {
         Self::new(value.into())
     }
 }
 
 impl From<Reg32> for ExtendedReg<RegOrZero32> {
+    #[inline]
     fn from(value: Reg32) -> Self {
         Self::new(value.into())
     }
@@ -355,18 +359,13 @@ pub struct Extend {
     amount: u8,
 }
 
+// TODO: remove in favor of type-specific impls.
 pub(crate) const fn validate_imm12(imm12: u32) -> Result<u32, Error> {
-    const BITS_12: u32 = (1 << 12) - 1;
-    if imm12 <= BITS_12 {
+    let shifted = UBitValue::<12, 12>::new(imm12);
+    let unshifted = UBitValue::<12, 0>::new(imm12);
+    if shifted.is_ok() || unshifted.is_ok() {
         Ok(imm12)
     } else {
-        let shift = imm12 & BITS_12 == 0;
-        if shift {
-            let imm12_shifted = imm12 >> 12;
-            if imm12_shifted <= BITS_12 {
-                return Ok(imm12);
-            }
-        }
         Err("Immediate value out of range for an arithmetic instruction")
     }
 }
