@@ -8,9 +8,9 @@ use crate::register::{Reg32, Reg64, RegOrZero32, RegOrZero64};
 macro_rules! define_arith_shift {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $ztype:ty) => {
         ::paste::paste! {
-            impl $name<$reg, $reg> {
+            impl $name<$reg, $reg, $reg> {
                 #[inline]
-                pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, ShiftedReg<$ztype>> {
+                pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                     $name::new(
                         $ztype::Reg(self.dst),
                         $ztype::Reg(self.src1),
@@ -21,7 +21,7 @@ macro_rules! define_arith_shift {
                 }
             }
 
-            impl RawInstruction for $name<$reg, $reg> {
+            impl RawInstruction for $name<$reg, $reg, $reg> {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     $name {
@@ -33,23 +33,23 @@ macro_rules! define_arith_shift {
                 }
             }
 
-            impl [<Make $name>]<$ztype, $ztype> for $name<$ztype, $ztype> {
+            impl [<Make $name>]<$ztype, $ztype, $ztype> for $name<$ztype, $ztype, $ztype> {
                 #[inline]
                 fn new(dst: $ztype, src1: $ztype, src2: $ztype) -> Result<Self, Error> {
                     Ok(Self { dst, src1, src2 })
                 }
             }
 
-            impl $name<$ztype, $ztype> {
+            impl $name<$ztype, $ztype, $ztype> {
                 #[inline]
-                pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, ShiftedReg<$ztype>> {
+                pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ShiftedReg::new(self.src2))
                         .expect("internal error: cannot happen")
                         .shift(mode, amount)
                 }
             }
 
-            impl [<Make $name>]<$ztype, ShiftedReg<$ztype>> for $name<$ztype, ShiftedReg<$ztype>> {
+            impl [<Make $name>]<$ztype, $ztype, ShiftedReg<$ztype>> for $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                 #[inline]
                 fn new(
                     dst: $ztype,
@@ -60,7 +60,7 @@ macro_rules! define_arith_shift {
                 }
             }
 
-            impl $name<$ztype, ShiftedReg<$ztype>> {
+            impl $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                 #[inline]
                 pub fn shift(mut self, mode: ShiftMode, amount: u8) -> Self {
                     self.src2.shift = Shift { mode, amount };
@@ -68,7 +68,7 @@ macro_rules! define_arith_shift {
                 }
             }
 
-            impl RawInstruction for $name<$ztype, ShiftedReg<$ztype>> {
+            impl RawInstruction for $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     let shift = self.src2.shift.mode as u8;
@@ -93,7 +93,7 @@ macro_rules! define_arith_shift {
 macro_rules! define_arith_imm12 {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $etype:ty) => {
         ::paste::paste! {
-            impl [<Make $name>]<$reg, u32> for $name<$reg, u32> {
+            impl [<Make $name>]<$reg, $reg, u32> for $name<$reg, $reg, u32> {
                 #[inline]
                 fn new(dst: $reg, src1: $reg, src2: u32) -> Result<Self, Error> {
                     let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
@@ -105,17 +105,17 @@ macro_rules! define_arith_imm12 {
                 }
             }
 
-            impl RawInstruction for $name<$reg, u32> {
+            impl RawInstruction for $name<$reg, $reg, u32> {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     let dst = $etype::Reg(self.dst);
                     let src1 = $etype::Reg(self.src1);
                     let src2 = self.src2;
-                    $name::<$etype, u32> { dst, src1, src2 }.to_code()
+                    $name::<$etype, $etype, u32> { dst, src1, src2 }.to_code()
                 }
             }
 
-            impl [<Make $name>]<$etype, u32> for $name<$etype, u32> {
+            impl [<Make $name>]<$etype, $etype, u32> for $name<$etype, $etype, u32> {
                 #[inline]
                 fn new(dst: $etype, src1: $etype, src2: u32) -> Result<Self, Error> {
                     let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
@@ -127,7 +127,7 @@ macro_rules! define_arith_imm12 {
                 }
             }
 
-            impl RawInstruction for $name<$etype, u32> {
+            impl RawInstruction for $name<$etype, $etype, u32> {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     let shift = self.src2 & ((1 << 12) - 1) == 0;
@@ -146,13 +146,13 @@ macro_rules! define_arith_imm12 {
 macro_rules! define_arith_extend {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $stype:ty, $ztype:ty) => {
         ::paste::paste! {
-            impl $name<$reg, $reg> {
+            impl $name<$reg, $reg, $reg> {
                 #[inline]
                 pub fn extend(
                     self,
                     mode: ExtendMode,
                     amount: u8,
-                ) -> $name<$stype, ExtendedReg<$ztype>> {
+                ) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
                     $name::new(
                         <$stype>::Reg(self.dst),
                         <$stype>::Reg(self.src1),
@@ -163,35 +163,35 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl [<Make $name>]<$stype, $ztype> for $name<$stype, $ztype> {
+            impl [<Make $name>]<$stype, $stype, $ztype> for $name<$stype, $stype, $ztype> {
                 #[inline]
                 fn new(dst: $stype, src1: $stype, src2: $ztype) -> Result<Self, Error> {
                     Ok(Self { dst, src1, src2 })
                 }
             }
 
-            impl [<Make $name>]<$stype, $reg> for $name<$stype, $reg> {
+            impl [<Make $name>]<$stype, $stype, $reg> for $name<$stype, $stype, $reg> {
                 #[inline]
                 fn new(dst: $stype, src1: $stype, src2: $reg) -> Result<Self, Error> {
                     Ok(Self { dst, src1, src2 })
                 }
             }
 
-            impl $name<$stype, $reg> {
+            impl $name<$stype, $stype, $reg> {
                 #[inline]
                 pub fn extend(
                     self,
                     mode: ExtendMode,
                     amount: u8,
-                ) -> $name<$stype, ExtendedReg<$ztype>> {
+                ) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ExtendedReg::new(self.src2.into()))
                         .expect("internal error: cannot happen")
                         .extend(mode, amount)
                 }
             }
 
-            impl [<Make $name>]<$stype, ExtendedReg<$ztype>>
-                for $name<$stype, ExtendedReg<$ztype>>
+            impl [<Make $name>]<$stype, $stype, ExtendedReg<$ztype>>
+                for $name<$stype, $stype, ExtendedReg<$ztype>>
             {
                 #[inline]
                 fn new(
@@ -203,7 +203,7 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl $name<$stype, ExtendedReg<$ztype>> {
+            impl $name<$stype, $stype, ExtendedReg<$ztype>> {
                 #[inline]
                 pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
                     self.src2.extend = Extend { mode, amount };
@@ -211,16 +211,16 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl $name<$stype, $ztype> {
+            impl $name<$stype, $stype, $ztype> {
                 #[inline]
-                pub fn extend(self, mode: ExtendMode, amount: u8) -> $name<$stype, ExtendedReg<$ztype>> {
+                pub fn extend(self, mode: ExtendMode, amount: u8) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ExtendedReg::new(self.src2))
                         .expect("internal error: cannot happen")
                         .extend(mode, amount)
                 }
             }
 
-            impl RawInstruction for $name<$stype, ExtendedReg<$ztype>> {
+            impl RawInstruction for $name<$stype, $stype, ExtendedReg<$ztype>> {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     let option = self.src2.extend.mode as u8;

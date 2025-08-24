@@ -21,31 +21,31 @@ use crate::{
     register::{IntoCode as _, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
 };
 
-pub fn add<T, U>(dst: T, src1: T, src2: U) -> Result<Add<T, U>, Error>
+pub fn add<T, S1, S2>(dst: T, src1: S1, src2: S2) -> Result<Add<T, S1, S2>, Error>
 where
-    Add<T, U>: MakeAdd<T, U>,
+    Add<T, S1, S2>: MakeAdd<T, S1, S2>,
 {
-    Add::<T, U>::new(dst, src1, src2)
+    Add::<T, S1, S2>::new(dst, src1, src2)
 }
 
-pub trait MakeAdd<T, U>: Sized {
-    fn new(dst: T, src1: T, src2: U) -> Result<Self, Error>;
+pub trait MakeAdd<T, S1, S2>: Sized {
+    fn new(dst: T, src1: S1, src2: S2) -> Result<Self, Error>;
 }
 
-pub struct Add<T, U> {
+pub struct Add<T, S1, S2> {
     pub dst: T,
-    pub src1: T,
-    pub src2: U,
+    pub src1: S1,
+    pub src2: S2,
 }
 
-impl MakeAdd<Reg64, Reg64> for Add<Reg64, Reg64> {
+impl MakeAdd<Reg64, Reg64, Reg64> for Add<Reg64, Reg64, Reg64> {
     #[inline]
     fn new(dst: Reg64, src1: Reg64, src2: Reg64) -> Result<Self, &'static str> {
         Ok(Self { dst, src1, src2 })
     }
 }
 
-impl MakeAdd<Reg32, Reg32> for Add<Reg32, Reg32> {
+impl MakeAdd<Reg32, Reg32, Reg32> for Add<Reg32, Reg32, Reg32> {
     #[inline]
     fn new(dst: Reg32, src1: Reg32, src2: Reg32) -> Result<Self, Error> {
         Ok(Self { dst, src1, src2 })
