@@ -4,7 +4,7 @@
  */
 
 use crate::{
-    bits::UBitValue,
+    bits::{BitError, UBitValue},
     register::{Reg32, Reg64, RegOrZero32, RegOrZero64},
 };
 
@@ -35,13 +35,23 @@ macro_rules! define_arith_shift {
         ::paste::paste! {
             impl $name<$reg, $reg, $reg> {
                 #[inline]
-                pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, $ztype, ShiftedReg<$ztype>> {
+                pub fn shift(self, mode: ShiftMode, amount: ShiftAmount) -> $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                     $name::new(
                         $ztype::Reg(self.dst),
                         $ztype::Reg(self.src1),
                         ShiftedReg::new($ztype::Reg(self.src2)),
                     )
                         .shift(mode, amount)
+                }
+                #[inline]
+                pub fn try_shift(self, mode: ShiftMode, amount: u32)
+                                 -> Result<$name<$ztype, $ztype, ShiftedReg<$ztype>>, BitError> {
+                    $name::new(
+                        $ztype::Reg(self.dst),
+                        $ztype::Reg(self.src1),
+                        ShiftedReg::new($ztype::Reg(self.src2)),
+                    )
+                        .try_shift(mode, amount)
                 }
             }
 
@@ -72,9 +82,14 @@ macro_rules! define_arith_shift {
 
             impl $name<$ztype, $ztype, $ztype> {
                 #[inline]
-                pub fn shift(self, mode: ShiftMode, amount: u8) -> $name<$ztype, $ztype, ShiftedReg<$ztype>> {
+                pub fn shift(self, mode: ShiftMode, amount: ShiftAmount) -> $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ShiftedReg::new(self.src2))
                         .shift(mode, amount)
+                }
+                pub fn try_shift(self, mode: ShiftMode, amount: u32)
+                                 -> Result<$name<$ztype, $ztype, ShiftedReg<$ztype>>, BitError> {
+                    $name::new(self.dst, self.src1, ShiftedReg::new(self.src2))
+                        .try_shift(mode, amount)
                 }
             }
 
@@ -95,11 +110,56 @@ macro_rules! define_arith_shift {
                 }
             }
 
+            impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ShiftMode, ShiftAmount)> for $name<$ztype, $ztype, ShiftedReg<$ztype>>
+            where
+                Dst: Into<$ztype>,
+                Src1: Into<$ztype>,
+                Src2: Into<$ztype>,
+            {
+                type Output = Self;
+
+                #[inline]
+                fn new(
+                    dst: Dst,
+                    src1: Src1,
+                    (src2, shift_mode, shift_amount): (Src2, ShiftMode, ShiftAmount)
+                ) -> Self {
+                    let src2 = ShiftedReg::new(src2.into()).shift(shift_mode, shift_amount);
+                    Self { dst: dst.into(), src1: src1.into(), src2 }
+                }
+            }
+
+            impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ShiftMode, u32)> for $name<$ztype, $ztype, ShiftedReg<$ztype>>
+            where
+                Dst: Into<$ztype>,
+                Src1: Into<$ztype>,
+                Src2: Into<$ztype>,
+            {
+                type Output = Result<Self, BitError>;
+
+                #[inline]
+                fn new(
+                    dst: Dst,
+                    src1: Src1,
+                    (src2, shift_mode, shift_amount): (Src2, ShiftMode, u32)
+                ) -> Result<Self, BitError> {
+                    let shift_amount = shift_amount.try_into()?;
+                    let src2 = ShiftedReg::new(src2.into()).shift(shift_mode, shift_amount);
+                    Ok(Self { dst: dst.into(), src1: src1.into(), src2 })
+                }
+            }
+
             impl $name<$ztype, $ztype, ShiftedReg<$ztype>> {
                 #[inline]
-                pub fn shift(mut self, mode: ShiftMode, amount: u8) -> Self {
+                pub fn shift(mut self, mode: ShiftMode, amount: ShiftAmount) -> Self {
                     self.src2.shift = Shift { mode, amount };
                     self
+                }
+
+                pub fn try_shift(mut self, mode: ShiftMode, amount: u32) -> Result<Self, BitError> {
+                    let amount = amount.try_into()?;
+                    self.src2.shift = Shift { mode, amount };
+                    Ok(self)
                 }
             }
 
@@ -292,9 +352,15 @@ impl<T> ShiftedReg<T> {
         }
     }
 
-    pub fn shift(mut self, mode: ShiftMode, amount: u8) -> Self {
+    pub fn shift(mut self, mode: ShiftMode, amount: ShiftAmount) -> Self {
         self.shift = Shift { mode, amount };
         self
+    }
+
+    pub fn try_shift(mut self, mode: ShiftMode, amount: u32) -> Result<Self, BitError> {
+        let amount = amount.try_into()?;
+        self.shift = Shift { mode, amount };
+        Ok(self)
     }
 }
 
@@ -312,10 +378,12 @@ impl From<Reg32> for ShiftedReg<RegOrZero32> {
     }
 }
 
+pub type ShiftAmount = UBitValue<6>;
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 pub struct Shift {
     mode: ShiftMode,
-    amount: u8,
+    amount: ShiftAmount,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]

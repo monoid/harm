@@ -13,9 +13,10 @@ use aarchmrs_types::InstructionCode;
 
 use super::Error;
 use crate::{
+    bits::BitError,
     instructions::{
         RawInstruction,
-        arith::{Extend, ExtendMode, ExtendedReg, Shift, ShiftMode, ShiftedReg},
+        arith::{Extend, ExtendMode, ExtendedReg, Shift, ShiftAmount, ShiftMode, ShiftedReg},
     },
     register::{IntoCode as _, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
 };
@@ -118,10 +119,16 @@ d14007ff	sub sp, sp, #0x1000
     test_cases! {
         SUB_DB, untested_sub_db;
         test_sub_64, sub(X1, X2, X12), "sub x1, x2, x12";
-        test_sub_64_shift, sub(X1, X2, X12).shift(ShiftMode::LSR, 4), "sub x1, x2, x12, lsr #4";
+        test_sub_64_shift, sub(X1, X2, X12).try_shift(ShiftMode::LSR, 4).unwrap(), "sub x1, x2, x12, lsr #4";
         test_sub_64_zero,
-            sub(X1, XZR, ShiftedReg::from(X12).shift(ShiftMode::LSR, 4)),
+            sub(X1, XZR, ShiftedReg::from(X12).try_shift(ShiftMode::LSR, 4).unwrap()),
             "sub x1, xzr, x12, lsr #4";
+        test_sub_64_shift_2,
+            sub(X1, X2, ShiftedReg::from(X12).try_shift(ShiftMode::LSR, 4)).unwrap(),
+            "sub x1, x2, x12, lsr #4";
+        test_sub_64_shift_3,
+            sub(X1, X2, (X12, ShiftMode::LSR, 4)).unwrap(),
+            "sub x1, x2, x12, lsr #4";
         test_sub_64_extend_uxtx, sub(RegS(X1), X2, X12).extend(ExtendMode::UXTX, 3),
             "sub x1, x2, x12, uxtx #3";
         // KLUDGE: Using Reg64 instead of Reg32 at the last argument.
@@ -137,9 +144,9 @@ d14007ff	sub sp, sp, #0x1000
         test_sub_sp_64_const_1, sub(SP, SP, 1).unwrap(), "sub sp, sp, #1";
         test_sub_sp_64_const_0x1000, sub(SP, SP, 0x1000).unwrap(), "sub sp, sp, #0x1000";
         test_sub_32, sub(W1, W2, W12), "sub w1, w2, w12";
-        test_sub_32_shift, sub(W1, W2, W12).shift(ShiftMode::LSR, 4), "sub w1, w2, w12, lsr #4";
+        test_sub_32_shift, sub(W1, W2, W12).try_shift(ShiftMode::LSR, 4).unwrap(), "sub w1, w2, w12, lsr #4";
         test_sub_32_zero,
-            sub(W1, WZR, ShiftedReg::from(W12).shift(ShiftMode::LSR, 4)),
+            sub(W1, WZR, ShiftedReg::from(W12).try_shift(ShiftMode::LSR, 4)).unwrap(),
             "sub w1, wzr, w12, lsr #4";
         test_sub_32_extend_uxtx, sub(W1, W2, W12).extend(ExtendMode::UXTX, 3), "sub w1, w2, w12, uxtx #3";
         test_sub_32_extend_uxtw, sub(W1, W2, W12).extend(ExtendMode::UXTW, 3), "sub w1, w2, w12, uxtw #3";

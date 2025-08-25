@@ -15,8 +15,9 @@ use aarchmrs_instructions::A64::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::{Error, Extend, ExtendMode, ExtendedReg, Shift, ShiftMode, ShiftedReg};
+use super::{Error, Extend, ExtendMode, ExtendedReg, Shift, ShiftAmount, ShiftMode, ShiftedReg};
 use crate::{
+    bits::BitError,
     instructions::RawInstruction,
     register::{IntoCode as _, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
 };
@@ -119,10 +120,16 @@ mod tests {
     test_cases! {
         ADD_DB, untested_add_db;
         test_add_64, add(X1, X2, X12), "add x1, x2, x12";
-        test_add_64_shift, add(X1, X2, X12).shift(ShiftMode::LSR, 4), "add x1, x2, x12, lsr #4";
+        test_add_64_shift, add(X1, X2, X12).try_shift(ShiftMode::LSR, 4).unwrap(), "add x1, x2, x12, lsr #4";
         test_add_64_zero,
-            add(X1, XZR, ShiftedReg::from(X12).shift(ShiftMode::LSR, 4)),
+            add(X1, XZR, ShiftedReg::from(X12).try_shift(ShiftMode::LSR, 4).unwrap()),
             "add x1, xzr, x12, lsr #4";
+        test_add_64_shift_2,
+            add(X1, X2, ShiftedReg::from(X12).try_shift(ShiftMode::LSR, 4)).unwrap(),
+            "add x1, x2, x12, lsr #4";
+        test_add_64_shift_3,
+            add(X1, X2, (X12, ShiftMode::LSR, 4)).unwrap(),
+            "add x1, x2, x12, lsr #4";
         test_add_64_extend_uxtx, add(RegS(X1), X2, X12).extend(ExtendMode::UXTX, 3),
             "add x1, x2, x12, uxtx #3";
         // KLUDGE: Using Reg64 instead of Reg32 at the last argument.
@@ -138,9 +145,9 @@ mod tests {
         test_add_sp_64_const_1, add(SP, SP, 1).unwrap(), "add sp, sp, #1";
         test_add_sp_64_const_0x1000, add(SP, SP, 0x1000).unwrap(), "add sp, sp, #0x1000";
         test_add_32, add(W1, W2, W12), "add w1, w2, w12";
-        test_add_32_shift, add(W1, W2, W12).shift(ShiftMode::LSR, 4), "add w1, w2, w12, lsr #4";
+        test_add_32_shift, add(W1, W2, W12).try_shift(ShiftMode::LSR, 4).unwrap(), "add w1, w2, w12, lsr #4";
         test_add_32_zero,
-            add(W1, WZR, ShiftedReg::from(W12).shift(ShiftMode::LSR, 4)),
+            add(W1, WZR, ShiftedReg::from(W12).try_shift(ShiftMode::LSR, 4).unwrap()),
             "add w1, wzr, w12, lsr #4";
         test_add_32_extend_uxtx, add(W1, W2, W12).extend(ExtendMode::UXTX, 3), "add w1, w2, w12, uxtx #3";
         test_add_32_extend_uxtw, add(W1, W2, W12).extend(ExtendMode::UXTW, 3), "add w1, w2, w12, uxtw #3";

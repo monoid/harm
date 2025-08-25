@@ -31,7 +31,7 @@ impl fmt::Display for BitError {
     }
 }
 
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, Default)]
 #[repr(transparent)]
 pub struct UBitValue<const SIGNIFICANT_BITS: u32, const ALIGN: u32 = 0>(u32);
 
@@ -114,6 +114,10 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> From<UBitValue<SIGNIFICANT_B
     }
 }
 
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, Default)]
+#[repr(transparent)]
+pub struct SBitValue<const SIGNIFICANT_BITS: u32, const ALIGN: u32 = 0>(u32);
+
 impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<u32>
     for SBitValue<SIGNIFICANT_BITS, ALIGN>
 {
@@ -135,10 +139,6 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<i32>
         Self::new(value)
     }
 }
-
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
-#[repr(transparent)]
-pub struct SBitValue<const SIGNIFICANT_BITS: u32, const ALIGN: u32 = 0>(u32);
 
 impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> SBitValue<SIGNIFICANT_BITS, ALIGN> {
     pub const fn new(value: i32) -> Result<Self, BitError> {
