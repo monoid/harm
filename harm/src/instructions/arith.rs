@@ -327,6 +327,46 @@ macro_rules! define_arith_extend {
                     )
                 }
             }
+
+            impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode)>
+                for $name<$stype, $stype, ExtendedReg<$ztype>>
+                where
+                    Dst: Into<$stype>,
+                    Src1: Into<$stype>,
+                    Src2: Into<$ztype>,
+            {
+                type Output = Self;
+
+                #[inline]
+                fn new(
+                    dst: Dst,
+                    src1: Src1,
+                    (src2, mode): (Src2, ExtendMode),
+                ) -> Self {
+                    let src2 = ExtendedReg::new(src2.into()).extend(mode, <_>::default());
+                    Self { dst: dst.into(), src1: src1.into(), src2 }
+                }
+            }
+
+            impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode, u8)>
+                for $name<$stype, $stype, ExtendedReg<$ztype>>
+                where
+                    Dst: Into<$stype>,
+                    Src1: Into<$stype>,
+                    Src2: Into<$ztype>,
+            {
+                type Output = Self;
+
+                #[inline]
+                fn new(
+                    dst: Dst,
+                    src1: Src1,
+                    (src2, mode, offset): (Src2, ExtendMode, u8),
+                ) -> Self {
+                    let src2 = ExtendedReg::new(src2.into()).extend(mode, offset);
+                    Self { dst: dst.into(), src1: src1.into(), src2 }
+                }
+            }
         }
     };
 }

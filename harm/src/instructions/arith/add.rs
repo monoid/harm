@@ -132,6 +132,8 @@ mod tests {
             "add x1, x2, x12, lsr #4";
         test_add_64_extend_uxtx, add(RegS(X1), X2, X12).extend(ExtendMode::UXTX, 3),
             "add x1, x2, x12, uxtx #3";
+        test_add_64_extend_uxtx_2, add(RegS(X1), X2, (X12, ExtendMode::UXTX, 3)),
+            "add x1, x2, x12, uxtx #3";
         // KLUDGE: Using Reg64 instead of Reg32 at the last argument.
         // To be reimplemented akin `ldr` family.
         test_add_64_extend_uxtw, add(X1, X2, X12).extend(ExtendMode::UXTW, 3), "add x1, x2, w12, uxtw #3";

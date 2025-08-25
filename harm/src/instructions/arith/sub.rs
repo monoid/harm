@@ -131,6 +131,8 @@ d14007ff	sub sp, sp, #0x1000
             "sub x1, x2, x12, lsr #4";
         test_sub_64_extend_uxtx, sub(RegS(X1), X2, X12).extend(ExtendMode::UXTX, 3),
             "sub x1, x2, x12, uxtx #3";
+        test_sub_64_extend_uxtx_2, sub(RegS(X1), X2, (X12, ExtendMode::UXTX, 3)),
+            "sub x1, x2, x12, uxtx #3";
         // KLUDGE: Using Reg64 instead of Reg32 at the last argument.
         // To be reimplemented akin `ldr` family.
         test_sub_64_extend_uxtw, sub(X1, X2, X12).extend(ExtendMode::UXTW, 3), "sub x1, x2, w12, uxtw #3";
