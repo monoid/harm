@@ -8,6 +8,28 @@ use crate::{
     register::{Reg32, Reg64, RegOrZero32, RegOrZero64},
 };
 
+macro_rules! define_arith_faillible {
+    ($name:ident) => {
+        ::paste::paste! {
+            impl<Dst, RealDst, Src1, RealSrc1, Src2, Err> [<Make $name>]<Dst, Src1, Result<Src2, Err>>
+                for $name<RealDst, RealSrc1, Src2>
+                where
+                    $name<RealDst, RealSrc1, Src2>: [<Make $name>]<Dst, Src1, Src2>
+            {
+                type Output = Result<<$name<RealDst, RealSrc1, Src2> as [<Make $name>]<Dst, Src1, Src2>>::Output, Err>;
+
+                fn new(dst: Dst, src1: Src1, src2: Result<Src2, Err>) -> Self::Output {
+                    src2.map(
+                        |src2| <$name<RealDst, RealSrc1, Src2> as [<Make $name>]<Dst, Src1, Src2>>::new(
+                            dst, src1, src2
+                        )
+                    )
+                }
+            }
+        }
+    };
+}
+
 macro_rules! define_arith_shift {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $ztype:ty) => {
         ::paste::paste! {

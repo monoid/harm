@@ -61,6 +61,8 @@ impl MakeSub<Reg32, Reg32, Reg32> for Sub<Reg32, Reg32, Reg32> {
     }
 }
 
+define_arith_faillible!(Sub);
+
 define_arith_shift!(Sub, 32, addsub, Reg32, RegOrZero32);
 define_arith_shift!(Sub, 64, addsub, Reg64, RegOrZero64);
 
