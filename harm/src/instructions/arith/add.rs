@@ -15,7 +15,7 @@ use aarchmrs_instructions::A64::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::{Error, Extend, ExtendMode, ExtendedReg, Shift, ShiftAmount, ShiftMode, ShiftedReg};
+use super::{Extend, ExtendMode, ExtendedReg, Shift, ShiftAmount, ShiftMode, ShiftedReg};
 use crate::{
     bits::BitError,
     instructions::RawInstruction,
@@ -80,6 +80,7 @@ mod tests {
 
     use super::*;
     use crate::instructions::InstructionSeq;
+    use crate::instructions::arith::AddSubImm12;
     use Reg32::*;
     use Reg64::*;
     use RegOrSp32::Reg as Reg3S;
@@ -143,6 +144,7 @@ mod tests {
             add(RegS(X1), RegS(X2), XZR).extend(ExtendMode::UXTH, 3),
             "add x1, x2, wzr, uxth #3";
         test_add_64_const_1, add(X1, X2, 1u32).unwrap(), "add x1, x2, #1";
+        test_add_64_const_1_1, add(X1, X2, AddSubImm12::try_from(1).unwrap()), "add x1, x2, #1";
         test_add_64_const_0x1000, add(X1, X2, 0x1000).unwrap(), "add x1, x2, #0x1000";
         test_add_sp_64_const_1, add(SP, SP, 1).unwrap(), "add sp, sp, #1";
         test_add_sp_64_const_0x1000, add(SP, SP, 0x1000).unwrap(), "add sp, sp, #0x1000";
@@ -160,8 +162,10 @@ mod tests {
             add(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTW, 3),
             "add w1, w2, wzr, uxtw #3";
         test_add_32_const_0x123, add(W1, W2, 0x123).unwrap(), "add w1, w2, #0x123";
+        test_add_32_const_0x123_1, add(W1, W2, AddSubImm12::try_from(0x123)).unwrap(), "add w1, w2, #0x123";
         test_add_wsp_32_const_0x123, add(WSP, WSP, 0x123).unwrap(), "add wsp, wsp, #0x123";
         test_add_32_const_0x123000, add(W1, W2, 0x123000).unwrap(), "add w1, w2, #0x123000";
+        test_add_32_const_0x123000_1, add(W1, W2, AddSubImm12::try_from(0x123000).unwrap()), "add w1, w2, #0x123000";
         test_add_64_sp_extend_uxtx,
             add(SP, SP, X12).extend(ExtendMode::UXTX, 3),
             "add sp, sp, x12, uxtx #3";

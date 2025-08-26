@@ -11,7 +11,6 @@ use aarchmrs_instructions::A64::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::Error;
 use crate::{
     bits::BitError,
     instructions::{
@@ -79,6 +78,7 @@ mod tests {
 
     use super::*;
     use crate::instructions::InstructionSeq;
+    use crate::instructions::arith::AddSubImm12;
     use Reg32::*;
     use Reg64::*;
     use RegOrSp32::Reg as Reg3S;
@@ -142,6 +142,7 @@ d14007ff	sub sp, sp, #0x1000
             sub(RegS(X1), RegS(X2), XZR).extend(ExtendMode::UXTH, 3),
             "sub x1, x2, wzr, uxth #3";
         test_sub_64_const_1, sub(X1, X2, 1).unwrap(), "sub x1, x2, #1";
+        test_sub_64_const_1_1, sub(X1, X2, AddSubImm12::try_from(1).unwrap()), "sub x1, x2, #1";
         test_sub_64_const_0x1000, sub(X1, X2, 0x1000).unwrap(), "sub x1, x2, #0x1000";
         test_sub_sp_64_const_1, sub(SP, SP, 1).unwrap(), "sub sp, sp, #1";
         test_sub_sp_64_const_0x1000, sub(SP, SP, 0x1000).unwrap(), "sub sp, sp, #0x1000";
@@ -159,8 +160,10 @@ d14007ff	sub sp, sp, #0x1000
             sub(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTW, 3),
             "sub w1, w2, wzr, uxtw #3";
         test_sub_32_const_0x123, sub(W1, W2, 0x123).unwrap(), "sub w1, w2, #0x123";
+        test_sub_32_const_0x123_1, sub(W1, W2, AddSubImm12::try_from(0x123).unwrap()), "sub w1, w2, #0x123";
         test_sub_wsp_32_const_0x123, sub(WSP, WSP, 0x123).unwrap(), "sub wsp, wsp, #0x123";
         test_sub_32_const_0x123000, sub(W1, W2, 0x123000).unwrap(), "sub w1, w2, #0x123000";
+        test_sub_32_const_0x123000_1, sub(W1, W2, AddSubImm12::try_from(0x123000)).unwrap(), "sub w1, w2, #0x123000";
         test_sub_64_sp_extend_uxtx,
             sub(SP, SP, X12).extend(ExtendMode::UXTX, 3),
             "sub sp, sp, x12, uxtx #3";

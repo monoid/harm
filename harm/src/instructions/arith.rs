@@ -189,15 +189,17 @@ macro_rules! define_arith_shift {
 macro_rules! define_arith_imm12 {
     ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $etype:ty) => {
         ::paste::paste! {
-            impl<Src> [<Make $name>]<$reg, Src, u32> for $name<$etype, $etype, u32>
+            impl<Dst, Src> [<Make $name>]<Dst, Src, u32>
+                for $name<$etype, $etype, $crate::instructions::arith::AddSubImm12>
             where
-                Src: Into<$etype>
+                Dst: Into<$etype>,
+                Src: Into<$etype>,
             {
-                type Output = Result<Self, Error>;
+                type Output = Result<Self, (BitError, BitError)>;
 
                 #[inline]
-                fn new(dst: $reg, src1: Src, src2: u32) -> Result<Self, Error> {
-                    let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
+                fn new(dst: Dst, src1: Src, src2: u32) -> Self::Output {
+                    let imm12 = $crate::instructions::arith::AddSubImm12::try_from(src2)?;
                     Ok(Self {
                         dst: dst.into(),
                         src1: src1.into(),
@@ -206,33 +208,37 @@ macro_rules! define_arith_imm12 {
                 }
             }
 
-            impl<Src> [<Make $name>]<$etype, Src, u32> for $name<$etype, $etype, u32>
+            impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, Src2>
+                for $name<$etype, $etype, $crate::instructions::arith::AddSubImm12>
             where
-                Src: Into<$etype>,
+                Dst: Into<$etype>,
+                Src1: Into<$etype>,
+                Src2: Into<$crate::instructions::arith::AddSubImm12>,
             {
-                type Output = Result<Self, Error>;
+                type Output = Self;
 
                 #[inline]
-                fn new(dst: $etype, src1: Src, src2: u32) -> Result<Self, Error> {
-                    let imm12 = $crate::instructions::arith::validate_imm12(src2)?;
-                    Ok(Self {
-                        dst,
+                fn new(dst: Dst, src1: Src1, src2: Src2) -> Self::Output {
+                    Self {
+                        dst: dst.into(),
                         src1: src1.into(),
-                        src2: imm12,
-                    })
+                        src2: src2.into(),
+                    }
                 }
             }
 
-            impl RawInstruction for $name<$etype, $etype, u32> {
+            impl RawInstruction for $name<$etype, $etype, $crate::instructions::arith::AddSubImm12> {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
-                    let shift = self.src2 & ((1 << 12) - 1) == 0;
-                    let imm12 = if shift { self.src2 >> 12 } else { self.src2 };
-                    assert!(imm12 < (1 << 12));
+                    use $crate::instructions::arith::AddSubImm12::*;
+                    let (shifted, imm12) = match self.src2 {
+                        Unshifted(value) => (false, value.into()),
+                        Shifted(value) => (true, value.into()),
+                    };
                     let rn = self.src1.code();
                     let rd = self.dst.code();
 
-                    [<$name:upper _ $bits _ $cmd _imm>](shift.into(), imm12.into(), rn.into(), rd.into())
+                    [<$name:upper _ $bits _ $cmd _imm>](shifted.into(), imm12, rn.into(), rd.into())
                 }
             }
         }
@@ -375,9 +381,6 @@ macro_rules! define_arith_extend {
 pub mod add;
 pub mod sub;
 
-// TODO: proper error type
-pub type Error = &'static str;
-
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct ShiftedReg<T> {
     reg: T,
@@ -489,13 +492,35 @@ pub struct Extend {
     amount: u8,
 }
 
-// TODO: remove in favor of type-specific impls.
-pub(crate) const fn validate_imm12(imm12: u32) -> Result<u32, Error> {
-    let shifted = UBitValue::<12, 12>::new(imm12);
-    let unshifted = UBitValue::<12, 0>::new(imm12);
-    if shifted.is_ok() || unshifted.is_ok() {
-        Ok(imm12)
-    } else {
-        Err("Immediate value out of range for an arithmetic instruction")
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum AddSubImm12 {
+    Unshifted(UBitValue<12, 0>),
+    Shifted(UBitValue<12, 12>),
+}
+
+impl From<UBitValue<12, 0>> for AddSubImm12 {
+    fn from(value: UBitValue<12, 0>) -> Self {
+        Self::Unshifted(value)
+    }
+}
+
+impl From<UBitValue<12, 12>> for AddSubImm12 {
+    fn from(value: UBitValue<12, 12>) -> Self {
+        Self::Shifted(value)
+    }
+}
+
+impl TryFrom<u32> for AddSubImm12 {
+    type Error = (BitError, BitError);
+
+    fn try_from(value: u32) -> Result<Self, Self::Error> {
+        let unshifted_err = match UBitValue::<12, 0>::try_from(value) {
+            Ok(unshifted_value) => return Ok(unshifted_value.into()),
+            Err(unshifted_err) => unshifted_err,
+        };
+        match UBitValue::<12, 12>::try_from(value) {
+            Ok(shifted_value) => Ok(shifted_value.into()),
+            Err(shifted_err) => Err((unshifted_err, shifted_err)),
+        }
     }
 }
