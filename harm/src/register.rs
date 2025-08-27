@@ -66,6 +66,45 @@ pub enum Reg64 {
     LR = 30,
 }
 
+impl Reg64 {
+    #[inline]
+    pub fn narrow(self) -> Reg32 {
+        match self {
+            Reg64::X0 => Reg32::W0,
+            Reg64::X1 => Reg32::W1,
+            Reg64::X2 => Reg32::W2,
+            Reg64::X3 => Reg32::W3,
+            Reg64::X4 => Reg32::W4,
+            Reg64::X5 => Reg32::W5,
+            Reg64::X6 => Reg32::W6,
+            Reg64::X7 => Reg32::W7,
+            Reg64::X8 => Reg32::W8,
+            Reg64::X9 => Reg32::W9,
+            Reg64::X10 => Reg32::W10,
+            Reg64::X11 => Reg32::W11,
+            Reg64::X12 => Reg32::W12,
+            Reg64::X13 => Reg32::W13,
+            Reg64::X14 => Reg32::W14,
+            Reg64::X15 => Reg32::W15,
+            Reg64::X16 => Reg32::W16,
+            Reg64::X17 => Reg32::W17,
+            Reg64::X18 => Reg32::W18,
+            Reg64::X19 => Reg32::W19,
+            Reg64::X20 => Reg32::W20,
+            Reg64::X21 => Reg32::W21,
+            Reg64::X22 => Reg32::W22,
+            Reg64::X23 => Reg32::W23,
+            Reg64::X24 => Reg32::W24,
+            Reg64::X25 => Reg32::W25,
+            Reg64::X26 => Reg32::W26,
+            Reg64::X27 => Reg32::W27,
+            Reg64::X28 => Reg32::W28,
+            Reg64::X29 => Reg32::W29,
+            Reg64::LR => Reg32::WLR,
+        }
+    }
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum RegOrSp64 {
     Reg(Reg64),
@@ -76,6 +115,26 @@ pub enum RegOrSp64 {
 pub enum RegOrZero64 {
     Reg(Reg64),
     XZR,
+}
+
+impl RegOrSp64 {
+    #[inline]
+    pub fn narrow(self) -> RegOrSp32 {
+        match self {
+            RegOrSp64::Reg(reg64) => RegOrSp32::Reg(reg64.narrow()),
+            RegOrSp64::SP => RegOrSp32::WSP,
+        }
+    }
+}
+
+impl RegOrZero64 {
+    #[inline]
+    pub fn narrow(self) -> RegOrZero32 {
+        match self {
+            RegOrZero64::Reg(reg64) => RegOrZero32::Reg(reg64.narrow()),
+            RegOrZero64::XZR => RegOrZero32::WZR,
+        }
+    }
 }
 
 impl From<Reg64> for RegOrSp64 {
@@ -159,6 +218,45 @@ pub enum Reg32 {
     WLR = 30,
 }
 
+impl Reg32 {
+    #[inline]
+    pub fn extend(self) -> Reg64 {
+        match self {
+            Reg32::W0 => Reg64::X0,
+            Reg32::W1 => Reg64::X1,
+            Reg32::W2 => Reg64::X2,
+            Reg32::W3 => Reg64::X3,
+            Reg32::W4 => Reg64::X4,
+            Reg32::W5 => Reg64::X5,
+            Reg32::W6 => Reg64::X6,
+            Reg32::W7 => Reg64::X7,
+            Reg32::W8 => Reg64::X8,
+            Reg32::W9 => Reg64::X9,
+            Reg32::W10 => Reg64::X10,
+            Reg32::W11 => Reg64::X11,
+            Reg32::W12 => Reg64::X12,
+            Reg32::W13 => Reg64::X13,
+            Reg32::W14 => Reg64::X14,
+            Reg32::W15 => Reg64::X15,
+            Reg32::W16 => Reg64::X16,
+            Reg32::W17 => Reg64::X17,
+            Reg32::W18 => Reg64::X18,
+            Reg32::W19 => Reg64::X19,
+            Reg32::W20 => Reg64::X20,
+            Reg32::W21 => Reg64::X21,
+            Reg32::W22 => Reg64::X22,
+            Reg32::W23 => Reg64::X23,
+            Reg32::W24 => Reg64::X24,
+            Reg32::W25 => Reg64::X25,
+            Reg32::W26 => Reg64::X26,
+            Reg32::W27 => Reg64::X27,
+            Reg32::W28 => Reg64::X28,
+            Reg32::W29 => Reg64::X29,
+            Reg32::WLR => Reg64::LR,
+        }
+    }
+}
+
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum RegOrSp32 {
     Reg(Reg32),
@@ -169,6 +267,26 @@ pub enum RegOrSp32 {
 pub enum RegOrZero32 {
     Reg(Reg32),
     WZR,
+}
+
+impl RegOrSp32 {
+    #[inline]
+    pub fn extend(self) -> RegOrSp64 {
+        match self {
+            RegOrSp32::Reg(reg32) => RegOrSp64::Reg(reg32.extend()),
+            RegOrSp32::WSP => RegOrSp64::SP,
+        }
+    }
+}
+
+impl RegOrZero32 {
+    #[inline]
+    pub fn extend(self) -> RegOrZero64 {
+        match self {
+            RegOrZero32::Reg(reg32) => RegOrZero64::Reg(reg32.extend()),
+            RegOrZero32::WZR => RegOrZero64::XZR,
+        }
+    }
 }
 
 impl From<Reg32> for RegOrSp32 {
@@ -272,10 +390,16 @@ impl IntoCode for RegOrZero32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use Reg32::*;
+    use Reg64::*;
+    use RegOrSp32::WSP;
+    use RegOrSp64::SP;
+    use RegOrZero32::WZR;
+    use RegOrZero64::XZR;
 
     #[test]
     fn test_reg64_from_u8() {
-        assert_eq!(Reg64::try_from(2), Ok(Reg64::X2));
+        assert_eq!(Reg64::try_from(2), Ok(X2));
     }
 
     #[test]
@@ -285,12 +409,12 @@ mod tests {
 
     #[test]
     fn test_reg_or_sp64_from_u8() {
-        assert_eq!(RegOrSp64::try_from(2), Ok(RegOrSp64::Reg(Reg64::X2)));
+        assert_eq!(RegOrSp64::try_from(2), Ok(RegOrSp64::Reg(X2)));
     }
 
     #[test]
     fn test_reg_or_sp64_from_u8_sp() {
-        assert_eq!(RegOrSp64::try_from(NICHE_REG), Ok(RegOrSp64::SP));
+        assert_eq!(RegOrSp64::try_from(NICHE_REG), Ok(SP));
     }
 
     #[test]
@@ -300,12 +424,12 @@ mod tests {
 
     #[test]
     fn test_reg_or_zero64_from_u8() {
-        assert_eq!(RegOrZero64::try_from(2), Ok(RegOrZero64::Reg(Reg64::X2)));
+        assert_eq!(RegOrZero64::try_from(2), Ok(RegOrZero64::Reg(X2)));
     }
 
     #[test]
     fn test_reg_or_zero64_from_u8_zero() {
-        assert_eq!(RegOrZero64::try_from(NICHE_REG), Ok(RegOrZero64::XZR));
+        assert_eq!(RegOrZero64::try_from(NICHE_REG), Ok(XZR));
     }
 
     #[test]
@@ -315,7 +439,7 @@ mod tests {
 
     #[test]
     fn test_reg32_from_u8() {
-        assert_eq!(Reg32::try_from(2), Ok(Reg32::W2));
+        assert_eq!(Reg32::try_from(2), Ok(W2));
     }
 
     #[test]
@@ -325,12 +449,12 @@ mod tests {
 
     #[test]
     fn test_reg_or_sp32_from_u8() {
-        assert_eq!(RegOrSp32::try_from(2), Ok(RegOrSp32::Reg(Reg32::W2)));
+        assert_eq!(RegOrSp32::try_from(2), Ok(RegOrSp32::Reg(W2)));
     }
 
     #[test]
     fn test_reg_or_sp32_from_u8_sp() {
-        assert_eq!(RegOrSp32::try_from(NICHE_REG), Ok(RegOrSp32::WSP));
+        assert_eq!(RegOrSp32::try_from(NICHE_REG), Ok(WSP));
     }
 
     #[test]
@@ -340,16 +464,67 @@ mod tests {
 
     #[test]
     fn test_reg_or_zero32_from_u8() {
-        assert_eq!(RegOrZero32::try_from(2), Ok(RegOrZero32::Reg(Reg32::W2)));
+        assert_eq!(RegOrZero32::try_from(2), Ok(RegOrZero32::Reg(W2)));
     }
 
     #[test]
     fn test_reg_or_zero32_from_u8_zero() {
-        assert_eq!(RegOrZero32::try_from(NICHE_REG), Ok(RegOrZero32::WZR));
+        assert_eq!(RegOrZero32::try_from(NICHE_REG), Ok(WZR));
     }
 
     #[test]
     fn test_reg32_or_zero32_from_u8_invalid() {
         assert!(RegOrZero32::try_from(NICHE_REG + 1).is_err());
+    }
+
+    #[test]
+    fn test_narrow_reg64() {
+        assert_eq!(X8.narrow(), W8);
+    }
+
+    #[test]
+    fn test_narrow_reg64_s() {
+        assert_eq!(RegOrSp64::Reg(X8).narrow(), RegOrSp32::Reg(W8));
+    }
+
+    #[test]
+    fn test_narrow_reg64_z() {
+        assert_eq!(RegOrZero64::Reg(X8).narrow(), RegOrZero32::Reg(W8));
+    }
+
+    #[test]
+    fn test_narrow_sp() {
+        assert_eq!(SP.narrow(), WSP);
+    }
+
+    #[test]
+    fn test_narrow_zero() {
+        assert_eq!(XZR.narrow(), WZR);
+    }
+
+    #[test]
+    fn test_extend_reg32() {
+        assert_eq!(W8.extend(), X8);
+    }
+
+    #[test]
+    fn test_extend_reg32_s() {
+        assert_eq!(RegOrSp32::Reg(W8).extend(), RegOrSp64::Reg(X8));
+    }
+
+    //
+    #[test]
+    fn test_extend_reg64_z() {
+        assert_eq!(RegOrZero32::Reg(W8).extend(), RegOrZero64::Reg(X8));
+    }
+
+    #[test]
+    fn test_extend_sp() {
+        assert_eq!(WSP.extend(), SP);
+    }
+
+    #[test]
+    fn test_extend_zero() {
+        assert_eq!(WZR.extend(), XZR);
     }
 }
