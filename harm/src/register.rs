@@ -5,13 +5,32 @@
 
 #![allow(clippy::upper_case_acronyms)]
 
+const NICHE_REG: u8 = 31;
+
 use aarchmrs_types::BitValue;
+use num_enum::TryFromPrimitive;
 
 pub trait IntoCode {
     fn code(&self) -> BitValue<5>;
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub enum RegisterError {
+    InvalidRegisterCode(u8),
+}
+
+impl ::core::error::Error for RegisterError {}
+
+impl ::core::fmt::Display for RegisterError {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        match self {
+            RegisterError::InvalidRegisterCode(val) => write!(f, "invalid register code: {}", val),
+        }
+    }
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
+#[num_enum(error_type(name = RegisterError, constructor = RegisterError::InvalidRegisterCode))]
 #[repr(u8)]
 pub enum Reg64 {
     X0 = 0,
@@ -60,25 +79,51 @@ pub enum RegOrZero64 {
 }
 
 impl From<Reg64> for RegOrSp64 {
+    #[inline]
     fn from(value: Reg64) -> Self {
         Self::Reg(value)
     }
 }
 
 impl From<Reg64> for RegOrZero64 {
+    #[inline]
     fn from(value: Reg64) -> Self {
         Self::Reg(value)
     }
 }
 
-impl IntoCode for Reg64 {
+impl TryFrom<u8> for RegOrSp64 {
+    type Error = RegisterError;
+
     #[inline]
-    fn code(&self) -> BitValue<5> {
-        BitValue::new_u32(*self as u32)
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        Reg64::try_from(value).map(Into::into).or_else(|_| {
+            if value == NICHE_REG {
+                Ok(Self::SP)
+            } else {
+                Err(RegisterError::InvalidRegisterCode(value))
+            }
+        })
     }
 }
 
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
+impl TryFrom<u8> for RegOrZero64 {
+    type Error = RegisterError;
+
+    #[inline]
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        Reg64::try_from(value).map(Into::into).or_else(|_| {
+            if value == NICHE_REG {
+                Ok(Self::XZR)
+            } else {
+                Err(RegisterError::InvalidRegisterCode(value))
+            }
+        })
+    }
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
+#[num_enum(error_type(name = RegisterError, constructor = RegisterError::InvalidRegisterCode))]
 #[repr(u8)]
 pub enum Reg32 {
     W0 = 0,
@@ -140,6 +185,43 @@ impl From<Reg32> for RegOrZero32 {
     }
 }
 
+impl TryFrom<u8> for RegOrSp32 {
+    type Error = RegisterError;
+
+    #[inline]
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        Reg32::try_from(value).map(Into::into).or_else(|_| {
+            if value == NICHE_REG {
+                Ok(Self::WSP)
+            } else {
+                Err(RegisterError::InvalidRegisterCode(value))
+            }
+        })
+    }
+}
+
+impl TryFrom<u8> for RegOrZero32 {
+    type Error = RegisterError;
+
+    #[inline]
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        Reg32::try_from(value).map(Into::into).or_else(|_| {
+            if value == NICHE_REG {
+                Ok(Self::WZR)
+            } else {
+                Err(RegisterError::InvalidRegisterCode(value))
+            }
+        })
+    }
+}
+
+impl IntoCode for Reg64 {
+    #[inline]
+    fn code(&self) -> BitValue<5> {
+        BitValue::new_u32(*self as u32)
+    }
+}
+
 impl IntoCode for Reg32 {
     #[inline]
     fn code(&self) -> BitValue<5> {
@@ -152,7 +234,7 @@ impl IntoCode for RegOrSp64 {
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register64) => *general_register64 as _,
-            Self::SP => 31,
+            Self::SP => NICHE_REG.into(),
         })
     }
 }
@@ -162,7 +244,7 @@ impl IntoCode for RegOrZero64 {
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register64) => *general_register64 as _,
-            Self::XZR => 31,
+            Self::XZR => NICHE_REG.into(),
         })
     }
 }
@@ -172,7 +254,7 @@ impl IntoCode for RegOrSp32 {
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register32) => *general_register32 as _,
-            Self::WSP => 31,
+            Self::WSP => NICHE_REG.into(),
         })
     }
 }
@@ -182,7 +264,92 @@ impl IntoCode for RegOrZero32 {
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register32) => *general_register32 as _,
-            Self::WZR => 31,
+            Self::WZR => NICHE_REG.into(),
         })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_reg64_from_u8() {
+        assert_eq!(Reg64::try_from(2), Ok(Reg64::X2));
+    }
+
+    #[test]
+    fn test_reg64_from_u8_invalid() {
+        assert!(Reg64::try_from(NICHE_REG).is_err());
+    }
+
+    #[test]
+    fn test_reg_or_sp64_from_u8() {
+        assert_eq!(RegOrSp64::try_from(2), Ok(RegOrSp64::Reg(Reg64::X2)));
+    }
+
+    #[test]
+    fn test_reg_or_sp64_from_u8_sp() {
+        assert_eq!(RegOrSp64::try_from(NICHE_REG), Ok(RegOrSp64::SP));
+    }
+
+    #[test]
+    fn test_reg64_or_sp64_from_u8_invalid() {
+        assert!(RegOrSp64::try_from(NICHE_REG + 1).is_err());
+    }
+
+    #[test]
+    fn test_reg_or_zero64_from_u8() {
+        assert_eq!(RegOrZero64::try_from(2), Ok(RegOrZero64::Reg(Reg64::X2)));
+    }
+
+    #[test]
+    fn test_reg_or_zero64_from_u8_zero() {
+        assert_eq!(RegOrZero64::try_from(NICHE_REG), Ok(RegOrZero64::XZR));
+    }
+
+    #[test]
+    fn test_reg64_or_zero64_from_u8_invalid() {
+        assert!(RegOrZero64::try_from(NICHE_REG + 1).is_err());
+    }
+
+    #[test]
+    fn test_reg32_from_u8() {
+        assert_eq!(Reg32::try_from(2), Ok(Reg32::W2));
+    }
+
+    #[test]
+    fn test_reg32_from_u8_invalid() {
+        assert!(Reg32::try_from(NICHE_REG).is_err());
+    }
+
+    #[test]
+    fn test_reg_or_sp32_from_u8() {
+        assert_eq!(RegOrSp32::try_from(2), Ok(RegOrSp32::Reg(Reg32::W2)));
+    }
+
+    #[test]
+    fn test_reg_or_sp32_from_u8_sp() {
+        assert_eq!(RegOrSp32::try_from(NICHE_REG), Ok(RegOrSp32::WSP));
+    }
+
+    #[test]
+    fn test_reg32_or_sp32_from_u8_invalid() {
+        assert!(RegOrSp32::try_from(NICHE_REG + 1).is_err());
+    }
+
+    #[test]
+    fn test_reg_or_zero32_from_u8() {
+        assert_eq!(RegOrZero32::try_from(2), Ok(RegOrZero32::Reg(Reg32::W2)));
+    }
+
+    #[test]
+    fn test_reg_or_zero32_from_u8_zero() {
+        assert_eq!(RegOrZero32::try_from(NICHE_REG), Ok(RegOrZero32::WZR));
+    }
+
+    #[test]
+    fn test_reg32_or_zero32_from_u8_invalid() {
+        assert!(RegOrZero32::try_from(NICHE_REG + 1).is_err());
     }
 }
