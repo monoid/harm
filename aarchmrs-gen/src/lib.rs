@@ -32,6 +32,7 @@ pub fn gen_instructions(
     dest_dir: &Path,
     cache_dir: &Path,
     r#mod: bool,
+    doc_file: Option<&Path>,
 ) -> Result<(), DownloadError> {
     let archive_path = ensure_archive(cache_dir)?;
 
@@ -76,7 +77,13 @@ pub fn gen_instructions(
 
         let mod_path = dest_dir.join(format!("{inst_name}.rs"));
         std::fs::create_dir_all(dest_dir)?;
-        write_mod(&mod_path, &child_mods, &<_>::default(), &data._meta.license)?;
+        write_mod(
+            &mod_path,
+            &child_mods,
+            &<_>::default(),
+            "",
+            &data._meta.license,
+        )?;
     }
 
     std::fs::create_dir_all(dest_dir)?;
@@ -89,7 +96,19 @@ pub fn gen_instructions(
             non_snake_case, non_camel_case_types, clippy::identity_op, clippy::too_many_arguments, clippy::module_inception
         )]
     };
-    write_mod(&mod_path, &lib_mods, &pragmas, &data._meta.license)?;
+    let doc_header = if let Some(doc_file) = doc_file {
+        let contents = std::fs::read_to_string(doc_file).expect("Failed to read doc file");
+        format!("/*!*\n{contents}\n*/\n")
+    } else {
+        String::new()
+    };
+    write_mod(
+        &mod_path,
+        &lib_mods,
+        &pragmas,
+        &doc_header,
+        &data._meta.license,
+    )?;
 
     Ok(())
 }
@@ -138,7 +157,7 @@ fn walk_group<'a, 'b: 'a>(
     )?;
 
     std::fs::create_dir_all(dest_dir)?;
-    write_mod(&group_file, &child_mods, &<_>::default(), license)?;
+    write_mod(&group_file, &child_mods, &<_>::default(), "", license)?;
 
     let group_id = quote::format_ident!("{group_name}");
     Ok(quote::quote! { pub mod #group_id; })
@@ -165,6 +184,7 @@ fn write_mod(
     path: &Path,
     mods: &[TokenStream],
     header: &TokenStream,
+    doc_header: &str,
     license: &License,
 ) -> io::Result<()> {
     let contents: syn::File = syn::parse_quote! {
@@ -173,7 +193,7 @@ fn write_mod(
     };
 
     let contents = prettyplease::unparse(&contents);
-    let header = format!("/* {}\n *\n * {}\n */\n", license.copyright, license.info);
-    std::fs::write(path, format!("{header}\n{contents}"))?;
+    let copyright = format!("/* {}\n *\n * {}\n */\n", license.copyright, license.info);
+    std::fs::write(path, format!("{copyright}\n{doc_header}{contents}"))?;
     Ok(())
 }
