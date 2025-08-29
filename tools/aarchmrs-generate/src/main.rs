@@ -12,6 +12,8 @@ struct Args {
     r#mod: bool,
     #[clap(long)]
     temp_dir: Option<PathBuf>,
+    #[clap(long)]
+    doc_file: Option<PathBuf>,
     src_dest_dir: PathBuf,
 }
 
@@ -19,7 +21,13 @@ fn main() -> eyre::Result<()> {
     let args = Args::parse();
 
     let temp_dir = args.temp_dir.unwrap_or_else(env::temp_dir);
-    aarchmrs_gen::gen_instructions(&args.src_dest_dir, &temp_dir, args.r#mod).unwrap();
+    aarchmrs_gen::gen_instructions(
+        &args.src_dest_dir,
+        &temp_dir,
+        args.r#mod,
+        args.doc_file.as_deref(),
+    )
+    .unwrap();
 
     eprintln!("* Please, run `cargo fmt` in the respective crate.");
     Ok(())

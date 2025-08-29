@@ -13,9 +13,21 @@ https://github.com/monoid/harm.
 
 As with the original dataset, this code is licensed under BSD-3-Clause license.
 
+## Features
+
+As of 2025-06, the dataset contains descriptions for A64, A32 and T32 instructions sets.
+They are guarded by respective feature flags (`A64`, `A32` and `T32`), and `a64` is default.
+The `meta` flag generates additional information for each instructions.
+
 ## Regenerating dataset
 
 To regenerate the code, use the `aarchmrs-generate` binary. The dataset URL and
 MD5 checksum are pinned in the `aarchmrs-gen` crate.
+
+```shell
+cargo run -p aarchmrs-generate -- \
+    --doc-file ./aarchmrs-instructions/README.md \
+    ./aarchmrs-instructions/src
+```
 
 Please, run `cargo fmt` afterwards.
