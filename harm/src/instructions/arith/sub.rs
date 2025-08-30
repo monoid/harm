@@ -11,12 +11,10 @@ use aarchmrs_instructions::A64::{
 };
 use aarchmrs_types::InstructionCode;
 
+use super::*;
 use crate::{
     bits::BitError,
-    instructions::{
-        RawInstruction,
-        arith::{Extend, ExtendMode, ExtendedReg, Shift, ShiftAmount, ShiftMode, ShiftedReg},
-    },
+    instructions::RawInstruction,
     register::{IntoCode as _, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
 };
 
@@ -129,17 +127,21 @@ d14007ff	sub sp, sp, #0x1000
         test_sub_64_shift_3,
             sub(X1, X2, (X12, ShiftMode::LSR, 4)).unwrap(),
             "sub x1, x2, x12, lsr #4";
-        test_sub_64_extend_uxtx, sub(RegS(X1), X2, X12).extend(ExtendMode::UXTX, 3),
+        test_sub_64_extend_uxtx, sub(RegS(X1), X2, X12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
             "sub x1, x2, x12, uxtx #3";
-        test_sub_64_extend_uxtx_2, sub(RegS(X1), X2, (X12, ExtendMode::UXTX, 3)),
+        test_sub_64_extend_uxtx_2, sub(RegS(X1), X2, (X12, ExtendMode::UXTX, 3)).unwrap(),
             "sub x1, x2, x12, uxtx #3";
         // KLUDGE: Using Reg64 instead of Reg32 at the last argument.
         // To be reimplemented akin `ldr` family.
-        test_sub_64_extend_uxtw, sub(X1, X2, X12).extend(ExtendMode::UXTW, 3), "sub x1, x2, w12, uxtw #3";
-        test_sub_64_wzr_extend_uxtw, sub(RegS(X1), X2, XZR).extend(ExtendMode::UXTW, 3), "sub x1, x2, wzr, uxtw #3";
-        test_sub_64_extend_uxtx_4, sub(X1, X2, X12).extend(ExtendMode::UXTX, 4), "sub x1, x2, x12, uxtx #4";
+        test_sub_64_extend_uxtw,
+            sub(X1, X2, X12).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
+            "sub x1, x2, w12, uxtw #3";
+        test_sub_64_wzr_extend_uxtw,
+            sub(RegS(X1), X2, XZR).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
+            "sub x1, x2, wzr, uxtw #3";
+        test_sub_64_extend_uxtx_4, sub(X1, X2, X12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(4).unwrap()), "sub x1, x2, x12, uxtx #4";
         test_sub_64_extend_uxth_xzr,
-            sub(RegS(X1), RegS(X2), XZR).extend(ExtendMode::UXTH, 3),
+            sub(RegS(X1), RegS(X2), XZR).extend(ExtendMode::UXTH, ExtendShiftAmount::try_new(3).unwrap()),
             "sub x1, x2, wzr, uxth #3";
         test_sub_64_const_1, sub(X1, X2, 1).unwrap(), "sub x1, x2, #1";
         test_sub_64_const_1_1, sub(X1, X2, AddSubImm12::try_from(1).unwrap()), "sub x1, x2, #1";
@@ -151,13 +153,17 @@ d14007ff	sub sp, sp, #0x1000
         test_sub_32_zero,
             sub(W1, WZR, ShiftedReg::from(W12).try_shift(ShiftMode::LSR, 4)).unwrap(),
             "sub w1, wzr, w12, lsr #4";
-        test_sub_32_extend_uxtx, sub(W1, W2, W12).extend(ExtendMode::UXTX, 3), "sub w1, w2, w12, uxtx #3";
-        test_sub_32_extend_uxtw, sub(W1, W2, W12).extend(ExtendMode::UXTW, 3), "sub w1, w2, w12, uxtw #3";
+        test_sub_32_extend_uxtx,
+            sub(W1, W2, W12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
+            "sub w1, w2, w12, uxtx #3";
+        test_sub_32_extend_uxtw,
+            sub(W1, W2, W12).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
+            "sub w1, w2, w12, uxtw #3";
         test_sub_32_extend_uxtx_wzr,
-            sub(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTX, 3),
+            sub(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
             "sub w1, w2, wzr, uxtx #3";
         test_sub_32_extend_uxtw_wzr,
-            sub(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTW, 3),
+            sub(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
             "sub w1, w2, wzr, uxtw #3";
         test_sub_32_const_0x123, sub(W1, W2, 0x123).unwrap(), "sub w1, w2, #0x123";
         test_sub_32_const_0x123_1, sub(W1, W2, AddSubImm12::try_from(0x123).unwrap()), "sub w1, w2, #0x123";
@@ -165,13 +171,13 @@ d14007ff	sub sp, sp, #0x1000
         test_sub_32_const_0x123000, sub(W1, W2, 0x123000).unwrap(), "sub w1, w2, #0x123000";
         test_sub_32_const_0x123000_1, sub(W1, W2, AddSubImm12::try_from(0x123000)).unwrap(), "sub w1, w2, #0x123000";
         test_sub_64_sp_extend_uxtx,
-            sub(SP, SP, X12).extend(ExtendMode::UXTX, 3),
+            sub(SP, SP, X12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
             "sub sp, sp, x12, uxtx #3";
         test_sub_64_sp_extend_uxtw,
-            sub(SP, SP, X12).extend(ExtendMode::UXTW, 3),
+            sub(SP, SP, X12).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
             "sub sp, sp, w12, uxtw #3";
         test_sub_64_sp_extend_uxtw_xzr,
-            sub(SP, SP, XZR).extend(ExtendMode::UXTW, 3),
+            sub(SP, SP, XZR).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
             "sub sp, sp, wzr, uxtw #3";
     }
 

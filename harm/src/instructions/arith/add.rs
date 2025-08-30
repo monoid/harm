@@ -15,7 +15,7 @@ use aarchmrs_instructions::A64::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::{Extend, ExtendMode, ExtendedReg, Shift, ShiftAmount, ShiftMode, ShiftedReg};
+use super::*;
 use crate::{
     bits::BitError,
     instructions::RawInstruction,
@@ -131,17 +131,23 @@ mod tests {
         test_add_64_shift_3,
             add(X1, X2, (X12, ShiftMode::LSR, 4)).unwrap(),
             "add x1, x2, x12, lsr #4";
-        test_add_64_extend_uxtx, add(RegS(X1), X2, X12).extend(ExtendMode::UXTX, 3),
+        test_add_64_extend_uxtx, add(RegS(X1), X2, X12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
             "add x1, x2, x12, uxtx #3";
-        test_add_64_extend_uxtx_2, add(RegS(X1), X2, (X12, ExtendMode::UXTX, 3)),
+        test_add_64_extend_uxtx_2, add(RegS(X1), X2, (X12, ExtendMode::UXTX, 3)).unwrap(),
             "add x1, x2, x12, uxtx #3";
         // KLUDGE: Using Reg64 instead of Reg32 at the last argument.
         // To be reimplemented akin `ldr` family.
-        test_add_64_extend_uxtw, add(X1, X2, X12).extend(ExtendMode::UXTW, 3), "add x1, x2, w12, uxtw #3";
-        test_add_64_wzr_extend_uxtw, add(RegS(X1), X2, XZR).extend(ExtendMode::UXTW, 3), "add x1, x2, wzr, uxtw #3";
-        test_add_64_extend_uxtx_4, add(X1, X2, X12).extend(ExtendMode::UXTX, 4), "add x1, x2, x12, uxtx #4";
+        test_add_64_extend_uxtw,
+            add(X1, X2, X12).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
+            "add x1, x2, w12, uxtw #3";
+        test_add_64_wzr_extend_uxtw,
+            add(RegS(X1), X2, XZR).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
+            "add x1, x2, wzr, uxtw #3";
+        test_add_64_extend_uxtx_4,
+            add(X1, X2, X12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(4).unwrap()),
+            "add x1, x2, x12, uxtx #4";
         test_add_64_extend_uxth_xzr,
-            add(RegS(X1), RegS(X2), XZR).extend(ExtendMode::UXTH, 3),
+            add(RegS(X1), RegS(X2), XZR).extend(ExtendMode::UXTH, ExtendShiftAmount::try_new(3).unwrap()),
             "add x1, x2, wzr, uxth #3";
         test_add_64_const_1, add(X1, X2, 1u32).unwrap(), "add x1, x2, #1";
         test_add_64_const_1_1, add(X1, X2, AddSubImm12::try_from(1).unwrap()), "add x1, x2, #1";
@@ -153,13 +159,17 @@ mod tests {
         test_add_32_zero,
             add(W1, WZR, ShiftedReg::from(W12).try_shift(ShiftMode::LSR, 4).unwrap()),
             "add w1, wzr, w12, lsr #4";
-        test_add_32_extend_uxtx, add(W1, W2, W12).extend(ExtendMode::UXTX, 3), "add w1, w2, w12, uxtx #3";
-        test_add_32_extend_uxtw, add(W1, W2, W12).extend(ExtendMode::UXTW, 3), "add w1, w2, w12, uxtw #3";
+        test_add_32_extend_uxtx,
+            add(W1, W2, W12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
+            "add w1, w2, w12, uxtx #3";
+        test_add_32_extend_uxtw,
+            add(W1, W2, W12).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
+            "add w1, w2, w12, uxtw #3";
         test_add_32_extend_uxtx_wzr,  // that's really strange it works
-            add(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTX, 3),
+            add(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
             "add w1, w2, wzr, uxtx #3";
         test_add_32_extend_uxtw_wzr,
-            add(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTW, 3),
+            add(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
             "add w1, w2, wzr, uxtw #3";
         test_add_32_const_0x123, add(W1, W2, 0x123).unwrap(), "add w1, w2, #0x123";
         test_add_32_const_0x123_1, add(W1, W2, AddSubImm12::try_from(0x123)).unwrap(), "add w1, w2, #0x123";
@@ -167,13 +177,13 @@ mod tests {
         test_add_32_const_0x123000, add(W1, W2, 0x123000).unwrap(), "add w1, w2, #0x123000";
         test_add_32_const_0x123000_1, add(W1, W2, AddSubImm12::try_from(0x123000).unwrap()), "add w1, w2, #0x123000";
         test_add_64_sp_extend_uxtx,
-            add(SP, SP, X12).extend(ExtendMode::UXTX, 3),
+            add(SP, SP, X12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
             "add sp, sp, x12, uxtx #3";
         test_add_64_sp_extend_uxtw,
-            add(SP, SP, X12).extend(ExtendMode::UXTW, 3),
+            add(SP, SP, X12).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
             "add sp, sp, w12, uxtw #3";
         test_add_64_sp_extend_uxtw_xzr,
-            add(SP, SP, XZR).extend(ExtendMode::UXTW, 3),
+            add(SP, SP, XZR).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
             "add sp, sp, wzr, uxtw #3";
     }
 

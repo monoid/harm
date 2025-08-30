@@ -3,6 +3,8 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+use aarchmrs_types::BitValue;
+
 use crate::{
     bits::{BitError, UBitValue},
     register::{Reg32, Reg64, RegOrZero32, RegOrZero64},
@@ -77,6 +79,52 @@ pub struct ExtendedReg<T> {
     extend: Extend,
 }
 
+#[derive(Debug, PartialEq, Eq)]
+pub enum ExtendError {
+    OutOfRange,
+}
+
+use core::fmt;
+impl fmt::Display for ExtendError {
+    #[inline]
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            ExtendError::OutOfRange => write!(f, "value out of range"),
+        }
+    }
+}
+
+#[derive(Debug, Copy, Clone, Default, PartialEq, Eq, Hash)]
+pub struct ExtendShiftAmount(UBitValue<3>);
+
+impl ExtendShiftAmount {
+    #[inline]
+    pub fn try_new(value: u8) -> Result<Self, ExtendError> {
+        let val = UBitValue::new(value.into()).map_err(|_| ExtendError::OutOfRange)?;
+        if value <= 4 {
+            Ok(ExtendShiftAmount(val))
+        } else {
+            Err(ExtendError::OutOfRange)
+        }
+    }
+}
+
+impl From<ExtendShiftAmount> for BitValue<3> {
+    #[inline]
+    fn from(value: ExtendShiftAmount) -> Self {
+        value.0.into()
+    }
+}
+
+impl TryFrom<u8> for ExtendShiftAmount {
+    type Error = ExtendError;
+
+    #[inline]
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        Self::try_new(value)
+    }
+}
+
 impl<T> ExtendedReg<T> {
     pub fn new(reg: T) -> Self {
         Self {
@@ -85,7 +133,7 @@ impl<T> ExtendedReg<T> {
         }
     }
 
-    pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
+    pub fn extend(mut self, mode: ExtendMode, amount: ExtendShiftAmount) -> Self {
         self.extend = Extend { mode, amount };
         self
     }
@@ -122,7 +170,7 @@ pub enum ExtendMode {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Default)]
 pub struct Extend {
     mode: ExtendMode,
-    amount: u8,
+    amount: ExtendShiftAmount,
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]

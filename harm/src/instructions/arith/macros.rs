@@ -243,7 +243,7 @@ macro_rules! define_arith_extend {
                 pub fn extend(
                     self,
                     mode: ExtendMode,
-                    amount: u8,
+                    amount: ExtendShiftAmount,
                 ) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
                     $name::new(
                         <$stype>::Reg(self.dst),
@@ -271,7 +271,7 @@ macro_rules! define_arith_extend {
                 pub fn extend(
                     self,
                     mode: ExtendMode,
-                    amount: u8,
+                    amount: ExtendShiftAmount,
                 ) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ExtendedReg::new(self.src2.into()))
                         .extend(mode, amount)
@@ -295,7 +295,7 @@ macro_rules! define_arith_extend {
 
             impl $name<$stype, $stype, ExtendedReg<$ztype>> {
                 #[inline]
-                pub fn extend(mut self, mode: ExtendMode, amount: u8) -> Self {
+                pub fn extend(mut self, mode: ExtendMode, amount: ExtendShiftAmount) -> Self {
                     self.src2.extend = Extend { mode, amount };
                     self
                 }
@@ -303,7 +303,7 @@ macro_rules! define_arith_extend {
 
             impl $name<$stype, $stype, $ztype> {
                 #[inline]
-                pub fn extend(self, mode: ExtendMode, amount: u8) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
+                pub fn extend(self, mode: ExtendMode, amount: ExtendShiftAmount) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ExtendedReg::new(self.src2))
                         .extend(mode, amount)
                 }
@@ -344,7 +344,7 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode, u8)>
+            impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode, ExtendShiftAmount)>
                 for $name<$stype, $stype, ExtendedReg<$ztype>>
                 where
                     Dst: Into<$stype>,
@@ -357,10 +357,29 @@ macro_rules! define_arith_extend {
                 fn new(
                     dst: Dst,
                     src1: Src1,
-                    (src2, mode, offset): (Src2, ExtendMode, u8),
-                ) -> Self {
+                    (src2, mode, offset): (Src2, ExtendMode, ExtendShiftAmount),
+                ) -> Self::Output {
                     let src2 = ExtendedReg::new(src2.into()).extend(mode, offset);
                     Self { dst: dst.into(), src1: src1.into(), src2 }
+                }
+            }
+
+            impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode, u8)>
+                for $name<$stype, $stype, ExtendedReg<$ztype>>
+                where
+                    Dst: Into<$stype>,
+                    Src1: Into<$stype>,
+                    Src2: Into<$ztype>,
+            {
+                type Output = Result<Self, ExtendError>;
+
+                #[inline]
+                fn new(
+                    dst: Dst,
+                    src1: Src1,
+                    (src2, mode, shift): (Src2, ExtendMode, u8),
+                ) -> Self::Output {
+                    ExtendShiftAmount::try_new(shift).map(|shift| Self::new(dst, src1, (src2, mode, shift)))
                 }
             }
         }
