@@ -9,6 +9,8 @@ pub(crate) mod macros;
 mod increment;
 mod shift_extend;
 
+mod ldp;
+mod ldpsw;
 mod ldr;
 mod ldrb;
 mod ldrh;
@@ -21,6 +23,7 @@ mod ldurh;
 mod ldursb;
 mod ldursh;
 mod ldursw;
+mod stp;
 mod str;
 mod strb;
 mod strh;
@@ -29,6 +32,8 @@ mod sturb;
 mod sturh;
 
 pub use self::increment::*;
+pub use self::ldp::*;
+pub use self::ldpsw::*;
 pub use self::ldr::*;
 pub use self::ldrb::*;
 pub use self::ldrh::*;
@@ -42,6 +47,7 @@ pub use self::ldursb::*;
 pub use self::ldursh::*;
 pub use self::ldursw::*;
 pub use self::shift_extend::*;
+pub use self::stp::*;
 pub use self::str::*;
 pub use self::strb::*;
 pub use self::strh::*;
@@ -62,6 +68,9 @@ pub type ScaledOffset32 = UBitValue<12, 2>;
 pub type ScaledOffset64 = UBitValue<12, 3>;
 
 pub type UnscaledOffset = SBitValue<9>;
+
+pub type LdpStpOffset32 = SBitValue<7, 2>;
+pub type LdpStpOffset64 = SBitValue<7, 3>;
 
 #[derive(Copy, Clone, Debug)]
 pub struct ByteShift;
