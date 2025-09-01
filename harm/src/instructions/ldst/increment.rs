@@ -20,15 +20,17 @@ pub trait MakeInc<Offset> {
     fn new(offset: Offset) -> Self::Output;
 }
 
-impl<const WIDTH: u32> MakeInc<SBitValue<WIDTH>> for Inc<SBitValue<WIDTH>> {
+impl<const WIDTH: u32, const ALIGN: u32> MakeInc<SBitValue<WIDTH, ALIGN>>
+    for Inc<SBitValue<WIDTH, ALIGN>>
+{
     type Output = Self;
 
-    fn new(offset: SBitValue<WIDTH>) -> Self::Output {
+    fn new(offset: SBitValue<WIDTH, ALIGN>) -> Self::Output {
         Inc { offset }
     }
 }
 
-impl<const WIDTH: u32> MakeInc<i32> for Inc<SBitValue<WIDTH>> {
+impl<const WIDTH: u32, const ALIGN: u32> MakeInc<i32> for Inc<SBitValue<WIDTH, ALIGN>> {
     type Output = Result<Self, BitError>;
 
     fn new(offset: i32) -> Self::Output {

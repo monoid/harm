@@ -424,3 +424,183 @@ macro_rules! define_fallible_rules {
         }
     };
 }
+
+#[macro_export]
+macro_rules! define_pair_imm_offset_rules {
+    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty) => {
+        #[doc = r" `LDP` with 64-bit destination, base register with aligned immediate offset."]
+        impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B, $offset_type)>
+            for $name<$rt, (RegOrSp64, $offset_type)>
+        where
+            Rt1: Into<$rt>,
+            Rt2: Into<$rt>,
+            B: Into<RegOrSp64>,
+        {
+            type Output = Self;
+            #[inline]
+            fn new(rt: (Rt1, Rt2), (base, offset): (B, $offset_type)) -> Self {
+                Self {
+                    rt: (rt.0.into(), rt.1.into()),
+                    addr: (base.into(), offset),
+                }
+            }
+        }
+
+        #[doc = r" `LDP` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have"]
+        #[doc = r" specific range and alignment."]
+        impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B, i32)> for $name<$rt, (RegOrSp64, $offset_type)>
+        where
+            Rt1: Into<$rt>,
+            Rt2: Into<$rt>,
+            B: Into<RegOrSp64>,
+        {
+            type Output = Result<Self, BitError>;
+            #[inline]
+            fn new(rt: (Rt1, Rt2), (base, offset): (B, i32)) -> Self::Output {
+                let offset = <$offset_type>::try_from(offset)?;
+                Ok(Self {
+                    rt: (rt.0.into(), rt.1.into()),
+                    addr: (base.into(), offset),
+                })
+            }
+        }
+        impl<Rt1: Into<$rt>, Rt2: Into<$rt>, Base: Into<RegOrSp64>>
+            $trait_name<Rt1, Rt2, (Inc<$offset_type>, Base)>
+            for $name<$rt, (Inc<$offset_type>, RegOrSp64)>
+        {
+            type Output = Self;
+            fn new(rt: (Rt1, Rt2), (inc, base): (Inc<$offset_type>, Base)) -> Self {
+                Self {
+                    rt: (rt.0.into(), rt.1.into()),
+                    addr: (inc, base.into()),
+                }
+            }
+        }
+        impl<Rt1: Into<$rt>, Rt2: Into<$rt>, Base: Into<RegOrSp64>>
+            $trait_name<Rt1, Rt2, (Base, Inc<$offset_type>)>
+            for $name<$rt, (RegOrSp64, Inc<$offset_type>)>
+        {
+            type Output = Self;
+            fn new(rt: (Rt1, Rt2), (base, inc): (Base, Inc<$offset_type>)) -> Self {
+                Self {
+                    rt: (rt.0.into(), rt.1.into()),
+                    addr: (base.into(), inc),
+                }
+            }
+        }
+
+        ::paste::paste! {
+            impl crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, $offset_type)> {
+                #[inline]
+                fn to_code(&self) -> crate::InstructionCode {
+                    let (base, offset) = self.addr;
+                    let code = [<$mnem _ $bitness _ldstpair_off>](
+                        offset.into(),
+                        self.rt.1.code(),
+                        base.code(),
+                        self.rt.0.code(),
+                    );
+                    code
+                }
+            }
+            impl crate::instructions::RawInstruction for $name<$rt, (Inc<$offset_type>, RegOrSp64)> {
+                #[inline]
+                fn to_code(&self) -> crate::InstructionCode {
+                    let (inc, base) = self.addr;
+                    let code = [<$mnem _ $bitness _ldstpair_pre>](
+                        inc.offset.into(),
+                        self.rt.1.code(),
+                        base.code(),
+                        self.rt.0.code(),
+                    );
+                    code
+                }
+            }
+            impl crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, Inc<$offset_type>)> {
+                #[inline]
+                fn to_code(&self) -> crate::InstructionCode {
+                    let (base, inc) = self.addr;
+                    let code = [<$mnem _ $bitness _ldstpair_post>](
+                        inc.offset.into(),
+                        self.rt.1.code(),
+                        base.code(),
+                        self.rt.0.code(),
+                    );
+                    code
+                }
+            }
+        }
+    }
+}
+
+#[macro_export]
+macro_rules! define_pair_fallible_rules {
+    ($mnem: ident, $name:ident, $trait_name:ident) => {
+        #[doc = "`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        impl<RtInp1, RtInp2, RtOut, BaseInp, Ext, Err>
+            $trait_name<RtInp1, RtInp2, (BaseInp, Result<Ext, Err>)>
+            for $name<RtOut, ($crate::register::RegOrSp64, Ext)>
+        where
+            $name<RtOut, ($crate::register::RegOrSp64, Ext)>:
+                $trait_name<RtInp1, RtInp2, (BaseInp, Ext)>,
+            $crate::register::RegOrSp64: From<BaseInp>,
+        {
+            type Output = ::core::result::Result<
+                <Self as $trait_name<RtInp1, RtInp2, (BaseInp, Ext)>>::Output,
+                Err,
+            >;
+
+            #[inline]
+            fn new(
+                rt: (RtInp1, RtInp2),
+                (base, offset): (BaseInp, ::core::result::Result<Ext, Err>),
+            ) -> Self::Output {
+                offset.map(|offset| $name::new(rt, (base, offset)))
+            }
+        }
+
+        #[doc = "`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        impl<RtInp1, RtInp2, RtOut, BaseInp, Ext, Err>
+            $trait_name<RtInp1, RtInp2, (::core::result::Result<Ext, Err>, BaseInp)>
+            for $name<RtOut, (Ext, $crate::register::RegOrSp64)>
+        where
+            $name<RtOut, (Ext, $crate::register::RegOrSp64)>:
+                $trait_name<RtInp1, RtInp2, (Ext, BaseInp)>,
+            $crate::register::RegOrSp64: From<BaseInp>,
+        {
+            type Output = ::core::result::Result<
+                <Self as $trait_name<RtInp1, RtInp2, (Ext, BaseInp)>>::Output,
+                Err,
+            >;
+
+            #[inline]
+            fn new(
+                rt: (RtInp1, RtInp2),
+                (ext, base): (::core::result::Result<Ext, Err>, BaseInp),
+            ) -> Self::Output {
+                ext.map(|ext| $name::new(rt, (ext, base)))
+            }
+        }
+
+        #[doc = "`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with fallible address that delegates to non-faillible variants."]
+        impl<RtInp1, RtInp2, RtOut, Addr, Err>
+            $trait_name<RtInp1, RtInp2, ::core::result::Result<Addr, Err>> for $name<RtOut, Addr>
+        where
+            $name<RtOut, Addr>: $trait_name<RtInp1, RtInp2, Addr>,
+        {
+            type Output =
+                ::core::result::Result<<Self as $trait_name<RtInp1, RtInp2, Addr>>::Output, Err>;
+
+            #[inline]
+            fn new(rt: (RtInp1, RtInp2), addr: ::core::result::Result<Addr, Err>) -> Self::Output {
+                addr.map(|addr| $name::new(rt, addr))
+            }
+        }
+    };
+}
