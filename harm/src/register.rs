@@ -156,7 +156,7 @@ impl TryFrom<u8> for RegOrSp64 {
 
     #[inline]
     fn try_from(value: u8) -> Result<Self, Self::Error> {
-        Reg64::try_from(value).map(Into::into).or_else(|_| {
+        Reg64::try_from(value).map(Into::into).or({
             if value == NICHE_REG {
                 Ok(Self::SP)
             } else {
@@ -171,7 +171,7 @@ impl TryFrom<u8> for RegOrZero64 {
 
     #[inline]
     fn try_from(value: u8) -> Result<Self, Self::Error> {
-        Reg64::try_from(value).map(Into::into).or_else(|_| {
+        Reg64::try_from(value).map(Into::into).or({
             if value == NICHE_REG {
                 Ok(Self::XZR)
             } else {
@@ -308,7 +308,7 @@ impl TryFrom<u8> for RegOrSp32 {
 
     #[inline]
     fn try_from(value: u8) -> Result<Self, Self::Error> {
-        Reg32::try_from(value).map(Into::into).or_else(|_| {
+        Reg32::try_from(value).map(Into::into).or({
             if value == NICHE_REG {
                 Ok(Self::WSP)
             } else {
@@ -323,7 +323,7 @@ impl TryFrom<u8> for RegOrZero32 {
 
     #[inline]
     fn try_from(value: u8) -> Result<Self, Self::Error> {
-        Reg32::try_from(value).map(Into::into).or_else(|_| {
+        Reg32::try_from(value).map(Into::into).or({
             if value == NICHE_REG {
                 Ok(Self::WZR)
             } else {

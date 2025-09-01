@@ -103,7 +103,7 @@ macro_rules! define_reg_offset_rules {
         ::paste::paste! {
             impl RawInstruction for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero64>)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     [<$mnem:upper _ $bitness _ldst_regoff>](
                         offset.offset.code(),
@@ -117,7 +117,7 @@ macro_rules! define_reg_offset_rules {
 
             impl RawInstruction for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero32>)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     [<$mnem:upper _ $bitness _ldst_regoff>](
                         offset.offset.code(),
@@ -131,7 +131,7 @@ macro_rules! define_reg_offset_rules {
 
             impl RawInstruction for $name<$rt, (RegOrSp64, RegOrZero64)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     [<$mnem:upper _ $bitness _ldst_regoff>](
                         offset.code(),
@@ -233,7 +233,7 @@ macro_rules! define_imm_offset_rules {
         ::paste::paste! {
             impl $crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, $offset_type)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ldst_pos>](offset.into(), base.code(), self.rt.code());
                     code
@@ -242,7 +242,7 @@ macro_rules! define_imm_offset_rules {
 
             impl $crate::instructions::RawInstruction for $name<$rt, (Inc<LdStIncOffset>, RegOrSp64)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (inc, base) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ldst_immpre>](inc.offset.into(), base.code(), self.rt.code());
                     code
@@ -251,7 +251,7 @@ macro_rules! define_imm_offset_rules {
 
             impl $crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, Inc<LdStIncOffset>)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (base, inc) = self.addr;
 
                     let code = [<$mnem:upper _ $bitness _ldst_immpost>](inc.offset.into(), base.code(), self.rt.code());
@@ -299,7 +299,7 @@ macro_rules! define_unscaled_imm_offset_rules {
         ::paste::paste! {
             impl RawInstruction for $name<$rt, (RegOrSp64, UnscaledOffset)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     [<$mnem:upper _ $bitness _ldst_unscaled>](offset.into(), base.code(), self.rt.code())
                 }
@@ -351,7 +351,7 @@ macro_rules! define_pc_offset_rules {
         ::paste::paste! {
             impl $crate::instructions::RawInstruction for $name<$rt, ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (_pc, offset) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ loadlit>](offset.into(), self.rt.code());
                     code
@@ -490,9 +490,9 @@ macro_rules! define_pair_imm_offset_rules {
         }
 
         ::paste::paste! {
-            impl crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, $offset_type)> {
+            impl $crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, $offset_type)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     let code = [<$mnem _ $bitness _ldstpair_off>](
                         offset.into(),
@@ -503,9 +503,9 @@ macro_rules! define_pair_imm_offset_rules {
                     code
                 }
             }
-            impl crate::instructions::RawInstruction for $name<$rt, (Inc<$offset_type>, RegOrSp64)> {
+            impl $crate::instructions::RawInstruction for $name<$rt, (Inc<$offset_type>, RegOrSp64)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (inc, base) = self.addr;
                     let code = [<$mnem _ $bitness _ldstpair_pre>](
                         inc.offset.into(),
@@ -516,9 +516,9 @@ macro_rules! define_pair_imm_offset_rules {
                     code
                 }
             }
-            impl crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, Inc<$offset_type>)> {
+            impl $crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, Inc<$offset_type>)> {
                 #[inline]
-                fn to_code(&self) -> crate::InstructionCode {
+                fn to_code(&self) -> $crate::InstructionCode {
                     let (base, inc) = self.addr;
                     let code = [<$mnem _ $bitness _ldstpair_post>](
                         inc.offset.into(),
