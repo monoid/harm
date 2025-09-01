@@ -131,10 +131,10 @@ fn dedup_names(bits: &mut [Bits]) {
     }
 
     for bit in bits {
-        if let Bits::Field { name, range } = bit {
-            if dups.contains(name) {
-                *name = format!("{name}_{}", range.start).into();
-            }
+        if let Bits::Field { name, range } = bit
+            && dups.contains(name)
+        {
+            *name = format!("{}_{}", name, range.start).into();
         }
     }
 }
