@@ -92,6 +92,7 @@ pub fn gen_instructions(
     let mod_path = dest_dir.join(mod_file);
     let pragmas = quote::quote! {
         #![no_std]
+        #![forbid(unsafe_code)]
         #![allow(
             non_snake_case, non_camel_case_types, clippy::identity_op, clippy::too_many_arguments, clippy::module_inception
         )]
