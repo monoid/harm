@@ -40,6 +40,7 @@ Please, run `cargo fmt` afterwards.
 
 */
 #![no_std]
+#![forbid(unsafe_code)]
 #![allow(
     non_snake_case,
     non_camel_case_types,
