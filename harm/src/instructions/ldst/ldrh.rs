@@ -115,6 +115,7 @@ define_reg_offset_rules!(Ldrh, MakeLdrh, LDRH, RegOrZero32, "32", HalfShift);
 //
 // ## LDRH (immediate offset)
 //
+define_simple_rules!(Ldrh, MakeLdrh, RegOrZero32, ScaledOffset16, ScaledOffset16::default());
 define_imm_offset_rules!(Ldrh, MakeLdrh, LDRH, RegOrZero32, "32", ScaledOffset16);
 
 //
@@ -173,6 +174,7 @@ mod tests {
 79432102	ldrh w2, [x8, #0x190]
 7943211f	ldrh wzr, [x8, #0x190]
 794323e2	ldrh w2, [sp, #0x190]
+79400102	ldrh w2, [x8]
 ";
 
     const LDRH_PRE_POST_INC_DB: &str = "
@@ -215,6 +217,7 @@ mod tests {
         test_ldrh_wzr_r64_scaled_imm2, ldrh(WZR, (X8, 0x190u32)).unwrap(), "ldrh wzr, [x8, #0x190]";
         test_ldrh_r32_r64_scaled_imm3, ldrh(W2, (X8, 0x190i32)).unwrap(), "ldrh w2, [x8, #0x190]";
         test_ldrh_wzr_r64_scaled_imm3, ldrh(WZR, (X8, 0x190i32)).unwrap(), "ldrh wzr, [x8, #0x190]";
+        test_ldrh_r32_r64_simple, ldrh(W2, (X8,)), "ldrh w2, [x8]";
     }
 
     test_cases! {

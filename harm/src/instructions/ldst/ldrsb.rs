@@ -125,6 +125,20 @@ define_reg_offset_rules!(Ldrsb, MakeLdrsb, LDRSB, RegOrZero32, "32B", ByteShift)
 //
 // ## LDRSB (immediate offset)
 //
+define_simple_rules!(
+    Ldrsb,
+    MakeLdrsb,
+    RegOrZero64,
+    ScaledOffset8,
+    ScaledOffset8::default()
+);
+define_simple_rules!(
+    Ldrsb,
+    MakeLdrsb,
+    RegOrZero32,
+    ScaledOffset8,
+    ScaledOffset8::default()
+);
 define_imm_offset_rules!(Ldrsb, MakeLdrsb, LDRSB, RegOrZero64, 64, ScaledOffset8);
 define_imm_offset_rules!(Ldrsb, MakeLdrsb, LDRSB, RegOrZero32, 32, ScaledOffset8);
 
@@ -202,6 +216,7 @@ mod tests {
 39864102	ldrsb x2, [x8, #0x190]
 398643e2	ldrsb x2, [sp, #0x190]
 398643ff	ldrsb xzr, [sp, #0x190]
+39800102	ldrsb x2, [x8]
 ";
 
     const LDRSB_PRE_POST_INC_DB: &str = "
@@ -274,6 +289,7 @@ mod tests {
         test_ldrsb_r64_sp_scaled_imm3, ldrsb(X2, (SP, 0x190i32)).unwrap(), "ldrsb x2, [sp, #0x190]";
         test_ldrsb_wzr_r64_scaled_imm3, ldrsb(WZR, (X8, 0x190i32)).unwrap(), "ldrsb wzr, [x8, #0x190]";
         test_ldrsb_xzr_sp_scaled_imm3, ldrsb(XZR, (SP, 0x190i32)).unwrap(), "ldrsb xzr, [sp, #0x190]";
+        test_ldrsb_r64_r64_simple, ldrsb(X2, (X8,)), "ldrsb x2, [x8]";
     }
 
     test_cases! {

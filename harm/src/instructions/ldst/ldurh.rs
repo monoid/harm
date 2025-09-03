@@ -65,6 +65,7 @@ mod tests {
 784ff041	ldurh w1, [x2, 255]
 78500041	ldurh w1, [x2, -256]
 78400041	ldurh w1, [x2, 0]
+78400041	ldurh w1, [x2]
 785ff3e1	ldurh w1, [sp, -1]
 784013e1	ldurh w1, [sp, 1]
 784ff3e1	ldurh w1, [sp, 255]
@@ -89,6 +90,7 @@ mod tests {
         test_ldurh_w1_x2_255, ldurh(W1, (X2, 255)).unwrap(), "ldurh w1, [x2, 255]";
         test_ldurh_w1_x2_m256, ldurh(W1, (X2, -256)).unwrap(), "ldurh w1, [x2, -256]";
         test_ldurh_w1_x2_0, ldurh(W1, (X2, 0)).unwrap(), "ldurh w1, [x2, 0]";
+        test_ldurh_w1_x2_simple, ldurh(W1, (X2,)), "ldurh w1, [x2]";
         test_ldurh_w1_sp_m1, ldurh(W1, (SP, -1)).unwrap(), "ldurh w1, [sp, -1]";
         test_ldurh_w1_sp_1, ldurh(W1, (SP, 1)).unwrap(), "ldurh w1, [sp, 1]";
         test_ldurh_w1_sp_255, ldurh(W1, (SP, 255)).unwrap(), "ldurh w1, [sp, 255]";

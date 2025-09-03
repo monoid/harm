@@ -113,6 +113,7 @@ a9000fff	stp xzr, x3, [sp, 0]
 291f8fff	stp wzr, w3, [sp, 252]
 29200fff	stp wzr, w3, [sp, -256]
 29000fff	stp wzr, w3, [sp, 0]
+a9000c41	stp x1, x3, [x2]
 ";
 
     const STP_PRE_POST_INC_DB: &str = "
@@ -145,6 +146,7 @@ a9a003e1	stp x1, x0, [sp, #-0x200]!
         test_stp_x1_x2_504, stp(X1, X3, (X2, 504i32)).unwrap(), "stp x1, x3, [x2, 504]";
         test_stp_x1_x2_m256, stp(X1, X3, (X2, -256i32)).unwrap(), "stp x1, x3, [x2, -256]";
         test_stp_x1_x2_0, stp(X1, X3, (X2, 0i32)).unwrap(), "stp x1, x3, [x2, 0]";
+        test_stp_x1_x2_simple, stp(X1, X3, (X2,)), "stp x1, x3, [x2]";
         test_stp_x1_sp_m8, stp(X1, X3, (SP, -8i32)).unwrap(), "stp x1, x3, [sp, -8]";
         test_stp_x1_sp_8, stp(X1, X3, (SP, 8i32)).unwrap(), "stp x1, x3, [sp, 8]";
         test_stp_x1_sp_504, stp(X1, X3, (SP, 504i32)).unwrap(), "stp x1, x3, [sp, 504]";

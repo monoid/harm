@@ -150,6 +150,13 @@ define_reg_offset_rules!(Ldrsw, MakeLdrsw, LDRSW, RegOrZero64, 64, RegOrZero32);
 //
 // ## LDRSW (immediate offset)
 //
+define_simple_rules!(
+    Ldrsw,
+    MakeLdrsw,
+    RegOrZero64,
+    ScaledOffset32,
+    ScaledOffset32::default()
+);
 define_imm_offset_rules!(Ldrsw, MakeLdrsw, LDRSW, RegOrZero64, 64, ScaledOffset32);
 
 //
@@ -222,6 +229,7 @@ b8bfe902	ldrsw x2, [x8, xzr, sxtx]
 b9819102	ldrsw x2, [x8, #0x190]
 b98193e2	ldrsw x2, [sp, #0x190]
 b98193ff	ldrsw xzr, [sp, #0x190]
+b9800102	ldrsw x2, [x8]
 ";
 
     // NB: not a real syntax.
@@ -277,6 +285,7 @@ b89d6fe1	ldrsw x1, [sp, #-0x2a]!
         test_ldrsw_xzr_sp_scaled_imm2, ldrsw(XZR, (SP, 0x190u32)).unwrap(), "ldrsw xzr, [sp, #0x190]";
         test_ldrsw_r64_sp_scaled_imm3, ldrsw(X2, (SP, 0x190i32)).unwrap(), "ldrsw x2, [sp, #0x190]";
         test_ldrsw_xzr_sp_scaled_imm3, ldrsw(XZR, (SP, 0x190i32)).unwrap(), "ldrsw xzr, [sp, #0x190]";
+        test_ldrsw_r64_r64_simple, ldrsw(X2, (X8,)), "ldrsw x2, [x8]";
     }
 
     test_cases! {

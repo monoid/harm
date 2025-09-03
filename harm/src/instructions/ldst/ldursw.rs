@@ -65,6 +65,7 @@ b8801041	ldursw x1, [x2, 1]
 b88ff041	ldursw x1, [x2, 255]
 b8900041	ldursw x1, [x2, -256]
 b8800041	ldursw x1, [x2, 0]
+b8800041	ldursw x1, [x2]
 b89ff3e1	ldursw x1, [sp, -1]
 b88013e1	ldursw x1, [sp, 1]
 b88ff3e1	ldursw x1, [sp, 255]
@@ -89,6 +90,7 @@ b88003ff	ldursw xzr, [sp, 0]
         test_ldursw_x1_x2_255, ldursw(X1, (X2, 255)).unwrap(), "ldursw x1, [x2, 255]";
         test_ldursw_x1_x2_m256, ldursw(X1, (X2, -256)).unwrap(), "ldursw x1, [x2, -256]";
         test_ldursw_x1_x2_0, ldursw(X1, (X2, 0)).unwrap(), "ldursw x1, [x2, 0]";
+        test_ldursw_x1_x2_simple, ldursw(X1, (X2,)), "ldursw x1, [x2]";
         test_ldursw_x1_sp_m1, ldursw(X1, (SP, -1)).unwrap(), "ldursw x1, [sp, -1]";
         test_ldursw_x1_sp_1, ldursw(X1, (SP, 1)).unwrap(), "ldursw x1, [sp, 1]";
         test_ldursw_x1_sp_255, ldursw(X1, (SP, 255)).unwrap(), "ldursw x1, [sp, 255]";
