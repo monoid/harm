@@ -147,7 +147,7 @@ macro_rules! define_simple_rules {
                 }
             }
         }
-    }
+    };
 }
 
 macro_rules! define_imm_offset_rules {

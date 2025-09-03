@@ -115,7 +115,13 @@ define_reg_offset_rules!(Ldrh, MakeLdrh, LDRH, RegOrZero32, "32", HalfShift);
 //
 // ## LDRH (immediate offset)
 //
-define_simple_rules!(Ldrh, MakeLdrh, RegOrZero32, ScaledOffset16, ScaledOffset16::default());
+define_simple_rules!(
+    Ldrh,
+    MakeLdrh,
+    RegOrZero32,
+    ScaledOffset16,
+    ScaledOffset16::default()
+);
 define_imm_offset_rules!(Ldrh, MakeLdrh, LDRH, RegOrZero32, "32", ScaledOffset16);
 
 //
