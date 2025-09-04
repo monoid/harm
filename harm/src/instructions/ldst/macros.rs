@@ -279,6 +279,22 @@ macro_rules! define_unscaled_imm_offset_rules {
             }
         }
 
+        impl<Rt, Base> $make_name<Rt, Base>
+            for $name<$rt, (RegOrSp64, UnscaledOffset)>
+        where
+            Rt: Into<$rt>,
+            Base: Into<RegOrSp64>,
+        {
+            type Output = Self;
+
+            fn new(rt: Rt, base: Base) -> Self::Output {
+                Self {
+                    rt: rt.into(),
+                    addr: (base.into(), UnscaledOffset::default()),
+                }
+            }
+        }
+
         impl<Rt, Base> $make_name<Rt, (Base,)>
             for $name<$rt, (RegOrSp64, UnscaledOffset)>
         where
@@ -457,6 +473,24 @@ macro_rules! define_pair_imm_offset_rules {
                 Self {
                     rt: (rt.0.into(), rt.1.into()),
                     addr: (base.into(), offset),
+                }
+            }
+        }
+
+        #[doc = r" `LDP` with 64-bit destination and base register."]
+        impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, B>
+            for $name<$rt, (RegOrSp64, $offset_type)>
+        where
+            Rt1: Into<$rt>,
+            Rt2: Into<$rt>,
+            B: Into<RegOrSp64>,
+        {
+            type Output = Self;
+            #[inline]
+            fn new(rt: (Rt1, Rt2), base: B) -> Self {
+                Self {
+                    rt: (rt.0.into(), rt.1.into()),
+                    addr: (base.into(), <$offset_type>::default()),
                 }
             }
         }
