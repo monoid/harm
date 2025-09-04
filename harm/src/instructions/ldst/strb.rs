@@ -113,13 +113,6 @@ define_reg_offset_rules!(Strb, MakeStrb, STRB, RegOrZero32, "32B", ByteShift);
 //
 // ## STRB (immediate offset)
 //
-define_simple_rules!(
-    Strb,
-    MakeStrb,
-    RegOrZero32,
-    ScaledOffset8,
-    ScaledOffset8::default()
-);
 define_imm_offset_rules!(Strb, MakeStrb, STRB, RegOrZero32, "32", ScaledOffset8);
 
 //

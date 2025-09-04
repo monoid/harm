@@ -157,20 +157,6 @@ define_reg_offset_rules!(Load, MakeLoad, LDR, RegOrZero32, 32);
 //
 // ## LDR (immediate offset)
 //
-define_simple_rules!(
-    Load,
-    MakeLoad,
-    RegOrZero64,
-    ScaledOffset64,
-    ScaledOffset64::default()
-);
-define_simple_rules!(
-    Load,
-    MakeLoad,
-    RegOrZero32,
-    ScaledOffset32,
-    ScaledOffset32::default()
-);
 define_imm_offset_rules!(Load, MakeLoad, LDR, RegOrZero64, 64, ScaledOffset64);
 define_imm_offset_rules!(Load, MakeLoad, LDR, RegOrZero32, 32, ScaledOffset32);
 

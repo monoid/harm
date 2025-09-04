@@ -115,13 +115,6 @@ define_reg_offset_rules!(Strh, MakeStrh, STRH, RegOrZero32, "32", HalfShift);
 //
 // ## STRH (immediate offset)
 //
-define_simple_rules!(
-    Strh,
-    MakeStrh,
-    RegOrZero32,
-    ScaledOffset16,
-    ScaledOffset16::default()
-);
 define_imm_offset_rules!(Strh, MakeStrh, STRH, RegOrZero32, "32", ScaledOffset16);
 
 //

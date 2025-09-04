@@ -158,20 +158,6 @@ define_reg_offset_rules!(Str, MakeStr, Str, RegOrZero32, 32);
 //
 // ## LDR (immediate offset)
 //
-define_simple_rules!(
-    Str,
-    MakeStr,
-    RegOrZero64,
-    ScaledOffset64,
-    ScaledOffset64::default()
-);
-define_simple_rules!(
-    Str,
-    MakeStr,
-    RegOrZero32,
-    ScaledOffset32,
-    ScaledOffset32::default()
-);
 define_imm_offset_rules!(Str, MakeStr, Str, RegOrZero64, 64, ScaledOffset64);
 define_imm_offset_rules!(Str, MakeStr, Str, RegOrZero32, 32, ScaledOffset32);
 

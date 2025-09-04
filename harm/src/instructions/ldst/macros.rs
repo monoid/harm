@@ -111,8 +111,8 @@ macro_rules! define_reg_offset_rules {
     };
 }
 
-macro_rules! define_simple_rules {
-    ($name:ident, $trait_name:ident, $rt:ty, $offset_type:ty, $default_offset:expr) => {
+macro_rules! define_imm_offset_rules {
+    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty) => {
         /// `LDR` with 64-bit destination, bare base register.
         impl<Rt, Base> $trait_name<Rt, Base> for $name<$rt, (RegOrSp64, $offset_type)>
         where
@@ -125,8 +125,7 @@ macro_rules! define_simple_rules {
             fn new(rt: Rt, base: Base) -> Self {
                 Self {
                     rt: rt.into(),
-                    // TODO does the spec says something specific?
-                    addr: (base.into(), $default_offset),
+                    addr: (base.into(), <$offset_type>::default()),
                 }
             }
         }
@@ -143,15 +142,11 @@ macro_rules! define_simple_rules {
             fn new(rt: Rt, (base,): (Base,)) -> Self {
                 Self {
                     rt: rt.into(),
-                    addr: (base.into(), $default_offset),
+                    addr: (base.into(), <$offset_type>::default()),
                 }
             }
         }
-    };
-}
 
-macro_rules! define_imm_offset_rules {
-    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty) => {
         /// `LDR` with 64-bit destination, base register with aligned immediate offset.
         impl<Rt, B> $trait_name<Rt, (B, $offset_type)>
             for $name<$rt, (RegOrSp64, $offset_type)>

@@ -125,20 +125,6 @@ define_reg_offset_rules!(Ldrsb, MakeLdrsb, LDRSB, RegOrZero32, "32B", ByteShift)
 //
 // ## LDRSB (immediate offset)
 //
-define_simple_rules!(
-    Ldrsb,
-    MakeLdrsb,
-    RegOrZero64,
-    ScaledOffset8,
-    ScaledOffset8::default()
-);
-define_simple_rules!(
-    Ldrsb,
-    MakeLdrsb,
-    RegOrZero32,
-    ScaledOffset8,
-    ScaledOffset8::default()
-);
 define_imm_offset_rules!(Ldrsb, MakeLdrsb, LDRSB, RegOrZero64, 64, ScaledOffset8);
 define_imm_offset_rules!(Ldrsb, MakeLdrsb, LDRSB, RegOrZero32, 32, ScaledOffset8);
 

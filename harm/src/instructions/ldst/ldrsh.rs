@@ -125,20 +125,6 @@ define_reg_offset_rules!(Ldrsh, MakeLdrsh, LDRSH, RegOrZero32, 32, HalfShift);
 //
 // ## LDRSH (immediate offset)
 //
-define_simple_rules!(
-    Ldrsh,
-    MakeLdrsh,
-    RegOrZero32,
-    ScaledOffset16,
-    ScaledOffset16::default()
-);
-define_simple_rules!(
-    Ldrsh,
-    MakeLdrsh,
-    RegOrZero64,
-    ScaledOffset16,
-    ScaledOffset16::default()
-);
 define_imm_offset_rules!(Ldrsh, MakeLdrsh, LDRSH, RegOrZero64, 64, ScaledOffset16);
 define_imm_offset_rules!(Ldrsh, MakeLdrsh, LDRSH, RegOrZero32, 32, ScaledOffset16);
 
