@@ -243,6 +243,7 @@ b9019102	str w2, [x8, #0x190]
 b901911f	str wzr, [x8, #0x190]
 b90193e2	str w2, [sp, #0x190]
 f900c902	str x2, [x8, #0x190]
+f9000102	str x2, [x8]
 f900cbe2	str x2, [sp, #0x190]
 f900cbff	str xzr, [sp, #0x190]
 ";
@@ -326,6 +327,7 @@ f81d6fe1	str x1, [sp, #-0x2a]!
         test_str_r64_sp_scaled_imm3, str(X2, (SP, 0x190i32)).unwrap(), "str x2, [sp, #0x190]";
         test_str_wzr_r64_scaled_imm3, str(WZR, (X8, 0x190i32)).unwrap(), "str wzr, [x8, #0x190]";
         test_str_xzr_sp_scaled_imm3, str(XZR, (SP, 0x190i32)).unwrap(), "str xzr, [sp, #0x190]";
+        test_str_r64_r64_simple, str(X2, (X8,)), "str x2, [x8]";
     }
 
     test_cases! {

@@ -250,6 +250,7 @@ b94193e2	ldr w2, [sp, #0x190]
 f940c902	ldr x2, [x8, #0x190]
 f940cbe2	ldr x2, [sp, #0x190]
 f940cbff	ldr xzr, [sp, #0x190]
+f9400102	ldr x2, [x8]
 ";
 
     // NB: not a real syntax.
@@ -338,6 +339,7 @@ f85d6fe1	ldr x1, [sp, #-0x2a]!
         test_ldr_r64_sp_scaled_imm3, ldr(X2, (SP, 0x190i32)).unwrap(), "ldr x2, [sp, #0x190]";
         test_ldr_wzr_r64_scaled_imm3, ldr(WZR, (X8, 0x190i32)).unwrap(), "ldr wzr, [x8, #0x190]";
         test_ldr_xzr_sp_scaled_imm3, ldr(XZR, (SP, 0x190i32)).unwrap(), "ldr xzr, [sp, #0x190]";
+        test_ldr_r64_r64_simple, ldr(X2, (X8,)), "ldr x2, [x8]";
     }
 
     test_cases! {

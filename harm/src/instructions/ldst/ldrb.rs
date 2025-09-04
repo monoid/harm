@@ -161,6 +161,7 @@ mod tests {
 3863f902	ldrb w2, [x8, x3, sxtx #0]
 387f6902	ldrb w2, [x8, xzr]
 387f6be2	ldrb w2, [sp, xzr]
+
 ";
 
     // 'ldrb (w2|x2), [(x8|sp), #0x190]'
@@ -168,6 +169,7 @@ mod tests {
 39464102	ldrb w2, [x8, #0x190]
 3946411f	ldrb wzr, [x8, #0x190]
 394643e2	ldrb w2, [sp, #0x190]
+39400102	ldrb w2, [x8]
 ";
 
     const LDRB_PRE_POST_INC_DB: &str = "
@@ -206,6 +208,7 @@ mod tests {
         test_ldrb_wzr_r64_scaled_imm2, ldrb(WZR, (X8, 0x190u32)).unwrap(), "ldrb wzr, [x8, #0x190]";
         test_ldrb_r32_r64_scaled_imm3, ldrb(W2, (X8, 0x190i32)).unwrap(), "ldrb w2, [x8, #0x190]";
         test_ldrb_wzr_r64_scaled_imm3, ldrb(WZR, (X8, 0x190i32)).unwrap(), "ldrb wzr, [x8, #0x190]";
+        test_ldrb_r32_r64_simple, ldrb(W2, (X8,)), "ldrb w2, [x8]";
     }
 
     test_cases! {

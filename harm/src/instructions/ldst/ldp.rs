@@ -80,6 +80,7 @@ a9408c41	ldp x1, x3, [x2, 8]
 a95f8c41	ldp x1, x3, [x2, 504]
 a9700c41	ldp x1, x3, [x2, -256]
 a9400c41	ldp x1, x3, [x2, 0]
+a9400c41	ldp x1, x3, [x2]
 a97f8fe1	ldp x1, x3, [sp, -8]
 a9408fe1	ldp x1, x3, [sp, 8]
 a95f8fe1	ldp x1, x3, [sp, 504]
@@ -147,6 +148,7 @@ a9e003e1	ldp x1, x0, [sp, #-0x200]!
         test_ldp_x1_x2_504, ldp(X1, X3, (X2, 504i32)).unwrap(), "ldp x1, x3, [x2, 504]";
         test_ldp_x1_x2_m256, ldp(X1, X3, (X2, -256i32)).unwrap(), "ldp x1, x3, [x2, -256]";
         test_ldp_x1_x2_0, ldp(X1, X3, (X2, 0i32)).unwrap(), "ldp x1, x3, [x2, 0]";
+        test_ldp_x1_x2_simple, ldp(X1, X3, (X2,)), "ldp x1, x3, [x2]";
         test_ldp_x1_sp_m8, ldp(X1, X3, (SP, -8i32)).unwrap(), "ldp x1, x3, [sp, -8]";
         test_ldp_x1_sp_8, ldp(X1, X3, (SP, 8i32)).unwrap(), "ldp x1, x3, [sp, 8]";
         test_ldp_x1_sp_504, ldp(X1, X3, (SP, 504i32)).unwrap(), "ldp x1, x3, [sp, 504]";

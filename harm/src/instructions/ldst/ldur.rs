@@ -70,6 +70,7 @@ f8401041	ldur x1, [x2, 1]
 f84ff041	ldur x1, [x2, 255]
 f8500041	ldur x1, [x2, -256]
 f8400041	ldur x1, [x2, 0]
+f8400041	ldur x1, [x2]
 f85ff3e1	ldur x1, [sp, -1]
 f84013e1	ldur x1, [sp, 1]
 f84ff3e1	ldur x1, [sp, 255]
@@ -114,6 +115,7 @@ b84003ff	ldur wzr, [sp, 0]
         test_ldur_x1_x2_255, ldur(X1, (X2, 255)).unwrap(), "ldur x1, [x2, 255]";
         test_ldur_x1_x2_m256, ldur(X1, (X2, -256)).unwrap(), "ldur x1, [x2, -256]";
         test_ldur_x1_x2_0, ldur(X1, (X2, 0)).unwrap(), "ldur x1, [x2, 0]";
+        test_ldur_x1_x2_simple, ldur(X1, (X2,)), "ldur x1, [x2]";
         test_ldur_x1_sp_m1, ldur(X1, (SP, -1)).unwrap(), "ldur x1, [sp, -1]";
         test_ldur_x1_sp_1, ldur(X1, (SP, 1)).unwrap(), "ldur x1, [sp, 1]";
         test_ldur_x1_sp_255, ldur(X1, (SP, 255)).unwrap(), "ldur x1, [sp, 255]";

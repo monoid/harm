@@ -65,6 +65,7 @@ mod tests {
 384ff041	ldurb w1, [x2, 255]
 38500041	ldurb w1, [x2, -256]
 38400041	ldurb w1, [x2, 0]
+38400041	ldurb w1, [x2]
 385ff3e1	ldurb w1, [sp, -1]
 384013e1	ldurb w1, [sp, 1]
 384ff3e1	ldurb w1, [sp, 255]
@@ -89,6 +90,7 @@ mod tests {
         test_ldurb_w1_x2_255, ldurb(W1, (X2, 255)).unwrap(), "ldurb w1, [x2, 255]";
         test_ldurb_w1_x2_m256, ldurb(W1, (X2, -256)).unwrap(), "ldurb w1, [x2, -256]";
         test_ldurb_w1_x2_0, ldurb(W1, (X2, 0)).unwrap(), "ldurb w1, [x2, 0]";
+        test_ldurb_w1_x2_simple, ldurb(W1, (X2,)), "ldurb w1, [x2]";
         test_ldurb_w1_sp_m1, ldurb(W1, (SP, -1)).unwrap(), "ldurb w1, [sp, -1]";
         test_ldurb_w1_sp_1, ldurb(W1, (SP, 1)).unwrap(), "ldurb w1, [sp, 1]";
         test_ldurb_w1_sp_255, ldurb(W1, (SP, 255)).unwrap(), "ldurb w1, [sp, 255]";

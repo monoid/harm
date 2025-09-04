@@ -46,41 +46,6 @@ macro_rules! define_reg_offset_rules {
             }
         }
 
-        /// `LDR` with 64-bit destination, bare base register.
-        impl<Rt, Base> $trait_name<Rt, Base> for $name<$rt, (RegOrSp64, RegOrZero64)>
-        where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
-        {
-            type Output = Self;
-
-            #[inline]
-            fn new(rt: Rt, base: Base) -> Self {
-                Self {
-                    rt: rt.into(),
-                    // TODO does the spec says something specific?
-                    addr: (base.into(), RegOrZero64::XZR),
-                }
-            }
-        }
-
-        /// `LDR` with 64-bit destination, bare base register as a tuple.
-        impl<Rt, Base> $trait_name<Rt, (Base,)> for $name<$rt, (RegOrSp64, RegOrZero64)>
-        where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
-        {
-            type Output = Self;
-
-            #[inline]
-            fn new(rt: Rt, (base,): (Base,)) -> Self {
-                Self {
-                    rt: rt.into(),
-                    addr: (base.into(), RegOrZero64::XZR),
-                }
-            }
-        }
-
         /// `LDR` with 64-bit destination, base register with 64-bit offset without scaling.
         impl<Rt, Base, OffsetReg> $trait_name<Rt, (Base, OffsetReg)>
             for $name<$rt, (RegOrSp64, RegOrZero64)>
@@ -148,6 +113,40 @@ macro_rules! define_reg_offset_rules {
 
 macro_rules! define_imm_offset_rules {
     ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty) => {
+        /// `LDR` with 64-bit destination, bare base register.
+        impl<Rt, Base> $trait_name<Rt, Base> for $name<$rt, (RegOrSp64, $offset_type)>
+        where
+            Rt: Into<$rt>,
+            Base: Into<RegOrSp64>,
+        {
+            type Output = Self;
+
+            #[inline]
+            fn new(rt: Rt, base: Base) -> Self {
+                Self {
+                    rt: rt.into(),
+                    addr: (base.into(), <$offset_type>::default()),
+                }
+            }
+        }
+
+        /// `LDR` with 64-bit destination, bare base register as a tuple.
+        impl<Rt, Base> $trait_name<Rt, (Base,)> for $name<$rt, (RegOrSp64, $offset_type)>
+        where
+            Rt: Into<$rt>,
+            Base: Into<RegOrSp64>,
+        {
+            type Output = Self;
+
+            #[inline]
+            fn new(rt: Rt, (base,): (Base,)) -> Self {
+                Self {
+                    rt: rt.into(),
+                    addr: (base.into(), <$offset_type>::default()),
+                }
+            }
+        }
+
         /// `LDR` with 64-bit destination, base register with aligned immediate offset.
         impl<Rt, B> $trait_name<Rt, (B, $offset_type)>
             for $name<$rt, (RegOrSp64, $offset_type)>
@@ -276,6 +275,38 @@ macro_rules! define_unscaled_imm_offset_rules {
                 Self {
                     rt: rt.into(),
                     addr: (base.into(), offset),
+                }
+            }
+        }
+
+        impl<Rt, Base> $make_name<Rt, Base>
+            for $name<$rt, (RegOrSp64, UnscaledOffset)>
+        where
+            Rt: Into<$rt>,
+            Base: Into<RegOrSp64>,
+        {
+            type Output = Self;
+
+            fn new(rt: Rt, base: Base) -> Self::Output {
+                Self {
+                    rt: rt.into(),
+                    addr: (base.into(), UnscaledOffset::default()),
+                }
+            }
+        }
+
+        impl<Rt, Base> $make_name<Rt, (Base,)>
+            for $name<$rt, (RegOrSp64, UnscaledOffset)>
+        where
+            Rt: Into<$rt>,
+            Base: Into<RegOrSp64>,
+        {
+            type Output = Self;
+
+            fn new(rt: Rt, (base,): (Base,)) -> Self::Output {
+                Self {
+                    rt: rt.into(),
+                    addr: (base.into(), UnscaledOffset::default()),
                 }
             }
         }
@@ -442,6 +473,42 @@ macro_rules! define_pair_imm_offset_rules {
                 Self {
                     rt: (rt.0.into(), rt.1.into()),
                     addr: (base.into(), offset),
+                }
+            }
+        }
+
+        #[doc = r" `LDP` with 64-bit destination and base register."]
+        impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, B>
+            for $name<$rt, (RegOrSp64, $offset_type)>
+        where
+            Rt1: Into<$rt>,
+            Rt2: Into<$rt>,
+            B: Into<RegOrSp64>,
+        {
+            type Output = Self;
+            #[inline]
+            fn new(rt: (Rt1, Rt2), base: B) -> Self {
+                Self {
+                    rt: (rt.0.into(), rt.1.into()),
+                    addr: (base.into(), <$offset_type>::default()),
+                }
+            }
+        }
+
+        #[doc = r" `LDP` with 64-bit destination and base register."]
+        impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B,)>
+            for $name<$rt, (RegOrSp64, $offset_type)>
+        where
+            Rt1: Into<$rt>,
+            Rt2: Into<$rt>,
+            B: Into<RegOrSp64>,
+        {
+            type Output = Self;
+            #[inline]
+            fn new(rt: (Rt1, Rt2), (base,): (B,)) -> Self {
+                Self {
+                    rt: (rt.0.into(), rt.1.into()),
+                    addr: (base.into(), <$offset_type>::default()),
                 }
             }
         }

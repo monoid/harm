@@ -168,6 +168,7 @@ mod tests {
 39064102	strb w2, [x8, #0x190]
 3906411f	strb wzr, [x8, #0x190]
 390643e2	strb w2, [sp, #0x190]
+39000102	strb w2, [x8]
 ";
 
     const STRB_PRE_POST_INC_DB: &str = "
@@ -206,6 +207,7 @@ mod tests {
         test_strb_wzr_r64_scaled_imm2, strb(WZR, (X8, 0x190u32)).unwrap(), "strb wzr, [x8, #0x190]";
         test_strb_r32_r64_scaled_imm3, strb(W2, (X8, 0x190i32)).unwrap(), "strb w2, [x8, #0x190]";
         test_strb_wzr_r64_scaled_imm3, strb(WZR, (X8, 0x190i32)).unwrap(), "strb wzr, [x8, #0x190]";
+        test_strb_r32_r64_simple, strb(W2, (X8,)), "strb w2, [x8]";
     }
 
     test_cases! {

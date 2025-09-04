@@ -65,6 +65,7 @@ mod tests {
 780ff041	sturh w1, [x2, 255]
 78100041	sturh w1, [x2, -256]
 78000041	sturh w1, [x2, 0]
+78000041	sturh w1, [x2]
 781ff3e1	sturh w1, [sp, -1]
 780013e1	sturh w1, [sp, 1]
 780ff3e1	sturh w1, [sp, 255]
@@ -89,6 +90,7 @@ mod tests {
         test_sturh_w1_x2_255, sturh(W1, (X2, 255)).unwrap(), "sturh w1, [x2, 255]";
         test_sturh_w1_x2_m256, sturh(W1, (X2, -256)).unwrap(), "sturh w1, [x2, -256]";
         test_sturh_w1_x2_0, sturh(W1, (X2, 0)).unwrap(), "sturh w1, [x2, 0]";
+        test_sturh_w1_x2_simple, sturh(W1, (X2,)), "sturh w1, [x2]";
         test_sturh_w1_sp_m1, sturh(W1, (SP, -1)).unwrap(), "sturh w1, [sp, -1]";
         test_sturh_w1_sp_1, sturh(W1, (SP, 1)).unwrap(), "sturh w1, [sp, 1]";
         test_sturh_w1_sp_255, sturh(W1, (SP, 255)).unwrap(), "sturh w1, [sp, 255]";

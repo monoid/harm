@@ -70,6 +70,7 @@ f8001041	stur x1, [x2, 1]
 f80ff041	stur x1, [x2, 255]
 f8100041	stur x1, [x2, -256]
 f8000041	stur x1, [x2, 0]
+f8000041	stur x1, [x2]
 f81ff3e1	stur x1, [sp, -1]
 f80013e1	stur x1, [sp, 1]
 f80ff3e1	stur x1, [sp, 255]
@@ -114,6 +115,7 @@ b80003ff	stur wzr, [sp, 0]
         test_stur_x1_x2_255, stur(X1, (X2, 255)).unwrap(), "stur x1, [x2, 255]";
         test_stur_x1_x2_m256, stur(X1, (X2, -256)).unwrap(), "stur x1, [x2, -256]";
         test_stur_x1_x2_0, stur(X1, (X2, 0)).unwrap(), "stur x1, [x2, 0]";
+        test_stur_x1_x2_simple, stur(X1, (X2,)), "stur x1, [x2]";
         test_stur_x1_sp_m1, stur(X1, (SP, -1)).unwrap(), "stur x1, [sp, -1]";
         test_stur_x1_sp_1, stur(X1, (SP, 1)).unwrap(), "stur x1, [sp, 1]";
         test_stur_x1_sp_255, stur(X1, (SP, 255)).unwrap(), "stur x1, [sp, 255]";

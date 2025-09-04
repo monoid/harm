@@ -65,6 +65,7 @@ mod tests {
 380ff041	sturb w1, [x2, 255]
 38100041	sturb w1, [x2, -256]
 38000041	sturb w1, [x2, 0]
+38000041	sturb w1, [x2]
 381ff3e1	sturb w1, [sp, -1]
 380013e1	sturb w1, [sp, 1]
 380ff3e1	sturb w1, [sp, 255]
@@ -89,6 +90,7 @@ mod tests {
         test_sturb_w1_x2_255, sturb(W1, (X2, 255)).unwrap(), "sturb w1, [x2, 255]";
         test_sturb_w1_x2_m256, sturb(W1, (X2, -256)).unwrap(), "sturb w1, [x2, -256]";
         test_sturb_w1_x2_0, sturb(W1, (X2, 0)).unwrap(), "sturb w1, [x2, 0]";
+        test_sturb_w1_x2_simple, sturb(W1, (X2,)), "sturb w1, [x2]";
         test_sturb_w1_sp_m1, sturb(W1, (SP, -1)).unwrap(), "sturb w1, [sp, -1]";
         test_sturb_w1_sp_1, sturb(W1, (SP, 1)).unwrap(), "sturb w1, [sp, 1]";
         test_sturb_w1_sp_255, sturb(W1, (SP, 255)).unwrap(), "sturb w1, [sp, 255]";

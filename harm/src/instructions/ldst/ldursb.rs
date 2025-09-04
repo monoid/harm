@@ -71,6 +71,7 @@ mod tests {
 388ff041	ldursb x1, [x2, 255]
 38900041	ldursb x1, [x2, -256]
 38800041	ldursb x1, [x2, 0]
+38800041	ldursb x1, [x2]
 389ff3e1	ldursb x1, [sp, -1]
 388013e1	ldursb x1, [sp, 1]
 388ff3e1	ldursb x1, [sp, 255]
@@ -115,6 +116,7 @@ mod tests {
         test_ldursb_x1_x2_255, ldursb(X1, (X2, 255)).unwrap(), "ldursb x1, [x2, 255]";
         test_ldursb_x1_x2_m256, ldursb(X1, (X2, -256)).unwrap(), "ldursb x1, [x2, -256]";
         test_ldursb_x1_x2_0, ldursb(X1, (X2, 0)).unwrap(), "ldursb x1, [x2, 0]";
+        test_ldursb_x1_x2_simple, ldursb(X1, (X2,)), "ldursb x1, [x2]";
         test_ldursb_x1_sp_m1, ldursb(X1, (SP, -1)).unwrap(), "ldursb x1, [sp, -1]";
         test_ldursb_x1_sp_1, ldursb(X1, (SP, 1)).unwrap(), "ldursb x1, [sp, 1]";
         test_ldursb_x1_sp_255, ldursb(X1, (SP, 255)).unwrap(), "ldursb x1, [sp, 255]";

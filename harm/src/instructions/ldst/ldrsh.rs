@@ -202,6 +202,7 @@ mod tests {
 79832102	ldrsh x2, [x8, #0x190]
 798323e2	ldrsh x2, [sp, #0x190]
 798323ff	ldrsh xzr, [sp, #0x190]
+79800102	ldrsh x2, [x8]
 ";
 
     const LDRSH_PRE_POST_INC_DB: &str = "
@@ -274,6 +275,7 @@ mod tests {
         test_ldrsh_r64_sp_scaled_imm3, ldrsh(X2, (SP, 0x190i32)).unwrap(), "ldrsh x2, [sp, #0x190]";
         test_ldrsh_wzr_r64_scaled_imm3, ldrsh(WZR, (X8, 0x190i32)).unwrap(), "ldrsh wzr, [x8, #0x190]";
         test_ldrsh_xzr_sp_scaled_imm3, ldrsh(XZR, (SP, 0x190i32)).unwrap(), "ldrsh xzr, [sp, #0x190]";
+        test_ldrsh_r64_r64_simple, ldrsh(X2, (X8,)), "ldrsh x2, [x8]";
     }
 
     test_cases! {

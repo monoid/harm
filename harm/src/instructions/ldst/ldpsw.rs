@@ -68,6 +68,7 @@ mod tests {
 695f8c41	ldpsw x1, x3, [x2, 252]
 69600c41	ldpsw x1, x3, [x2, -256]
 69400c41	ldpsw x1, x3, [x2, 0]
+69400c41	ldpsw x1, x3, [x2]
 697f0fe1	ldpsw x1, x3, [sp, -8]
 69410fe1	ldpsw x1, x3, [sp, 8]
 695f8fe1	ldpsw x1, x3, [sp, 252]
@@ -83,7 +84,6 @@ mod tests {
 695f8fff	ldpsw xzr, x3, [sp, 252]
 69600fff	ldpsw xzr, x3, [sp, -256]
 69400fff	ldpsw xzr, x3, [sp, 0]
-
 ";
 
     const LDPSW_PRE_POST_INC_DB: &str = "
@@ -97,7 +97,6 @@ mod tests {
 68e003e1	ldpsw x1, x0, [sp], #-0x100
 69e00041	ldpsw x1, x0, [x2, #-0x100]!
 69e003e1	ldpsw x1, x0, [sp, #-0x100]!
-
 ";
 
     test_cases! {
@@ -107,6 +106,7 @@ mod tests {
         test_ldpsw_x1_x2_252, ldpsw(X1, X3, (X2, 252i32)).unwrap(), "ldpsw x1, x3, [x2, 252]";
         test_ldpsw_x1_x2_m256, ldpsw(X1, X3, (X2, -256i32)).unwrap(), "ldpsw x1, x3, [x2, -256]";
         test_ldpsw_x1_x2_0, ldpsw(X1, X3, (X2, 0i32)).unwrap(), "ldpsw x1, x3, [x2, 0]";
+        test_ldpsw_x1_x2_simple, ldpsw(X1, X3, (X2,)), "ldpsw x1, x3, [x2]";
         test_ldpsw_x1_sp_m8, ldpsw(X1, X3, (SP, -8i32)).unwrap(), "ldpsw x1, x3, [sp, -8]";
         test_ldpsw_x1_sp_8, ldpsw(X1, X3, (SP, 8i32)).unwrap(), "ldpsw x1, x3, [sp, 8]";
         test_ldpsw_x1_sp_252, ldpsw(X1, X3, (SP, 252i32)).unwrap(), "ldpsw x1, x3, [sp, 252]";
