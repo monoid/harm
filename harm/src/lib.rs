@@ -16,7 +16,7 @@
 
 pub mod bits;
 pub mod instructions;
-pub mod register;
+pub use harm_types::A64::register;
 pub mod reloc;
 
 pub use aarchmrs_types::InstructionCode;

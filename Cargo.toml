@@ -6,6 +6,7 @@ members = [
    "aarchmrs-parser",
    "aarchmrs-types",
    "harm",
+   "harm-types",
    "tools/aarchmrs-generate",
    "tools/harm-asm-regen",
    "tools/harm-test-utils",
@@ -20,4 +21,5 @@ aarchmrs-instructions = { path = "aarchmrs-instructions", version = "0.2.1-2025-
 aarchmrs-parser = { path = "aarchmrs-parser", version = "0.1.0" }
 aarchmrs-types = { path = "aarchmrs-types", version = "0.1.2" }
 harm = { path = "harm", version = "0.1.0" }
+harm-types = { path = "harm-types", version = "0.1.0" }
 harm-test-utils = { path = "tools/harm-test-utils", version = "0.1.0" }
