@@ -20,7 +20,7 @@ use crate::{
         },
     },
     outcome::Unfallible,
-    register::{RegOrZero32, RegOrZero64, Register as _},
+    register::{IntoReg, RegOrZero32, RegOrZero64, Register as _},
 };
 
 macro_rules! define_logical_args {
@@ -28,17 +28,17 @@ macro_rules! define_logical_args {
         impl<RdIn, RnIn, RsIn> $trait<RdIn, RnIn, RsIn>
             for $struct<$rn, $rn, ($rn, LogicalShift, $amount)>
         where
-            RdIn: Into<$rn>,
-            RnIn: Into<$rn>,
-            RsIn: Into<$rn>,
+            RdIn: IntoReg<$rn>,
+            RnIn: IntoReg<$rn>,
+            RsIn: IntoReg<$rn>,
         {
             type Outcome = Unfallible<$struct<$rn, $rn, ($rn, LogicalShift, $amount)>>;
 
             fn new(rd: RdIn, rn: RnIn, mask: RsIn) -> Self::Outcome {
                 Unfallible(Self {
-                    rd: rd.into(),
-                    rn: rn.into(),
-                    mask: (mask.into(), LogicalShift::LSL, $amount::default()),
+                    rd: rd.into_reg(),
+                    rn: rn.into_reg(),
+                    mask: (mask.into_reg(), LogicalShift::LSL, $amount::default()),
                 })
             }
         }
@@ -46,9 +46,9 @@ macro_rules! define_logical_args {
         impl<RdIn, RnIn, RsIn> $trait<RdIn, RnIn, (RsIn, LogicalShift, u8)>
             for $struct<$rn, $rn, ($rn, LogicalShift, $amount)>
         where
-            RdIn: Into<$rn>,
-            RnIn: Into<$rn>,
-            RsIn: Into<$rn>,
+            RdIn: IntoReg<$rn>,
+            RnIn: IntoReg<$rn>,
+            RsIn: IntoReg<$rn>,
         {
             type Outcome = Result<LogicalArgs<$rn, $rn, ($rn, LogicalShift, $amount)>, BitError>;
 
@@ -58,9 +58,9 @@ macro_rules! define_logical_args {
                 (mask, shift, amount): (RsIn, LogicalShift, u8),
             ) -> Self::Outcome {
                 u32::from(amount).try_into().map(|amount| Self {
-                    rd: rd.into(),
-                    rn: rn.into(),
-                    mask: (mask.into(), shift, amount),
+                    rd: rd.into_reg(),
+                    rn: rn.into_reg(),
+                    mask: (mask.into_reg(), shift, amount),
                 })
             }
         }
