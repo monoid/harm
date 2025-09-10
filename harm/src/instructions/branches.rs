@@ -7,7 +7,7 @@ pub(crate) mod reg;
 pub(crate) mod testbranch;
 
 use aarchmrs_instructions::A64::control::{
-    branch_imm::B_only_branch_imm::B_only_branch_imm,
+    branch_imm::{B_only_branch_imm::B_only_branch_imm, BL_only_branch_imm::BL_only_branch_imm},
     condbranch::B_only_condbranch::B_only_condbranch, // TODO BC: branch consistent conditionally
 };
 use aarchmrs_types::InstructionCode;
@@ -141,6 +141,49 @@ impl RawInstruction for Branch<(BranchCond, BranchCondOffset)> {
     fn to_code(&self) -> InstructionCode {
         let (cond, imm19) = self.0;
         B_only_condbranch(imm19.into(), (cond as u8).into())
+    }
+}
+
+pub trait MakeBranchLink<Args> {
+    type Output;
+
+    fn make(args: Args) -> Self::Output;
+}
+
+#[inline]
+pub fn bl<InpArgs>(args: InpArgs) -> <BranchLink as MakeBranchLink<InpArgs>>::Output
+where
+    BranchLink: MakeBranchLink<InpArgs>,
+{
+    <BranchLink as MakeBranchLink<InpArgs>>::make(args)
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+pub struct BranchLink(BranchOffset);
+
+impl MakeBranchLink<BranchOffset> for BranchLink {
+    type Output = Self;
+
+    #[inline]
+    fn make(offset: BranchOffset) -> Self::Output {
+        Self(offset)
+    }
+}
+
+impl MakeBranchLink<i32> for BranchLink {
+    type Output = Result<Self, BitError>;
+
+    #[inline]
+    fn make(offset: i32) -> Self::Output {
+        BranchOffset::try_from(offset).map(Self)
+    }
+}
+
+impl RawInstruction for BranchLink {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        let imm26 = self.0;
+        BL_only_branch_imm(imm26.into())
     }
 }
 
@@ -299,6 +342,31 @@ mod tests {
         let codes: Vec<_> = it.encode().collect();
         // TODO check
         assert_eq!(codes, inst!(0x1400000c));
+    }
+
+    #[test]
+    fn test_bl_sbits() {
+        let offset = BranchOffset::new(48).unwrap();
+        let it = bl(offset);
+        let codes: Vec<_> = it.encode().collect();
+        // TODO check
+        assert_eq!(codes, inst!(0x9400000c));
+    }
+
+    #[test]
+    fn test_bl_i32() {
+        let it = bl(0x48);
+        let codes: Vec<_> = it.unwrap().encode().collect();
+        // TODO check
+        assert_eq!(codes, inst!(0x94000012));
+    }
+
+    #[test]
+    fn test_bl_i32_neg() {
+        let it = bl(-0x48);
+        let codes: Vec<_> = it.unwrap().encode().collect();
+        // TODO check
+        assert_eq!(codes, inst!(0x97ffffee));
     }
 
     #[test]
