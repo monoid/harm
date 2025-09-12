@@ -8,7 +8,7 @@ use aarchmrs_types::InstructionCode;
 use crate::reloc::Reloc;
 
 pub mod arith;
-pub mod branches;
+pub mod control;
 pub mod ldst;
 
 pub trait RawInstruction {
