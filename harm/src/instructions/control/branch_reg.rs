@@ -9,7 +9,7 @@ use aarchmrs_instructions::A64::control::branch_reg::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::RawInstruction;
+use crate::instructions::RawInstruction;
 use crate::register::{IntoCode as _, Reg64, RegOrZero64};
 
 #[inline]

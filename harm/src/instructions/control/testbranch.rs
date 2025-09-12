@@ -8,9 +8,9 @@ use aarchmrs_instructions::A64::control::testbranch::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::RawInstruction;
 use crate::{
     bits::{SBitValue, UBitValue},
+    instructions::RawInstruction,
     register::{IntoCode as _, RegOrZero32, RegOrZero64},
 };
 

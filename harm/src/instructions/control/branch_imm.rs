@@ -3,23 +3,17 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-pub(crate) mod reg;
-pub(crate) mod testbranch;
-
 use aarchmrs_instructions::A64::control::{
     branch_imm::{B_only_branch_imm::B_only_branch_imm, BL_only_branch_imm::BL_only_branch_imm},
     condbranch::B_only_condbranch::B_only_condbranch, // TODO BC: branch consistent conditionally
 };
 use aarchmrs_types::InstructionCode;
 
-use super::RawInstruction;
 use crate::{
     bits::{BitError, SBitValue},
+    instructions::RawInstruction,
     register::{IntoCode as _, RegOrZero32, RegOrZero64},
 };
-
-pub use self::reg::*;
-pub use self::testbranch::*;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 #[repr(u8)]
