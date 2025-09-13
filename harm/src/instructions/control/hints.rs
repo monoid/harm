@@ -88,6 +88,7 @@ impl RawInstruction for Hint {
 
 // C6.2.92 HINT ... An assembler may support assembly of allocated encodings using HINT with the corresponding <imm>
 // value, but it is not required to do so.
+#[inline]
 pub fn hint(mode: HintMode) -> Hint {
     Hint(mode)
 }
@@ -109,6 +110,7 @@ impl RawInstruction for Bti {
     }
 }
 
+#[inline]
 pub fn bti(bti: BtiSet) -> Bti {
     Bti(bti)
 }
@@ -138,6 +140,7 @@ impl RawInstruction for Stshh {
     }
 }
 
+#[inline]
 pub fn stshh(policy: StshhPolicy) -> Stshh {
     Stshh(policy)
 }
@@ -217,5 +220,6 @@ d50324df	bti jc
         test_bti_c, bti(BtiSet::C), "bti c";
         test_bti_j, bti(BtiSet::J), "bti j";
         test_bti_jc, bti(BtiSet::JC), "bti jc";
+        // TODO stshh doesn't seems to be supported by GCC.
     );
 }
