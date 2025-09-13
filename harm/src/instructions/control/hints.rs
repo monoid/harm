@@ -220,6 +220,17 @@ d50324df	bti jc
         test_bti_c, bti(BtiSet::C), "bti c";
         test_bti_j, bti(BtiSet::J), "bti j";
         test_bti_jc, bti(BtiSet::JC), "bti jc";
-        // TODO stshh doesn't seems to be supported by GCC.
     );
+
+    // stshh doesn't seems to be supported by GCC.  Use a manually crafted database.
+    const STSHH_DB: &str = "
+d503261f	stshh keep
+d503263f	stshh strm
+";
+
+    test_cases! {
+        STSHH_DB, untested_stshh;
+        test_stshh_keep, stshh(StshhPolicy::KEEP), "stshh keep";
+        test_stshh_strm, stshh(StshhPolicy::STRM), "stshh strm";
+    }
 }
