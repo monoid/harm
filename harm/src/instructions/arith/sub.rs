@@ -15,7 +15,9 @@ use super::*;
 use crate::{
     bits::BitError,
     instructions::RawInstruction,
-    register::{Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Register as _},
+    register::{
+        IntoReg, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Register as _,
+    },
     sealed::Sealed,
 };
 

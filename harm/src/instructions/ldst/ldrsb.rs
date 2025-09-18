@@ -19,8 +19,8 @@
 //! # Examples:
 //! ```
 //! # use harm::instructions::ldst::{ldrsb, ext, LdStExtendOption32, LdStShift};
-//! use harm::register::Reg32::*;
-//! use harm::register::Reg64::*;
+//! use harm_types::A64::register::Reg32::*;
+//! use harm_types::A64::register::Reg64::*;
 //! use LdStExtendOption32::*;
 //!
 //! ldrsb(W1, X2);        // LDRSB W1, [X2]
@@ -60,8 +60,8 @@
 //! Pre-increment and post-increment variants have the following syntax:
 //! ```
 //! # use harm::instructions::ldst::{ldrsb, inc, preinc, postinc, LdStIncOffset};
-//! use harm::register::Reg32::*;
-//! use harm::register::Reg64::*;
+//! use harm_types::A64::register::Reg32::*;
+//! use harm_types::A64::register::Reg64::*;
 //! let offset = LdStIncOffset::new(4).unwrap();
 //! ldrsb(W1, (inc(offset), X2));       // preincrement, LDRSB W1, [X2, #4]!
 //! ldrsb(W1, (X2, inc(offset)));       // postincrement, LDRSB W1, [X2], #4
@@ -91,7 +91,7 @@ use super::shift_extend::*;
 use super::{ByteShift, Inc, LdStIncOffset, ScaledOffset8};
 use crate::bits::BitError;
 use crate::instructions::RawInstruction;
-use crate::register::{RegOrSp64, RegOrZero32, RegOrZero64, Register};
+use crate::register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register};
 use crate::sealed::Sealed;
 
 /// A `LDRSB` instruction with a destination and an address.

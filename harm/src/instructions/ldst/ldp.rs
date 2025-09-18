@@ -17,7 +17,7 @@ use aarchmrs_instructions::A64::ldst::{
 
 use super::{Inc, LdpStpOffset32, LdpStpOffset64};
 use crate::bits::BitError;
-use crate::register::{RegOrSp64, RegOrZero32, RegOrZero64, Register};
+use crate::register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register};
 use crate::sealed::Sealed;
 
 /// A `ldp` instruction with a destination and an address.

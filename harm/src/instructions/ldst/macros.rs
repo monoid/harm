@@ -12,8 +12,8 @@ macro_rules! define_reg_offset_rules {
         impl<Rt, Base, Ext> $trait_name<Rt, (Base, Ext)>
             for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero64>)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
             Ext: Into<Extended<$shift, RegOrZero64>>,
         {
             type Output = Self;
@@ -21,8 +21,8 @@ macro_rules! define_reg_offset_rules {
             #[inline]
             fn new(rt: Rt, (base, offset): (Base, Ext)) -> Self {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), offset.into()),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), offset.into()),
                 }
             }
         }
@@ -31,8 +31,8 @@ macro_rules! define_reg_offset_rules {
         impl<Rt, Base, Ext> $trait_name<Rt, (Base, Ext)>
             for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero32>)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
             Ext: Into<Extended<$shift, RegOrZero32>>,
         {
             type Output = Self;
@@ -40,8 +40,8 @@ macro_rules! define_reg_offset_rules {
             #[inline]
             fn new(rt: Rt, (base, offset): (Base, Ext)) -> Self {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), offset.into()),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), offset.into()),
                 }
             }
         }
@@ -50,17 +50,17 @@ macro_rules! define_reg_offset_rules {
         impl<Rt, Base, OffsetReg> $trait_name<Rt, (Base, OffsetReg)>
             for $name<$rt, (RegOrSp64, RegOrZero64)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
-            OffsetReg: Into<RegOrZero64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
+            OffsetReg: IntoReg<RegOrZero64>,
         {
             type Output = Self;
 
             #[inline]
             fn new(rt: Rt, (base, offset): (Base, OffsetReg)) -> Self {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), offset.into()),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), offset.into_reg()),
                 }
             }
         }
@@ -116,16 +116,16 @@ macro_rules! define_imm_offset_rules {
         /// `LDR` with 64-bit destination, bare base register.
         impl<Rt, Base> $trait_name<Rt, Base> for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
         {
             type Output = Self;
 
             #[inline]
             fn new(rt: Rt, base: Base) -> Self {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), <$offset_type>::default()),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), <$offset_type>::default()),
                 }
             }
         }
@@ -133,16 +133,16 @@ macro_rules! define_imm_offset_rules {
         /// `LDR` with 64-bit destination, bare base register as a tuple.
         impl<Rt, Base> $trait_name<Rt, (Base,)> for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
         {
             type Output = Self;
 
             #[inline]
             fn new(rt: Rt, (base,): (Base,)) -> Self {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), <$offset_type>::default()),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), <$offset_type>::default()),
                 }
             }
         }
@@ -151,16 +151,16 @@ macro_rules! define_imm_offset_rules {
         impl<Rt, B> $trait_name<Rt, (B, $offset_type)>
             for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt: Into<$rt>,
-            B: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            B: IntoReg<RegOrSp64>,
         {
             type Output = Self;
 
             #[inline]
             fn new(rt: Rt, (base, offset): (B, $offset_type)) -> Self {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), offset),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), offset),
                 }
             }
         }
@@ -169,8 +169,8 @@ macro_rules! define_imm_offset_rules {
         /// specific range and alignment.
         impl<Rt, B> $trait_name<Rt, (B, u32)> for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt: Into<$rt>,
-            B: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            B: IntoReg<RegOrSp64>,
         {
             type Output = Result<Self, BitError>;
 
@@ -178,8 +178,8 @@ macro_rules! define_imm_offset_rules {
             fn new(rt: Rt, (base, offset): (B, u32)) -> Self::Output {
                 let offset = <$offset_type>::try_from(offset)?;
                 Ok(Self {
-                    rt: rt.into(),
-                    addr: (base.into(), offset),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), offset),
                 })
             }
         }
@@ -188,8 +188,8 @@ macro_rules! define_imm_offset_rules {
         /// specific range and alignment.
         impl<Rt, B> $trait_name<Rt, (B, i32)> for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt: Into<$rt>,
-            B: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            B: IntoReg<RegOrSp64>,
         {
             type Output = Result<Self, BitError>;
 
@@ -197,34 +197,34 @@ macro_rules! define_imm_offset_rules {
             fn new(rt: Rt, (base, offset): (B, i32)) -> Self::Output {
                 let offset = <$offset_type>::try_from(offset)?;
                 Ok(Self {
-                    rt: rt.into(),
-                    addr: (base.into(), offset),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), offset),
                 })
             }
         }
 
-        impl<Rt: Into<$rt>, Base: Into<RegOrSp64>> $trait_name<Rt, (Inc<LdStIncOffset>, Base)>
+        impl<Rt: IntoReg<$rt>, Base: IntoReg<RegOrSp64>> $trait_name<Rt, (Inc<LdStIncOffset>, Base)>
             for $name<$rt, (Inc<LdStIncOffset>, RegOrSp64)>
         {
             type Output = Self;
 
             fn new(rt: Rt, (inc, base): (Inc<LdStIncOffset>, Base)) -> Self {
                 Self {
-                    rt: rt.into(),
-                    addr: (inc, base.into()),
+                    rt: rt.into_reg(),
+                    addr: (inc, base.into_reg()),
                 }
             }
         }
 
-        impl<Rt: Into<$rt>, Base: Into<RegOrSp64>> $trait_name<Rt, (Base, Inc<LdStIncOffset>)>
+        impl<Rt: IntoReg<$rt>, Base: IntoReg<RegOrSp64>> $trait_name<Rt, (Base, Inc<LdStIncOffset>)>
             for $name<$rt, (RegOrSp64, Inc<LdStIncOffset>)>
         {
             type Output = Self;
 
             fn new(rt: Rt, (base, inc): (Base, Inc<LdStIncOffset>)) -> Self {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), inc),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), inc),
                 }
             }
         }
@@ -266,15 +266,15 @@ macro_rules! define_unscaled_imm_offset_rules {
         impl<Rt, Base> $make_name<Rt, (Base, UnscaledOffset)>
             for $name<$rt, (RegOrSp64, UnscaledOffset)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
         {
             type Output = Self;
 
             fn new(rt: Rt, (base, offset): (Base, UnscaledOffset)) -> Self::Output {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), offset),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), offset),
                 }
             }
         }
@@ -282,15 +282,15 @@ macro_rules! define_unscaled_imm_offset_rules {
         impl<Rt, Base> $make_name<Rt, Base>
             for $name<$rt, (RegOrSp64, UnscaledOffset)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
         {
             type Output = Self;
 
             fn new(rt: Rt, base: Base) -> Self::Output {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), UnscaledOffset::default()),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), UnscaledOffset::default()),
                 }
             }
         }
@@ -298,15 +298,15 @@ macro_rules! define_unscaled_imm_offset_rules {
         impl<Rt, Base> $make_name<Rt, (Base,)>
             for $name<$rt, (RegOrSp64, UnscaledOffset)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
         {
             type Output = Self;
 
             fn new(rt: Rt, (base,): (Base,)) -> Self::Output {
                 Self {
-                    rt: rt.into(),
-                    addr: (base.into(), UnscaledOffset::default()),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), UnscaledOffset::default()),
                 }
             }
         }
@@ -314,15 +314,15 @@ macro_rules! define_unscaled_imm_offset_rules {
         impl<Rt, Base> $make_name<Rt, (Base, i32)>
             for $name<$rt, (RegOrSp64, UnscaledOffset)>
         where
-            Rt: Into<$rt>,
-            Base: Into<RegOrSp64>,
+            Rt: IntoReg<$rt>,
+            Base: IntoReg<RegOrSp64>,
         {
             type Output = Result<Self, BitError>;
 
             fn new(rt: Rt, (base, offset): (Base, i32)) -> Self::Output {
                 UnscaledOffset::try_from(offset).map(|offset| Self {
-                    rt: rt.into(),
-                    addr: (base.into(), offset),
+                    rt: rt.into_reg(),
+                    addr: (base.into_reg(), offset),
                 })
             }
         }
@@ -347,14 +347,14 @@ macro_rules! define_pc_offset_rules {
         impl<Rt> $trait_name<Rt, ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)>
             for $name<$rt, ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)>
         where
-            Rt: ::core::convert::Into<$rt>,
+            Rt: IntoReg<$rt>,
         {
             type Output = Self;
 
             #[inline]
             fn new(rt: Rt, addr: ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)) -> Self {
                 Self {
-                    rt: rt.into(),
+                    rt: rt.into_reg(),
                     addr,
                 }
             }
@@ -366,14 +366,14 @@ macro_rules! define_pc_offset_rules {
         impl<Rt> $trait_name<Rt, ($crate::instructions::ldst::Pc, i32)>
             for $name<$rt, ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)>
         where
-            Rt: ::core::convert::Into<$rt>,
+            Rt: IntoReg<$rt>,
         {
             type Output = ::core::result::Result<Self, $crate::bits::BitError>;
 
             #[inline]
             fn new(rt: Rt, (pc, offset): ($crate::instructions::ldst::Pc, i32)) -> Self::Output {
                 $crate::instructions::ldst::LdStPcOffset::try_from(offset).map(|offset| Self {
-                    rt: rt.into(),
+                    rt: rt.into_reg(),
                     addr: (pc, offset)
                 })
             }
@@ -402,7 +402,7 @@ macro_rules! define_fallible_rules {
             for $name<RtOut, ($crate::register::RegOrSp64, Ext)>
         where
             $name<RtOut, ($crate::register::RegOrSp64, Ext)>: $trait_name<RtInp, (BaseInp, Ext)>,
-            $crate::register::RegOrSp64: From<BaseInp>,
+            BaseInp: IntoReg<$crate::register::RegOrSp64>,
         {
             type Output =
                 ::core::result::Result<<Self as $trait_name<RtInp, (BaseInp, Ext)>>::Output, Err>;
@@ -424,7 +424,7 @@ macro_rules! define_fallible_rules {
             for $name<RtOut, (Ext, $crate::register::RegOrSp64)>
         where
             $name<RtOut, (Ext, $crate::register::RegOrSp64)>: $trait_name<RtInp, (Ext, BaseInp)>,
-            $crate::register::RegOrSp64: From<BaseInp>,
+            BaseInp: IntoReg<$crate::register::RegOrSp64>,
         {
             type Output =
                 ::core::result::Result<<Self as $trait_name<RtInp, (Ext, BaseInp)>>::Output, Err>;
@@ -463,16 +463,16 @@ macro_rules! define_pair_imm_offset_rules {
         impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B, $offset_type)>
             for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt1: Into<$rt>,
-            Rt2: Into<$rt>,
-            B: Into<RegOrSp64>,
+            Rt1: IntoReg<$rt>,
+            Rt2: IntoReg<$rt>,
+            B: IntoReg<RegOrSp64>,
         {
             type Output = Self;
             #[inline]
             fn new(rt: (Rt1, Rt2), (base, offset): (B, $offset_type)) -> Self {
                 Self {
-                    rt: (rt.0.into(), rt.1.into()),
-                    addr: (base.into(), offset),
+                    rt: (rt.0.into_reg(), rt.1.into_reg()),
+                    addr: (base.into_reg(), offset),
                 }
             }
         }
@@ -481,16 +481,16 @@ macro_rules! define_pair_imm_offset_rules {
         impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, B>
             for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt1: Into<$rt>,
-            Rt2: Into<$rt>,
-            B: Into<RegOrSp64>,
+            Rt1: IntoReg<$rt>,
+            Rt2: IntoReg<$rt>,
+            B: IntoReg<RegOrSp64>,
         {
             type Output = Self;
             #[inline]
             fn new(rt: (Rt1, Rt2), base: B) -> Self {
                 Self {
-                    rt: (rt.0.into(), rt.1.into()),
-                    addr: (base.into(), <$offset_type>::default()),
+                    rt: (rt.0.into_reg(), rt.1.into_reg()),
+                    addr: (base.into_reg(), <$offset_type>::default()),
                 }
             }
         }
@@ -499,16 +499,16 @@ macro_rules! define_pair_imm_offset_rules {
         impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B,)>
             for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt1: Into<$rt>,
-            Rt2: Into<$rt>,
-            B: Into<RegOrSp64>,
+            Rt1: IntoReg<$rt>,
+            Rt2: IntoReg<$rt>,
+            B: IntoReg<RegOrSp64>,
         {
             type Output = Self;
             #[inline]
             fn new(rt: (Rt1, Rt2), (base,): (B,)) -> Self {
                 Self {
-                    rt: (rt.0.into(), rt.1.into()),
-                    addr: (base.into(), <$offset_type>::default()),
+                    rt: (rt.0.into_reg(), rt.1.into_reg()),
+                    addr: (base.into_reg(), <$offset_type>::default()),
                 }
             }
         }
@@ -517,41 +517,41 @@ macro_rules! define_pair_imm_offset_rules {
         #[doc = r" specific range and alignment."]
         impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B, i32)> for $name<$rt, (RegOrSp64, $offset_type)>
         where
-            Rt1: Into<$rt>,
-            Rt2: Into<$rt>,
-            B: Into<RegOrSp64>,
+            Rt1: IntoReg<$rt>,
+            Rt2: IntoReg<$rt>,
+            B: IntoReg<RegOrSp64>,
         {
             type Output = Result<Self, BitError>;
             #[inline]
             fn new(rt: (Rt1, Rt2), (base, offset): (B, i32)) -> Self::Output {
                 let offset = <$offset_type>::try_from(offset)?;
                 Ok(Self {
-                    rt: (rt.0.into(), rt.1.into()),
-                    addr: (base.into(), offset),
+                    rt: (rt.0.into_reg(), rt.1.into_reg()),
+                    addr: (base.into_reg(), offset),
                 })
             }
         }
-        impl<Rt1: Into<$rt>, Rt2: Into<$rt>, Base: Into<RegOrSp64>>
+        impl<Rt1: IntoReg<$rt>, Rt2: IntoReg<$rt>, Base: IntoReg<RegOrSp64>>
             $trait_name<Rt1, Rt2, (Inc<$offset_type>, Base)>
             for $name<$rt, (Inc<$offset_type>, RegOrSp64)>
         {
             type Output = Self;
             fn new(rt: (Rt1, Rt2), (inc, base): (Inc<$offset_type>, Base)) -> Self {
                 Self {
-                    rt: (rt.0.into(), rt.1.into()),
-                    addr: (inc, base.into()),
+                    rt: (rt.0.into_reg(), rt.1.into_reg()),
+                    addr: (inc, base.into_reg()),
                 }
             }
         }
-        impl<Rt1: Into<$rt>, Rt2: Into<$rt>, Base: Into<RegOrSp64>>
+        impl<Rt1: IntoReg<$rt>, Rt2: IntoReg<$rt>, Base: IntoReg<RegOrSp64>>
             $trait_name<Rt1, Rt2, (Base, Inc<$offset_type>)>
             for $name<$rt, (RegOrSp64, Inc<$offset_type>)>
         {
             type Output = Self;
             fn new(rt: (Rt1, Rt2), (base, inc): (Base, Inc<$offset_type>)) -> Self {
                 Self {
-                    rt: (rt.0.into(), rt.1.into()),
-                    addr: (base.into(), inc),
+                    rt: (rt.0.into_reg(), rt.1.into_reg()),
+                    addr: (base.into_reg(), inc),
                 }
             }
         }
@@ -612,7 +612,7 @@ macro_rules! define_pair_fallible_rules {
         where
             $name<RtOut, ($crate::register::RegOrSp64, Ext)>:
                 $trait_name<RtInp1, RtInp2, (BaseInp, Ext)>,
-            $crate::register::RegOrSp64: From<BaseInp>,
+            BaseInp: IntoReg<$crate::register::RegOrSp64>,
         {
             type Output = ::core::result::Result<
                 <Self as $trait_name<RtInp1, RtInp2, (BaseInp, Ext)>>::Output,
@@ -637,7 +637,7 @@ macro_rules! define_pair_fallible_rules {
         where
             $name<RtOut, (Ext, $crate::register::RegOrSp64)>:
                 $trait_name<RtInp1, RtInp2, (Ext, BaseInp)>,
-            $crate::register::RegOrSp64: From<BaseInp>,
+            BaseInp: IntoReg<$crate::register::RegOrSp64>,
         {
             type Output = ::core::result::Result<
                 <Self as $trait_name<RtInp1, RtInp2, (Ext, BaseInp)>>::Output,

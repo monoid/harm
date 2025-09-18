@@ -19,8 +19,8 @@
 //! # Examples:
 //! ```
 //! # use harm::instructions::ldst::{strb, ext, LdStExtendOption32, LdStShift};
-//! use harm::register::Reg32::*;
-//! use harm::register::Reg64::*;
+//! use harm_types::A64::register::Reg32::*;
+//! use harm_types::A64::register::Reg64::*;
 //! use LdStExtendOption32::*;
 //!
 //! strb(W1, X2);        // STRB W1, [X2]
@@ -53,8 +53,8 @@
 //! Pre-increment and post-increment variants have the following syntax:
 //! ```
 //! # use harm::instructions::ldst::{strb, inc, preinc, postinc, LdStIncOffset};
-//! use harm::register::Reg32::*;
-//! use harm::register::Reg64::*;
+//! use harm_types::A64::register::Reg32::*;
+//! use harm_types::A64::register::Reg64::*;
 //! let offset = LdStIncOffset::new(4).unwrap();
 //! strb(W1, (inc(offset), X2));       // preincrement, STRB W1, [X2, #4]!
 //! strb(W1, (X2, inc(offset)));       // postincrement, STRB W1, [X2], #4
@@ -78,7 +78,7 @@ use super::{ByteShift, Inc, LdStIncOffset, ScaledOffset8};
 use crate::{
     bits::BitError,
     instructions::RawInstruction,
-    register::{RegOrSp64, RegOrZero32, RegOrZero64, Register},
+    register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register},
     sealed::Sealed,
 };
 

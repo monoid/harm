@@ -7,7 +7,7 @@ use aarchmrs_instructions::A64::ldst::ldst_unscaled::STURH_32_ldst_unscaled::STU
 
 use crate::bits::BitError;
 use crate::instructions::RawInstruction;
-use crate::register::{RegOrSp64, RegOrZero32, Register};
+use crate::register::{IntoReg, RegOrSp64, RegOrZero32, Register};
 use crate::sealed::Sealed;
 
 use super::UnscaledOffset;

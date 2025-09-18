@@ -11,7 +11,7 @@ use aarchmrs_types::InstructionCode;
 use crate::{
     bits::{SBitValue, UBitValue},
     instructions::RawInstruction,
-    register::{RegOrZero32, RegOrZero64, Register as _},
+    register::{IntoReg, RegOrZero32, RegOrZero64, Register as _},
     sealed::Sealed,
 };
 
@@ -28,13 +28,13 @@ pub trait MakeTestBranch<Reg, Bit>: Sealed {
     fn new(op: bool, reg: Reg, bit: Bit, offset: SBitValue<14, 2>) -> Self;
 }
 
-impl<R: Into<RegOrZero64>> MakeTestBranch<R, UBitValue<6>>
+impl<R: IntoReg<RegOrZero64>> MakeTestBranch<R, UBitValue<6>>
     for TestBranch<RegOrZero64, UBitValue<6>>
 {
     fn new(op: bool, reg: R, bit: UBitValue<6>, offset: SBitValue<14, 2>) -> Self {
         Self {
             op,
-            reg: reg.into(),
+            reg: reg.into_reg(),
             bit,
             offset,
         }

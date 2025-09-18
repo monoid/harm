@@ -396,6 +396,66 @@ impl Register for RegOrZero32 {
     }
 }
 
+pub trait IntoReg<X>: Sealed {
+    fn into_reg(self) -> X;
+}
+
+impl IntoReg<RegOrSp64> for Reg64 {
+    #[inline]
+    fn into_reg(self) -> RegOrSp64 {
+        RegOrSp64::Reg(self)
+    }
+}
+
+impl IntoReg<RegOrSp64> for RegOrSp64 {
+    #[inline]
+    fn into_reg(self) -> RegOrSp64 {
+        self
+    }
+}
+
+impl IntoReg<RegOrZero64> for Reg64 {
+    #[inline]
+    fn into_reg(self) -> RegOrZero64 {
+        RegOrZero64::Reg(self)
+    }
+}
+
+impl IntoReg<RegOrZero64> for RegOrZero64 {
+    #[inline]
+    fn into_reg(self) -> RegOrZero64 {
+        self
+    }
+}
+
+impl IntoReg<RegOrSp32> for Reg32 {
+    #[inline]
+    fn into_reg(self) -> RegOrSp32 {
+        RegOrSp32::Reg(self)
+    }
+}
+
+impl IntoReg<RegOrSp32> for RegOrSp32 {
+    #[inline]
+    fn into_reg(self) -> RegOrSp32 {
+        self
+    }
+}
+
+impl IntoReg<RegOrZero32> for Reg32 {
+    #[inline]
+    fn into_reg(self) -> RegOrZero32 {
+        RegOrZero32::Reg(self)
+    }
+}
+
+impl IntoReg<RegOrZero32> for RegOrZero32 {
+    #[inline]
+    fn into_reg(self) -> RegOrZero32 {
+        self
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
