@@ -2,6 +2,7 @@
  *
  * This document is licensed under the BSD 3-clause license.
  */
+
 #![no_std]
 #![forbid(unsafe_code)]
 #![deny(
@@ -18,5 +19,6 @@ pub mod bits;
 pub mod instructions;
 pub mod register;
 pub mod reloc;
+pub(crate) mod sealed;
 
 pub use aarchmrs_types::InstructionCode;
