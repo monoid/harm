@@ -10,7 +10,9 @@ const NICHE_REG: u8 = 31;
 use aarchmrs_types::BitValue;
 use num_enum::TryFromPrimitive;
 
-pub trait Register {
+use crate::sealed::Sealed;
+
+pub trait Register: Sealed {
     fn code(&self) -> BitValue<5>;
 }
 
@@ -332,6 +334,13 @@ impl TryFrom<u8> for RegOrZero32 {
         })
     }
 }
+
+impl Sealed for Reg64 {}
+impl Sealed for RegOrSp64 {}
+impl Sealed for RegOrZero64 {}
+impl Sealed for Reg32 {}
+impl Sealed for RegOrSp32 {}
+impl Sealed for RegOrZero32 {}
 
 impl Register for Reg64 {
     #[inline]
