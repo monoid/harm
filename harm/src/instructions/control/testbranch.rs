@@ -12,6 +12,7 @@ use crate::{
     bits::{SBitValue, UBitValue},
     instructions::RawInstruction,
     register::{IntoCode as _, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
 };
 
 pub struct TestBranch<Reg, Bit> {
@@ -21,7 +22,9 @@ pub struct TestBranch<Reg, Bit> {
     offset: SBitValue<14, 2>,
 }
 
-pub trait MakeTestBranch<Reg, Bit> {
+impl<Reg, Bit> Sealed for TestBranch<Reg, Bit> {}
+
+pub trait MakeTestBranch<Reg, Bit>: Sealed {
     fn new(op: bool, reg: Reg, bit: Bit, offset: SBitValue<14, 2>) -> Self;
 }
 
