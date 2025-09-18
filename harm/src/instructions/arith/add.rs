@@ -20,6 +20,7 @@ use crate::{
     bits::BitError,
     instructions::RawInstruction,
     register::{IntoCode as _, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
 };
 
 pub fn add<T, RealT, S1, S2, RealS1, RealS2>(
@@ -33,7 +34,7 @@ where
     Add::<RealT, RealS1, RealS2>::new(dst, src1, src2)
 }
 
-pub trait MakeAdd<T, S1, S2>: Sized {
+pub trait MakeAdd<T, S1, S2>: Sealed {
     type Output;
 
     fn new(dst: T, src1: S1, src2: S2) -> Self::Output;
@@ -44,6 +45,8 @@ pub struct Add<T, S1, S2> {
     pub src1: S1,
     pub src2: S2,
 }
+
+impl<T, S1, S2> Sealed for Add<T, S1, S2> {}
 
 impl MakeAdd<Reg64, Reg64, Reg64> for Add<Reg64, Reg64, Reg64> {
     type Output = Self;
