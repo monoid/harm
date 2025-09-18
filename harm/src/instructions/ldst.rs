@@ -55,6 +55,7 @@ pub use self::stur::*;
 pub use self::sturb::*;
 pub use self::sturh::*;
 use crate::bits::{SBitValue, UBitValue};
+use crate::sealed::Sealed;
 
 pub type LdStPcOffset = SBitValue<19, 2>;
 
@@ -75,12 +76,16 @@ pub type LdpStpOffset64 = SBitValue<7, 3>;
 #[derive(Copy, Clone, Debug)]
 pub struct ByteShift;
 
+impl Sealed for ByteShift {}
+
 impl LdStDestShiftOption for ByteShift {
     const SHIFT_SIZE: u32 = 0;
 }
 
 #[derive(Copy, Clone, Debug)]
 pub struct HalfShift;
+
+impl Sealed for HalfShift {}
 
 impl LdStDestShiftOption for HalfShift {
     const SHIFT_SIZE: u32 = 1;

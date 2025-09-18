@@ -5,7 +5,10 @@
 
 use aarchmrs_types::BitValue;
 
-use crate::register::{Reg32, Reg64, RegOrZero32, RegOrZero64};
+use crate::{
+    register::{Reg32, Reg64, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
+};
 
 /// Represents whether the register is shifted by the destination register size or not.
 #[derive(Copy, Clone, Debug)]
@@ -40,11 +43,16 @@ pub enum LdStExtendOption32 {
     SXTW = 0b110,
 }
 
+impl Sealed for Reg64 {}
+impl Sealed for RegOrZero64 {}
+impl Sealed for Reg32 {}
+impl Sealed for RegOrZero32 {}
+
 // TODO sealed traits
-pub trait LdStDestShiftOption {
+pub trait LdStDestShiftOption: Sealed {
     const SHIFT_SIZE: u32;
 }
-pub trait LdStOffsetExtendOption {
+pub trait LdStOffsetExtendOption: Sealed {
     type ExtendOption: Copy + core::fmt::Debug;
 }
 

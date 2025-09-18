@@ -6,6 +6,7 @@
 use crate::{
     bits::{BitError, SBitValue},
     register::RegOrZero64,
+    sealed::Sealed,
 };
 
 pub type LdStIncOffset = SBitValue<9>;
@@ -15,7 +16,9 @@ pub struct Inc<Offset> {
     pub offset: Offset,
 }
 
-pub trait MakeInc<Offset> {
+impl<Offset> Sealed for Inc<Offset> {}
+
+pub trait MakeInc<Offset>: Sealed {
     type Output;
     fn new(offset: Offset) -> Self::Output;
 }
