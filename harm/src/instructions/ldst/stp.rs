@@ -16,8 +16,11 @@ use aarchmrs_instructions::A64::ldst::{
 };
 
 use super::{Inc, LdpStpOffset32, LdpStpOffset64};
-use crate::bits::BitError;
-use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
+use crate::{
+    bits::BitError,
+    register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
+};
 
 /// A `STP` instruction with a destination and an address.
 pub struct Stp<Rt, Addr> {
@@ -35,9 +38,10 @@ impl<Rt, Addr> Stp<Rt, Addr> {
     }
 }
 
+impl<Rt, Addr> Sealed for Stp<Rt, Addr> {}
+
 /// Defines possible was to construct a `STP` instruction.
-// TODO sealed trait?
-pub trait MakeStp<Rt1, Rt2, Addr> {
+pub trait MakeStp<Rt1, Rt2, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
 

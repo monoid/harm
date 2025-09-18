@@ -89,9 +89,12 @@ use aarchmrs_instructions::A64::ldst::{
 
 use super::shift_extend::*;
 use super::{HalfShift, Inc, LdStIncOffset, ScaledOffset16};
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
+use crate::{
+    bits::BitError,
+    instructions::RawInstruction,
+    register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
+};
 
 /// A `LDRSH` instruction with a destination and an address.
 pub struct Ldrsh<Rt, Addr> {
@@ -109,9 +112,10 @@ impl<Rt, Addr> Ldrsh<Rt, Addr> {
     }
 }
 
+impl<Rt, Addr> Sealed for Ldrsh<Rt, Addr> {}
+
 /// Defines possible was to construct a `Ldrsh` instruction.
-// TODO sealed trait?
-pub trait MakeLdrsh<Rt, Addr> {
+pub trait MakeLdrsh<Rt, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;

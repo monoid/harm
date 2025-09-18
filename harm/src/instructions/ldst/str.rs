@@ -124,6 +124,7 @@ use crate::{
     bits::BitError,
     instructions::RawInstruction,
     register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
 };
 
 /// A `STR` instruction with a destination and an address.
@@ -142,9 +143,10 @@ impl<Rt, Addr> Str<Rt, Addr> {
     }
 }
 
+impl<Rt, Addr> Sealed for Str<Rt, Addr> {}
+
 /// Defines possible was to construct a `STR` instruction.
-// TODO sealed trait?
-pub trait MakeStr<Rt, Addr> {
+pub trait MakeStr<Rt, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;

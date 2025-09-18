@@ -8,6 +8,7 @@ use aarchmrs_instructions::A64::ldst::ldst_unscaled::LDURB_32_ldst_unscaled::LDU
 use crate::bits::BitError;
 use crate::instructions::RawInstruction;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32};
+use crate::sealed::Sealed;
 
 use super::UnscaledOffset;
 
@@ -27,9 +28,10 @@ impl<Rt, Addr> Ldurb<Rt, Addr> {
     }
 }
 
-/// Defines possible was to construct a `Load` instruction.
-// TODO sealed trait?
-pub trait MakeLdurb<Rt, Addr> {
+impl<Rt, Addr> Sealed for Ldurb<Rt, Addr> {}
+
+/// Defines possible was to construct a `ldurb` instruction.
+pub trait MakeLdurb<Rt, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
 

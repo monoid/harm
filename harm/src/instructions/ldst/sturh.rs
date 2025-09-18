@@ -8,6 +8,7 @@ use aarchmrs_instructions::A64::ldst::ldst_unscaled::STURH_32_ldst_unscaled::STU
 use crate::bits::BitError;
 use crate::instructions::RawInstruction;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32};
+use crate::sealed::Sealed;
 
 use super::UnscaledOffset;
 
@@ -27,9 +28,10 @@ impl<Rt, Addr> Sturh<Rt, Addr> {
     }
 }
 
-/// Defines possible was to construct a `Load` instruction.
-// TODO sealed trait?
-pub trait MakeSturh<Rt, Addr> {
+impl<Rt, Addr> Sealed for Sturh<Rt, Addr> {}
+
+/// Defines possible was to construct a `sturh` instruction.
+pub trait MakeSturh<Rt, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
 

@@ -79,9 +79,10 @@ use crate::{
     bits::BitError,
     instructions::RawInstruction,
     register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
 };
 
-/// A `LDRB` instruction with a destination and an address.
+/// A `ldrb` instruction with a destination and an address.
 pub struct Ldrb<Rt, Addr> {
     rt: Rt,
     addr: Addr,
@@ -97,9 +98,10 @@ impl<Rt, Addr> Ldrb<Rt, Addr> {
     }
 }
 
-/// Defines possible was to construct a `LDRB` instruction.
-// TODO sealed trait?
-pub trait MakeLdrb<Rt, Addr> {
+impl<Rt, Addr> Sealed for Ldrb<Rt, Addr> {}
+
+/// Defines possible was to construct a `ldrb` instruction.
+pub trait MakeLdrb<Rt, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;

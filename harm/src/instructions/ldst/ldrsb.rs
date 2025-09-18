@@ -92,6 +92,7 @@ use super::{ByteShift, Inc, LdStIncOffset, ScaledOffset8};
 use crate::bits::BitError;
 use crate::instructions::RawInstruction;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
+use crate::sealed::Sealed;
 
 /// A `LDRSB` instruction with a destination and an address.
 pub struct Ldrsb<Rt, Addr> {
@@ -109,9 +110,10 @@ impl<Rt, Addr> Ldrsb<Rt, Addr> {
     }
 }
 
+impl<Rt, Addr> Sealed for Ldrsb<Rt, Addr> {}
+
 /// Defines possible was to construct a `Ldrsb` instruction.
-// TODO sealed trait?
-pub trait MakeLdrsb<Rt, Addr> {
+pub trait MakeLdrsb<Rt, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;

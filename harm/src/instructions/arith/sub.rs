@@ -16,6 +16,7 @@ use crate::{
     bits::BitError,
     instructions::RawInstruction,
     register::{IntoCode as _, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
 };
 
 pub fn sub<T, RealT, S1, S2, RealS1, RealS2>(
@@ -29,7 +30,7 @@ where
     Sub::<RealT, RealS1, RealS2>::new(dst, src1, src2)
 }
 
-pub trait MakeSub<T, Src1, Src2>: Sized {
+pub trait MakeSub<T, Src1, Src2>: Sealed {
     type Output;
 
     fn new(dst: T, src1: Src1, src2: Src2) -> Self::Output;
@@ -40,6 +41,8 @@ pub struct Sub<T, Src1, Src2> {
     pub src1: Src1,
     pub src2: Src2,
 }
+
+impl<T, S1, S2> Sealed for Sub<T, S1, S2> {}
 
 impl MakeSub<Reg64, Reg64, Reg64> for Sub<Reg64, Reg64, Reg64> {
     type Output = Self;

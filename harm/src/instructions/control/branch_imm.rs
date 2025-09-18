@@ -13,6 +13,7 @@ use crate::{
     bits::{BitError, SBitValue},
     instructions::RawInstruction,
     register::{IntoCode as _, RegOrZero32, RegOrZero64},
+    sealed::Sealed,
 };
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -41,13 +42,13 @@ pub type BranchCondOffset = SBitValue<19, 2>;
 
 pub type CompareBranchOffset = SBitValue<19, 2>;
 
-pub trait MakeBranch<Args> {
+pub trait MakeBranch<Args>: Sealed {
     type Output;
 
     fn make(args: Args) -> Self::Output;
 }
 
-pub trait MakeBranchCond<Args> {
+pub trait MakeBranchCond<Args>: Sealed {
     type Output;
 
     fn make(cond: BranchCond, args: Args) -> Self::Output;
@@ -63,6 +64,8 @@ where
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Branch<B>(B);
+
+impl<B> Sealed for Branch<B> {}
 
 impl MakeBranch<BranchOffset> for Branch<BranchOffset> {
     type Output = Self;
@@ -138,7 +141,7 @@ impl RawInstruction for Branch<(BranchCond, BranchCondOffset)> {
     }
 }
 
-pub trait MakeBranchLink<Args> {
+pub trait MakeBranchLink<Args>: Sealed {
     type Output;
 
     fn make(args: Args) -> Self::Output;
@@ -154,6 +157,8 @@ where
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct BranchLink(BranchOffset);
+
+impl Sealed for BranchLink {}
 
 impl MakeBranchLink<BranchOffset> for BranchLink {
     type Output = Self;
@@ -187,7 +192,9 @@ pub struct CompareBranch<Reg> {
     offset: CompareBranchOffset,
 }
 
-pub trait MakeCompareBranch<Reg, Offset>: Sized {
+impl<Reg> Sealed for CompareBranch<Reg> {}
+
+pub trait MakeCompareBranch<Reg, Offset>: Sealed {
     type Output;
 
     fn new(equal: bool, reg: Reg, offset: Offset) -> Self::Output;
