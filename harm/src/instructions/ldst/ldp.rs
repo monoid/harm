@@ -18,8 +18,9 @@ use aarchmrs_instructions::A64::ldst::{
 use super::{Inc, LdpStpOffset32, LdpStpOffset64};
 use crate::bits::BitError;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
+use crate::sealed::Sealed;
 
-/// A `LDP` instruction with a destination and an address.
+/// A `ldp` instruction with a destination and an address.
 pub struct Ldp<Rt, Addr> {
     rt: (Rt, Rt),
     addr: Addr,
@@ -35,9 +36,10 @@ impl<Rt, Addr> Ldp<Rt, Addr> {
     }
 }
 
-/// Defines possible was to construct a `LDP` instruction.
-// TODO sealed trait?
-pub trait MakeLdp<Rt1, Rt2, Addr> {
+impl<Rt, Addr> Sealed for Ldp<Rt, Addr> {}
+
+/// Defines possible was to construct a `ldp` instruction.
+pub trait MakeLdp<Rt1, Rt2, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
 

@@ -124,14 +124,15 @@ use super::{Inc, LdStIncOffset, ScaledOffset32, ScaledOffset64};
 use crate::bits::BitError;
 use crate::instructions::RawInstruction;
 use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
+use crate::sealed::Sealed;
 
-/// A `LDR` instruction with a destination and an address.
-pub struct Load<Rt, Addr> {
+/// A `ldr` instruction with a destination and an address.
+pub struct Ldr<Rt, Addr> {
     rt: Rt,
     addr: Addr,
 }
 
-impl<Rt, Addr> Load<Rt, Addr> {
+impl<Rt, Addr> Ldr<Rt, Addr> {
     pub fn rt(&self) -> &Rt {
         &self.rt
     }
@@ -141,9 +142,10 @@ impl<Rt, Addr> Load<Rt, Addr> {
     }
 }
 
-/// Defines possible was to construct a `Load` instruction.
-// TODO sealed trait?
-pub trait MakeLoad<Rt, Addr> {
+impl<Rt, Addr> Sealed for Ldr<Rt, Addr> {}
+
+/// Defines possible was to construct a `ldr` instruction.
+pub trait MakeLdr<Rt, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;
@@ -151,35 +153,35 @@ pub trait MakeLoad<Rt, Addr> {
 //
 // ## LDR (register offset)
 //
-define_reg_offset_rules!(Load, MakeLoad, LDR, RegOrZero64, 64);
-define_reg_offset_rules!(Load, MakeLoad, LDR, RegOrZero32, 32);
+define_reg_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero64, 64);
+define_reg_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero32, 32);
 
 //
 // ## LDR (immediate offset)
 //
-define_imm_offset_rules!(Load, MakeLoad, LDR, RegOrZero64, 64, ScaledOffset64);
-define_imm_offset_rules!(Load, MakeLoad, LDR, RegOrZero32, 32, ScaledOffset32);
+define_imm_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero64, 64, ScaledOffset64);
+define_imm_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero32, 32, ScaledOffset32);
 
 //
 // ## LDR (PC-relative literal)
 //
-define_pc_offset_rules!(Load, MakeLoad, LDR, RegOrZero64, 64);
-define_pc_offset_rules!(Load, MakeLoad, LDR, RegOrZero32, 32);
+define_pc_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero64, 64);
+define_pc_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero32, 32);
 
 //
 // ## Faillible
 //
-define_fallible_rules!(LDR, Load, MakeLoad);
+define_fallible_rules!(LDR, Ldr, MakeLdr);
 
 /// ldr construction function.  See examples in the module documentation.
 pub fn ldr<TargetInp, TargetOut, AddrInp, AddrOut>(
     dst: TargetInp,
     addr: AddrInp,
-) -> <Load<TargetOut, AddrOut> as MakeLoad<TargetInp, AddrInp>>::Output
+) -> <Ldr<TargetOut, AddrOut> as MakeLdr<TargetInp, AddrInp>>::Output
 where
-    Load<TargetOut, AddrOut>: MakeLoad<TargetInp, AddrInp>,
+    Ldr<TargetOut, AddrOut>: MakeLdr<TargetInp, AddrInp>,
 {
-    Load::new(dst, addr)
+    Ldr::new(dst, addr)
 }
 
 #[cfg(test)]

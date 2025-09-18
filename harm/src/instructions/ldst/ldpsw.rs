@@ -12,8 +12,9 @@ use aarchmrs_instructions::A64::ldst::{
 use super::{Inc, LdpStpOffset32};
 use crate::bits::BitError;
 use crate::register::{IntoCode as _, RegOrSp64, RegOrZero64};
+use crate::sealed::Sealed;
 
-/// A `LDPSW` instruction with a destination and an address.
+/// A `ldpsw` instruction with a destination and an address.
 pub struct Ldpsw<Rt, Addr> {
     rt: (Rt, Rt),
     addr: Addr,
@@ -29,8 +30,10 @@ impl<Rt, Addr> Ldpsw<Rt, Addr> {
     }
 }
 
-/// Defines possible was to construct a `LDPSW` instruction.
-pub trait MakeLdpsw<Rt1, Rt2, Addr> {
+impl<Rt, Addr> Sealed for Ldpsw<Rt, Addr> {}
+
+/// Defines possible was to construct a `ldpsw` instruction.
+pub trait MakeLdpsw<Rt1, Rt2, Addr>: Sealed {
     /// Allows defining both faillible and infallible constructors.
     type Output;
 
