@@ -11,7 +11,7 @@ use aarchmrs_types::InstructionCode;
 use crate::{
     bits::{SBitValue, UBitValue},
     instructions::RawInstruction,
-    register::{IntoCode as _, RegOrZero32, RegOrZero64},
+    register::{RegOrZero32, RegOrZero64, Register as _},
     sealed::Sealed,
 };
 

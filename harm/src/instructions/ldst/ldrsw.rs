@@ -117,7 +117,7 @@ use super::shift_extend::*;
 use super::{Inc, LdStIncOffset, ScaledOffset32};
 use crate::bits::BitError;
 use crate::instructions::RawInstruction;
-use crate::register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64};
+use crate::register::{RegOrSp64, RegOrZero32, RegOrZero64, Register};
 use crate::sealed::Sealed;
 
 /// A `ldrsw` instruction with a destination and an address.

@@ -10,7 +10,7 @@ const NICHE_REG: u8 = 31;
 use aarchmrs_types::BitValue;
 use num_enum::TryFromPrimitive;
 
-pub trait IntoCode {
+pub trait Register {
     fn code(&self) -> BitValue<5>;
 }
 
@@ -333,21 +333,21 @@ impl TryFrom<u8> for RegOrZero32 {
     }
 }
 
-impl IntoCode for Reg64 {
+impl Register for Reg64 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(*self as u32)
     }
 }
 
-impl IntoCode for Reg32 {
+impl Register for Reg32 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(*self as u32)
     }
 }
 
-impl IntoCode for RegOrSp64 {
+impl Register for RegOrSp64 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
@@ -357,7 +357,7 @@ impl IntoCode for RegOrSp64 {
     }
 }
 
-impl IntoCode for RegOrZero64 {
+impl Register for RegOrZero64 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
@@ -367,7 +367,7 @@ impl IntoCode for RegOrZero64 {
     }
 }
 
-impl IntoCode for RegOrSp32 {
+impl Register for RegOrSp32 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
@@ -377,7 +377,7 @@ impl IntoCode for RegOrSp32 {
     }
 }
 
-impl IntoCode for RegOrZero32 {
+impl Register for RegOrZero32 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {

@@ -18,7 +18,7 @@ use aarchmrs_instructions::A64::ldst::{
 use super::{Inc, LdpStpOffset32, LdpStpOffset64};
 use crate::{
     bits::BitError,
-    register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
+    register::{RegOrSp64, RegOrZero32, RegOrZero64, Register},
     sealed::Sealed,
 };
 

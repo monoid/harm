@@ -80,7 +80,7 @@ use super::{HalfShift, Inc, LdStIncOffset, ScaledOffset16};
 use crate::{
     bits::BitError,
     instructions::RawInstruction,
-    register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
+    register::{RegOrSp64, RegOrZero32, RegOrZero64, Register},
     sealed::Sealed,
 };
 

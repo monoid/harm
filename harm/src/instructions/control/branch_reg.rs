@@ -10,7 +10,7 @@ use aarchmrs_instructions::A64::control::branch_reg::{
 use aarchmrs_types::InstructionCode;
 
 use crate::instructions::RawInstruction;
-use crate::register::{IntoCode as _, Reg64, RegOrZero64};
+use crate::register::{Reg64, RegOrZero64, Register as _};
 
 #[inline]
 pub fn ret() -> Ret {

@@ -43,12 +43,6 @@ pub enum LdStExtendOption32 {
     SXTW = 0b110,
 }
 
-impl Sealed for Reg64 {}
-impl Sealed for RegOrZero64 {}
-impl Sealed for Reg32 {}
-impl Sealed for RegOrZero32 {}
-
-// TODO sealed traits
 pub trait LdStDestShiftOption: Sealed {
     const SHIFT_SIZE: u32;
 }
