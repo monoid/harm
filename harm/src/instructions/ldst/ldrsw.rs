@@ -19,8 +19,8 @@
 //! # Examples:
 //! ```
 //! # use harm::instructions::ldst::{ldrsw, ext, LdStExtendOption32, LdStShift};
-//! use harm_types::A64::register::Reg32::*;
-//! use harm_types::A64::register::Reg64::*;
+//! use harm::register::Reg32::*;
+//! use harm::register::Reg64::*;
 //! use LdStExtendOption32::*;
 //!
 //! ldrsw(X1, X2);        // LDRSW W1, [X2]
@@ -57,8 +57,8 @@
 //! Pre-increment and post-increment variants have the following syntax:
 //! ```
 //! # use harm::instructions::ldst::{ldrsw, inc, preinc, postinc, LdStIncOffset};
-//! use harm_types::A64::register::Reg32::*;
-//! use harm_types::A64::register::Reg64::*;
+//! use harm::register::Reg32::*;
+//! use harm::register::Reg64::*;
 //! let offset = LdStIncOffset::new(4).unwrap();
 //! ldrsw(X1, (inc(offset), X2));       // preincrement, LDRSW X1, [X2, #4]!
 //! ldrsw(X1, (X2, inc(offset)));       // postincrement, LDRSW X1, [X2], #4
