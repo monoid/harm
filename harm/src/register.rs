@@ -10,7 +10,9 @@ const NICHE_REG: u8 = 31;
 use aarchmrs_types::BitValue;
 use num_enum::TryFromPrimitive;
 
-pub trait IntoCode {
+use crate::sealed::Sealed;
+
+pub trait Register: Sealed {
     fn code(&self) -> BitValue<5>;
 }
 
@@ -333,21 +335,28 @@ impl TryFrom<u8> for RegOrZero32 {
     }
 }
 
-impl IntoCode for Reg64 {
+impl Sealed for Reg64 {}
+impl Sealed for RegOrSp64 {}
+impl Sealed for RegOrZero64 {}
+impl Sealed for Reg32 {}
+impl Sealed for RegOrSp32 {}
+impl Sealed for RegOrZero32 {}
+
+impl Register for Reg64 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(*self as u32)
     }
 }
 
-impl IntoCode for Reg32 {
+impl Register for Reg32 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(*self as u32)
     }
 }
 
-impl IntoCode for RegOrSp64 {
+impl Register for RegOrSp64 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
@@ -357,7 +366,7 @@ impl IntoCode for RegOrSp64 {
     }
 }
 
-impl IntoCode for RegOrZero64 {
+impl Register for RegOrZero64 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
@@ -367,7 +376,7 @@ impl IntoCode for RegOrZero64 {
     }
 }
 
-impl IntoCode for RegOrSp32 {
+impl Register for RegOrSp32 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
@@ -377,13 +386,73 @@ impl IntoCode for RegOrSp32 {
     }
 }
 
-impl IntoCode for RegOrZero32 {
+impl Register for RegOrZero32 {
     #[inline]
     fn code(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register32) => *general_register32 as _,
             Self::WZR => NICHE_REG.into(),
         })
+    }
+}
+
+pub trait IntoReg<X>: Sealed {
+    fn into_reg(self) -> X;
+}
+
+impl IntoReg<RegOrSp64> for Reg64 {
+    #[inline]
+    fn into_reg(self) -> RegOrSp64 {
+        RegOrSp64::Reg(self)
+    }
+}
+
+impl IntoReg<RegOrSp64> for RegOrSp64 {
+    #[inline]
+    fn into_reg(self) -> RegOrSp64 {
+        self
+    }
+}
+
+impl IntoReg<RegOrZero64> for Reg64 {
+    #[inline]
+    fn into_reg(self) -> RegOrZero64 {
+        RegOrZero64::Reg(self)
+    }
+}
+
+impl IntoReg<RegOrZero64> for RegOrZero64 {
+    #[inline]
+    fn into_reg(self) -> RegOrZero64 {
+        self
+    }
+}
+
+impl IntoReg<RegOrSp32> for Reg32 {
+    #[inline]
+    fn into_reg(self) -> RegOrSp32 {
+        RegOrSp32::Reg(self)
+    }
+}
+
+impl IntoReg<RegOrSp32> for RegOrSp32 {
+    #[inline]
+    fn into_reg(self) -> RegOrSp32 {
+        self
+    }
+}
+
+impl IntoReg<RegOrZero32> for Reg32 {
+    #[inline]
+    fn into_reg(self) -> RegOrZero32 {
+        RegOrZero32::Reg(self)
+    }
+}
+
+impl IntoReg<RegOrZero32> for RegOrZero32 {
+    #[inline]
+    fn into_reg(self) -> RegOrZero32 {
+        self
     }
 }
 

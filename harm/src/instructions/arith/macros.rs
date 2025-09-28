@@ -59,14 +59,14 @@ macro_rules! define_arith_shift {
 
             impl<Src1, Src2> [<Make $name>]<$ztype, Src1, Src2> for $name<$ztype, $ztype, $ztype>
             where
-                Src1: Into<$ztype>,
-                Src2: Into<$ztype>,
+                Src1: IntoReg<$ztype>,
+                Src2: IntoReg<$ztype>,
             {
                 type Output = Self;
 
                 #[inline]
                 fn new(dst: $ztype, src1: Src1, src2: Src2) -> Self {
-                    Self { dst, src1: src1.into(), src2: src2.into() }
+                    Self { dst, src1: src1.into_reg(), src2: src2.into_reg() }
                 }
             }
 
@@ -85,8 +85,8 @@ macro_rules! define_arith_shift {
 
             impl<Dst, Src1> [<Make $name>]<Dst, Src1, ShiftedReg<$ztype>> for $name<$ztype, $ztype, ShiftedReg<$ztype>>
             where
-                Dst: Into<$ztype>,
-                Src1: Into<$ztype>,
+                Dst: IntoReg<$ztype>,
+                Src1: IntoReg<$ztype>,
             {
                 type Output = Self;
 
@@ -96,15 +96,15 @@ macro_rules! define_arith_shift {
                     src1: Src1,
                     src2: ShiftedReg<$ztype>,
                 ) -> Self {
-                    Self { dst: dst.into(), src1: src1.into(), src2 }
+                    Self { dst: dst.into_reg(), src1: src1.into_reg(), src2 }
                 }
             }
 
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ShiftMode, ShiftAmount)> for $name<$ztype, $ztype, ShiftedReg<$ztype>>
             where
-                Dst: Into<$ztype>,
-                Src1: Into<$ztype>,
-                Src2: Into<$ztype>,
+                Dst: IntoReg<$ztype>,
+                Src1: IntoReg<$ztype>,
+                Src2: IntoReg<$ztype>,
             {
                 type Output = Self;
 
@@ -114,16 +114,16 @@ macro_rules! define_arith_shift {
                     src1: Src1,
                     (src2, shift_mode, shift_amount): (Src2, ShiftMode, ShiftAmount)
                 ) -> Self {
-                    let src2 = ShiftedReg::new(src2.into()).shift(shift_mode, shift_amount);
-                    Self { dst: dst.into(), src1: src1.into(), src2 }
+                    let src2 = ShiftedReg::new(src2.into_reg()).shift(shift_mode, shift_amount);
+                    Self { dst: dst.into_reg(), src1: src1.into_reg(), src2 }
                 }
             }
 
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ShiftMode, u32)> for $name<$ztype, $ztype, ShiftedReg<$ztype>>
             where
-                Dst: Into<$ztype>,
-                Src1: Into<$ztype>,
-                Src2: Into<$ztype>,
+                Dst: IntoReg<$ztype>,
+                Src1: IntoReg<$ztype>,
+                Src2: IntoReg<$ztype>,
             {
                 type Output = Result<Self, BitError>;
 
@@ -134,8 +134,8 @@ macro_rules! define_arith_shift {
                     (src2, shift_mode, shift_amount): (Src2, ShiftMode, u32)
                 ) -> Result<Self, BitError> {
                     let shift_amount = shift_amount.try_into()?;
-                    let src2 = ShiftedReg::new(src2.into()).shift(shift_mode, shift_amount);
-                    Ok(Self { dst: dst.into(), src1: src1.into(), src2 })
+                    let src2 = ShiftedReg::new(src2.into_reg()).shift(shift_mode, shift_amount);
+                    Ok(Self { dst: dst.into_reg(), src1: src1.into_reg(), src2 })
                 }
             }
 
@@ -182,8 +182,8 @@ macro_rules! define_arith_imm12 {
             impl<Dst, Src> [<Make $name>]<Dst, Src, u32>
                 for $name<$etype, $etype, $crate::instructions::arith::AddSubImm12>
             where
-                Dst: Into<$etype>,
-                Src: Into<$etype>,
+                Dst: IntoReg<$etype>,
+                Src: IntoReg<$etype>,
             {
                 type Output = Result<Self, (BitError, BitError)>;
 
@@ -191,8 +191,8 @@ macro_rules! define_arith_imm12 {
                 fn new(dst: Dst, src1: Src, src2: u32) -> Self::Output {
                     let imm12 = $crate::instructions::arith::AddSubImm12::try_from(src2)?;
                     Ok(Self {
-                        dst: dst.into(),
-                        src1: src1.into(),
+                        dst: dst.into_reg(),
+                        src1: src1.into_reg(),
                         src2: imm12,
                     })
                 }
@@ -201,8 +201,8 @@ macro_rules! define_arith_imm12 {
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, Src2>
                 for $name<$etype, $etype, $crate::instructions::arith::AddSubImm12>
             where
-                Dst: Into<$etype>,
-                Src1: Into<$etype>,
+                Dst: IntoReg<$etype>,
+                Src1: IntoReg<$etype>,
                 Src2: Into<$crate::instructions::arith::AddSubImm12>,
             {
                 type Output = Self;
@@ -210,8 +210,8 @@ macro_rules! define_arith_imm12 {
                 #[inline]
                 fn new(dst: Dst, src1: Src1, src2: Src2) -> Self::Output {
                     Self {
-                        dst: dst.into(),
-                        src1: src1.into(),
+                        dst: dst.into_reg(),
+                        src1: src1.into_reg(),
                         src2: src2.into(),
                     }
                 }
@@ -255,14 +255,14 @@ macro_rules! define_arith_extend {
             }
 
             impl<Src1, Src2> [<Make $name>]<$stype, Src1, Src2> for $name<$stype, $stype, $ztype>
-            where Src1: Into<$stype>,
-                  Src2: Into<$ztype>
+            where Src1: IntoReg<$stype>,
+                  Src2: IntoReg<$ztype>
             {
                 type Output = Self;
 
                 #[inline]
                 fn new(dst: $stype, src1: Src1, src2: Src2) -> Self {
-                    Self { dst, src1: src1.into(), src2: src2.into() }
+                    Self { dst, src1: src1.into_reg(), src2: src2.into_reg() }
                 }
             }
 
@@ -327,9 +327,9 @@ macro_rules! define_arith_extend {
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode)>
                 for $name<$stype, $stype, ExtendedReg<$ztype>>
                 where
-                    Dst: Into<$stype>,
-                    Src1: Into<$stype>,
-                    Src2: Into<$ztype>,
+                    Dst: IntoReg<$stype>,
+                    Src1: IntoReg<$stype>,
+                    Src2: IntoReg<$ztype>,
             {
                 type Output = Self;
 
@@ -339,17 +339,17 @@ macro_rules! define_arith_extend {
                     src1: Src1,
                     (src2, mode): (Src2, ExtendMode),
                 ) -> Self {
-                    let src2 = ExtendedReg::new(src2.into()).extend(mode, <_>::default());
-                    Self { dst: dst.into(), src1: src1.into(), src2 }
+                    let src2 = ExtendedReg::new(src2.into_reg()).extend(mode, <_>::default());
+                    Self { dst: dst.into_reg(), src1: src1.into_reg(), src2 }
                 }
             }
 
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode, ExtendShiftAmount)>
                 for $name<$stype, $stype, ExtendedReg<$ztype>>
                 where
-                    Dst: Into<$stype>,
-                    Src1: Into<$stype>,
-                    Src2: Into<$ztype>,
+                    Dst: IntoReg<$stype>,
+                    Src1: IntoReg<$stype>,
+                    Src2: IntoReg<$ztype>,
             {
                 type Output = Self;
 
@@ -359,17 +359,17 @@ macro_rules! define_arith_extend {
                     src1: Src1,
                     (src2, mode, offset): (Src2, ExtendMode, ExtendShiftAmount),
                 ) -> Self::Output {
-                    let src2 = ExtendedReg::new(src2.into()).extend(mode, offset);
-                    Self { dst: dst.into(), src1: src1.into(), src2 }
+                    let src2 = ExtendedReg::new(src2.into_reg()).extend(mode, offset);
+                    Self { dst: dst.into_reg(), src1: src1.into_reg(), src2 }
                 }
             }
 
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode, u8)>
                 for $name<$stype, $stype, ExtendedReg<$ztype>>
                 where
-                    Dst: Into<$stype>,
-                    Src1: Into<$stype>,
-                    Src2: Into<$ztype>,
+                    Dst: IntoReg<$stype>,
+                    Src1: IntoReg<$stype>,
+                    Src2: IntoReg<$ztype>,
             {
                 type Output = Result<Self, ExtendError>;
 

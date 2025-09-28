@@ -123,7 +123,7 @@ use super::{Inc, LdStIncOffset, ScaledOffset32, ScaledOffset64};
 use crate::{
     bits::BitError,
     instructions::RawInstruction,
-    register::{IntoCode, RegOrSp64, RegOrZero32, RegOrZero64},
+    register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register},
     sealed::Sealed,
 };
 

@@ -10,7 +10,7 @@ use aarchmrs_instructions::A64::control::branch_reg::{
 use aarchmrs_types::InstructionCode;
 
 use crate::instructions::RawInstruction;
-use crate::register::{IntoCode as _, Reg64, RegOrZero64};
+use crate::register::{IntoReg, Reg64, RegOrZero64, Register as _};
 
 #[inline]
 pub fn ret() -> Ret {
@@ -28,8 +28,8 @@ impl Ret {
     }
 
     #[inline]
-    pub fn reg(mut self, reg: impl Into<RegOrZero64>) -> Self {
-        self.0 = reg.into();
+    pub fn reg(mut self, reg: impl IntoReg<RegOrZero64>) -> Self {
+        self.0 = reg.into_reg();
         self
     }
 }
@@ -51,8 +51,8 @@ impl RawInstruction for Br {
 }
 
 #[inline]
-pub fn br(reg: impl Into<RegOrZero64>) -> Br {
-    Br(reg.into())
+pub fn br(reg: impl IntoReg<RegOrZero64>) -> Br {
+    Br(reg.into_reg())
 }
 
 pub struct Blr(RegOrZero64);
