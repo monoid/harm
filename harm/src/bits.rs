@@ -105,6 +105,11 @@ impl From<bool> for UBitValue<1> {
         Self(value as u32)
     }
 }
+impl From<u16> for UBitValue<16> {
+    fn from(value: u16) -> Self {
+        Self(value as u32)
+    }
+}
 
 impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> From<UBitValue<SIGNIFICANT_BITS, ALIGN>>
     for BitValue<SIGNIFICANT_BITS>

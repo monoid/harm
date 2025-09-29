@@ -10,6 +10,7 @@ use crate::reloc::Reloc;
 pub mod arith;
 pub mod control;
 pub mod ldst;
+pub mod movewide;
 
 pub trait RawInstruction {
     fn to_code(&self) -> InstructionCode;
