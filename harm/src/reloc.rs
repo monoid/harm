@@ -10,7 +10,7 @@
 pub struct LabelId(pub usize);
 
 // Every offset in an instruction does fit in i32.
-// But what if we want to support virtual instructions with larger offsets?
+// But "[relocation] is sign-extended to 64 bits".
 pub type Offset = i64;
 
 pub type Addr = u64;
