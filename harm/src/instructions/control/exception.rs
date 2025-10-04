@@ -8,7 +8,6 @@ use aarchmrs_instructions::A64::control::exception::{
     DCPS2_DC_exception::DCPS2_DC_exception, DCPS3_DC_exception::DCPS3_DC_exception,
     HLT_EX_exception::HLT_EX_exception, HVC_EX_exception::HVC_EX_exception,
     SMC_EX_exception::SMC_EX_exception, SVC_EX_exception::SVC_EX_exception,
-    TCANCEL_EX_exception::TCANCEL_EX_exception,
 };
 
 use crate::{bits::UBitValue, instructions::RawInstruction};
@@ -44,7 +43,6 @@ define_simple_exception!(hlt, ex);
 define_simple_exception!(hvc, ex);
 define_simple_exception!(smc, ex);
 define_simple_exception!(svc, ex);
-define_simple_exception!(tcancel, ex);
 
 #[cfg(test)]
 mod tests {
@@ -62,7 +60,6 @@ d4400680	hlt #0x34
 d40008a2	hvc #0x45
 d40009a3	smc #0x4d
 d4007061	svc #0x383
-d4607660	tcancel #0x3b3
 ";
 
     test_cases! {
@@ -75,6 +72,5 @@ d4607660	tcancel #0x3b3
         test_hvc, hvc(ExceptionId::new(0x45).unwrap()), "hvc #0x45";
         test_smc, smc(ExceptionId::new(0x4d).unwrap()), "smc #0x4d";
         test_svc, svc(ExceptionId::new(0x383).unwrap()), "svc #0x383";
-        test_tcancel, tcancel(ExceptionId::new(0x3b3).unwrap()), "tcancel #0x3b3";
     }
 }
