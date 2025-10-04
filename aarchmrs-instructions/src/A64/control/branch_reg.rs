@@ -235,6 +235,26 @@ pub mod ERETAB_64E_branch_reg {
         ::aarchmrs_types::InstructionCode::from_u32(0b11010110100111110000111111111111u32 << 0u32)
     }
 }
+pub mod TEXIT_te_branch_reg {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111101111111111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11010110111111110000001111100000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "TEXIT_te_branch_reg";
+    #[inline]
+    pub const fn TEXIT_te_branch_reg(
+        op1: ::aarchmrs_types::BitValue<1>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b110101101111111100000u32 << 11u32
+                | op1.into_inner() << 10u32
+                | 0b1111100000u32 << 0u32,
+        )
+    }
+}
 pub mod DRPS_64E_branch_reg {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111111111111111111111u32;

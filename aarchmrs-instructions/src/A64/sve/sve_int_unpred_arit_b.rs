@@ -3,5 +3,7 @@
  * This document is Non-confidential and licensed under the BSD 3-clause license.
  */
 
+pub mod sve_int_addqp;
+pub mod sve_int_addsubp;
 pub mod sve_int_mul_b;
 pub mod sve_int_sqdmulh;

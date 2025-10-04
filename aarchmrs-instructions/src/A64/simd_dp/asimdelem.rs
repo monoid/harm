@@ -567,6 +567,40 @@ pub mod FDOT_asimdelem_G {
         )
     }
 }
+pub mod FDOT_asimdelem_FP16FP32 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b10111111110000001111010000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00001111010000001001000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FDOT_asimdelem_FP16FP32";
+    #[inline]
+    pub const fn FDOT_asimdelem_FP16FP32(
+        Q: ::aarchmrs_types::BitValue<1>,
+        L: ::aarchmrs_types::BitValue<1>,
+        M: ::aarchmrs_types::BitValue<1>,
+        Rm: ::aarchmrs_types::BitValue<4>,
+        H: ::aarchmrs_types::BitValue<1>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b0u32 << 31u32
+                | Q.into_inner() << 30u32
+                | 0b00111101u32 << 22u32
+                | L.into_inner() << 21u32
+                | M.into_inner() << 20u32
+                | Rm.into_inner() << 16u32
+                | 0b1001u32 << 12u32
+                | H.into_inner() << 11u32
+                | 0b0u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
 pub mod BFDOT_asimdelem_E {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b10111111110000001111010000000000u32;

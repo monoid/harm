@@ -37,5 +37,6 @@ pub mod memcms;
 pub mod memop;
 pub mod memop_128;
 pub mod memop_unpriv;
+pub mod memset_go;
 pub mod rcwcomswap;
 pub mod rcwcomswappr;

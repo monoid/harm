@@ -3,6 +3,7 @@
  * This document is Non-confidential and licensed under the BSD 3-clause license.
  */
 
+pub mod sve_abal;
 pub mod sve_alloca;
 pub mod sve_cmpgpr;
 pub mod sve_cmpsimm;
@@ -28,6 +29,7 @@ pub mod sve_fp_fma_by_indexed_elem;
 pub mod sve_fp_fma_w;
 pub mod sve_fp_fma_w_by_indexed_elem;
 pub mod sve_fp_fmmla;
+pub mod sve_fp_fmmla_nw;
 pub mod sve_fp_fmul_by_indexed_elem;
 pub mod sve_fp_pairwise;
 pub mod sve_fp_pred;

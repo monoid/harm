@@ -453,3 +453,35 @@ pub mod STSHH_HI_hints {
         )
     }
 }
+pub mod SHUH_HI_hints {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111111111011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11010101000000110010011001011111u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "SHUH_HI_hints";
+    #[inline]
+    pub const fn SHUH_HI_hints(
+        op2: ::aarchmrs_types::BitValue<1>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11010101000000110010011001u32 << 6u32 | op2.into_inner() << 5u32 | 0b11111u32 << 0u32,
+        )
+    }
+}
+pub mod STCPH_HI_hints {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111111111111111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11010101000000110010011010011111u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "STCPH_HI_hints";
+    #[inline]
+    pub const fn STCPH_HI_hints() -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(0b11010101000000110010011010011111u32 << 0u32)
+    }
+}

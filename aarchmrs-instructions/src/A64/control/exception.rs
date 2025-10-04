@@ -93,24 +93,6 @@ pub mod HLT_EX_exception {
         )
     }
 }
-pub mod TCANCEL_EX_exception {
-    #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111000000000000000011111u32;
-    #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11010100011000000000000000000000u32;
-    #[cfg(feature = "meta")]
-    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
-    #[cfg(feature = "meta")]
-    pub const NAME: &str = "TCANCEL_EX_exception";
-    #[inline]
-    pub const fn TCANCEL_EX_exception(
-        imm16: ::aarchmrs_types::BitValue<16>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11010100011u32 << 21u32 | imm16.into_inner() << 5u32 | 0b00000u32 << 0u32,
-        )
-    }
-}
 pub mod DCPS1_DC_exception {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000000000000000011111u32;
@@ -162,6 +144,29 @@ pub mod DCPS3_DC_exception {
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b11010100101u32 << 21u32 | imm16.into_inner() << 5u32 | 0b00011u32 << 0u32,
+        )
+    }
+}
+pub mod TENTER_te_exception {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111111011111000000011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11010100111000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000011111000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "TENTER_te_exception";
+    #[inline]
+    pub const fn TENTER_te_exception(
+        op1: ::aarchmrs_types::BitValue<1>,
+        imm7: ::aarchmrs_types::BitValue<7>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11010100111000u32 << 18u32
+                | op1.into_inner() << 17u32
+                | 0b00000u32 << 12u32
+                | imm7.into_inner() << 5u32
+                | 0b00000u32 << 0u32,
         )
     }
 }
