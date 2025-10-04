@@ -20,5 +20,6 @@ pub mod systeminstrs;
 pub mod systeminstrswithreg;
 pub mod systemmove;
 pub mod systemmovepr;
-pub mod systemresult;
+pub mod tchange_imm;
+pub mod tchange_reg;
 pub mod testbranch;

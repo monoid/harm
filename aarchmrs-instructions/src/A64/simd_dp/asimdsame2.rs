@@ -168,6 +168,33 @@ pub mod USDOT_asimdsame2_D {
         )
     }
 }
+pub mod FDOT_asimdsame2_FP16FP32 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b10111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00001110100000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FDOT_asimdsame2_FP16FP32";
+    #[inline]
+    pub const fn FDOT_asimdsame2_FP16FP32(
+        Q: ::aarchmrs_types::BitValue<1>,
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b0u32 << 31u32
+                | Q.into_inner() << 30u32
+                | 0b001110100u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111111u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
 pub mod SQRDMLAH_asimdsame2_only {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b10111111001000001111110000000000u32;
@@ -546,6 +573,30 @@ pub mod USMMLA_asimdsame2_G {
         )
     }
 }
+pub mod FMMLA_asimd_FP16FP16 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b01001110110000001110110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMMLA_asimd_FP16FP16";
+    #[inline]
+    pub const fn FMMLA_asimd_FP16FP16(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b01001110110u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111011u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
 pub mod FMLALT_asimdsame2_J {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
@@ -587,6 +638,30 @@ pub mod FMMLA_asimd_FP8FP16 {
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b01101110000u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111011u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMMLA_asimd_FP16FP32 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b01001110010000001110110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMMLA_asimd_FP16FP32";
+    #[inline]
+    pub const fn FMMLA_asimd_FP16FP32(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b01001110010u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b111011u32 << 10u32
                 | Rn.into_inner() << 5u32

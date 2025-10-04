@@ -109,17 +109,3 @@ pub mod DSB_BOn_barriers {
         )
     }
 }
-pub mod TCOMMIT_only_barriers {
-    #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111111111111111u32;
-    #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11010101000000110011000001111111u32;
-    #[cfg(feature = "meta")]
-    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
-    #[cfg(feature = "meta")]
-    pub const NAME: &str = "TCOMMIT_only_barriers";
-    #[inline]
-    pub const fn TCOMMIT_only_barriers() -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(0b11010101000000110011000001111111u32 << 0u32)
-    }
-}

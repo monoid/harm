@@ -1,6 +1,6 @@
 [package]
 name = "aarchmrs-gen"
-version = "0.2.0-2025-06"
+version = "0.2.0-2025-09"
 edition = "2024"
 description = "AARCHMRS generator"
 license = "BSD-3-Clause"
