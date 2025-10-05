@@ -14,7 +14,7 @@ use aarchmrs_instructions::A64::dpimm::movewide::{
 };
 
 use crate::{
-    bits::UBitValue,
+    bits::{BitError, UBitValue},
     outcome::{Outcome, Unfallible},
     register::{IntoReg, RegOrZero32, RegOrZero64, Register},
     sealed::Sealed,
@@ -56,8 +56,8 @@ pub struct MovArgs<Reg: MoveShift> {
 
 impl<Reg: MoveShift> Sealed for MovArgs<Reg> {}
 
-impl<RIn: IntoReg<RegOrZero32>, Imm16: Into<MoveImm16>>
-    MakeMovArgs<RIn, (Imm16, <RegOrZero32 as MoveShift>::Shift)> for MovArgs<RegOrZero32>
+impl<RIn: IntoReg<RegOrZero32>, Imm16: Into<MoveImm16>> MakeMovArgs<RIn, (Imm16, Shift32)>
+    for MovArgs<RegOrZero32>
 {
     type Outcome = Unfallible<Self>;
 
@@ -70,11 +70,25 @@ impl<RIn: IntoReg<RegOrZero32>, Imm16: Into<MoveImm16>>
     }
 }
 
+impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovArgs<RegOrZero32>
+where
+    RIn: IntoReg<RegOrZero32>,
+    Imm16: Into<MoveImm16>,
+{
+    type Outcome = Result<Self, BitError>;
+
+    fn new(rd: RIn, (imm16, shift): (Imm16, u8)) -> Self::Outcome {
+        (shift as u32).try_into().map(|shift| Self {
+            rd: rd.into_reg(),
+            imm16: imm16.into(),
+            shift,
+        })
+    }
+}
+
 impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovArgs<RegOrZero32>
 where
     RIn: IntoReg<RegOrZero32>,
-    RegOrZero32: MoveShift,
-    <RegOrZero32 as MoveShift>::Shift: Default,
     Imm16: Into<MoveImm16>,
 {
     type Outcome = Unfallible<Self>;
@@ -93,7 +107,7 @@ impl<RIn: IntoReg<RegOrZero64>, Imm16: Into<MoveImm16>>
 {
     type Outcome = Unfallible<Self>;
 
-    fn new(rd: RIn, (imm16, shift): (Imm16, <RegOrZero64 as MoveShift>::Shift)) -> Self::Outcome {
+    fn new(rd: RIn, (imm16, shift): (Imm16, Shift64)) -> Self::Outcome {
         Unfallible(Self {
             rd: rd.into_reg(),
             imm16: imm16.into(),
@@ -105,8 +119,6 @@ impl<RIn: IntoReg<RegOrZero64>, Imm16: Into<MoveImm16>>
 impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovArgs<RegOrZero64>
 where
     RIn: IntoReg<RegOrZero64>,
-    RegOrZero64: MoveShift,
-    <RegOrZero64 as MoveShift>::Shift: Default,
     Imm16: Into<MoveImm16>,
 {
     type Outcome = Unfallible<Self>;
@@ -116,6 +128,22 @@ where
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift: <_>::default(),
+        })
+    }
+}
+
+impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovArgs<RegOrZero64>
+where
+    RIn: IntoReg<RegOrZero64>,
+    Imm16: Into<MoveImm16>,
+{
+    type Outcome = Result<Self, BitError>;
+
+    fn new(rd: RIn, (imm16, shift): (Imm16, u8)) -> Self::Outcome {
+        (shift as u32).try_into().map(|shift| Self {
+            rd: rd.into_reg(),
+            imm16: imm16.into(),
+            shift,
         })
     }
 }
@@ -188,9 +216,6 @@ where
 {
     <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovZ)
 }
-
-// TODO variants fallible on the value should be implemented in the virtual `MOV` instruction; however,
-// we should implemenet a variant fallible on shift.
 
 impl RawInstruction for MovZ<MovArgs<RegOrZero32>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
@@ -267,57 +292,63 @@ f2f08421	movk x1, #0x8421, lsl #48
     test_cases! {
         MOVX_DB, untested_movx_db;
         test_movk_32_42, movk(W1, 42), "movk w1, #42";
-        test_movk_32_42_lsl_0, movk(W1, (42, 0.try_into().unwrap())), "movk w1, #42, lsl #0";
-        test_movk_32_42_lsl_16, movk(W1, (42, 16.try_into().unwrap())), "movk w1, #42, lsl #16";
+        test_movk_32_42_lsl_0, movk(W1, (42, UBitValue::new(0).unwrap())), "movk w1, #42, lsl #0";
+        test_movk_32_42_lsl_16, movk(W1, (42, UBitValue::new(16).unwrap())), "movk w1, #42, lsl #16";
         test_movk_32_0x8421, movk(W1, 0x8421), "movk w1, #0x8421";
-        test_movk_32_0x8421_lsl_0, movk(W1, (0x8421, 0.try_into().unwrap())), "movk w1, #0x8421, lsl #0";
-        test_movk_32_0x8421_lsl_16, movk(W1, (0x8421, 16.try_into().unwrap())), "movk w1, #0x8421, lsl #16";
+        test_movk_32_0x8421_lsl_0, movk(W1, (0x8421, UBitValue::new(0).unwrap())), "movk w1, #0x8421, lsl #0";
+        test_movk_32_0x8421_lsl_16, movk(W1, (0x8421, UBitValue::new(16).unwrap())), "movk w1, #0x8421, lsl #16";
+        test_movk_32_0x8421_lsl_16_fallible, movk(W1, (0x8421, 16)).unwrap(), "movk w1, #0x8421, lsl #16";
 
         test_movk_64_42, movk(X1, 42), "movk x1, #42";
-        test_movk_64_42_lsl_0, movk(X1, (42, 0.try_into().unwrap())), "movk x1, #42, lsl #0";
-        test_movk_64_42_lsl_16, movk(X1, (42, 16.try_into().unwrap())), "movk x1, #42, lsl #16";
-        test_movk_64_42_lsl_32, movk(X1, (42, 32.try_into().unwrap())), "movk x1, #42, lsl #32";
-        test_movk_64_42_lsl_48, movk(X1, (42, 48.try_into().unwrap())), "movk x1, #42, lsl #48";
+        test_movk_64_42_lsl_0, movk(X1, (42, UBitValue::new(0).unwrap())), "movk x1, #42, lsl #0";
+        test_movk_64_42_lsl_16, movk(X1, (42, UBitValue::new(16).unwrap())), "movk x1, #42, lsl #16";
+        test_movk_64_42_lsl_32, movk(X1, (42, UBitValue::new(32).unwrap())), "movk x1, #42, lsl #32";
+        test_movk_64_42_lsl_48, movk(X1, (42, UBitValue::new(48).unwrap())), "movk x1, #42, lsl #48";
         test_movk_64_0x8421, movk(X1, 0x8421), "movk x1, #0x8421";
-        test_movk_64_0x8421_lsl_0, movk(X1, (0x8421, 0.try_into().unwrap())), "movk x1, #0x8421, lsl #0";
-        test_movk_64_0x8421_lsl_16, movk(X1, (0x8421, 16.try_into().unwrap())), "movk x1, #0x8421, lsl #16";
-        test_movk_64_0x8421_lsl_32, movk(X1, (0x8421, 32.try_into().unwrap())), "movk x1, #0x8421, lsl #32";
-        test_movk_64_0x8421_lsl_48, movk(X1, (0x8421, 48.try_into().unwrap())), "movk x1, #0x8421, lsl #48";
+        test_movk_64_0x8421_lsl_0, movk(X1, (0x8421, UBitValue::new(0).unwrap())), "movk x1, #0x8421, lsl #0";
+        test_movk_64_0x8421_lsl_16, movk(X1, (0x8421, UBitValue::new(16).unwrap())), "movk x1, #0x8421, lsl #16";
+        test_movk_64_0x8421_lsl_32, movk(X1, (0x8421, UBitValue::new(32).unwrap())), "movk x1, #0x8421, lsl #32";
+        test_movk_64_0x8421_lsl_48, movk(X1, (0x8421, UBitValue::new(48).unwrap())), "movk x1, #0x8421, lsl #48";
+        test_movk_64_0x8421_lsl_48_fallible, movk(X1, (0x8421, 48)).unwrap(), "movk x1, #0x8421, lsl #48";
 
         test_movn_32_42, movn(W1, 42), "movn w1, #42";
-        test_movn_32_42_lsl_0, movn(W1, (42, 0.try_into().unwrap())), "movn w1, #42, lsl #0";
-        test_movn_32_42_lsl_16, movn(W1, (42, 16.try_into().unwrap())), "movn w1, #42, lsl #16";
+        test_movn_32_42_lsl_0, movn(W1, (42, UBitValue::new(0).unwrap())), "movn w1, #42, lsl #0";
+        test_movn_32_42_lsl_16, movn(W1, (42, UBitValue::new(16).unwrap())), "movn w1, #42, lsl #16";
         test_movn_32_0x8421, movn(W1, 0x8421), "movn w1, #0x8421";
-        test_movn_32_0x8421_lsl_0, movn(W1, (0x8421, 0.try_into().unwrap())), "movn w1, #0x8421, lsl #0";
-        test_movn_32_0x8421_lsl_16, movn(W1, (0x8421, 16.try_into().unwrap())), "movn w1, #0x8421, lsl #16";
+        test_movn_32_0x8421_lsl_0, movn(W1, (0x8421, UBitValue::new(0).unwrap())), "movn w1, #0x8421, lsl #0";
+        test_movn_32_0x8421_lsl_16, movn(W1, (0x8421, UBitValue::new(16).unwrap())), "movn w1, #0x8421, lsl #16";
+        test_movn_32_0x8421_lsl_16_fallible, movn(W1, (0x8421, 16)).unwrap(), "movn w1, #0x8421, lsl #16";
 
         test_movn_64_42, movn(X1, 42), "movn x1, #42";
-        test_movn_64_42_lsl_0, movn(X1, (42, 0.try_into().unwrap())), "movn x1, #42, lsl #0";
-        test_movn_64_42_lsl_16, movn(X1, (42, 16.try_into().unwrap())), "movn x1, #42, lsl #16";
-        test_movn_64_42_lsl_32, movn(X1, (42, 32.try_into().unwrap())), "movn x1, #42, lsl #32";
-        test_movn_64_42_lsl_48, movn(X1, (42, 48.try_into().unwrap())), "movn x1, #42, lsl #48";
+        test_movn_64_42_lsl_0, movn(X1, (42, UBitValue::new(0).unwrap())), "movn x1, #42, lsl #0";
+        test_movn_64_42_lsl_16, movn(X1, (42, UBitValue::new(16).unwrap())), "movn x1, #42, lsl #16";
+        test_movn_64_42_lsl_32, movn(X1, (42, UBitValue::new(32).unwrap())), "movn x1, #42, lsl #32";
+        test_movn_64_42_lsl_48, movn(X1, (42, UBitValue::new(48).unwrap())), "movn x1, #42, lsl #48";
         test_movn_64_0x8421, movn(X1, 0x8421), "movn x1, #0x8421";
-        test_movn_64_0x8421_lsl_0, movn(X1, (0x8421, 0.try_into().unwrap())), "movn x1, #0x8421, lsl #0";
-        test_movn_64_0x8421_lsl_16, movn(X1, (0x8421, 16.try_into().unwrap())), "movn x1, #0x8421, lsl #16";
-        test_movn_64_0x8421_lsl_32, movn(X1, (0x8421, 32.try_into().unwrap())), "movn x1, #0x8421, lsl #32";
-        test_movn_64_0x8421_lsl_48, movn(X1, (0x8421, 48.try_into().unwrap())), "movn x1, #0x8421, lsl #48";
+        test_movn_64_0x8421_lsl_0, movn(X1, (0x8421, UBitValue::new(0).unwrap())), "movn x1, #0x8421, lsl #0";
+        test_movn_64_0x8421_lsl_16, movn(X1, (0x8421, UBitValue::new(16).unwrap())), "movn x1, #0x8421, lsl #16";
+        test_movn_64_0x8421_lsl_32, movn(X1, (0x8421, UBitValue::new(32).unwrap())), "movn x1, #0x8421, lsl #32";
+        test_movn_64_0x8421_lsl_48, movn(X1, (0x8421, UBitValue::new(48).unwrap())), "movn x1, #0x8421, lsl #48";
+        test_movn_64_0x8421_lsl_48_fallible, movn(X1, (0x8421, 48)).unwrap(), "movn x1, #0x8421, lsl #48";
 
         test_movz_32_42, movz(W1, 42), "movz w1, #42";
-        test_movz_32_42_lsl_0, movz(W1, (42, 0.try_into().unwrap())), "movz w1, #42, lsl #0";
-        test_movz_32_42_lsl_16, movz(W1, (42, 16.try_into().unwrap())), "movz w1, #42, lsl #16";
+        test_movz_32_42_lsl_0, movz(W1, (42, UBitValue::new(0).unwrap())), "movz w1, #42, lsl #0";
+        test_movz_32_42_lsl_16, movz(W1, (42, UBitValue::new(16).unwrap())), "movz w1, #42, lsl #16";
         test_movz_32_0x8421, movz(W1, 0x8421), "movz w1, #0x8421";
-        test_movz_32_0x8421_lsl_0, movz(W1, (0x8421, 0.try_into().unwrap())), "movz w1, #0x8421, lsl #0";
-        test_movz_32_0x8421_lsl_16, movz(W1, (0x8421, 16.try_into().unwrap())), "movz w1, #0x8421, lsl #16";
+        test_movz_32_0x8421_lsl_0, movz(W1, (0x8421, UBitValue::new(0).unwrap())), "movz w1, #0x8421, lsl #0";
+        test_movz_32_0x8421_lsl_16, movz(W1, (0x8421, UBitValue::new(16).unwrap())), "movz w1, #0x8421, lsl #16";
+        test_movz_32_0x8421_lsl_16_fallible, movz(W1, (0x8421, 16)).unwrap(), "movz w1, #0x8421, lsl #16";
 
         test_movz_64_42, movz(X1, 42), "movz x1, #42";
-        test_movz_64_42_lsl_0, movz(X1, (42, 0.try_into().unwrap())), "movz x1, #42, lsl #0";
-        test_movz_64_42_lsl_16, movz(X1, (42, 16.try_into().unwrap())), "movz x1, #42, lsl #16";
-        test_movz_64_42_lsl_32, movz(X1, (42, 32.try_into().unwrap())), "movz x1, #42, lsl #32";
-        test_movz_64_42_lsl_48, movz(X1, (42, 48.try_into().unwrap())), "movz x1, #42, lsl #48";
+        test_movz_64_42_lsl_0, movz(X1, (42, UBitValue::new(0).unwrap())), "movz x1, #42, lsl #0";
+        test_movz_64_42_lsl_16, movz(X1, (42, UBitValue::new(16).unwrap())), "movz x1, #42, lsl #16";
+        test_movz_64_42_lsl_32, movz(X1, (42, UBitValue::new(32).unwrap())), "movz x1, #42, lsl #32";
+        test_movz_64_42_lsl_48, movz(X1, (42, UBitValue::new(48).unwrap())), "movz x1, #42, lsl #48";
         test_movz_64_0x8421, movz(X1, 0x8421), "movz x1, #0x8421";
-        test_movz_64_0x8421_lsl_0, movz(X1, (0x8421, 0.try_into().unwrap())), "movz x1, #0x8421, lsl #0";
-        test_movz_64_0x8421_lsl_16, movz(X1, (0x8421, 16.try_into().unwrap())), "movz x1, #0x8421, lsl #16";
-        test_movz_64_0x8421_lsl_32, movz(X1, (0x8421, 32.try_into().unwrap())), "movz x1, #0x8421, lsl #32";
-        test_movz_64_0x8421_lsl_48, movz(X1, (0x8421, 48.try_into().unwrap())), "movz x1, #0x8421, lsl #48";
+        test_movz_64_0x8421_lsl_0, movz(X1, (0x8421, UBitValue::new(0).unwrap())), "movz x1, #0x8421, lsl #0";
+        test_movz_64_0x8421_lsl_16, movz(X1, (0x8421, UBitValue::new(16).unwrap())), "movz x1, #0x8421, lsl #16";
+        test_movz_64_0x8421_lsl_32, movz(X1, (0x8421, UBitValue::new(32).unwrap())), "movz x1, #0x8421, lsl #32";
+        test_movz_64_0x8421_lsl_48, movz(X1, (0x8421, UBitValue::new(48).unwrap())), "movz x1, #0x8421, lsl #48";
+        test_movz_64_0x8421_lsl_48_unwrap, movz(X1, (0x8421, 48)).unwrap(), "movz x1, #0x8421, lsl #48";
     }
 }
