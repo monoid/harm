@@ -15,6 +15,7 @@ use aarchmrs_instructions::A64::dpimm::movewide::{
 
 use crate::{
     bits::UBitValue,
+    outcome::{Outcome, Unfallible},
     register::{IntoReg, RegOrZero32, RegOrZero64, Register},
     sealed::Sealed,
 };
@@ -41,9 +42,9 @@ impl MoveShift for RegOrZero64 {
 }
 
 pub trait MakeMovArgs<R, Val>: Sealed {
-    type Output;
+    type Outcome: Outcome;
 
-    fn new(rd: R, val: Val) -> Self::Output;
+    fn new(rd: R, val: Val) -> Self::Outcome;
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -58,14 +59,14 @@ impl<Reg: MoveShift> Sealed for MovArgs<Reg> {}
 impl<RIn: IntoReg<RegOrZero32>, Imm16: Into<MoveImm16>>
     MakeMovArgs<RIn, (Imm16, <RegOrZero32 as MoveShift>::Shift)> for MovArgs<RegOrZero32>
 {
-    type Output = Self;
+    type Outcome = Unfallible<Self>;
 
-    fn new(rd: RIn, (imm16, shift): (Imm16, <RegOrZero32 as MoveShift>::Shift)) -> Self::Output {
-        Self {
+    fn new(rd: RIn, (imm16, shift): (Imm16, <RegOrZero32 as MoveShift>::Shift)) -> Self::Outcome {
+        Unfallible(Self {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift,
-        }
+        })
     }
 }
 
@@ -76,28 +77,28 @@ where
     <RegOrZero32 as MoveShift>::Shift: Default,
     Imm16: Into<MoveImm16>,
 {
-    type Output = Self;
+    type Outcome = Unfallible<Self>;
 
-    fn new(rd: RIn, imm16: Imm16) -> Self::Output {
-        Self {
+    fn new(rd: RIn, imm16: Imm16) -> Self::Outcome {
+        Unfallible(Self {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift: <_>::default(),
-        }
+        })
     }
 }
 
 impl<RIn: IntoReg<RegOrZero64>, Imm16: Into<MoveImm16>>
     MakeMovArgs<RIn, (Imm16, <RegOrZero64 as MoveShift>::Shift)> for MovArgs<RegOrZero64>
 {
-    type Output = Self;
+    type Outcome = Unfallible<Self>;
 
-    fn new(rd: RIn, (imm16, shift): (Imm16, <RegOrZero64 as MoveShift>::Shift)) -> Self::Output {
-        Self {
+    fn new(rd: RIn, (imm16, shift): (Imm16, <RegOrZero64 as MoveShift>::Shift)) -> Self::Outcome {
+        Unfallible(Self {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift,
-        }
+        })
     }
 }
 
@@ -108,14 +109,14 @@ where
     <RegOrZero64 as MoveShift>::Shift: Default,
     Imm16: Into<MoveImm16>,
 {
-    type Output = Self;
+    type Outcome = Unfallible<Self>;
 
-    fn new(rd: RIn, imm16: Imm16) -> Self::Output {
-        Self {
+    fn new(rd: RIn, imm16: Imm16) -> Self::Outcome {
+        Unfallible(Self {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift: <_>::default(),
-        }
+        })
     }
 }
 
@@ -124,12 +125,14 @@ pub struct MovK<Args>(Args);
 pub fn movk<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> MovK<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Output>
+) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<
+    MovK<<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Inner>,
+>
 where
     ROut: MoveShift,
     MovArgs<ROut>: MakeMovArgs<RIn, Val>,
 {
-    MovK(<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val))
+    (<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val)).map(MovK)
 }
 
 impl RawInstruction for MovK<MovArgs<RegOrZero32>> {
@@ -149,12 +152,14 @@ pub struct MovN<Args>(Args);
 pub fn movn<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> MovN<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Output>
+) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<
+    MovN<<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Inner>,
+>
 where
     ROut: MoveShift,
     MovArgs<ROut>: MakeMovArgs<RIn, Val>,
 {
-    MovN(<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val))
+    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovN)
 }
 
 impl RawInstruction for MovN<MovArgs<RegOrZero32>> {
@@ -174,12 +179,14 @@ pub struct MovZ<Args>(Args);
 pub fn movz<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> MovZ<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Output>
+) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<
+    MovZ<<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Inner>,
+>
 where
     ROut: MoveShift,
     MovArgs<ROut>: MakeMovArgs<RIn, Val>,
 {
-    MovZ(<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val))
+    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovZ)
 }
 
 // TODO variants fallible on the value should be implemented in the virtual `MOV` instruction; however,
