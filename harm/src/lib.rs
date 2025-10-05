@@ -17,6 +17,7 @@
 
 pub mod bits;
 pub mod instructions;
+pub mod outcome;
 pub mod register;
 pub mod reloc;
 pub(crate) mod sealed;
