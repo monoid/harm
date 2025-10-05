@@ -153,12 +153,11 @@ pub struct MovK<Args>(Args);
 pub fn movk<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<
-    MovK<<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Inner>,
->
+) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovK<MovArgs<ROut>>>
 where
     ROut: MoveShift,
     MovArgs<ROut>: MakeMovArgs<RIn, Val>,
+    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovArgs<ROut>>,
 {
     (<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val)).map(MovK)
 }
@@ -180,12 +179,11 @@ pub struct MovN<Args>(Args);
 pub fn movn<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<
-    MovN<<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Inner>,
->
+) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovN<MovArgs<ROut>>>
 where
     ROut: MoveShift,
     MovArgs<ROut>: MakeMovArgs<RIn, Val>,
+    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovArgs<ROut>>,
 {
     <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovN)
 }
@@ -207,12 +205,11 @@ pub struct MovZ<Args>(Args);
 pub fn movz<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<
-    MovZ<<<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Inner>,
->
+) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovZ<MovArgs<ROut>>>
 where
     ROut: MoveShift,
     MovArgs<ROut>: MakeMovArgs<RIn, Val>,
+    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovArgs<ROut>>,
 {
     <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovZ)
 }
