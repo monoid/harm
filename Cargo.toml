@@ -8,6 +8,7 @@ members = [
    "harm",
    "tools/aarchmrs-generate",
    "tools/harm-asm-regen",
+   "tools/harm-gentable",
    "tools/harm-test-utils",
    "tools/harm-testgen",
 ]
