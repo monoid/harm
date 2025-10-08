@@ -6,7 +6,7 @@
 mod args;
 pub mod immediate;
 
-pub use self::args::{LogicalArgs, MakeSpLogicalArgs, MakeZeroLogicalArgs};
+pub use self::args::{LogicalArgs, MakeSpLogicalArgs, MakeTstLogicalArgs, MakeZeroLogicalArgs};
 use self::immediate::LogicalImmFields;
 use crate::{
     instructions::RawInstruction,
@@ -53,10 +53,8 @@ where
     <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
         Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
 {
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(
-        rd, rn, mask,
-    )
-    .map(And)
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask)
+        .map(And)
 }
 
 pub struct Ands<Args>(pub Args);
@@ -97,6 +95,17 @@ where
         rd, rn, mask,
     )
     .map(Ands)
+}
+
+pub fn tst<RnIn, MaskIn, RdOut, RnOut, MaskOut>(rn: RnIn, mask: MaskIn) ->
+    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::Outcome as Outcome>::Output<Ands<LogicalArgs<RdOut, RnOut, MaskOut>>>
+where
+    LogicalArgs<RdOut, RnOut, MaskOut>: MakeTstLogicalArgs<RnIn, MaskIn>,
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::Outcome:
+        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
+{
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::new(rn, mask)
+        .map(Ands)
 }
 
 pub struct Eor<Args>(pub Args);
@@ -215,6 +224,11 @@ d2637fe1	eor x1, xzr, #0x1fffffffe0000000
 f25dec41	ands x1, x2, #0xfffffff87fffffff
 f249bc5f	ands xzr, x2, #0xff80007fffffffff
 f20c73e1	ands x1, xzr, #0xfff1fffffff1ffff
+f279005f	tst x2, #0x0000000000000080
+f201cbff	tst xzr, #0x8383838383838383
+7203b05f	tst w2, #0xe3ffe3ff
+720557ff	tst wzr, #0xf801ffff
+
 ";
 
     test_cases! {
@@ -243,5 +257,9 @@ f20c73e1	ands x1, xzr, #0xfff1fffffff1ffff
         test_ands_64_0xfffffff87fffffff, ands(X1, X2, 0xfffffff87fffffff).unwrap(), "ands x1, x2, #0xfffffff87fffffff";
         test_ands_xzr_64_0xff80007fffffffff, ands(XZR, X2, 0xff80007fffffffff).unwrap(), "ands xzr, x2, #0xff80007fffffffff";
         test_ands_64_xzr_0xfff1fffffff1ffff, ands(X1, XZR, 0xfff1fffffff1ffff).unwrap(), "ands x1, xzr, #0xfff1fffffff1ffff";
+        test_tst_x2_0x0000000000000080, tst(X2, 0x0000000000000080).unwrap(), "tst x2, #0x0000000000000080";
+        test_tst_xzr_0x8383838383838383, tst(XZR, 0x8383838383838383).unwrap(), "tst xzr, #0x8383838383838383";
+        test_tst_w2_0xe3ffe3ff, tst(W2, 0xe3ffe3ff).unwrap(), "tst w2, #0xe3ffe3ff";
+        test_tst_wzr_0xf801ffff, tst(WZR, 0xf801ffff).unwrap(), "tst wzr, #0xf801ffff";
     }
 }
