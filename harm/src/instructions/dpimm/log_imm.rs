@@ -6,12 +6,12 @@
 mod args;
 pub mod immediate;
 
-pub use self::args::{LogicalArgs, MakeLogicalArgs};
+pub use self::args::{LogicalArgs, MakeSpLogicalArgs, MakeZeroLogicalArgs};
 use self::immediate::LogicalImmFields;
 use crate::{
     instructions::RawInstruction,
     outcome::Outcome,
-    register::{RegOrZero32, RegOrZero64, Register},
+    register::{RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Register},
 };
 use aarchmrs_instructions::A64::dpimm::log_imm::{
     AND_32_log_imm::AND_32_log_imm, AND_64_log_imm::AND_64_log_imm,
@@ -22,7 +22,7 @@ use aarchmrs_instructions::A64::dpimm::log_imm::{
 
 pub struct And<Args>(pub Args);
 
-impl RawInstruction for And<LogicalArgs<RegOrZero32, LogicalImmFields>> {
+impl RawInstruction for And<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
         AND_32_log_imm(
@@ -33,7 +33,7 @@ impl RawInstruction for And<LogicalArgs<RegOrZero32, LogicalImmFields>> {
         )
     }
 }
-impl RawInstruction for And<LogicalArgs<RegOrZero64, LogicalImmFields>> {
+impl RawInstruction for And<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
         AND_64_log_imm(
@@ -46,19 +46,22 @@ impl RawInstruction for And<LogicalArgs<RegOrZero64, LogicalImmFields>> {
     }
 }
 
-pub fn and<RdIn, RnIn, MaskIn, ROut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<And<LogicalArgs<ROut, MaskOut>>>
+pub fn and<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
+    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<And<LogicalArgs<RdOut, RnOut, MaskOut>>>
 where
-    LogicalArgs<ROut, MaskOut>: MakeLogicalArgs<RdIn, RnIn, MaskIn>,
-    <LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<ROut, MaskOut>>,
+    LogicalArgs<RdOut, RnOut, MaskOut>: MakeSpLogicalArgs<RdIn, RnIn, MaskIn>,
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
+        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
 {
-    <LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask).map(And)
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(
+        rd, rn, mask,
+    )
+    .map(And)
 }
 
 pub struct Ands<Args>(pub Args);
 
-impl RawInstruction for Ands<LogicalArgs<RegOrZero32, LogicalImmFields>> {
+impl RawInstruction for Ands<LogicalArgs<RegOrZero32, RegOrZero32, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
         ANDS_32S_log_imm(
@@ -70,7 +73,7 @@ impl RawInstruction for Ands<LogicalArgs<RegOrZero32, LogicalImmFields>> {
     }
 }
 
-impl RawInstruction for Ands<LogicalArgs<RegOrZero64, LogicalImmFields>> {
+impl RawInstruction for Ands<LogicalArgs<RegOrZero64, RegOrZero64, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
         ANDS_64S_log_imm(
@@ -83,29 +86,33 @@ impl RawInstruction for Ands<LogicalArgs<RegOrZero64, LogicalImmFields>> {
     }
 }
 
-pub fn ands<RdIn, RnIn, MaskIn, ROut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Ands<LogicalArgs<ROut, MaskOut>>>
+pub fn ands<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
+    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Ands<LogicalArgs<RdOut, RnOut, MaskOut>>>
 where
-    LogicalArgs<ROut, MaskOut>: MakeLogicalArgs<RdIn, RnIn, MaskIn>,
-    <LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<ROut, MaskOut>>,
+    LogicalArgs<RdOut, RnOut, MaskOut>: MakeZeroLogicalArgs<RdIn, RnIn, MaskIn>,
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
+        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
 {
-    <LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask).map(Ands)
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdIn, RnIn, MaskIn>>::new(
+        rd, rn, mask,
+    )
+    .map(Ands)
 }
 
 pub struct Eor<Args>(pub Args);
 
-pub fn eor<RdIn, RnIn, MaskIn, ROut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Eor<LogicalArgs<ROut, MaskOut>>>
+pub fn eor<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
+    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Eor<LogicalArgs<RdOut, RnOut, MaskOut>>>
 where
-    LogicalArgs<ROut, MaskOut>: MakeLogicalArgs<RdIn, RnIn, MaskIn>,
-    <LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<ROut, MaskOut>>,
+    LogicalArgs<RdOut, RnOut, MaskOut>: MakeSpLogicalArgs<RdIn, RnIn, MaskIn>,
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
+        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
 {
-    <LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask).map(Eor)
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask)
+        .map(Eor)
 }
 
-impl RawInstruction for Eor<LogicalArgs<RegOrZero32, LogicalImmFields>> {
+impl RawInstruction for Eor<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
         EOR_32_log_imm(
@@ -117,7 +124,7 @@ impl RawInstruction for Eor<LogicalArgs<RegOrZero32, LogicalImmFields>> {
     }
 }
 
-impl RawInstruction for Eor<LogicalArgs<RegOrZero64, LogicalImmFields>> {
+impl RawInstruction for Eor<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
         EOR_64_log_imm(
@@ -132,17 +139,18 @@ impl RawInstruction for Eor<LogicalArgs<RegOrZero64, LogicalImmFields>> {
 
 pub struct Orr<Args>(pub Args);
 
-pub fn orr<RdIn, RnIn, MaskIn, ROut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Orr<LogicalArgs<ROut, MaskOut>>>
+pub fn orr<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
+    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Orr<LogicalArgs<RdOut, RnOut, MaskOut>>>
 where
-    LogicalArgs<ROut, MaskOut>: MakeLogicalArgs<RdIn, RnIn, MaskIn>,
-    <LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<ROut, MaskOut>>,
+    LogicalArgs<RdOut, RnOut, MaskOut>: MakeSpLogicalArgs<RdIn, RnIn, MaskIn>,
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
+        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
 {
-    <LogicalArgs<ROut, MaskOut> as MakeLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask).map(Orr)
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask)
+        .map(Orr)
 }
 
-impl RawInstruction for Orr<LogicalArgs<RegOrZero32, LogicalImmFields>> {
+impl RawInstruction for Orr<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
         ORR_32_log_imm(
@@ -154,7 +162,7 @@ impl RawInstruction for Orr<LogicalArgs<RegOrZero32, LogicalImmFields>> {
     }
 }
 
-impl RawInstruction for Orr<LogicalArgs<RegOrZero64, LogicalImmFields>> {
+impl RawInstruction for Orr<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
         ORR_64_log_imm(
@@ -193,7 +201,7 @@ mod tests {
 5209545f	eor wsp, w2, #0xff801fff
 520a83e1	eor w1, wzr, #0x00400040
 72163041	ands w1, w2, #0x007ffc00
-721a185f	ands wzr, w2, 0x0003fffe
+721f405f	ands wzr, w2, #0x0003fffe
 72063fe1	ands w1, wzr, #0xfc0003ff
 92412c41	and x1, x2, #0x80000000000007ff
 9259f05f	and sp, x2, #0xffffff8fffffffff
@@ -214,26 +222,26 @@ f20c73e1	ands x1, xzr, #0xfff1fffffff1ffff
         test_and_32_0xffc0007f, and(W1, W2, 0xffc0007f).unwrap(), "and w1, w2, #0xffc0007f";
         test_and_wsp_32_0x0c0c0c0c, and(WSP, W2, 0x0c0c0c0c).unwrap(), "and wsp, w2, #0x0c0c0c0c";
         test_and_32_wzr_0x7fffc000, and(W1, WZR, 0x7fffc000).unwrap(), "and w1, wzr, #0x7fffc000";
-        test_orr_32_0xc3ffc3ff, orr( W1, W2, 0xc3ffc3ff), "orr w1, w2, #0xc3ffc3ff";
-        test_orr_wsp_32_0x007f007f, orr(WSP, W2, 0x007f007f), "orr wsp, w2, #0x007f007f";
-        test_orr_32_wzr, orr( W1, WZR, 0x0000000e), "orr w1, wzr, #0x0000000e";
-        test_eor_32_0x00ffe000, eor(W1, W2, 0x00ffe000), "eor w1, w2, #0x00ffe000";
-        test_eor_wsp_32_0xff801fff, eor(WSP, W2, 0xff801fff), "eor wsp, w2, #0xff801fff";
-        test_eor_32_wzr_0x00400040, eor(W1, WZR, 0x00400040), "eor w1, wzr, #0x00400040";
-        test_ands_32_0x007ffc00, ands(W1, W2, 0x007ffc00), "ands w1, w2, #0x007ffc00";
-        test_ands_wzr_32_0x0003fffe, ands(WZR, W2, 0x0003fffe), "ands wzr, w2, #0x0003fffe";
-        test_ands_32_wzr_0xfc0003ff, ands(W1, WZR, 0xfc0003ff), "ands w1, wzr, #0xfc0003ff";
-        test_and_64_0x80000000000007ff, and(X1, X2, 0x80000000000007ff), "and x1, x2, #0x80000000000007ff";
-        test_and_sp_64_0xffffff8fffffffff, and(SP, X2, 0xffffff8fffffffff), "and sp, x2, #0xffffff8fffffffff";
-        test_and_64_xzr_0xfffffe00ffffffff, and(X1, XZR, 0xfffffe00ffffffff), "and x1, xzr, #0xfffffe00ffffffff";
-        test_orr_64_0x803fffffffffffff, orr(X1, X2, 0x803fffffffffffff), "orr x1, x2, #0x803fffffffffffff";
-        test_orr_sp_64_0x00000f8000000000, orr(SP, X2, 0x00000f8000000000), "orr sp, x2, #0x00000f8000000000";
-        test_orr_64_xzr_0x0000fc000000fc00, orr(X1, XZR, 0x0000fc000000fc00), "orr x1, xzr, #0x0000fc000000fc00";
-        test_eor_64_0x000001c0000001c0, eor(X1, X2, 0x000001c0000001c0), "eor x1, x2, #0x000001c0000001c0";
-        test_eor_sp_64_0x0000000000ffe000, eor(SP, X2, 0x0000000000ffe000), "eor sp, x2, #0x0000000000ffe000";
-        test_eor_64_xzr_0x1fffffffe0000000, eor(X1, XZR, 0x1fffffffe0000000), "eor x1, xzr, #0x1fffffffe0000000";
-        test_ands_64_0xfffffff87fffffff, ands(X1, X2, 0xfffffff87fffffff), "ands x1, x2, #0xfffffff87fffffff";
-        test_ands_xzr_64_0xff80007fffffffff, ands(XZR, X2, 0xff80007fffffffff), "ands xzr, x2, #0xff80007fffffffff";
-        test_ands_64_xzr_0xfff1fffffff1ffff, ands(X1, XZR, 0xfff1fffffff1ffff), "ands x1, xzr, #0xfff1fffffff1ffff";
+        test_orr_32_0xc3ffc3ff, orr( W1, W2, 0xc3ffc3ff).unwrap(), "orr w1, w2, #0xc3ffc3ff";
+        test_orr_wsp_32_0x007f007f, orr(WSP, W2, 0x007f007f).unwrap(), "orr wsp, w2, #0x007f007f";
+        test_orr_32_wzr, orr( W1, WZR, 0x0000000e).unwrap(), "orr w1, wzr, #0x0000000e";
+        test_eor_32_0x00ffe000, eor(W1, W2, 0x00ffe000).unwrap(), "eor w1, w2, #0x00ffe000";
+        test_eor_wsp_32_0xff801fff, eor(WSP, W2, 0xff801fff).unwrap(), "eor wsp, w2, #0xff801fff";
+        test_eor_32_wzr_0x00400040, eor(W1, WZR, 0x00400040).unwrap(), "eor w1, wzr, #0x00400040";
+        test_ands_32_0x007ffc00, ands(W1, W2, 0x007ffc00).unwrap(), "ands w1, w2, #0x007ffc00";
+        test_ands_wzr_32_0x0003fffe, ands(WZR, W2, 0x0003fffe).unwrap(), "ands wzr, w2, #0x0003fffe";
+        test_ands_32_wzr_0xfc0003ff, ands(W1, WZR, 0xfc0003ff).unwrap(), "ands w1, wzr, #0xfc0003ff";
+        test_and_64_0x80000000000007ff, and(X1, X2, 0x80000000000007ff).unwrap(), "and x1, x2, #0x80000000000007ff";
+        test_and_sp_64_0xffffff8fffffffff, and(SP, X2, 0xffffff8fffffffff).unwrap(), "and sp, x2, #0xffffff8fffffffff";
+        test_and_64_xzr_0xfffffe00ffffffff, and(X1, XZR, 0xfffffe00ffffffff).unwrap(), "and x1, xzr, #0xfffffe00ffffffff";
+        test_orr_64_0x803fffffffffffff, orr(X1, X2, 0x803fffffffffffff).unwrap(), "orr x1, x2, #0x803fffffffffffff";
+        test_orr_sp_64_0x00000f8000000000, orr(SP, X2, 0x00000f8000000000).unwrap(), "orr sp, x2, #0x00000f8000000000";
+        test_orr_64_xzr_0x0000fc000000fc00, orr(X1, XZR, 0x0000fc000000fc00).unwrap(), "orr x1, xzr, #0x0000fc000000fc00";
+        test_eor_64_0x000001c0000001c0, eor(X1, X2, 0x000001c0000001c0).unwrap(), "eor x1, x2, #0x000001c0000001c0";
+        test_eor_sp_64_0x0000000000ffe000, eor(SP, X2, 0x0000000000ffe000).unwrap(), "eor sp, x2, #0x0000000000ffe000";
+        test_eor_64_xzr_0x1fffffffe0000000, eor(X1, XZR, 0x1fffffffe0000000).unwrap(), "eor x1, xzr, #0x1fffffffe0000000";
+        test_ands_64_0xfffffff87fffffff, ands(X1, X2, 0xfffffff87fffffff).unwrap(), "ands x1, x2, #0xfffffff87fffffff";
+        test_ands_xzr_64_0xff80007fffffffff, ands(XZR, X2, 0xff80007fffffffff).unwrap(), "ands xzr, x2, #0xff80007fffffffff";
+        test_ands_64_xzr_0xfff1fffffff1ffff, ands(X1, XZR, 0xfff1fffffff1ffff).unwrap(), "ands x1, xzr, #0xfff1fffffff1ffff";
     }
 }
