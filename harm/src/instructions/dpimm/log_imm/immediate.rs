@@ -15,6 +15,14 @@ pub struct LogicalImmFields {
 }
 
 impl LogicalImmFields {
+    pub fn try_new64(val: u64) -> Result<Self, LogicalImmError> {
+        encode_logical_immediate64(val).ok_or(LogicalImmError::InvalidLogicalImmediate)
+    }
+
+    pub fn try_new32(val: u32) -> Result<Self, LogicalImmError> {
+        encode_logical_immediate32(val).ok_or(LogicalImmError::InvalidLogicalImmediate)
+    }
+
     pub fn from_packed(g: PackedLogicalImm) -> Self {
         let n = UBitValue::new(g.bits() >> 12).unwrap();
         let immr = UBitValue::new((g.bits() >> 6) & 0b111111).unwrap();
@@ -22,6 +30,22 @@ impl LogicalImmFields {
         Self { n, immr, imms }
     }
 }
+
+#[derive(Debug)]
+pub enum LogicalImmError {
+    InvalidLogicalImmediate,
+}
+
+use core::fmt;
+impl fmt::Display for LogicalImmError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            LogicalImmError::InvalidLogicalImmediate => write!(f, "invalid logical immediate"),
+        }
+    }
+}
+
+impl core::error::Error for LogicalImmError {}
 
 // This code is based on public domain code by Dougall Johnson published at
 // <https://gist.github.com/dougallj/97d8621d4542ba31e004acc8075fac14>. See also a companion article at

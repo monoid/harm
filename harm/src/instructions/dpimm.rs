@@ -4,3 +4,4 @@
  */
 
 pub mod log_imm;
+pub use self::log_imm::*;
