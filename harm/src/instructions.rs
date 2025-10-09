@@ -11,6 +11,7 @@ pub mod arith;
 pub mod control;
 pub mod dpimm;
 pub mod ldst;
+pub mod logical;
 pub mod movewide;
 
 pub trait RawInstruction {

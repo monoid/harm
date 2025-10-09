@@ -6,10 +6,12 @@
 mod args;
 pub mod immediate;
 
-pub use self::args::{LogicalArgs, MakeSpLogicalArgs, MakeTstLogicalArgs, MakeZeroLogicalArgs};
 use self::immediate::LogicalImmFields;
 use crate::{
-    instructions::RawInstruction,
+    instructions::{
+        RawInstruction,
+        logical::{And, Ands, Eor, LogicalArgs, MakeSpLogicalArgs},
+    },
     outcome::Outcome,
     register::{RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Register},
 };
@@ -19,8 +21,6 @@ use aarchmrs_instructions::A64::dpimm::log_imm::{
     EOR_32_log_imm::EOR_32_log_imm, EOR_64_log_imm::EOR_64_log_imm, ORR_32_log_imm::ORR_32_log_imm,
     ORR_64_log_imm::ORR_64_log_imm,
 };
-
-pub struct And<Args>(pub Args);
 
 impl RawInstruction for And<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
@@ -46,19 +46,6 @@ impl RawInstruction for And<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields
     }
 }
 
-pub fn and<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<And<LogicalArgs<RdOut, RnOut, MaskOut>>>
-where
-    LogicalArgs<RdOut, RnOut, MaskOut>: MakeSpLogicalArgs<RdIn, RnIn, MaskIn>,
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
-{
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask)
-        .map(And)
-}
-
-pub struct Ands<Args>(pub Args);
-
 impl RawInstruction for Ands<LogicalArgs<RegOrZero32, RegOrZero32, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -82,43 +69,6 @@ impl RawInstruction for Ands<LogicalArgs<RegOrZero64, RegOrZero64, LogicalImmFie
             args.rd.code(),
         )
     }
-}
-
-pub fn ands<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Ands<LogicalArgs<RdOut, RnOut, MaskOut>>>
-where
-    LogicalArgs<RdOut, RnOut, MaskOut>: MakeZeroLogicalArgs<RdIn, RnIn, MaskIn>,
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
-{
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdIn, RnIn, MaskIn>>::new(
-        rd, rn, mask,
-    )
-    .map(Ands)
-}
-
-pub fn tst<RnIn, MaskIn, RdOut, RnOut, MaskOut>(rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::Outcome as Outcome>::Output<Ands<LogicalArgs<RdOut, RnOut, MaskOut>>>
-where
-    LogicalArgs<RdOut, RnOut, MaskOut>: MakeTstLogicalArgs<RnIn, MaskIn>,
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
-{
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::new(rn, mask)
-        .map(Ands)
-}
-
-pub struct Eor<Args>(pub Args);
-
-pub fn eor<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Eor<LogicalArgs<RdOut, RnOut, MaskOut>>>
-where
-    LogicalArgs<RdOut, RnOut, MaskOut>: MakeSpLogicalArgs<RdIn, RnIn, MaskIn>,
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
-{
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask)
-        .map(Eor)
 }
 
 impl RawInstruction for Eor<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields>> {
@@ -187,6 +137,7 @@ impl RawInstruction for Orr<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields
 #[cfg(test)]
 mod tests {
     use crate::instructions::InstructionSeq as _;
+    use crate::instructions::logical::{and, ands, eor, tst};
     use crate::register::{Reg32, Reg64, RegOrSp32, RegOrSp64};
     use harm_test_utils::test_cases;
 

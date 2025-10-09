@@ -4,24 +4,14 @@
  */
 
 use crate::{
-    outcome::{Outcome, Unfallible},
+    instructions::logical::{
+        LogicalArgs, MakeSpLogicalArgs, MakeTstLogicalArgs, MakeZeroLogicalArgs,
+    },
+    outcome::Unfallible,
     register::{IntoReg, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
 };
 
 use super::immediate::{LogicalImmError, LogicalImmFields};
-
-#[derive(Debug, Copy, Clone)]
-pub struct LogicalArgs<RegD, RegN, Mask> {
-    pub rd: RegD,
-    pub rn: RegN,
-    pub mask: Mask,
-}
-
-pub trait MakeSpLogicalArgs<Rd, Rn, Mask> {
-    type Outcome: Outcome;
-
-    fn new(rd: Rd, rn: Rn, mask: Mask) -> Self::Outcome;
-}
 
 impl<RdIn, RnIn> MakeSpLogicalArgs<RdIn, RnIn, LogicalImmFields>
     for LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields>
@@ -91,12 +81,6 @@ where
     }
 }
 
-pub trait MakeZeroLogicalArgs<Rd, Rn, Mask> {
-    type Outcome: Outcome;
-
-    fn new(rd: Rd, rn: Rn, mask: Mask) -> Self::Outcome;
-}
-
 impl<RdIn, RnIn> MakeZeroLogicalArgs<RdIn, RnIn, LogicalImmFields>
     for LogicalArgs<RegOrZero32, RegOrZero32, LogicalImmFields>
 where
@@ -163,12 +147,6 @@ where
             mask,
         })
     }
-}
-
-pub trait MakeTstLogicalArgs<Rn, Mask> {
-    type Outcome: Outcome;
-
-    fn new(rn: Rn, mask: Mask) -> Self::Outcome;
 }
 
 impl<RnIn> MakeTstLogicalArgs<RnIn, LogicalImmFields>
