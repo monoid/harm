@@ -6,9 +6,20 @@
 mod args;
 
 pub use self::args::{LogicalArgs, MakeSpLogicalArgs, MakeTstLogicalArgs, MakeZeroLogicalArgs};
-use crate::outcome::Outcome;
+use crate::{bits::UBitValue, outcome::Outcome};
 
+#[derive(Debug, Copy, Clone)]
+#[repr(u8)]
+pub enum LogicalShift {
+    LSL = 0b00,
+    LDR = 0b01,
+    ASR = 0b10,
+    ROR = 0b11,
+}
 
+pub type LogicalShiftAmount = UBitValue<6>;
+
+#[derive(Debug, Copy, Clone)]
 pub struct And<Args>(pub Args);
 
 pub fn and<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
@@ -22,6 +33,7 @@ where
         .map(And)
 }
 
+#[derive(Debug, Copy, Clone)]
 pub struct Ands<Args>(pub Args);
 
 pub fn ands<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
@@ -48,6 +60,7 @@ where
         .map(Ands)
 }
 
+#[derive(Debug, Copy, Clone)]
 pub struct Eor<Args>(pub Args);
 
 pub fn eor<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
