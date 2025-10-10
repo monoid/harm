@@ -29,13 +29,15 @@ pub fn encode_logical_immediate64(val: u64) -> Option<LogicalImmFields> {
         return None;
     }
     let immr = rotation.wrapping_neg() & (size - 1);
-    let imms = (size << 1).wrapping_neg() | (ones - 1);
+    let imms = ((size << 1).wrapping_neg() | (ones - 1)) & 0x3F;
     let n = size >> 6;
 
+    // The current compiler cannot proof that n and immr fit into the range, and generate code for "possible" panic.
+    // Mask it explicitly to avoid check and never-executing branch.
     Some(LogicalImmFields {
-        n: UBitValue::new(n).unwrap(),
-        immr: UBitValue::new(immr).unwrap(),
-        imms: UBitValue::new(imms & 0x3F).unwrap(),
+        n: UBitValue::new(n & 1).unwrap(),
+        immr: UBitValue::new(immr & 0x3F).unwrap(),
+        imms: UBitValue::new(imms).unwrap(),
     })
 }
 
