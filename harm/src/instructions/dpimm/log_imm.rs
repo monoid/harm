@@ -10,9 +10,8 @@ use self::immediate::LogicalImmFields;
 use crate::{
     instructions::{
         RawInstruction,
-        logical::{And, Ands, Eor, LogicalArgs, MakeSpLogicalArgs},
+        logical::{And, Ands, Eor, LogicalArgs, Orr},
     },
-    outcome::Outcome,
     register::{RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Register},
 };
 use aarchmrs_instructions::A64::dpimm::log_imm::{
@@ -96,19 +95,6 @@ impl RawInstruction for Eor<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields
     }
 }
 
-pub struct Orr<Args>(pub Args);
-
-pub fn orr<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Orr<LogicalArgs<RdOut, RnOut, MaskOut>>>
-where
-    LogicalArgs<RdOut, RnOut, MaskOut>: MakeSpLogicalArgs<RdIn, RnIn, MaskIn>,
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
-        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
-{
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask)
-        .map(Orr)
-}
-
 impl RawInstruction for Orr<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -137,7 +123,7 @@ impl RawInstruction for Orr<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields
 #[cfg(test)]
 mod tests {
     use crate::instructions::InstructionSeq as _;
-    use crate::instructions::logical::{and, ands, eor, tst};
+    use crate::instructions::logical::{and, ands, eor, orr, tst};
     use crate::register::{Reg32, Reg64, RegOrSp32, RegOrSp64};
     use harm_test_utils::test_cases;
 

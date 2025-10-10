@@ -12,11 +12,12 @@ use crate::{bits::UBitValue, outcome::Outcome};
 #[repr(u8)]
 pub enum LogicalShift {
     LSL = 0b00,
-    LDR = 0b01,
+    LSR = 0b01,
     ASR = 0b10,
     ROR = 0b11,
 }
 
+// TODO while 32-bit version has 6 bit field, assembler has to have 5 bit argument.
 pub type LogicalShiftAmount = UBitValue<6>;
 
 #[derive(Debug, Copy, Clone)]
@@ -72,4 +73,18 @@ where
 {
     <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask)
         .map(Eor)
+}
+
+#[derive(Debug, Copy, Clone)]
+pub struct Orr<Args>(pub Args);
+
+pub fn orr<RdIn, RnIn, MaskIn, RdOut, RnOut, MaskOut>(rd: RdIn, rn: RnIn, mask: MaskIn) ->
+    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome as Outcome>::Output<Orr<LogicalArgs<RdOut, RnOut, MaskOut>>>
+where
+    LogicalArgs<RdOut, RnOut, MaskOut>: MakeSpLogicalArgs<RdIn, RnIn, MaskIn>,
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::Outcome:
+        Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
+{
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeSpLogicalArgs<RdIn, RnIn, MaskIn>>::new(rd, rn, mask)
+        .map(Orr)
 }
