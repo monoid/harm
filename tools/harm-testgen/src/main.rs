@@ -5,10 +5,11 @@ use nom::{
     branch::alt,
     bytes::complete::tag,
     character::complete::{anychar, none_of},
-    combinator::{cut, map},
+    combinator::{cut, map, value},
     multi::{many, separated_list0},
     sequence::{preceded, terminated},
 };
+use rand::Rng;
 
 #[derive(ClapParser)]
 struct Args {
@@ -83,8 +84,20 @@ fn parse(inp: &str) -> IResult<&str, IterClone<String>> {
 fn parse_item(inp: &str) -> IResult<&str, IterClone<String>> {
     alt((
         preceded(tag("("), cut(terminated(parse_alt, tag(")")))),
+        preceded(
+            tag("@"),
+            cut(map(
+                alt((
+                    value(RegClass::Reg32, tag("32")),
+                    value(RegClass::Reg64, tag("64")),
+                )),
+                |reg_class| {
+                    IterClone::new(std::iter::once_with(move || RandomReg(reg_class).random()))
+                },
+            )),
+        ),
         map(
-            many(1.., alt((preceded(tag("\\"), anychar), none_of("(|\\)")))),
+            many(1.., alt((preceded(tag("\\"), anychar), none_of("@(|\\)")))),
             |c: String| IterClone::new(std::iter::once(c)),
         ),
     ))
@@ -96,6 +109,25 @@ fn parse_alt(inp: &str) -> IResult<&str, IterClone<String>> {
         IterClone::new(list.into_iter().flatten())
     })
     .parse(inp)
+}
+
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+enum RegClass {
+    Reg32,
+    Reg64,
+}
+
+struct RandomReg(RegClass);
+
+impl RandomReg {
+    fn random(&self) -> String {
+        let id = rand::rng().random_range::<u8, _>(0..31);
+        let r = match self.0 {
+            RegClass::Reg32 => "w",
+            RegClass::Reg64 => "x",
+        };
+        format!("{r}{id}")
+    }
 }
 
 #[cfg(test)]
