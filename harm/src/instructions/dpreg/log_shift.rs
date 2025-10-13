@@ -15,8 +15,8 @@ use crate::{
     instructions::{
         RawInstruction,
         logical::{
-            And, Ands, Eor, LogicalArgs, LogicalShift, LogicalShiftAmount, MakeSpLogicalArgs,
-            MakeTstLogicalArgs, MakeZeroLogicalArgs, Orr,
+            And, Ands, Eor, LogicalArgs, LogicalShift, LogicalShiftAmount32, LogicalShiftAmount64,
+            MakeSpLogicalArgs, MakeTstLogicalArgs, MakeZeroLogicalArgs, Orr,
         },
     },
     outcome::Unfallible,
@@ -24,38 +24,33 @@ use crate::{
 };
 
 macro_rules! define_logical_args {
-    ($struct:ident, $trait:ident, $rn:ty) => {
+    ($struct:ident, $trait:ident, $rn:ty, $amount:ident) => {
         impl<RdIn, RnIn, RsIn> $trait<RdIn, RnIn, RsIn>
-            for $struct<$rn, $rn, ($rn, LogicalShift, LogicalShiftAmount)>
+            for $struct<$rn, $rn, ($rn, LogicalShift, $amount)>
         where
             RdIn: Into<$rn>,
             RnIn: Into<$rn>,
             RsIn: Into<$rn>,
         {
-            type Outcome = Unfallible<$struct<$rn, $rn, ($rn, LogicalShift, LogicalShiftAmount)>>;
+            type Outcome = Unfallible<$struct<$rn, $rn, ($rn, LogicalShift, $amount)>>;
 
             fn new(rd: RdIn, rn: RnIn, mask: RsIn) -> Self::Outcome {
                 Unfallible(Self {
                     rd: rd.into(),
                     rn: rn.into(),
-                    mask: (
-                        mask.into(),
-                        LogicalShift::LSL,
-                        LogicalShiftAmount::default(),
-                    ),
+                    mask: (mask.into(), LogicalShift::LSL, $amount::default()),
                 })
             }
         }
 
         impl<RdIn, RnIn, RsIn> $trait<RdIn, RnIn, (RsIn, LogicalShift, u8)>
-            for $struct<$rn, $rn, ($rn, LogicalShift, LogicalShiftAmount)>
+            for $struct<$rn, $rn, ($rn, LogicalShift, $amount)>
         where
             RdIn: Into<$rn>,
             RnIn: Into<$rn>,
             RsIn: Into<$rn>,
         {
-            type Outcome =
-                Result<LogicalArgs<$rn, $rn, ($rn, LogicalShift, LogicalShiftAmount)>, BitError>;
+            type Outcome = Result<LogicalArgs<$rn, $rn, ($rn, LogicalShift, $amount)>, BitError>;
 
             fn new(
                 rd: RdIn,
@@ -73,35 +68,29 @@ macro_rules! define_logical_args {
 }
 
 macro_rules! define_logical_args_tst {
-    ($struct:ident, $trait:ident, $rn:ty, $zero:expr) => {
-        impl<RnIn, RsIn> $trait<RnIn, RsIn>
-            for $struct<$rn, $rn, ($rn, LogicalShift, LogicalShiftAmount)>
+    ($struct:ident, $trait:ident, $rn:ty, $zero:expr, $amount:ident) => {
+        impl<RnIn, RsIn> $trait<RnIn, RsIn> for $struct<$rn, $rn, ($rn, LogicalShift, $amount)>
         where
             RnIn: Into<$rn>,
             RsIn: Into<$rn>,
         {
-            type Outcome = Unfallible<$struct<$rn, $rn, ($rn, LogicalShift, LogicalShiftAmount)>>;
+            type Outcome = Unfallible<$struct<$rn, $rn, ($rn, LogicalShift, $amount)>>;
 
             fn new(rn: RnIn, mask: RsIn) -> Self::Outcome {
                 Unfallible(Self {
                     rd: $zero,
                     rn: rn.into(),
-                    mask: (
-                        mask.into(),
-                        LogicalShift::LSL,
-                        LogicalShiftAmount::default(),
-                    ),
+                    mask: (mask.into(), LogicalShift::LSL, $amount::default()),
                 })
             }
         }
         impl<RnIn, RsIn> $trait<RnIn, (RsIn, LogicalShift, u8)>
-            for LogicalArgs<$rn, $rn, ($rn, LogicalShift, LogicalShiftAmount)>
+            for LogicalArgs<$rn, $rn, ($rn, LogicalShift, $amount)>
         where
             RnIn: Into<$rn>,
             RsIn: Into<$rn>,
         {
-            type Outcome =
-                Result<$struct<$rn, $rn, ($rn, LogicalShift, LogicalShiftAmount)>, BitError>;
+            type Outcome = Result<$struct<$rn, $rn, ($rn, LogicalShift, $amount)>, BitError>;
 
             fn new(rn: RnIn, (mask, shift, amount): (RsIn, LogicalShift, u8)) -> Self::Outcome {
                 u32::from(amount).try_into().map(|amount| Self {
@@ -114,26 +103,50 @@ macro_rules! define_logical_args_tst {
     };
 }
 
-define_logical_args!(LogicalArgs, MakeZeroLogicalArgs, RegOrZero32);
-define_logical_args!(LogicalArgs, MakeZeroLogicalArgs, RegOrZero64);
-define_logical_args!(LogicalArgs, MakeSpLogicalArgs, RegOrZero32);
-define_logical_args!(LogicalArgs, MakeSpLogicalArgs, RegOrZero64);
+define_logical_args!(
+    LogicalArgs,
+    MakeZeroLogicalArgs,
+    RegOrZero32,
+    LogicalShiftAmount32
+);
+define_logical_args!(
+    LogicalArgs,
+    MakeZeroLogicalArgs,
+    RegOrZero64,
+    LogicalShiftAmount64
+);
+define_logical_args!(
+    LogicalArgs,
+    MakeSpLogicalArgs,
+    RegOrZero32,
+    LogicalShiftAmount32
+);
+define_logical_args!(
+    LogicalArgs,
+    MakeSpLogicalArgs,
+    RegOrZero64,
+    LogicalShiftAmount64
+);
 
 define_logical_args_tst!(
     LogicalArgs,
     MakeTstLogicalArgs,
     RegOrZero32,
-    RegOrZero32::WZR
+    RegOrZero32::WZR,
+    LogicalShiftAmount32
 );
 define_logical_args_tst!(
     LogicalArgs,
     MakeTstLogicalArgs,
     RegOrZero64,
-    RegOrZero64::XZR
+    RegOrZero64::XZR,
+    LogicalShiftAmount64
 );
 
 impl RawInstruction
-    for And<LogicalArgs<RegOrZero32, RegOrZero32, (RegOrZero32, LogicalShift, LogicalShiftAmount)>>
+    for And<
+        LogicalArgs<RegOrZero32, RegOrZero32, (RegOrZero32, LogicalShift, LogicalShiftAmount32)>,
+    >
 {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -141,7 +154,7 @@ impl RawInstruction
         AND_32_log_shift(
             (shift as u32).into(),
             mask.code(),
-            amount.into(),
+            amount.bits().into(),
             args.rn.code(),
             args.rd.code(),
         )
@@ -149,7 +162,9 @@ impl RawInstruction
 }
 
 impl RawInstruction
-    for And<LogicalArgs<RegOrZero64, RegOrZero64, (RegOrZero64, LogicalShift, LogicalShiftAmount)>>
+    for And<
+        LogicalArgs<RegOrZero64, RegOrZero64, (RegOrZero64, LogicalShift, LogicalShiftAmount64)>,
+    >
 {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -157,7 +172,7 @@ impl RawInstruction
         AND_64_log_shift(
             (shift as u32).into(),
             mask.code(),
-            amount.into(),
+            amount.bits().into(),
             args.rn.code(),
             args.rd.code(),
         )
@@ -165,7 +180,9 @@ impl RawInstruction
 }
 
 impl RawInstruction
-    for Ands<LogicalArgs<RegOrZero32, RegOrZero32, (RegOrZero32, LogicalShift, LogicalShiftAmount)>>
+    for Ands<
+        LogicalArgs<RegOrZero32, RegOrZero32, (RegOrZero32, LogicalShift, LogicalShiftAmount32)>,
+    >
 {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -173,7 +190,7 @@ impl RawInstruction
         ANDS_32_log_shift(
             (shift as u32).into(),
             mask.code(),
-            amount.into(),
+            amount.bits().into(),
             args.rn.code(),
             args.rd.code(),
         )
@@ -181,7 +198,9 @@ impl RawInstruction
 }
 
 impl RawInstruction
-    for Ands<LogicalArgs<RegOrZero64, RegOrZero64, (RegOrZero64, LogicalShift, LogicalShiftAmount)>>
+    for Ands<
+        LogicalArgs<RegOrZero64, RegOrZero64, (RegOrZero64, LogicalShift, LogicalShiftAmount64)>,
+    >
 {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -197,7 +216,9 @@ impl RawInstruction
 }
 
 impl RawInstruction
-    for Eor<LogicalArgs<RegOrZero32, RegOrZero32, (RegOrZero32, LogicalShift, LogicalShiftAmount)>>
+    for Eor<
+        LogicalArgs<RegOrZero32, RegOrZero32, (RegOrZero32, LogicalShift, LogicalShiftAmount32)>,
+    >
 {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -205,7 +226,7 @@ impl RawInstruction
         EOR_32_log_shift(
             (shift as u32).into(),
             mask.code(),
-            amount.into(),
+            amount.bits().into(),
             args.rn.code(),
             args.rd.code(),
         )
@@ -213,7 +234,9 @@ impl RawInstruction
 }
 
 impl RawInstruction
-    for Eor<LogicalArgs<RegOrZero64, RegOrZero64, (RegOrZero64, LogicalShift, LogicalShiftAmount)>>
+    for Eor<
+        LogicalArgs<RegOrZero64, RegOrZero64, (RegOrZero64, LogicalShift, LogicalShiftAmount64)>,
+    >
 {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -229,7 +252,9 @@ impl RawInstruction
 }
 
 impl RawInstruction
-    for Orr<LogicalArgs<RegOrZero32, RegOrZero32, (RegOrZero32, LogicalShift, LogicalShiftAmount)>>
+    for Orr<
+        LogicalArgs<RegOrZero32, RegOrZero32, (RegOrZero32, LogicalShift, LogicalShiftAmount32)>,
+    >
 {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;
@@ -237,7 +262,7 @@ impl RawInstruction
         ORR_32_log_shift(
             (shift as u32).into(),
             mask.code(),
-            amount.into(),
+            amount.bits().into(),
             args.rn.code(),
             args.rd.code(),
         )
@@ -245,7 +270,9 @@ impl RawInstruction
 }
 
 impl RawInstruction
-    for Orr<LogicalArgs<RegOrZero64, RegOrZero64, (RegOrZero64, LogicalShift, LogicalShiftAmount)>>
+    for Orr<
+        LogicalArgs<RegOrZero64, RegOrZero64, (RegOrZero64, LogicalShift, LogicalShiftAmount64)>,
+    >
 {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         let args = &self.0;

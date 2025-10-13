@@ -17,8 +17,8 @@ pub enum LogicalShift {
     ROR = 0b11,
 }
 
-// TODO while 32-bit version has 6 bit field, assembler has to have 5 bit argument.
-pub type LogicalShiftAmount = UBitValue<6>;
+pub type LogicalShiftAmount32 = UBitValue<5>;
+pub type LogicalShiftAmount64 = UBitValue<6>;
 
 #[derive(Debug, Copy, Clone)]
 pub struct And<Args>(pub Args);
