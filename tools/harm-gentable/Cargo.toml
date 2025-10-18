@@ -1,0 +1,11 @@
+[package]
+name = "harm-gentable"
+version = "0.1.0"
+edition = "2024"
+license = "BSD-3-Clause"
+authors = ["Ivan Boldyrev <lispnik@gmail.com>"]
+publish = false
+
+[dependencies]
+clap = { version = "4.5.48", features = ["derive"] }
+harm = { workspace = true }

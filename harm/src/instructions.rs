@@ -9,7 +9,10 @@ use crate::reloc::Reloc;
 
 pub mod arith;
 pub mod control;
+pub mod dpimm;
+pub mod dpreg;
 pub mod ldst;
+pub mod logical;
 pub mod movewide;
 
 pub trait RawInstruction {
