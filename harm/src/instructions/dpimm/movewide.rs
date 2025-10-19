@@ -15,12 +15,11 @@ use aarchmrs_instructions::A64::dpimm::movewide::{
 
 use crate::{
     bits::{BitError, UBitValue},
+    instructions::RawInstruction,
     outcome::{Outcome, Unfallible},
     register::{IntoReg, RegOrZero32, RegOrZero64, Register},
     sealed::Sealed,
 };
-
-use super::RawInstruction;
 
 // Either 0 or 16 = 1 << 4.
 pub type Shift32 = UBitValue<1, 4>;
