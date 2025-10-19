@@ -4,9 +4,7 @@
  */
 
 use crate::{
-    instructions::logical::{
-        LogicalArgs, MakeSpLogicalArgs, MakeTstLogicalArgs, MakeZeroLogicalArgs,
-    },
+    instructions::logical::{LogicalArgs, MakeSpLogicalArgs, MakeZeroLogicalArgs},
     outcome::Unfallible,
     register::{IntoReg, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64},
 };
@@ -143,68 +141,6 @@ where
     fn new(rd: RdIn, rn: RnIn, mask: u64) -> Self::Outcome {
         LogicalImmFields::try_new64(mask).map(|mask| Self {
             rd: rd.into_reg(),
-            rn: rn.into_reg(),
-            mask,
-        })
-    }
-}
-
-impl<RnIn> MakeTstLogicalArgs<RnIn, LogicalImmFields>
-    for LogicalArgs<RegOrZero32, RegOrZero32, LogicalImmFields>
-where
-    RnIn: IntoReg<RegOrZero32>,
-{
-    type Outcome = Unfallible<Self>;
-
-    fn new(rn: RnIn, mask: LogicalImmFields) -> Self::Outcome {
-        Unfallible(Self {
-            rd: RegOrZero32::WZR,
-            rn: rn.into_reg(),
-            mask,
-        })
-    }
-}
-
-impl<RnIn> MakeTstLogicalArgs<RnIn, u32> for LogicalArgs<RegOrZero32, RegOrZero32, LogicalImmFields>
-where
-    RnIn: IntoReg<RegOrZero32>,
-{
-    type Outcome = Result<Self, LogicalImmError>;
-
-    fn new(rn: RnIn, mask: u32) -> Self::Outcome {
-        LogicalImmFields::try_new32(mask).map(|mask| Self {
-            rd: RegOrZero32::WZR,
-            rn: rn.into_reg(),
-            mask,
-        })
-    }
-}
-
-impl<RnIn> MakeTstLogicalArgs<RnIn, LogicalImmFields>
-    for LogicalArgs<RegOrZero64, RegOrZero64, LogicalImmFields>
-where
-    RnIn: IntoReg<RegOrZero64>,
-{
-    type Outcome = Unfallible<Self>;
-
-    fn new(rn: RnIn, mask: LogicalImmFields) -> Self::Outcome {
-        Unfallible(Self {
-            rd: RegOrZero64::XZR,
-            rn: rn.into_reg(),
-            mask,
-        })
-    }
-}
-
-impl<RnIn> MakeTstLogicalArgs<RnIn, u64> for LogicalArgs<RegOrZero64, RegOrZero64, LogicalImmFields>
-where
-    RnIn: IntoReg<RegOrZero64>,
-{
-    type Outcome = Result<Self, LogicalImmError>;
-
-    fn new(rn: RnIn, mask: u64) -> Self::Outcome {
-        LogicalImmFields::try_new64(mask).map(|mask| Self {
-            rd: RegOrZero64::XZR,
             rn: rn.into_reg(),
             mask,
         })

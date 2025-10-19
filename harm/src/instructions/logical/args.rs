@@ -23,9 +23,3 @@ pub trait MakeZeroLogicalArgs<Rd, Rn, Mask> {
 
     fn new(rd: Rd, rn: Rn, mask: Mask) -> Self::Outcome;
 }
-
-pub trait MakeTstLogicalArgs<Rn, Mask> {
-    type Outcome: Outcome;
-
-    fn new(rn: Rn, mask: Mask) -> Self::Outcome;
-}
