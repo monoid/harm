@@ -47,16 +47,16 @@ pub trait MakeMovArgs<R, Val>: Sealed {
 }
 
 #[derive(Debug, Clone, Copy)]
-pub struct MovArgs<Reg: MoveShift> {
+pub struct MovImmArgs<Reg: MoveShift> {
     pub rd: Reg,
     pub imm16: MoveImm16,
     pub shift: Reg::Shift,
 }
 
-impl<Reg: MoveShift> Sealed for MovArgs<Reg> {}
+impl<Reg: MoveShift> Sealed for MovImmArgs<Reg> {}
 
 impl<RIn: IntoReg<RegOrZero32>, Imm16: Into<MoveImm16>> MakeMovArgs<RIn, (Imm16, Shift32)>
-    for MovArgs<RegOrZero32>
+    for MovImmArgs<RegOrZero32>
 {
     type Outcome = Unfallible<Self>;
 
@@ -69,7 +69,7 @@ impl<RIn: IntoReg<RegOrZero32>, Imm16: Into<MoveImm16>> MakeMovArgs<RIn, (Imm16,
     }
 }
 
-impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovArgs<RegOrZero32>
+impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovImmArgs<RegOrZero32>
 where
     RIn: IntoReg<RegOrZero32>,
     Imm16: Into<MoveImm16>,
@@ -85,7 +85,7 @@ where
     }
 }
 
-impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovArgs<RegOrZero32>
+impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovImmArgs<RegOrZero32>
 where
     RIn: IntoReg<RegOrZero32>,
     Imm16: Into<MoveImm16>,
@@ -102,7 +102,7 @@ where
 }
 
 impl<RIn: IntoReg<RegOrZero64>, Imm16: Into<MoveImm16>>
-    MakeMovArgs<RIn, (Imm16, <RegOrZero64 as MoveShift>::Shift)> for MovArgs<RegOrZero64>
+    MakeMovArgs<RIn, (Imm16, <RegOrZero64 as MoveShift>::Shift)> for MovImmArgs<RegOrZero64>
 {
     type Outcome = Unfallible<Self>;
 
@@ -115,7 +115,7 @@ impl<RIn: IntoReg<RegOrZero64>, Imm16: Into<MoveImm16>>
     }
 }
 
-impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovArgs<RegOrZero64>
+impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovImmArgs<RegOrZero64>
 where
     RIn: IntoReg<RegOrZero64>,
     Imm16: Into<MoveImm16>,
@@ -131,7 +131,7 @@ where
     }
 }
 
-impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovArgs<RegOrZero64>
+impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovImmArgs<RegOrZero64>
 where
     RIn: IntoReg<RegOrZero64>,
     Imm16: Into<MoveImm16>,
@@ -152,22 +152,22 @@ pub struct MovK<Args>(Args);
 pub fn movk<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovK<MovArgs<ROut>>>
+) -> <<MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovK<MovImmArgs<ROut>>>
 where
     ROut: MoveShift,
-    MovArgs<ROut>: MakeMovArgs<RIn, Val>,
-    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovArgs<ROut>>,
+    MovImmArgs<ROut>: MakeMovArgs<RIn, Val>,
+    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovImmArgs<ROut>>,
 {
-    (<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val)).map(MovK)
+    (<MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val)).map(MovK)
 }
 
-impl RawInstruction for MovK<MovArgs<RegOrZero32>> {
+impl RawInstruction for MovK<MovImmArgs<RegOrZero32>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         MOVK_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
     }
 }
 
-impl RawInstruction for MovK<MovArgs<RegOrZero64>> {
+impl RawInstruction for MovK<MovImmArgs<RegOrZero64>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         MOVK_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
     }
@@ -178,22 +178,22 @@ pub struct MovN<Args>(Args);
 pub fn movn<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovN<MovArgs<ROut>>>
+) -> <<MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovN<MovImmArgs<ROut>>>
 where
     ROut: MoveShift,
-    MovArgs<ROut>: MakeMovArgs<RIn, Val>,
-    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovArgs<ROut>>,
+    MovImmArgs<ROut>: MakeMovArgs<RIn, Val>,
+    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovImmArgs<ROut>>,
 {
-    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovN)
+    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovN)
 }
 
-impl RawInstruction for MovN<MovArgs<RegOrZero32>> {
+impl RawInstruction for MovN<MovImmArgs<RegOrZero32>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         MOVN_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
     }
 }
 
-impl RawInstruction for MovN<MovArgs<RegOrZero64>> {
+impl RawInstruction for MovN<MovImmArgs<RegOrZero64>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         MOVN_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
     }
@@ -204,22 +204,22 @@ pub struct MovZ<Args>(Args);
 pub fn movz<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
-) -> <<MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovZ<MovArgs<ROut>>>
+) -> <<MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovZ<MovImmArgs<ROut>>>
 where
     ROut: MoveShift,
-    MovArgs<ROut>: MakeMovArgs<RIn, Val>,
-    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovArgs<ROut>>,
+    MovImmArgs<ROut>: MakeMovArgs<RIn, Val>,
+    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovImmArgs<ROut>>,
 {
-    <MovArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovZ)
+    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovZ)
 }
 
-impl RawInstruction for MovZ<MovArgs<RegOrZero32>> {
+impl RawInstruction for MovZ<MovImmArgs<RegOrZero32>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         MOVZ_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
     }
 }
 
-impl RawInstruction for MovZ<MovArgs<RegOrZero64>> {
+impl RawInstruction for MovZ<MovImmArgs<RegOrZero64>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
         MOVZ_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
     }
