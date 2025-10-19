@@ -16,7 +16,7 @@ use crate::{
         RawInstruction,
         logical::{
             And, Ands, Eor, LogicalArgs, LogicalShift, LogicalShiftAmount32, LogicalShiftAmount64,
-            MakeSpLogicalArgs, MakeTstLogicalArgs, MakeZeroLogicalArgs, Orr,
+            MakeSpLogicalArgs, MakeZeroLogicalArgs, Orr,
         },
     },
     outcome::Unfallible,
@@ -67,42 +67,6 @@ macro_rules! define_logical_args {
     };
 }
 
-macro_rules! define_logical_args_tst {
-    ($struct:ident, $trait:ident, $rn:ty, $zero:expr, $amount:ident) => {
-        impl<RnIn, RsIn> $trait<RnIn, RsIn> for $struct<$rn, $rn, ($rn, LogicalShift, $amount)>
-        where
-            RnIn: Into<$rn>,
-            RsIn: Into<$rn>,
-        {
-            type Outcome = Unfallible<$struct<$rn, $rn, ($rn, LogicalShift, $amount)>>;
-
-            fn new(rn: RnIn, mask: RsIn) -> Self::Outcome {
-                Unfallible(Self {
-                    rd: $zero,
-                    rn: rn.into(),
-                    mask: (mask.into(), LogicalShift::LSL, $amount::default()),
-                })
-            }
-        }
-        impl<RnIn, RsIn> $trait<RnIn, (RsIn, LogicalShift, u8)>
-            for LogicalArgs<$rn, $rn, ($rn, LogicalShift, $amount)>
-        where
-            RnIn: Into<$rn>,
-            RsIn: Into<$rn>,
-        {
-            type Outcome = Result<$struct<$rn, $rn, ($rn, LogicalShift, $amount)>, BitError>;
-
-            fn new(rn: RnIn, (mask, shift, amount): (RsIn, LogicalShift, u8)) -> Self::Outcome {
-                u32::from(amount).try_into().map(|amount| Self {
-                    rd: $zero,
-                    rn: rn.into(),
-                    mask: (mask.into(), shift, amount),
-                })
-            }
-        }
-    };
-}
-
 define_logical_args!(
     LogicalArgs,
     MakeZeroLogicalArgs,
@@ -125,21 +89,6 @@ define_logical_args!(
     LogicalArgs,
     MakeSpLogicalArgs,
     RegOrZero64,
-    LogicalShiftAmount64
-);
-
-define_logical_args_tst!(
-    LogicalArgs,
-    MakeTstLogicalArgs,
-    RegOrZero32,
-    RegOrZero32::WZR,
-    LogicalShiftAmount32
-);
-define_logical_args_tst!(
-    LogicalArgs,
-    MakeTstLogicalArgs,
-    RegOrZero64,
-    RegOrZero64::XZR,
     LogicalShiftAmount64
 );
 

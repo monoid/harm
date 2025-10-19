@@ -5,8 +5,8 @@
 
 mod args;
 
-pub use self::args::{LogicalArgs, MakeSpLogicalArgs, MakeTstLogicalArgs, MakeZeroLogicalArgs};
-use crate::{bits::UBitValue, outcome::Outcome};
+pub use self::args::{LogicalArgs, MakeSpLogicalArgs, MakeZeroLogicalArgs};
+use crate::{bits::UBitValue, outcome::Outcome, register::Zero};
 
 #[derive(Debug, Copy, Clone)]
 #[repr(u8)]
@@ -51,14 +51,19 @@ where
 }
 
 pub fn tst<RnIn, MaskIn, RdOut, RnOut, MaskOut>(rn: RnIn, mask: MaskIn) ->
-    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::Outcome as Outcome>::Output<Ands<LogicalArgs<RdOut, RnOut, MaskOut>>>
+    <<LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdOut, RnIn, MaskIn>>::Outcome as Outcome>::Output<Ands<LogicalArgs<RdOut, RnOut, MaskOut>>>
 where
-    LogicalArgs<RdOut, RnOut, MaskOut>: MakeTstLogicalArgs<RnIn, MaskIn>,
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::Outcome:
+    LogicalArgs<RdOut, RnOut, MaskOut>: MakeZeroLogicalArgs<RdOut, RnIn, MaskIn>,
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdOut, RnIn, MaskIn>>::Outcome:
         Outcome<Inner = LogicalArgs<RdOut, RnOut, MaskOut>>,
+    RdOut: Zero,
 {
-    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeTstLogicalArgs<RnIn, MaskIn>>::new(rn, mask)
-        .map(Ands)
+    <LogicalArgs<RdOut, RnOut, MaskOut> as MakeZeroLogicalArgs<RdOut, RnIn, MaskIn>>::new(
+        RdOut::ZERO,
+        rn,
+        mask,
+    )
+    .map(Ands)
 }
 
 #[derive(Debug, Copy, Clone)]

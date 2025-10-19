@@ -456,6 +456,18 @@ impl IntoReg<RegOrZero32> for RegOrZero32 {
     }
 }
 
+pub trait Zero: Sealed {
+    const ZERO: Self;
+}
+
+impl Zero for RegOrZero32 {
+    const ZERO: Self = Self::WZR;
+}
+
+impl Zero for RegOrZero64 {
+    const ZERO: Self = Self::XZR;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
