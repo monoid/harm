@@ -230,6 +230,8 @@ mod tests {
     use crate::instructions::InstructionSeq;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
+    use crate::register::RegOrZero32::WZR;
+    use crate::register::RegOrZero64::XZR;
     use harm_test_utils::test_cases;
 
     use super::*;
@@ -242,6 +244,7 @@ mod tests {
 12a00541	movn w1, #42, lsl #16
 12b08421	movn w1, #0x8421, lsl #16
 52800541	movz w1, #42
+5280055f	movz wzr, #42
 52800541	movz w1, #42, lsl #0
 52908421	movz w1, #0x8421
 52908421	movz w1, #0x8421, lsl #0
@@ -264,6 +267,7 @@ mod tests {
 92e00541	movn x1, #42, lsl #48
 92f08421	movn x1, #0x8421, lsl #48
 d2800541	movz x1, #42
+d280055f	movz xzr, #42
 d2800541	movz x1, #42, lsl #0
 d2908421	movz x1, #0x8421
 d2908421	movz x1, #0x8421, lsl #0
@@ -328,6 +332,7 @@ f2f08421	movk x1, #0x8421, lsl #48
         test_movn_64_0x8421_lsl_48_fallible, movn(X1, (0x8421, 48)).unwrap(), "movn x1, #0x8421, lsl #48";
 
         test_movz_32_42, movz(W1, 42), "movz w1, #42";
+        test_movz_wzr_42, movz(WZR, 42), "movz wzr, #42";
         test_movz_32_42_lsl_0, movz(W1, (42, UBitValue::new(0).unwrap())), "movz w1, #42, lsl #0";
         test_movz_32_42_lsl_16, movz(W1, (42, UBitValue::new(16).unwrap())), "movz w1, #42, lsl #16";
         test_movz_32_0x8421, movz(W1, 0x8421), "movz w1, #0x8421";
@@ -336,6 +341,7 @@ f2f08421	movk x1, #0x8421, lsl #48
         test_movz_32_0x8421_lsl_16_fallible, movz(W1, (0x8421, 16)).unwrap(), "movz w1, #0x8421, lsl #16";
 
         test_movz_64_42, movz(X1, 42), "movz x1, #42";
+        test_movz_xzr_42, movz(XZR, 42), "movz xzr, #42";
         test_movz_64_42_lsl_0, movz(X1, (42, UBitValue::new(0).unwrap())), "movz x1, #42, lsl #0";
         test_movz_64_42_lsl_16, movz(X1, (42, UBitValue::new(16).unwrap())), "movz x1, #42, lsl #16";
         test_movz_64_42_lsl_32, movz(X1, (42, UBitValue::new(32).unwrap())), "movz x1, #42, lsl #32";

@@ -14,9 +14,9 @@ mov sp, x2 -- add sp, x2, #0
 mov x2, sp -- add x2, sp, #0
 mov w1, wzr -- or w1, wzr, wzr
 mov x3, N -- either
-      movz
-      movn
-      or `or x3, xzr, N`
+      movz (xzr)
+      movn (xzr)
+      or `or x3, xzr, N` (sp)
 
 It seems re-using underlying traits (OR/AND/MOVX) wouldn't be possible, and we need a trait. And we may use different
 Self types for implementation of these traits.
@@ -143,6 +143,10 @@ d2800026	mov x6, 1
 b204cfe8	mov x8, 0xF0F0F0F0F0F0F0F0
 b2408fe9	orr x9, xzr, 0xFFFFFFFFF
 b2408fe9	mov x9, 0xFFFFFFFFF
+d280003f    mov xzr, 1
+b204cfff	mov sp, 0xF0F0F0F0F0F0F0F0
+b2408fff	orr sp, xzr, 0xFFFFFFFFF
+b2408fff	mov sp, 0xFFFFFFFFF
 
 2a0203e1	mov w1, w2
 2a1f03e3	mov w3, wzr
@@ -153,6 +157,9 @@ b2408fe9	mov x9, 0xFFFFFFFFF
 52800026	mov w6, 1
 12800027	mov w7, -2
 3204cfe8	mov w8, 0xF0F0F0F0
+5280003f	mov wzr, 1
+320003ff	mov wsp, 1
+3204cfff	mov wsp, 0xF0F0F0F0
 
 32003fe9	orr w9, wzr, 0x0000FFFF
 529fffe9	mov w9, 0x00000FFFF
@@ -160,7 +167,6 @@ b2408fe9	mov x9, 0xFFFFFFFFF
 52bfffe9	mov w9, 0xFFFF0000
 32143fe9	orr w9, wzr, 0x0FFFF000
 32143fe9	mov w9, 0x0FFFF000
-
 ";
 
     test_cases! {
