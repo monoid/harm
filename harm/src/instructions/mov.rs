@@ -22,21 +22,25 @@ It seems re-using underlying traits (OR/AND/MOVX) wouldn't be possible, and we n
 Self types for implementation of these traits.
  */
 
+mod mov_imm;
+
 use core::marker::PhantomData;
 
-use super::logical::{LogicalArgs, LogicalShift, LogicalShiftable, MakeSpLogicalArgs, Orr, orr};
+use super::{
+    arith::AddSubImm12, logical::{LogicalArgs, Orr}
+};
 use crate::{
     instructions::{
-        RawInstruction,
         arith::add::Add,
         dpimm::{MovImmArgs, MovN, MovZ, MoveShift, immediate::LogicalImmFields},
     },
-    outcome::Unfallible,
     register::{IntoReg, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Zero},
     sealed::Sealed,
 };
 
 pub struct MovImpls<X>(PhantomData<X>);
+
+impl<X: Sealed> Sealed for MovImpls<X> {}
 
 pub trait MakeMov<Dst, Src>: Sealed {
     type Output;
@@ -50,12 +54,35 @@ pub struct MovReg<R> {
 }
 
 impl<R> Sealed for MovReg<R> {}
-impl<X: Sealed> Sealed for MovImpls<X> {}
 
-pub enum MovRegSp<R, RSp> {
-    Ordinary(MovReg<R>),
-    // actually, it is not u32, it is something equal to zero (not Zero)
-    Sp(Add<RSp, RSp, u32>),
+pub struct MovNOrZImm<R: MoveShift> {
+    pub neg: bool,
+    pub args: MovImmArgs<R>,
+}
+
+pub enum MovImm<RZ: MoveShift, RSp> {
+    MovNOrZ(MovNOrZImm<RZ>),
+    Orr(Orr<LogicalArgs<RSp, RZ, LogicalImmFields>>),
+}
+
+impl<R: MoveShift + Sealed, C: Sealed> Sealed for MovImm<R, C> {}
+
+pub enum MovSpImm<R, RSp> {
+    A(R),
+    B(RSp),
+}
+
+pub enum MovConst<R: MoveShift + Zero> {
+    MovZ(MovZ<MovImmArgs<R>>),
+    MovN(MovN<MovImmArgs<R>>),
+    Orr(Orr<LogicalArgs<R, R, LogicalImmFields>>),
+}
+
+impl<R: MoveShift> Sealed for MovNOrZImm<R> {}
+
+pub enum MovRegSp<RZ, RSp> {
+    Ordinary(MovReg<RZ>),
+    Sp(Add<RSp, RSp, AddSubImm12>),
 }
 
 impl<Dst, Src> MakeMov<Dst, Src> for MovImpls<MovReg<RegOrSp32>>
@@ -88,32 +115,6 @@ where
     }
 }
 
-pub enum MovConst<R: MoveShift + Zero> {
-    MovZ(MovZ<MovImmArgs<R>>),
-    MovN(MovN<MovImmArgs<R>>),
-    Orr(Orr<LogicalArgs<R, R, LogicalImmFields>>),
-}
-
-impl<Rs: Zero + Copy + LogicalShiftable> RawInstruction for MovReg<Rs>
-where
-    LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>:
-        MakeSpLogicalArgs<
-                Rs,
-                Rs,
-                Rs,
-                Outcome = Unfallible<
-                    LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>,
-                >,
-            >,
-    <Rs as LogicalShiftable>::ShiftAmount: Default,
-    Orr<LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>>:
-        RawInstruction,
-{
-    fn to_code(&self) -> aarchmrs_types::InstructionCode {
-        orr(self.dst, Rs::ZERO, self.src).to_code()
-    }
-}
-
 pub fn mov<Rd, Rs, X>(dst: Rd, src: Rs) -> <MovImpls<X> as MakeMov<Rd, Rs>>::Output
 where
     MovImpls<X>: MakeMov<Rd, Rs>,
@@ -124,9 +125,11 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::instructions::logical::orr;
     use crate::instructions::InstructionSeq;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
+    use crate::register::RegOrSp64::SP;
     use crate::register::RegOrZero32::WZR;
     use crate::register::RegOrZero64::XZR;
     use harm_test_utils::test_cases;
@@ -143,7 +146,7 @@ d2800026	mov x6, 1
 b204cfe8	mov x8, 0xF0F0F0F0F0F0F0F0
 b2408fe9	orr x9, xzr, 0xFFFFFFFFF
 b2408fe9	mov x9, 0xFFFFFFFFF
-d280003f    mov xzr, 1
+d280003f	mov xzr, 1
 b204cfff	mov sp, 0xF0F0F0F0F0F0F0F0
 b2408fff	orr sp, xzr, 0xFFFFFFFFF
 b2408fff	mov sp, 0xFFFFFFFFF
@@ -162,7 +165,7 @@ b2408fff	mov sp, 0xFFFFFFFFF
 3204cfff	mov wsp, 0xF0F0F0F0
 
 32003fe9	orr w9, wzr, 0x0000FFFF
-529fffe9	mov w9, 0x00000FFFF
+529fffe9	mov w9, 0x0000FFFF
 32103fe9	orr w9, wzr, 0xFFFF0000
 52bfffe9	mov w9, 0xFFFF0000
 32143fe9	orr w9, wzr, 0x0FFFF000
@@ -179,10 +182,20 @@ b2408fff	mov sp, 0xFFFFFFFFF
 
         // these implementations compare visually that implementation of certiain MOV are implemented
         // or not implemented as ORR.
-        // TODO: implement as match
+        // TODO: implement as matching with resp. mov where possible
+        // TODO: is it really needed if we match with an existing implementation?
         test_or_w9_wzr_0x0000ffff, orr(W9, WZR, 0x0000FFFF).unwrap(), "orr w9, wzr, 0x0000FFFF";
         test_or_w9_wzr_0x0ffff000, orr(W9, WZR, 0x0FFFF000).unwrap(), "orr w9, wzr, 0x0FFFF000";
         test_or_w9_wzr_0xffff0000, orr(W9, WZR, 0xFFFF0000).unwrap(), "orr w9, wzr, 0xFFFF0000";
         test_or_x9_xzr_0xfffffffff, orr(X9, XZR, 0xFFFFFFFFF).unwrap(), "orr x9, xzr, 0xFFFFFFFFF";
+        test_or_sp_xzr_0xfffffffff, orr(SP, XZR, 0xFFFFFFFFF).unwrap(), "orr sp, xzr, 0xFFFFFFFFF";
+
+        test_mov_w6_1, mov(W6, 1u32).unwrap(), "mov w6, 1";
+        test_mov_w7_minus2, mov(W7, -2i32).unwrap(), "mov w7, -2";
+        test_mov_w8_0xf0f0f0f0, mov(W8, 0xF0F0F0F0u32).unwrap(), "mov w8, 0xF0F0F0F0";
+        test_mov_w9_0x0000ffff, mov(W9, 0x0000FFFFu32).unwrap(), "mov w9, 0x0000FFFF";
+        test_mov_w9_0xffff0000, mov(W9, 0xFFFF0000u32).unwrap(), "mov w9, 0xFFFF0000";
+        test_mov_w9_0x0ffff000, mov(W9, 0x0FFFF000u32).unwrap(), "mov w9, 0x0FFFF000";
+        test_mov_wzr_1, mov(WZR, 1u32).unwrap(), "mov wzr, 1";
     }
 }
