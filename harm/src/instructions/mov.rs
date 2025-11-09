@@ -26,14 +26,15 @@ mod mov_imm;
 
 use core::marker::PhantomData;
 
-use super::{
-    arith::AddSubImm12, logical::{LogicalArgs, Orr}
-};
 use crate::{
     instructions::{
+        RawInstruction,
+        arith::AddSubImm12,
         arith::add::Add,
-        dpimm::{MovImmArgs, MovN, MovZ, MoveShift, immediate::LogicalImmFields},
+        dpimm::{MovImmArgs, MoveShift, immediate::LogicalImmFields},
+        logical::{LogicalArgs, LogicalShift, LogicalShiftable, MakeSpLogicalArgs, Orr, orr},
     },
+    outcome::Unfallible,
     register::{IntoReg, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Zero},
     sealed::Sealed,
 };
@@ -67,21 +68,10 @@ pub enum MovImm<RZ: MoveShift, RSp> {
 
 impl<R: MoveShift + Sealed, C: Sealed> Sealed for MovImm<R, C> {}
 
-pub enum MovSpImm<R, RSp> {
-    A(R),
-    B(RSp),
-}
-
-pub enum MovConst<R: MoveShift + Zero> {
-    MovZ(MovZ<MovImmArgs<R>>),
-    MovN(MovN<MovImmArgs<R>>),
-    Orr(Orr<LogicalArgs<R, R, LogicalImmFields>>),
-}
-
 impl<R: MoveShift> Sealed for MovNOrZImm<R> {}
 
 pub enum MovRegSp<RZ, RSp> {
-    Ordinary(MovReg<RZ>),
+    Reg(MovReg<RZ>),
     Sp(Add<RSp, RSp, AddSubImm12>),
 }
 
@@ -115,6 +105,26 @@ where
     }
 }
 
+impl<Rs: Zero + Copy + LogicalShiftable> RawInstruction for MovReg<Rs>
+where
+    LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>:
+        MakeSpLogicalArgs<
+                Rs,
+                Rs,
+                Rs,
+                Outcome = Unfallible<
+                    LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>,
+                >,
+            >,
+    <Rs as LogicalShiftable>::ShiftAmount: Default,
+    Orr<LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>>:
+        RawInstruction,
+{
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        orr(self.dst, Rs::ZERO, self.src).to_code()
+    }
+}
+
 pub fn mov<Rd, Rs, X>(dst: Rd, src: Rs) -> <MovImpls<X> as MakeMov<Rd, Rs>>::Output
 where
     MovImpls<X>: MakeMov<Rd, Rs>,
@@ -125,10 +135,11 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::instructions::logical::orr;
     use crate::instructions::InstructionSeq;
+    use crate::instructions::logical::orr;
     use crate::register::Reg32::*;
     use crate::register::Reg64::*;
+    use crate::register::RegOrSp32::WSP;
     use crate::register::RegOrSp64::SP;
     use crate::register::RegOrZero32::WZR;
     use crate::register::RegOrZero64::XZR;
@@ -197,5 +208,16 @@ b2408fff	mov sp, 0xFFFFFFFFF
         test_mov_w9_0xffff0000, mov(W9, 0xFFFF0000u32).unwrap(), "mov w9, 0xFFFF0000";
         test_mov_w9_0x0ffff000, mov(W9, 0x0FFFF000u32).unwrap(), "mov w9, 0x0FFFF000";
         test_mov_wzr_1, mov(WZR, 1u32).unwrap(), "mov wzr, 1";
+        test_mov_wsp_1, mov(WSP, 1u32).unwrap(), "mov wsp, 1";
+        test_mov_wsp_0xf0f0f0f0, mov(WSP, 0xF0F0F0F0u32).unwrap(), "mov wsp, 0xF0F0F0F0";
+
+        test_mov_sp_0xf0f0f0f0f0f0f0f0, mov(SP, 0xF0F0F0F0F0F0F0F0).unwrap(), "mov sp, 0xF0F0F0F0F0F0F0F0";
+        test_mov_sp_0xfffffffff, mov(SP, 0xFFFFFFFFF).unwrap(), "mov sp, 0xFFFFFFFFF";
+        test_mov_x6_1, mov(X6, 1u64).unwrap(), "mov x6, 1";
+        test_mov_x7_minus2, mov(X7, -2i64).unwrap(), "mov x7, -2";
+        test_mov_x8_0xf0f0f0f0f0f0f0f0, mov(X8, 0xF0F0F0F0F0F0F0F0u64).unwrap(), "mov x8, 0xF0F0F0F0F0F0F0F0";
+        test_mov_x9_0xfffffffff, mov(X9, 0xFFFFFFFFFu64).unwrap(), "mov x9, 0xFFFFFFFFF";
+        test_mov_xzr_1, mov(XZR, 1u64).unwrap(), "mov xzr, 1";
+        test_mov_xzr_x10, mov(XZR, X10), "mov xzr, x10";
     }
 }

@@ -4,14 +4,14 @@
  */
 
 use super::*;
-
 use crate::instructions::RawInstruction;
-use crate::instructions::dpimm::{MakeMovArgs, MovImmArgs, MoveImm16, Shift32, movn, movz};
-use crate::instructions::logical::{
-    LogicalArgs, LogicalShift, LogicalShiftable, MakeSpLogicalArgs, orr,
+use crate::instructions::dpimm::{
+    MakeMovArgs, MovImmArgs, MoveImm16, Shift32, Shift64, movn, movz,
 };
-use crate::outcome::{Outcome, Unfallible};
-use crate::register::Zero;
+use crate::instructions::logical::
+    orr
+;
+use crate::outcome::Outcome;
 use crate::register::{IntoReg, RegOrSp32, RegOrZero32};
 
 impl<Dst> MakeMov<Dst, u32> for MovImpls<MovImm<RegOrZero32, RegOrSp32>>
@@ -32,6 +32,38 @@ where
                     .map_err(|_e| "TODO can't"),
                 WZR => Err("TODO can't"),
             })
+    }
+}
+
+impl MakeMov<RegOrSp32, u32> for MovImpls<MovImm<RegOrZero32, RegOrSp32>> {
+    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, &'static str>;
+
+    fn make(dst: RegOrSp32, src: u32) -> Self::Output {
+        use RegOrZero32::WZR;
+
+        match dst {
+            RegOrSp32::Reg(reg32) => try_into_mov_z_or_k_32(RegOrZero32::Reg(reg32), src)
+                .map(|(neg, args)| MovImm::MovNOrZ(MovNOrZImm { neg, args }))
+                .or_else(|_| {
+                    orr(reg32, WZR, src)
+                        .map(MovImm::Orr)
+                        .map_err(|_e| "TODO can't")
+                }),
+            RegOrSp32::WSP => orr(dst, WZR, src)
+                .map(MovImm::Orr)
+                .map_err(|_e| "TODO can't"),
+        }
+    }
+}
+
+impl<Dst> MakeMov<Dst, i32> for MovImpls<MovNOrZImm<RegOrZero32>>
+where
+    Dst: IntoReg<RegOrZero32>,
+{
+    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, &'static str>;
+
+    fn make(dst: Dst, src: i32) -> Self::Output {
+        <MovImpls<MovImm<RegOrZero32, RegOrSp32>> as MakeMov<Dst, u32>>::make(dst, src as u32)
     }
 }
 
@@ -56,26 +88,15 @@ impl RawInstruction for MovImm<RegOrZero32, RegOrSp32> {
     }
 }
 
-impl<Dst> MakeMov<Dst, i32> for MovImpls<MovNOrZImm<RegOrZero32>>
-where
-    Dst: IntoReg<RegOrZero32>,
-{
-    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, &'static str>;
-
-    fn make(dst: Dst, src: i32) -> Self::Output {
-        <MovImpls<MovImm<RegOrZero32, RegOrSp32>> as MakeMov<Dst, u32>>::make(dst, src as u32)
-    }
-}
-
-pub(crate) fn matches_u16(v: u32, shift: u32) -> Option<MoveImm16> {
+fn matches_u16(v: u64, shift: u32) -> Option<MoveImm16> {
     if (0xFFFF << shift) & v == v {
-        MoveImm16::new(v >> shift).ok()
+        MoveImm16::new((v >> shift) as _).ok()
     } else {
         None
     }
 }
 
-pub(crate) fn try_into_mov_z_or_k_32(
+fn try_into_mov_z_or_k_32(
     reg: RegOrZero32,
     v: u32,
 ) -> Result<(bool, MovImmArgs<RegOrZero32>), &'static str> {
@@ -84,36 +105,115 @@ pub(crate) fn try_into_mov_z_or_k_32(
     let movz = (0..=MAX_R32_SHIFT).filter_map(|idx| {
         let shift = R32_SHIFT_SIZE * idx;
         let shift32 = Shift32::new(shift).expect("invalid shift generated");
-        matches_u16(v, shift).map(|val| MovImmArgs::new(reg, (val, shift32)).map(|x| (false, x)))
+        matches_u16(v.into(), shift)
+            .map(|val| MovImmArgs::new(reg, (val, shift32)).map(|x| (false, x)))
     });
 
     let neg_v = !v;
     let movk = (0..=MAX_R32_SHIFT).filter_map(|idx| {
         let shift = R32_SHIFT_SIZE * idx;
         let shift32 = Shift32::new(shift).expect("invalid shift generated");
-        matches_u16(neg_v, shift).map(|val| MovImmArgs::new(reg, (val, shift32)).map(|x| (true, x)))
+        matches_u16(neg_v.into(), shift)
+            .map(|val| MovImmArgs::new(reg, (val, shift32)).map(|x| (true, x)))
     });
 
     // movz is tried first!
     movz.chain(movk).next().ok_or("TODO")
 }
 
-impl<Rs: Zero + Copy + LogicalShiftable> RawInstruction for MovReg<Rs>
+impl<Dst> MakeMov<Dst, u64> for MovImpls<MovImm<RegOrZero64, RegOrSp64>>
 where
-    LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>:
-        MakeSpLogicalArgs<
-                Rs,
-                Rs,
-                Rs,
-                Outcome = Unfallible<
-                    LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>,
-                >,
-            >,
-    <Rs as LogicalShiftable>::ShiftAmount: Default,
-    Orr<LogicalArgs<Rs, Rs, (Rs, LogicalShift, <Rs as LogicalShiftable>::ShiftAmount)>>:
-        RawInstruction,
+    Dst: IntoReg<RegOrZero64>,
 {
+    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, &'static str>;
+
+    fn make(dst: Dst, src: u64) -> Self::Output {
+        use RegOrZero64::XZR;
+
+        let dst = dst.into_reg();
+        try_into_mov_z_or_k_64(dst, src)
+            .map(|(neg, args)| MovImm::MovNOrZ(MovNOrZImm { neg, args }))
+            .or_else(|_| match dst {
+                RegOrZero64::Reg(reg64) => orr(reg64, XZR, src)
+                    .map(MovImm::Orr)
+                    .map_err(|_e| "TODO can't"),
+                XZR => Err("TODO can't"),
+            })
+    }
+}
+
+impl MakeMov<RegOrSp64, u64> for MovImpls<MovImm<RegOrZero64, RegOrSp64>> {
+    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, &'static str>;
+
+    fn make(dst: RegOrSp64, src: u64) -> Self::Output {
+        use RegOrZero64::XZR;
+
+        match dst {
+            RegOrSp64::Reg(reg64) => try_into_mov_z_or_k_64(RegOrZero64::Reg(reg64), src)
+                .map(|(neg, args)| MovImm::MovNOrZ(MovNOrZImm { neg, args }))
+                .or_else(|_| {
+                    orr(reg64, XZR, src)
+                        .map(MovImm::Orr)
+                        .map_err(|_e| "TODO can't")
+                }),
+            RegOrSp64::SP => orr(dst, XZR, src)
+                .map(MovImm::Orr)
+                .map_err(|_e| "TODO can't"),
+        }
+    }
+}
+
+impl<Dst> MakeMov<Dst, i64> for MovImpls<MovNOrZImm<RegOrZero64>>
+where
+    Dst: IntoReg<RegOrZero64>,
+{
+    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, &'static str>;
+
+    fn make(dst: Dst, src: i64) -> Self::Output {
+        <MovImpls<MovImm<RegOrZero64, RegOrSp64>> as MakeMov<Dst, u64>>::make(dst, src as u64)
+    }
+}
+
+fn try_into_mov_z_or_k_64(
+    reg: RegOrZero64,
+    v: u64,
+) -> Result<(bool, MovImmArgs<RegOrZero64>), &'static str> {
+    const MAX_R64_SHIFT: u32 = 3;
+    const R64_SHIFT_SIZE: u32 = 16;
+    let movz = (0..=MAX_R64_SHIFT).filter_map(|idx| {
+        let shift = R64_SHIFT_SIZE * idx;
+        let shift64 = Shift64::new(shift).expect("invalid shift generated");
+        matches_u16(v, shift).map(|val| MovImmArgs::new(reg, (val, shift64)).map(|x| (false, x)))
+    });
+
+    let neg_v = !v;
+    let movk = (0..=MAX_R64_SHIFT).filter_map(|idx| {
+        let shift = R64_SHIFT_SIZE * idx;
+        let shift64 = Shift64::new(shift).expect("invalid shift generated");
+        matches_u16(neg_v, shift).map(|val| MovImmArgs::new(reg, (val, shift64)).map(|x| (true, x)))
+    });
+
+    // movz is tried first!
+    movz.chain(movk).next().ok_or("TODO")
+}
+
+impl RawInstruction for MovNOrZImm<RegOrZero64> {
+    #[inline]
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
-        orr(self.dst, Rs::ZERO, self.src).to_code()
+        if self.neg {
+            movn(self.args.rd, (self.args.imm16, self.args.shift)).to_code()
+        } else {
+            movz(self.args.rd, (self.args.imm16, self.args.shift)).to_code()
+        }
+    }
+}
+
+impl RawInstruction for MovImm<RegOrZero64, RegOrSp64> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        match self {
+            MovImm::MovNOrZ(mov_nzimm) => mov_nzimm.to_code(),
+            MovImm::Orr(orr) => orr.to_code(),
+        }
     }
 }
