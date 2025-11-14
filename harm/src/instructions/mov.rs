@@ -23,14 +23,13 @@ Self types for implementation of these traits.
  */
 
 mod mov_imm;
+mod mov_sp;
 
 use core::marker::PhantomData;
 
 use crate::{
     instructions::{
         RawInstruction,
-        arith::AddSubImm12,
-        arith::add::Add,
         dpimm::{MovImmArgs, MoveShift, immediate::LogicalImmFields},
         logical::{LogicalArgs, LogicalShift, LogicalShiftable, MakeSpLogicalArgs, Orr, orr},
     },
@@ -66,14 +65,9 @@ pub enum MovImm<RZ: MoveShift, RSp> {
     Orr(Orr<LogicalArgs<RSp, RZ, LogicalImmFields>>),
 }
 
-impl<R: MoveShift + Sealed, C: Sealed> Sealed for MovImm<R, C> {}
+impl<RZ: MoveShift + Sealed, RSp: Sealed> Sealed for MovImm<RZ, RSp> {}
 
 impl<R: MoveShift> Sealed for MovNOrZImm<R> {}
-
-pub enum MovRegSp<RZ, RSp> {
-    Reg(MovReg<RZ>),
-    Sp(Add<RSp, RSp, AddSubImm12>),
-}
 
 impl<Dst, Src> MakeMov<Dst, Src> for MovImpls<MovReg<RegOrSp32>>
 where
@@ -150,6 +144,7 @@ aa0203e1	mov x1, x2
 aa1f03e3	mov x3, xzr
 9100009f	mov sp, x4
 910003e5	mov x5, sp
+910003ff	mov sp, sp
 aa0a03ff	mov xzr, x10
 
 d2800026	mov x6, 1
@@ -165,6 +160,7 @@ b2408fff	mov sp, 0xFFFFFFFFF
 2a0203e1	mov w1, w2
 2a1f03e3	mov w3, wzr
 1100009f	mov wsp, w4
+110003ff	mov wsp, wsp
 110003e5	mov w5, wsp
 2a0a03ff	mov wzr, w10
 
@@ -186,10 +182,17 @@ b2408fff	mov sp, 0xFFFFFFFFF
     test_cases! {
         MOV_DB, untested_mov_cases;
         test_mov_64, mov(X1, X2), "mov x1, x2";
+        test_mov_64_xzr, mov(X3, XZR), "mov x3, xzr";
+        test_mov_sp_sp, mov(SP, SP), "mov sp, sp";
+        test_mov_sp_x4, mov(SP, X4), "mov sp, x4";
+        test_mov_x5_sp, mov(X5, SP), "mov x5, sp";
+
         test_mov_32, mov(W1, W2), "mov w1, w2";
         test_mov_32_wzr, mov(W3, WZR), "mov w3, wzr";
-        test_mov_64_xzr, mov(X3, XZR), "mov x3, xzr";
         test_mov_wzr_32, mov(WZR, W10), "mov wzr, w10";
+        test_mov_wsp_wsp, mov(WSP, WSP), "mov wsp, wsp";
+        test_mov_wsp_w4, mov(WSP, W4), "mov wsp, w4";
+        test_mov_w5_wsp, mov(W5, WSP), "mov w5, wsp";
 
         // these implementations compare visually that implementation of certiain MOV are implemented
         // or not implemented as ORR.

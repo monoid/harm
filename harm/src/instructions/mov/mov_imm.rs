@@ -8,9 +8,7 @@ use crate::instructions::RawInstruction;
 use crate::instructions::dpimm::{
     MakeMovArgs, MovImmArgs, MoveImm16, Shift32, Shift64, movn, movz,
 };
-use crate::instructions::logical::
-    orr
-;
+use crate::instructions::logical::orr;
 use crate::outcome::Outcome;
 use crate::register::{IntoReg, RegOrSp32, RegOrZero32};
 
