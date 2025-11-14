@@ -27,6 +27,7 @@ mod mov_sp;
 
 use core::marker::PhantomData;
 
+pub use self::mov_imm::InvalidMovImm;
 use crate::{
     instructions::{
         RawInstruction,

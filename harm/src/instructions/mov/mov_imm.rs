@@ -12,11 +12,26 @@ use crate::instructions::logical::orr;
 use crate::outcome::Outcome;
 use crate::register::{IntoReg, RegOrSp32, RegOrZero32};
 
+#[derive(Debug, Clone)]
+pub struct InvalidMovImm;
+
+use core::fmt;
+impl fmt::Display for InvalidMovImm {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "the immediate value doesn't match any possible pattern for `mov`"
+        )
+    }
+}
+
+impl core::error::Error for InvalidMovImm {}
+
 impl<Dst> MakeMov<Dst, u32> for MovImpls<MovImm<RegOrZero32, RegOrSp32>>
 where
     Dst: IntoReg<RegOrZero32>,
 {
-    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, &'static str>;
+    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, InvalidMovImm>;
 
     fn make(dst: Dst, src: u32) -> Self::Output {
         use RegOrZero32::WZR;
@@ -27,14 +42,14 @@ where
             .or_else(|_| match dst {
                 RegOrZero32::Reg(reg32) => orr(reg32, WZR, src)
                     .map(MovImm::Orr)
-                    .map_err(|_e| "TODO can't"),
-                WZR => Err("TODO can't"),
+                    .map_err(|_e| InvalidMovImm),
+                WZR => Err(InvalidMovImm),
             })
     }
 }
 
 impl MakeMov<RegOrSp32, u32> for MovImpls<MovImm<RegOrZero32, RegOrSp32>> {
-    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, &'static str>;
+    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, InvalidMovImm>;
 
     fn make(dst: RegOrSp32, src: u32) -> Self::Output {
         use RegOrZero32::WZR;
@@ -45,11 +60,11 @@ impl MakeMov<RegOrSp32, u32> for MovImpls<MovImm<RegOrZero32, RegOrSp32>> {
                 .or_else(|_| {
                     orr(reg32, WZR, src)
                         .map(MovImm::Orr)
-                        .map_err(|_e| "TODO can't")
+                        .map_err(|_e| InvalidMovImm)
                 }),
             RegOrSp32::WSP => orr(dst, WZR, src)
                 .map(MovImm::Orr)
-                .map_err(|_e| "TODO can't"),
+                .map_err(|_e| InvalidMovImm),
         }
     }
 }
@@ -58,7 +73,7 @@ impl<Dst> MakeMov<Dst, i32> for MovImpls<MovNOrZImm<RegOrZero32>>
 where
     Dst: IntoReg<RegOrZero32>,
 {
-    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, &'static str>;
+    type Output = Result<MovImm<RegOrZero32, RegOrSp32>, InvalidMovImm>;
 
     fn make(dst: Dst, src: i32) -> Self::Output {
         <MovImpls<MovImm<RegOrZero32, RegOrSp32>> as MakeMov<Dst, u32>>::make(dst, src as u32)
@@ -97,7 +112,7 @@ fn matches_u16(v: u64, shift: u32) -> Option<MoveImm16> {
 fn try_into_mov_z_or_k_32(
     reg: RegOrZero32,
     v: u32,
-) -> Result<(bool, MovImmArgs<RegOrZero32>), &'static str> {
+) -> Result<(bool, MovImmArgs<RegOrZero32>), InvalidMovImm> {
     const MAX_R32_SHIFT: u32 = 1;
     const R32_SHIFT_SIZE: u32 = 16;
     let movz = (0..=MAX_R32_SHIFT).filter_map(|idx| {
@@ -116,14 +131,14 @@ fn try_into_mov_z_or_k_32(
     });
 
     // movz is tried first!
-    movz.chain(movk).next().ok_or("TODO")
+    movz.chain(movk).next().ok_or(InvalidMovImm)
 }
 
 impl<Dst> MakeMov<Dst, u64> for MovImpls<MovImm<RegOrZero64, RegOrSp64>>
 where
     Dst: IntoReg<RegOrZero64>,
 {
-    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, &'static str>;
+    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, InvalidMovImm>;
 
     fn make(dst: Dst, src: u64) -> Self::Output {
         use RegOrZero64::XZR;
@@ -134,14 +149,14 @@ where
             .or_else(|_| match dst {
                 RegOrZero64::Reg(reg64) => orr(reg64, XZR, src)
                     .map(MovImm::Orr)
-                    .map_err(|_e| "TODO can't"),
-                XZR => Err("TODO can't"),
+                    .map_err(|_e| InvalidMovImm),
+                XZR => Err(InvalidMovImm),
             })
     }
 }
 
 impl MakeMov<RegOrSp64, u64> for MovImpls<MovImm<RegOrZero64, RegOrSp64>> {
-    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, &'static str>;
+    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, InvalidMovImm>;
 
     fn make(dst: RegOrSp64, src: u64) -> Self::Output {
         use RegOrZero64::XZR;
@@ -152,11 +167,11 @@ impl MakeMov<RegOrSp64, u64> for MovImpls<MovImm<RegOrZero64, RegOrSp64>> {
                 .or_else(|_| {
                     orr(reg64, XZR, src)
                         .map(MovImm::Orr)
-                        .map_err(|_e| "TODO can't")
+                        .map_err(|_e| InvalidMovImm)
                 }),
             RegOrSp64::SP => orr(dst, XZR, src)
                 .map(MovImm::Orr)
-                .map_err(|_e| "TODO can't"),
+                .map_err(|_e| InvalidMovImm),
         }
     }
 }
@@ -165,7 +180,7 @@ impl<Dst> MakeMov<Dst, i64> for MovImpls<MovNOrZImm<RegOrZero64>>
 where
     Dst: IntoReg<RegOrZero64>,
 {
-    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, &'static str>;
+    type Output = Result<MovImm<RegOrZero64, RegOrSp64>, InvalidMovImm>;
 
     fn make(dst: Dst, src: i64) -> Self::Output {
         <MovImpls<MovImm<RegOrZero64, RegOrSp64>> as MakeMov<Dst, u64>>::make(dst, src as u64)
@@ -175,7 +190,7 @@ where
 fn try_into_mov_z_or_k_64(
     reg: RegOrZero64,
     v: u64,
-) -> Result<(bool, MovImmArgs<RegOrZero64>), &'static str> {
+) -> Result<(bool, MovImmArgs<RegOrZero64>), InvalidMovImm> {
     const MAX_R64_SHIFT: u32 = 3;
     const R64_SHIFT_SIZE: u32 = 16;
     let movz = (0..=MAX_R64_SHIFT).filter_map(|idx| {
@@ -192,7 +207,7 @@ fn try_into_mov_z_or_k_64(
     });
 
     // movz is tried first!
-    movz.chain(movk).next().ok_or("TODO")
+    movz.chain(movk).next().ok_or(InvalidMovImm)
 }
 
 impl RawInstruction for MovNOrZImm<RegOrZero64> {
