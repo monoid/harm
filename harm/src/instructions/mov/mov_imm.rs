@@ -124,29 +124,39 @@ fn matches_u16(v: u64, shift: u32) -> Option<MoveImm16> {
     }
 }
 
+const MOVZ_HALFWORD_SIZE: u32 = 16;
+
+fn hw_range(v: u64) -> u32 {
+    if v == 0 {
+        0
+    } else {
+        v.trailing_zeros() / MOVZ_HALFWORD_SIZE
+    }
+}
+
 fn try_into_mov_z_or_k_32(
     reg: RegOrZero32,
     v: u32,
 ) -> Result<(bool, MovImmArgs<RegOrZero32>), InvalidMovImm> {
-    const MAX_R32_SHIFT: u32 = 1;
-    const R32_SHIFT_SIZE: u32 = 16;
-    let movz = (0..=MAX_R32_SHIFT).filter_map(|idx| {
-        let shift = R32_SHIFT_SIZE * idx;
+    let movz = {
+        let min_hw = hw_range(v.into());
+        let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift32 = Shift32::new(shift).expect("invalid shift generated");
         matches_u16(v.into(), shift)
             .map(|val| MovImmArgs::new(reg, (val, shift32)).map(|x| (false, x)))
-    });
+    };
 
     let neg_v = !v;
-    let movk = (0..=MAX_R32_SHIFT).filter_map(|idx| {
-        let shift = R32_SHIFT_SIZE * idx;
+    let movk = || {
+        let min_hw = hw_range(neg_v.into());
+        let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift32 = Shift32::new(shift).expect("invalid shift generated");
         matches_u16(neg_v.into(), shift)
             .map(|val| MovImmArgs::new(reg, (val, shift32)).map(|x| (true, x)))
-    });
+    };
 
     // movz is tried first!
-    movz.chain(movk).next().ok_or(InvalidMovImm)
+    movz.or_else(movk).ok_or(InvalidMovImm)
 }
 
 impl<Dst> MakeMov<Dst, u64> for MovImpls<MovImm<RegOrZero64, RegOrSp64>>
@@ -206,23 +216,23 @@ fn try_into_mov_z_or_k_64(
     reg: RegOrZero64,
     v: u64,
 ) -> Result<(bool, MovImmArgs<RegOrZero64>), InvalidMovImm> {
-    const MAX_R64_SHIFT: u32 = 3;
-    const R64_SHIFT_SIZE: u32 = 16;
-    let movz = (0..=MAX_R64_SHIFT).filter_map(|idx| {
-        let shift = R64_SHIFT_SIZE * idx;
+    let movz = {
+        let min_hw = hw_range(v);
+        let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift64 = Shift64::new(shift).expect("invalid shift generated");
         matches_u16(v, shift).map(|val| MovImmArgs::new(reg, (val, shift64)).map(|x| (false, x)))
-    });
+    };
 
     let neg_v = !v;
-    let movk = (0..=MAX_R64_SHIFT).filter_map(|idx| {
-        let shift = R64_SHIFT_SIZE * idx;
+    let movk = || {
+        let min_hw = hw_range(neg_v);
+        let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift64 = Shift64::new(shift).expect("invalid shift generated");
         matches_u16(neg_v, shift).map(|val| MovImmArgs::new(reg, (val, shift64)).map(|x| (true, x)))
-    });
+    };
 
     // movz is tried first!
-    movz.chain(movk).next().ok_or(InvalidMovImm)
+    movz.or_else(movk).ok_or(InvalidMovImm)
 }
 
 impl RawInstruction for MovNOrZImm<RegOrZero64> {
