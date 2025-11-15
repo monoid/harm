@@ -5,12 +5,13 @@
 
 use super::*;
 use crate::instructions::RawInstruction;
+use crate::instructions::dpimm::immediate::LogicalImmFields;
 use crate::instructions::dpimm::{
-    MakeMovArgs, MovImmArgs, MoveImm16, Shift32, Shift64, movn, movz,
+    MakeMovArgs, MovImmArgs, MoveImm16, MoveShift, Shift32, Shift64, movn, movz,
 };
-use crate::instructions::logical::orr;
+use crate::instructions::logical::{LogicalArgs, Orr, orr};
 use crate::outcome::Outcome;
-use crate::register::{IntoReg, RegOrSp32, RegOrZero32};
+use crate::register::{IntoReg, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64};
 
 #[derive(Debug, Clone)]
 pub struct InvalidMovImm;
@@ -26,6 +27,20 @@ impl fmt::Display for InvalidMovImm {
 }
 
 impl core::error::Error for InvalidMovImm {}
+
+pub enum MovImm<RZ: MoveShift, RSp> {
+    MovNOrZ(MovNOrZImm<RZ>),
+    Orr(Orr<LogicalArgs<RSp, RZ, LogicalImmFields>>),
+}
+
+pub struct MovNOrZImm<R: MoveShift> {
+    pub neg: bool,
+    pub args: MovImmArgs<R>,
+}
+
+impl<R: MoveShift> Sealed for MovNOrZImm<R> {}
+
+impl<RZ: MoveShift + Sealed, RSp: Sealed> Sealed for MovImm<RZ, RSp> {}
 
 impl<Dst> MakeMov<Dst, u32> for MovImpls<MovImm<RegOrZero32, RegOrSp32>>
 where

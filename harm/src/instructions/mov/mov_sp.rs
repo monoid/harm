@@ -3,10 +3,12 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+use super::mov_reg::MovReg;
 use super::*;
+use crate::instructions::RawInstruction;
 use crate::instructions::arith::AddSubImm12;
 use crate::instructions::arith::add::{Add, add};
-use crate::register::{IntoReg, Reg32, Reg64, RegOrSp32, RegOrZero32};
+use crate::register::{IntoReg, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64};
 
 pub enum MovRegSp<RZ, RSp> {
     Reg(MovReg<RZ>),
