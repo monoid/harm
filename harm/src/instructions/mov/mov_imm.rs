@@ -49,16 +49,12 @@ where
     type Output = Result<MovImm<RegOrZero32, RegOrSp32>, InvalidMovImm>;
 
     fn make(dst: Dst, src: u32) -> Self::Output {
-        use RegOrZero32::WZR;
-
         let dst = dst.into_reg();
         try_into_mov_z_or_k_32(dst, src)
-            .map(|(neg, args)| MovImm::MovNOrZ(MovNOrZImm { neg, args }))
+            .map(MovImm::MovNOrZ)
             .or_else(|_| match dst {
-                RegOrZero32::Reg(reg32) => orr(reg32, WZR, src)
-                    .map(MovImm::Orr)
-                    .map_err(|_e| InvalidMovImm),
-                WZR => Err(InvalidMovImm),
+                RegOrZero32::Reg(reg32) => imm_orr32(reg32, src),
+                RegOrZero32::WZR => Err(InvalidMovImm),
             })
     }
 }
@@ -67,19 +63,11 @@ impl MakeMov<RegOrSp32, u32> for MovImpls<MovImm<RegOrZero32, RegOrSp32>> {
     type Output = Result<MovImm<RegOrZero32, RegOrSp32>, InvalidMovImm>;
 
     fn make(dst: RegOrSp32, src: u32) -> Self::Output {
-        use RegOrZero32::WZR;
-
         match dst {
             RegOrSp32::Reg(reg32) => try_into_mov_z_or_k_32(RegOrZero32::Reg(reg32), src)
-                .map(|(neg, args)| MovImm::MovNOrZ(MovNOrZImm { neg, args }))
-                .or_else(|_| {
-                    orr(reg32, WZR, src)
-                        .map(MovImm::Orr)
-                        .map_err(|_e| InvalidMovImm)
-                }),
-            RegOrSp32::WSP => orr(dst, WZR, src)
-                .map(MovImm::Orr)
-                .map_err(|_e| InvalidMovImm),
+                .map(MovImm::MovNOrZ)
+                .or_else(|_| imm_orr32(reg32, src)),
+            RegOrSp32::WSP => imm_orr32(dst, src),
         }
     }
 }
@@ -116,17 +104,28 @@ impl RawInstruction for MovImm<RegOrZero32, RegOrSp32> {
     }
 }
 
-fn matches_u16(v: u64, shift: u32) -> Option<MoveImm16> {
-    if (0xFFFF << shift) & v == v {
+fn imm_orr32(
+    dst: impl Into<RegOrSp32>,
+    src: u32,
+) -> Result<MovImm<RegOrZero32, RegOrSp32>, InvalidMovImm> {
+    match orr(dst.into(), RegOrZero32::WZR, src) {
+        Ok(orr) => Ok(MovImm::Orr(orr)),
+        Err(_) => Err(InvalidMovImm),
+    }
+}
+
+const MOVZ_HALFWORD_SIZE: u32 = 16;
+
+fn matches_halfword(v: u64, shift: u32) -> Option<MoveImm16> {
+    let mask = (1 << MOVZ_HALFWORD_SIZE) - 1;
+    if (mask << shift) & v == v {
         MoveImm16::new((v >> shift) as _).ok()
     } else {
         None
     }
 }
 
-const MOVZ_HALFWORD_SIZE: u32 = 16;
-
-fn hw_range(v: u64) -> u32 {
+fn halfword_pos(v: u64) -> u32 {
     if v == 0 {
         0
     } else {
@@ -137,22 +136,24 @@ fn hw_range(v: u64) -> u32 {
 fn try_into_mov_z_or_k_32(
     reg: RegOrZero32,
     v: u32,
-) -> Result<(bool, MovImmArgs<RegOrZero32>), InvalidMovImm> {
+) -> Result<MovNOrZImm<RegOrZero32>, InvalidMovImm> {
     let movz = {
-        let min_hw = hw_range(v.into());
+        let min_hw = halfword_pos(v.into());
         let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift32 = Shift32::new(shift).expect("invalid shift generated");
-        matches_u16(v.into(), shift)
-            .map(|val| MovImmArgs::new(reg, (val, shift32)).map(|x| (false, x)))
+        matches_halfword(v.into(), shift).map(|val| {
+            MovImmArgs::new(reg, (val, shift32)).map(|args| MovNOrZImm { neg: false, args })
+        })
     };
 
     let neg_v = !v;
     let movk = || {
-        let min_hw = hw_range(neg_v.into());
+        let min_hw = halfword_pos(neg_v.into());
         let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift32 = Shift32::new(shift).expect("invalid shift generated");
-        matches_u16(neg_v.into(), shift)
-            .map(|val| MovImmArgs::new(reg, (val, shift32)).map(|x| (true, x)))
+        matches_halfword(neg_v.into(), shift).map(|val| {
+            MovImmArgs::new(reg, (val, shift32)).map(|args| MovNOrZImm { neg: true, args })
+        })
     };
 
     // movz is tried first!
@@ -166,16 +167,12 @@ where
     type Output = Result<MovImm<RegOrZero64, RegOrSp64>, InvalidMovImm>;
 
     fn make(dst: Dst, src: u64) -> Self::Output {
-        use RegOrZero64::XZR;
-
         let dst = dst.into_reg();
         try_into_mov_z_or_k_64(dst, src)
-            .map(|(neg, args)| MovImm::MovNOrZ(MovNOrZImm { neg, args }))
+            .map(MovImm::MovNOrZ)
             .or_else(|_| match dst {
-                RegOrZero64::Reg(reg64) => orr(reg64, XZR, src)
-                    .map(MovImm::Orr)
-                    .map_err(|_e| InvalidMovImm),
-                XZR => Err(InvalidMovImm),
+                RegOrZero64::Reg(reg64) => imm_orr64(reg64, src),
+                RegOrZero64::XZR => Err(InvalidMovImm),
             })
     }
 }
@@ -184,19 +181,11 @@ impl MakeMov<RegOrSp64, u64> for MovImpls<MovImm<RegOrZero64, RegOrSp64>> {
     type Output = Result<MovImm<RegOrZero64, RegOrSp64>, InvalidMovImm>;
 
     fn make(dst: RegOrSp64, src: u64) -> Self::Output {
-        use RegOrZero64::XZR;
-
         match dst {
             RegOrSp64::Reg(reg64) => try_into_mov_z_or_k_64(RegOrZero64::Reg(reg64), src)
-                .map(|(neg, args)| MovImm::MovNOrZ(MovNOrZImm { neg, args }))
-                .or_else(|_| {
-                    orr(reg64, XZR, src)
-                        .map(MovImm::Orr)
-                        .map_err(|_e| InvalidMovImm)
-                }),
-            RegOrSp64::SP => orr(dst, XZR, src)
-                .map(MovImm::Orr)
-                .map_err(|_e| InvalidMovImm),
+                .map(MovImm::MovNOrZ)
+                .or_else(|_| imm_orr64(reg64, src)),
+            RegOrSp64::SP => imm_orr64(dst, src),
         }
     }
 }
@@ -212,23 +201,37 @@ where
     }
 }
 
+fn imm_orr64(
+    dst: impl Into<RegOrSp64>,
+    src: u64,
+) -> Result<MovImm<RegOrZero64, RegOrSp64>, InvalidMovImm> {
+    match orr(dst.into(), RegOrZero64::XZR, src) {
+        Ok(orr) => Ok(MovImm::Orr(orr)),
+        Err(_) => Err(InvalidMovImm),
+    }
+}
+
 fn try_into_mov_z_or_k_64(
     reg: RegOrZero64,
     v: u64,
-) -> Result<(bool, MovImmArgs<RegOrZero64>), InvalidMovImm> {
+) -> Result<MovNOrZImm<RegOrZero64>, InvalidMovImm> {
     let movz = {
-        let min_hw = hw_range(v);
+        let min_hw = halfword_pos(v);
         let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift64 = Shift64::new(shift).expect("invalid shift generated");
-        matches_u16(v, shift).map(|val| MovImmArgs::new(reg, (val, shift64)).map(|x| (false, x)))
+        matches_halfword(v, shift).map(|val| {
+            MovImmArgs::new(reg, (val, shift64)).map(|args| MovNOrZImm { neg: false, args })
+        })
     };
 
     let neg_v = !v;
     let movk = || {
-        let min_hw = hw_range(neg_v);
+        let min_hw = halfword_pos(neg_v);
         let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift64 = Shift64::new(shift).expect("invalid shift generated");
-        matches_u16(neg_v, shift).map(|val| MovImmArgs::new(reg, (val, shift64)).map(|x| (true, x)))
+        matches_halfword(neg_v, shift).map(|val| {
+            MovImmArgs::new(reg, (val, shift64)).map(|args| MovNOrZImm { neg: true, args })
+        })
     };
 
     // movz is tried first!
