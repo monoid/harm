@@ -13,7 +13,7 @@ pub mod dpimm;
 pub mod dpreg;
 pub mod ldst;
 pub mod logical;
-pub mod movewide;
+pub mod mov;
 
 pub trait RawInstruction {
     fn to_code(&self) -> InstructionCode;

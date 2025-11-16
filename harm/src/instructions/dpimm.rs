@@ -4,4 +4,6 @@
  */
 
 pub mod log_imm;
+pub mod movewide;
 pub use self::log_imm::*;
+pub use self::movewide::*;

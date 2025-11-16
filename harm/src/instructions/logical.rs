@@ -6,7 +6,11 @@
 mod args;
 
 pub use self::args::{LogicalArgs, MakeSpLogicalArgs, MakeZeroLogicalArgs};
-use crate::{bits::UBitValue, outcome::Outcome, register::Zero};
+use crate::{
+    bits::UBitValue,
+    outcome::Outcome,
+    register::{RegOrZero32, RegOrZero64, Zero},
+};
 
 #[derive(Debug, Copy, Clone)]
 #[repr(u8)]
@@ -19,6 +23,18 @@ pub enum LogicalShift {
 
 pub type LogicalShiftAmount32 = UBitValue<5>;
 pub type LogicalShiftAmount64 = UBitValue<6>;
+
+pub trait LogicalShiftable {
+    type ShiftAmount;
+}
+
+impl LogicalShiftable for RegOrZero32 {
+    type ShiftAmount = LogicalShiftAmount32;
+}
+
+impl LogicalShiftable for RegOrZero64 {
+    type ShiftAmount = LogicalShiftAmount64;
+}
 
 #[derive(Debug, Copy, Clone)]
 pub struct And<Args>(pub Args);

@@ -1,0 +1,253 @@
+/* Copyright (C) 2025 Ivan Boldyrev
+ *
+ * This document is licensed under the BSD 3-clause license.
+ */
+
+/*!
+ * Module for `MOV` virtual instruction.
+ *
+ * ## `mov REG, REG`
+ * Both (W)ZR and (W)SP are supported, except mixed (W)ZR and (W)SP.
+ *
+ * ```
+ * # use harm::register::Reg64::*;
+ * # use harm::register::Reg32::*;
+ * # use harm::register::RegOrSp64::SP;
+ * # use harm::register::RegOrZero64::XZR;
+ * # use harm::register::RegOrZero32;
+ * # use harm::instructions::mov::mov;
+ * mov(X1, SP);
+ * mov(X1, XZR);
+ * mov(RegOrZero32::Reg(W2), RegOrZero32::WZR);
+ * mov(RegOrZero32::Reg(W2), RegOrZero32::Reg(W3));
+ * mov(W2, W3);
+ * ```
+ *
+ * ## `mov REG, imm`
+ *
+ * Only certain imm values are supported by AArch64 virtual `MOV` instruction: either fitting a single `movz`/`movn`
+ * or representable as logical immediate of particular register size (`orr` immedate argument).  For `SP`/`WSP` only
+ * logical immediate variant is available.
+ *
+ * This is always a faillible variant, and it is defined for both `u32` and `i32` for 32-bit registers, and both `u64`
+ * and `i64` for 64-bit registers.  For this reason, the compiler cannot deduce type for immediate untyped argument,
+ * you have to explicitely provide the type.  Signed integer variants simply cast the value to unsigned.
+ *
+ * ```
+ * # use harm::register::Reg64::*;
+ * # use harm::register::Reg32::*;
+ * # use harm::instructions::mov::mov;
+ * mov(X2, 0x3812u64).unwrap();  // fails to compile without `u64` suffix.
+ * mov(W22, -1i32).unwrap();  // while negative, still needs an explicit type.
+ * ```
+ */
+
+/*
+mov x1, x2 -- or x1, xzr, x2  // verified with spec, xzr is the second.
+mov sp, x2 -- add sp, x2, #0
+mov x2, sp -- add x2, sp, #0
+mov w1, wzr -- or w1, wzr, wzr
+mov x3, N -- either
+      movz (xzr)
+      movn (xzr)
+      or `or x3, xzr, N` (sp)
+ */
+
+mod mov_imm;
+mod mov_reg;
+mod mov_sp;
+
+use core::marker::PhantomData;
+
+pub use self::mov_imm::{InvalidMovImm, MovImm};
+pub use self::mov_reg::MovReg;
+pub use self::mov_sp::MovRegSp;
+use crate::sealed::Sealed;
+
+/// This is a technical type used for type constraints.  It is never constructed, but only used in trait definitions
+/// and constraints.
+pub struct MovImpls<X>(PhantomData<X>);
+
+impl<X: Sealed> Sealed for MovImpls<X> {}
+
+pub trait MakeMov<Dst, Src>: Sealed {
+    type Output;
+
+    fn make(dst: Dst, src: Src) -> Self::Output;
+}
+
+pub fn mov<Rd, Rs, X>(dst: Rd, src: Rs) -> <MovImpls<X> as MakeMov<Rd, Rs>>::Output
+where
+    MovImpls<X>: MakeMov<Rd, Rs>,
+{
+    <MovImpls<X> as MakeMov<Rd, Rs>>::make(dst, src)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::instructions::InstructionSeq;
+    use crate::instructions::logical::orr;
+    use crate::register::Reg32::*;
+    use crate::register::Reg64::*;
+    use crate::register::RegOrSp32;
+    use crate::register::RegOrSp32::WSP;
+    use crate::register::RegOrSp64;
+    use crate::register::RegOrSp64::SP;
+    use crate::register::RegOrZero32::WZR;
+    use crate::register::RegOrZero64::XZR;
+    use harm_test_utils::test_cases;
+
+    const MOV_DB: &str = "
+aa0203e1	mov x1, x2
+aa1f03e3	mov x3, xzr
+9100009f	mov sp, x4
+910003e5	mov x5, sp
+910003ff	mov sp, sp
+aa0a03ff	mov xzr, x10
+
+d2800026	mov x6, 1
+92800027	mov x7, -2
+b204cfe8	mov x8, 0xF0F0F0F0F0F0F0F0
+b2408fe9	orr x9, xzr, 0xFFFFFFFFF
+b2408fe9	mov x9, 0xFFFFFFFFF
+d280000a	mov x10, 0
+9280000b	mov x11, 0xFFFFFFFFFFFFFFFF
+d280003f	mov xzr, 1
+b204cfff	mov sp, 0xF0F0F0F0F0F0F0F0
+b2408fff	orr sp, xzr, 0xFFFFFFFFF
+b2408fff	mov sp, 0xFFFFFFFFF
+
+2a0203e1	mov w1, w2
+2a1f03e3	mov w3, wzr
+1100009f	mov wsp, w4
+110003ff	mov wsp, wsp
+110003e5	mov w5, wsp
+2a0a03ff	mov wzr, w10
+
+52800026	mov w6, 1
+12800027	mov w7, -2
+3204cfe8	mov w8, 0xF0F0F0F0
+5280000a	mov w10, 0
+1280000b	mov w11, 0xFFFFFFFF
+5280003f	mov wzr, 1
+320003ff	mov wsp, 1
+3204cfff	mov wsp, 0xF0F0F0F0
+
+32003fe9	orr w9, wzr, 0x0000FFFF
+529fffe9	mov w9, 0x0000FFFF
+32103fe9	orr w9, wzr, 0xFFFF0000
+52bfffe9	mov w9, 0xFFFF0000
+32143fe9	orr w9, wzr, 0x0FFFF000
+32143fe9	mov w9, 0x0FFFF000
+";
+
+    test_cases! {
+        MOV_DB, untested_mov_cases;
+        test_mov_64, mov(X1, X2), "mov x1, x2";
+        test_mov_64_1, mov(RegOrSp64::Reg(X1), RegOrSp64::Reg(X2)), "mov x1, x2";
+        test_mov_64_xzr, mov(X3, XZR), "mov x3, xzr";
+        test_mov_sp_sp, mov(SP, SP), "mov sp, sp";
+        test_mov_sp_x4, mov(SP, X4), "mov sp, x4";
+        test_mov_x5_sp, mov(X5, SP), "mov x5, sp";
+
+        test_mov_32, mov(W1, W2), "mov w1, w2";
+        test_mov_32_1, mov(RegOrSp32::Reg(W1), RegOrSp32::Reg(W2)), "mov w1, w2";
+        test_mov_32_wzr, mov(W3, WZR), "mov w3, wzr";
+        test_mov_wzr_32, mov(WZR, W10), "mov wzr, w10";
+        test_mov_wsp_wsp, mov(WSP, WSP), "mov wsp, wsp";
+        test_mov_wsp_w4, mov(WSP, W4), "mov wsp, w4";
+        test_mov_w5_wsp, mov(W5, WSP), "mov w5, wsp";
+
+        // these tests check that certiain MOV are implemented as ORR or MOVN/NOVZ.
+        test_or_w9_wzr_0x0000ffff, orr(W9, WZR, 0x0000FFFF).unwrap(), "orr w9, wzr, 0x0000FFFF";
+        test_or_w9_wzr_0x0ffff000, mov(W9, 0x0FFFF000u32).unwrap(), "orr w9, wzr, 0x0FFFF000";
+        test_or_w9_wzr_0xffff0000, orr(W9, WZR, 0xFFFF0000).unwrap(), "orr w9, wzr, 0xFFFF0000";
+        test_or_x9_xzr_0xfffffffff, mov(X9, 0xFFFFFFFFFu64).unwrap(), "orr x9, xzr, 0xFFFFFFFFF";
+        test_or_sp_xzr_0xfffffffff, mov(SP, 0xFFFFFFFFFu64).unwrap(), "orr sp, xzr, 0xFFFFFFFFF";
+
+        test_mov_w6_1, mov(W6, 1u32).unwrap(), "mov w6, 1";
+        test_mov_w7_minus2, mov(W7, -2i32).unwrap(), "mov w7, -2";
+        test_mov_w8_0xf0f0f0f0, mov(W8, 0xF0F0F0F0u32).unwrap(), "mov w8, 0xF0F0F0F0";
+        test_mov_w9_0x0000ffff, mov(W9, 0x0000FFFFu32).unwrap(), "mov w9, 0x0000FFFF";
+        test_mov_w9_0xffff0000, mov(W9, 0xFFFF0000u32).unwrap(), "mov w9, 0xFFFF0000";
+        test_mov_w9_0x0ffff000, mov(W9, 0x0FFFF000u32).unwrap(), "mov w9, 0x0FFFF000";
+        test_mov_w10_0, mov(W10, 0u32).unwrap(), "mov w10, 0";
+        test_mov_w10_0xffffffff, mov(W11, 0xFFFFFFFFu32).unwrap(), "mov w11, 0xFFFFFFFF";
+        test_mov_wzr_1, mov(WZR, 1u32).unwrap(), "mov wzr, 1";
+        test_mov_wsp_1, mov(WSP, 1u32).unwrap(), "mov wsp, 1";
+        test_mov_wsp_0xf0f0f0f0, mov(WSP, 0xF0F0F0F0u32).unwrap(), "mov wsp, 0xF0F0F0F0";
+
+        test_mov_sp_0xf0f0f0f0f0f0f0f0, mov(SP, 0xF0F0F0F0F0F0F0F0).unwrap(), "mov sp, 0xF0F0F0F0F0F0F0F0";
+        test_mov_sp_0xfffffffff, mov(SP, 0xFFFFFFFFF).unwrap(), "mov sp, 0xFFFFFFFFF";
+        test_mov_x6_1, mov(X6, 1u64).unwrap(), "mov x6, 1";
+        test_mov_x7_minus2, mov(X7, -2i64).unwrap(), "mov x7, -2";
+        test_mov_x8_0xf0f0f0f0f0f0f0f0, mov(X8, 0xF0F0F0F0F0F0F0F0u64).unwrap(), "mov x8, 0xF0F0F0F0F0F0F0F0";
+        test_mov_x9_0xfffffffff, mov(X9, 0xFFFFFFFFFu64).unwrap(), "mov x9, 0xFFFFFFFFF";
+        test_mov_x10_0, mov(X10, 0u64).unwrap(), "mov x10, 0";
+        test_mov_x10_0xffffffffffffffff, mov(X11, 0xFFFFFFFFFFFFFFFFu64).unwrap(), "mov x11, 0xFFFFFFFFFFFFFFFF";
+        test_mov_xzr_1, mov(XZR, 1u64).unwrap(), "mov xzr, 1";
+        test_mov_xzr_x10, mov(XZR, X10), "mov xzr, x10";
+    }
+
+    #[test]
+    fn test_mov_u32_error() {
+        assert!(mov(W1, 0x0FFF8u32).is_ok());
+        assert!(mov(W1, !0x0FFF8u32).is_ok());
+        assert!(mov(W1, 0x1F8F8u32).is_err());
+        assert!(mov(W1, !0x1F8F8u32).is_err());
+        assert!(mov(W1, 0x8FFF0000u32).is_ok());
+        assert!(mov(W1, !0x8FFF0000u32).is_ok());
+        assert!(mov(W1, 0x8FFF8000u32).is_err());
+        assert!(mov(W1, !0x8FFF8000u32).is_err());
+    }
+
+    #[test]
+    fn test_mov_u64_error() {
+        assert!(mov(X1, 0x0F8FFu64).is_ok());
+        assert!(mov(X1, !0x0F8FFu64).is_ok());
+        assert!(mov(X1, 0x1F8FFu64).is_err());
+        assert!(mov(X1, !0x1F8FFu64).is_err());
+
+        assert!(mov(X1, 0xF8FF0000u64).is_ok());
+        assert!(mov(X1, !0xF8FF0000u64).is_ok());
+        assert!(mov(X1, 0xF8FF1000u64).is_err());
+        assert!(mov(X1, !0xF8FF1000u64).is_err());
+        assert!(mov(X1, 0x1F8FF0000u64).is_err());
+        assert!(mov(X1, !0x1F8FF0000u64).is_err());
+
+        assert!(mov(X1, 0xF8FF00000000u64).is_ok());
+        assert!(mov(X1, !0xF8FF00000000u64).is_ok());
+        assert!(mov(X1, 0xF8FF10000000u64).is_err());
+        assert!(mov(X1, !0xF8FF10000000u64).is_err());
+        assert!(mov(X1, 0x1F8FF00000000u64).is_err());
+        assert!(mov(X1, !0x1F8FF00000000u64).is_err());
+
+        assert!(mov(X1, 0xF8FF000000000000u64).is_ok());
+        assert!(mov(X1, !0xF8FF000000000000u64).is_ok());
+        assert!(mov(X1, 0xF8FF100000000000u64).is_err());
+        assert!(mov(X1, !0xF8FF100000000000u64).is_err());
+    }
+
+    #[test]
+    fn test_mov_wsp_error() {
+        assert!(mov(WSP, 0x0F8FFu32).is_err());
+    }
+
+    #[test]
+    fn test_mov_sp_error() {
+        assert!(mov(SP, 0x0F8FFu64).is_err());
+    }
+
+    #[test]
+    fn test_mov_wzr_error() {
+        assert!(mov(W8, 0xF0F0F0F0u32).is_ok());
+        assert!(mov(WZR, 0xF0F0F0F0u32).is_err());
+    }
+
+    #[test]
+    fn test_mov_xzr_error() {
+        assert!(mov(X8, 0xF0F0F0F0F0F0F0F0u64).is_ok());
+        assert!(mov(XZR, 0xF0F0F0F0F0F0F0F0u64).is_err());
+    }
+}
