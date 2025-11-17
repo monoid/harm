@@ -3,6 +3,23 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+//! Register definitions.
+//!
+//! AArch64 defines 31 general-propose registers named `X0`-`X29` (codes 0-29) and `LR` (code 30) for 64-bit operations
+//! and `W0`-`W29` (codes 0-29) and `WLR` (code 30) for 32-bit operations.
+//!
+//! There are also special code 31: depending on instruction variant and argument number it is interpreted either as
+//! stack pointer (`SP`/`WSP`) or zero register (`XZR`/`WZR`) (or `WSP` and `WZR` for 32-bit variant). For example, for
+//! "ORR (immediate)" the first argument can be either a general-propose register or `SP`/`WSP`, the second is either a
+//! general-propose register or `XZR`/`WZR` as `SP`/`WSP`, while for "ORR (shifted register)" it is either
+//! general-propose register or `XZR`/`WZR` for all the three arguments.
+//!
+//! This distinction is expressed at type level: where operand allows `SP`/`WSP`, we use `RegOrSp64` or `RegOrSp32`, and
+//! where `XZR`/`WZR` is allowed, use `RegOrZero64` or `RegOrZero32` is used.
+//!
+//! The goal of `harm` API is to allow to use general-propose register types (`Reg64` and `Reg32`) in every position (as
+//! they are always allowed) without explicit conversion.
+
 #![allow(clippy::upper_case_acronyms)]
 
 const NICHE_REG: u8 = 31;
@@ -30,6 +47,8 @@ impl ::core::fmt::Display for RegisterError {
     }
 }
 
+/// General-propose 64-bit registers.  It excludes both `XZR` (see `RegOrZero64`) and `SP` (see `RegOrSp64`).
+/// Please note that name `LR` is used instead of `X30`.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
 #[num_enum(error_type(name = RegisterError, constructor = RegisterError::InvalidRegisterCode))]
 #[repr(u8)]
@@ -68,6 +87,7 @@ pub enum Reg64 {
 }
 
 impl Reg64 {
+    /// Convert a 64-bit register to a matching 32-bit register.
     #[inline]
     pub fn narrow(self) -> Reg32 {
         match self {
@@ -106,12 +126,16 @@ impl Reg64 {
     }
 }
 
+/// Either general-propose 64-bit register or `SP`. Certain instructions accept either generic register or `SP` at
+/// particular positions. This type is used for such definitions.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum RegOrSp64 {
     Reg(Reg64),
     SP,
 }
 
+/// Either general-propose 64-bit register or `XZR`. Certain instructions accept either generic register or `XZR` at
+/// particular positions. This type is used for such definitions.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum RegOrZero64 {
     Reg(Reg64),
@@ -119,6 +143,7 @@ pub enum RegOrZero64 {
 }
 
 impl RegOrSp64 {
+    /// Convert a 64-bit register to a matching 32-bit register.
     #[inline]
     pub fn narrow(self) -> RegOrSp32 {
         match self {
@@ -129,6 +154,7 @@ impl RegOrSp64 {
 }
 
 impl RegOrZero64 {
+    /// Convert a 64-bit register to a matching 32-bit register.
     #[inline]
     pub fn narrow(self) -> RegOrZero32 {
         match self {
@@ -182,6 +208,8 @@ impl TryFrom<u8> for RegOrZero64 {
     }
 }
 
+/// General-propose 32-bit registers. It excludes both `WZR` (see `RegOrZero32`) and `WSP` (see `RegOrSp32`). Please
+/// note that name `WLR` is used instead of `W30`.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord, TryFromPrimitive)]
 #[num_enum(error_type(name = RegisterError, constructor = RegisterError::InvalidRegisterCode))]
 #[repr(u8)]
@@ -221,6 +249,7 @@ pub enum Reg32 {
 
 impl Reg32 {
     #[inline]
+    /// Convert the 32-bit register to a matching 64-bit variant.
     pub fn extend(self) -> Reg64 {
         match self {
             Reg32::W0 => Reg64::X0,
@@ -258,12 +287,16 @@ impl Reg32 {
     }
 }
 
+/// General-propose 32-bit register or `WSP`. Certain instructions accept either generic register or `WSP` at particular
+/// positions. This type is used for such definitions.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum RegOrSp32 {
     Reg(Reg32),
     WSP,
 }
 
+/// General-propose 32-bit register or `WZR`. Certain instructions accept either generic register or `WZR` at particular
+/// positions. This type is used for such definitions.
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum RegOrZero32 {
     Reg(Reg32),
@@ -271,6 +304,7 @@ pub enum RegOrZero32 {
 }
 
 impl RegOrSp32 {
+    /// Convert the 32-bit register to matching 64-bit variant.
     #[inline]
     pub fn extend(self) -> RegOrSp64 {
         match self {
@@ -281,6 +315,7 @@ impl RegOrSp32 {
 }
 
 impl RegOrZero32 {
+    /// Convert the 32-bit register to matching 64-bit variant.
     #[inline]
     pub fn extend(self) -> RegOrZero64 {
         match self {
