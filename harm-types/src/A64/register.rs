@@ -15,7 +15,7 @@
 //! `XZR`/`WZR` for all the three arguments.
 //!
 //! This distinction is expressed at type level: where operand allows `SP`/`WSP`, we use `RegOrSp64` or `RegOrSp32`, and
-//! where `XZR`/`WZR` is allowed, use `RegOrZero64` or `RegOrZero32` is used.
+//! where `XZR`/`WZR` is allowed, `RegOrZero64` or `RegOrZero32` is used.
 //!
 //! The goal of `harm` API is to allow to use general-purpose register types (`Reg64` and `Reg32`) in every position (as
 //! they are always allowed) without explicit conversion.
@@ -562,5 +562,27 @@ mod tests {
     #[test]
     fn test_extend_zero() {
         assert_eq!(WZR.extend(), XZR);
+    }
+
+    #[test]
+    fn test_index_reg64() {
+        assert_eq!(X8.index().into_inner(), 8);
+        assert_eq!(RegOrZero64::Reg(X9).index().into_inner(), 9);
+        assert_eq!(RegOrSp64::Reg(X12).index().into_inner(), 12);
+
+        assert_eq!(LR.index().into_inner(), 30);
+        assert_eq!(SP.index().into_inner(), 31);
+        assert_eq!(XZR.index().into_inner(), 31);
+    }
+
+    #[test]
+    fn test_index_reg32() {
+        assert_eq!(W3.index().into_inner(), 3);
+        assert_eq!(RegOrZero32::Reg(W22).index().into_inner(), 22);
+        assert_eq!(RegOrSp32::Reg(W16).index().into_inner(), 16);
+
+        assert_eq!(WLR.index().into_inner(), 30);
+        assert_eq!(WSP.index().into_inner(), 31);
+        assert_eq!(WZR.index().into_inner(), 31);
     }
 }
