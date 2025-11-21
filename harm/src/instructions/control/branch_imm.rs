@@ -268,9 +268,9 @@ impl RawInstruction for CompareBranch<RegOrZero64> {
         use aarchmrs_instructions::A64::control::compbranch;
 
         if self.equal {
-            compbranch::CBZ_64_compbranch::CBZ_64_compbranch(self.offset.into(), self.reg.code())
+            compbranch::CBZ_64_compbranch::CBZ_64_compbranch(self.offset.into(), self.reg.index())
         } else {
-            compbranch::CBNZ_64_compbranch::CBNZ_64_compbranch(self.offset.into(), self.reg.code())
+            compbranch::CBNZ_64_compbranch::CBNZ_64_compbranch(self.offset.into(), self.reg.index())
         }
     }
 }
@@ -281,9 +281,9 @@ impl RawInstruction for CompareBranch<RegOrZero32> {
         use aarchmrs_instructions::A64::control::compbranch;
 
         if self.equal {
-            compbranch::CBZ_32_compbranch::CBZ_32_compbranch(self.offset.into(), self.reg.code())
+            compbranch::CBZ_32_compbranch::CBZ_32_compbranch(self.offset.into(), self.reg.index())
         } else {
-            compbranch::CBNZ_32_compbranch::CBNZ_32_compbranch(self.offset.into(), self.reg.code())
+            compbranch::CBNZ_32_compbranch::CBNZ_32_compbranch(self.offset.into(), self.reg.index())
         }
     }
 }

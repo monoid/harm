@@ -157,10 +157,10 @@ macro_rules! define_arith_shift {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     let shift = self.src2.shift.mode as u8;
-                    let rm = self.src2.reg.code();
+                    let rm = self.src2.reg.index();
                     let shift_amount_imm6 = self.src2.shift.amount;
-                    let rn = self.src1.code();
-                    let rd = self.dst.code();
+                    let rn = self.src1.index();
+                    let rd = self.dst.index();
 
                     [<$name:upper _ $bits _ $cmd _shift>](
                         shift.into(),
@@ -225,8 +225,8 @@ macro_rules! define_arith_imm12 {
                         Unshifted(value) => (false, value.into()),
                         Shifted(value) => (true, value.into()),
                     };
-                    let rn = self.src1.code();
-                    let rd = self.dst.code();
+                    let rn = self.src1.index();
+                    let rd = self.dst.index();
 
                     [<$name:upper _ $bits _ $cmd _imm>](shifted.into(), imm12, rn.into(), rd.into())
                 }
@@ -313,10 +313,10 @@ macro_rules! define_arith_extend {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     let option = self.src2.extend.mode as u8;
-                    let rm = self.src2.reg.code();
+                    let rm = self.src2.reg.index();
                     let imm3 = self.src2.extend.amount;
-                    let rn = self.src1.code();
-                    let rd = self.dst.code();
+                    let rn = self.src1.index();
+                    let rd = self.dst.index();
 
                     [<$name:upper _ $bits _ $cmd _ext>](
                         rm.into(), option.into(), imm3.into(), rn.into(), rd.into()

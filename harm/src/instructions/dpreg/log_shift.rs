@@ -102,10 +102,10 @@ impl RawInstruction
         let (mask, shift, amount) = args.mask;
         AND_32_log_shift(
             (shift as u32).into(),
-            mask.code(),
+            mask.index(),
             amount.bits().into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -120,10 +120,10 @@ impl RawInstruction
         let (mask, shift, amount) = args.mask;
         AND_64_log_shift(
             (shift as u32).into(),
-            mask.code(),
+            mask.index(),
             amount.bits().into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -138,10 +138,10 @@ impl RawInstruction
         let (mask, shift, amount) = args.mask;
         ANDS_32_log_shift(
             (shift as u32).into(),
-            mask.code(),
+            mask.index(),
             amount.bits().into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -156,10 +156,10 @@ impl RawInstruction
         let (mask, shift, amount) = args.mask;
         ANDS_64_log_shift(
             (shift as u32).into(),
-            mask.code(),
+            mask.index(),
             amount.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -174,10 +174,10 @@ impl RawInstruction
         let (mask, shift, amount) = args.mask;
         EOR_32_log_shift(
             (shift as u32).into(),
-            mask.code(),
+            mask.index(),
             amount.bits().into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -192,10 +192,10 @@ impl RawInstruction
         let (mask, shift, amount) = args.mask;
         EOR_64_log_shift(
             (shift as u32).into(),
-            mask.code(),
+            mask.index(),
             amount.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -210,10 +210,10 @@ impl RawInstruction
         let (mask, shift, amount) = args.mask;
         ORR_32_log_shift(
             (shift as u32).into(),
-            mask.code(),
+            mask.index(),
             amount.bits().into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -228,10 +228,10 @@ impl RawInstruction
         let (mask, shift, amount) = args.mask;
         ORR_64_log_shift(
             (shift as u32).into(),
-            mask.code(),
+            mask.index(),
             amount.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }

@@ -29,7 +29,7 @@ use num_enum::TryFromPrimitive;
 
 /// Any register can be converted to a 5-bit number.
 pub trait Register {
-    fn code(&self) -> BitValue<5>;
+    fn index(&self) -> BitValue<5>;
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
@@ -371,21 +371,21 @@ impl TryFrom<u8> for RegOrZero32 {
 
 impl Register for Reg64 {
     #[inline]
-    fn code(&self) -> BitValue<5> {
+    fn index(&self) -> BitValue<5> {
         BitValue::new_u32(*self as u32)
     }
 }
 
 impl Register for Reg32 {
     #[inline]
-    fn code(&self) -> BitValue<5> {
+    fn index(&self) -> BitValue<5> {
         BitValue::new_u32(*self as u32)
     }
 }
 
 impl Register for RegOrSp64 {
     #[inline]
-    fn code(&self) -> BitValue<5> {
+    fn index(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register64) => *general_register64 as _,
             Self::SP => NICHE_REG.into(),
@@ -395,7 +395,7 @@ impl Register for RegOrSp64 {
 
 impl Register for RegOrZero64 {
     #[inline]
-    fn code(&self) -> BitValue<5> {
+    fn index(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register64) => *general_register64 as _,
             Self::XZR => NICHE_REG.into(),
@@ -405,7 +405,7 @@ impl Register for RegOrZero64 {
 
 impl Register for RegOrSp32 {
     #[inline]
-    fn code(&self) -> BitValue<5> {
+    fn index(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register32) => *general_register32 as _,
             Self::WSP => NICHE_REG.into(),
@@ -415,7 +415,7 @@ impl Register for RegOrSp32 {
 
 impl Register for RegOrZero32 {
     #[inline]
-    fn code(&self) -> BitValue<5> {
+    fn index(&self) -> BitValue<5> {
         BitValue::new_u32(match self {
             Self::Reg(general_register32) => *general_register32 as _,
             Self::WZR => NICHE_REG.into(),

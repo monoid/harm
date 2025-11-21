@@ -27,8 +27,8 @@ impl RawInstruction for And<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields
         AND_32_log_imm(
             args.mask.immr.into(),
             args.mask.imms.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -39,8 +39,8 @@ impl RawInstruction for And<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields
             args.mask.n.into(),
             args.mask.immr.into(),
             args.mask.imms.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -51,8 +51,8 @@ impl RawInstruction for Ands<LogicalArgs<RegOrZero32, RegOrZero32, LogicalImmFie
         ANDS_32S_log_imm(
             args.mask.immr.into(),
             args.mask.imms.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -64,8 +64,8 @@ impl RawInstruction for Ands<LogicalArgs<RegOrZero64, RegOrZero64, LogicalImmFie
             args.mask.n.into(),
             args.mask.immr.into(),
             args.mask.imms.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -76,8 +76,8 @@ impl RawInstruction for Eor<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields
         EOR_32_log_imm(
             args.mask.immr.into(),
             args.mask.imms.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -89,8 +89,8 @@ impl RawInstruction for Eor<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields
             args.mask.n.into(),
             args.mask.immr.into(),
             args.mask.imms.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -101,8 +101,8 @@ impl RawInstruction for Orr<LogicalArgs<RegOrSp32, RegOrZero32, LogicalImmFields
         ORR_32_log_imm(
             args.mask.immr.into(),
             args.mask.imms.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }
@@ -114,8 +114,8 @@ impl RawInstruction for Orr<LogicalArgs<RegOrSp64, RegOrZero64, LogicalImmFields
             args.mask.n.into(),
             args.mask.immr.into(),
             args.mask.imms.into(),
-            args.rn.code(),
-            args.rd.code(),
+            args.rn.index(),
+            args.rd.index(),
         )
     }
 }

@@ -37,7 +37,7 @@ impl Ret {
 impl RawInstruction for Ret {
     #[inline]
     fn to_code(&self) -> InstructionCode {
-        RET_64R_branch_reg(self.0.code())
+        RET_64R_branch_reg(self.0.index())
     }
 }
 
@@ -46,7 +46,7 @@ pub struct Br(RegOrZero64);
 impl RawInstruction for Br {
     #[inline]
     fn to_code(&self) -> InstructionCode {
-        BR_64_branch_reg(self.0.code())
+        BR_64_branch_reg(self.0.index())
     }
 }
 
@@ -60,7 +60,7 @@ pub struct Blr(RegOrZero64);
 impl RawInstruction for Blr {
     #[inline]
     fn to_code(&self) -> InstructionCode {
-        BLR_64_branch_reg(self.0.code())
+        BLR_64_branch_reg(self.0.index())
     }
 }
 
