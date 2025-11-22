@@ -10,7 +10,10 @@ use aarchmrs_instructions::A64::dpimm::pcreladdr::{
 };
 
 use crate::{
-    bits::SBitValue, instructions::RawInstruction, register::{IntoReg, RegOrZero64, Register}, InstructionCode
+    InstructionCode,
+    bits::SBitValue,
+    instructions::RawInstruction,
+    register::{IntoReg, RegOrZero64, Register},
 };
 
 pub type AdrOffset = SBitValue<19>;
@@ -99,7 +102,7 @@ impl RawInstruction for Adrp<AdrpOffset> {
 mod tests {
     use super::*;
     use crate::register::Reg64::*;
-    
+
     #[test]
     fn test_adr_m4() {
         let adr_offset: AdrOffset = SBitValue::new(-4).unwrap();
