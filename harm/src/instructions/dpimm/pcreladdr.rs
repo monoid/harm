@@ -108,7 +108,15 @@ mod tests {
         let adr_offset: AdrOffset = SBitValue::new(-4).unwrap();
         let adr = adr(X29, adr_offset);
         let adr_code = adr.to_code();
-        assert_eq!(adr_code.unpack(), 0x103ffffd, "0x{:x}", adr_code.unpack());
+        assert_eq!(adr_code, 0x103ffffd, "0x{:x}", adr_code.unpack());
+    }
+
+    #[test]
+    fn test_adr_m1() {
+        let adr_offset: AdrOffset = SBitValue::new(-1).unwrap();
+        let adr = adr(X29, adr_offset);
+        let adr_code = adr.to_code();
+        assert_eq!(adr_code, 0x703ffffd, "0x{:x}", adr_code.unpack());
     }
 
     #[test]
@@ -117,7 +125,7 @@ mod tests {
         let adr = adr(X28, adr_offset);
         let adr_code = adr.to_code();
         // TODO check the value is correct
-        assert_eq!(adr_code.unpack(), 0x30091a3c, "0x{:x}", adr_code.unpack());
+        assert_eq!(adr_code, 0x30091a3c, "0x{:x}", adr_code.unpack());
     }
 
     #[test]
@@ -126,7 +134,7 @@ mod tests {
         let adrp = adrp(X27, adr_offset);
         let adrp_code = adrp.to_code();
         // TODO check the value is correct
-        assert_eq!(adrp_code.unpack(), 0x903ffffb, "0x{:x}", adrp_code.unpack());
+        assert_eq!(adrp_code, 0x903ffffb, "0x{:x}", adrp_code.unpack());
     }
 
     #[test]
@@ -135,6 +143,6 @@ mod tests {
         let adrp = adrp(X9, adr_offset);
         let adrp_code = adrp.to_code();
         // TODO check the value is correct
-        assert_eq!(adrp_code.unpack(), 0xb0091a29, "0x{:x}", adrp_code.unpack());
+        assert_eq!(adrp_code, 0xb0091a29, "0x{:x}", adrp_code.unpack());
     }
 }
