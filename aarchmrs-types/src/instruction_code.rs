@@ -6,7 +6,7 @@
 use hex::{FromHex, ToHex};
 
 /// ARM64 instruction with proper byte order and alignment.
-#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash)]
 #[repr(align(4))]
 pub struct InstructionCode(pub [u8; 4]);
 
@@ -42,11 +42,41 @@ impl ToHex for InstructionCode {
     }
 }
 
+impl PartialEq<u32> for InstructionCode {
+    fn eq(&self, other: &u32) -> bool {
+        self.unpack() == *other
+    }
+}
+
+use ::core::fmt;
+impl fmt::Debug for InstructionCode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "InstructionCode(")?;
+        write!(f, "{:08x}", self.unpack())?;
+        write!(f, ")")
+    }
+}
+
+impl fmt::Display for InstructionCode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{:08x}", self.unpack())
+    }
+}
+
+impl core::str::FromStr for InstructionCode {
+    type Err = <InstructionCode as FromHex>::Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        InstructionCode::from_hex(s)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     extern crate alloc;
     use super::*;
-    use alloc::string::String;
+    use alloc::format;
+    use alloc::string::{String, ToString};
 
     #[test]
     fn test_from_u32() {
@@ -86,5 +116,57 @@ mod tests {
             InstructionCode([0xab, 0x56, 0xf3, 0x12]).encode_hex_upper::<String>(),
             "12F356AB",
         );
+    }
+
+    #[test]
+    fn test_display() {
+        let code = InstructionCode([0xab, 0x56, 0xf3, 0x12]);
+        assert_eq!(code.to_string(), code.encode_hex::<String>());
+    }
+
+    #[test]
+    fn test_debug() {
+        let code = InstructionCode([0xab, 0x56, 0xf3, 0x12]);
+        assert_eq!(format!("{code:?}"), format!("InstructionCode({code})"));
+    }
+
+    #[test]
+    fn test_from_str() {
+        let sample = "12f356ab";
+        let code: InstructionCode = sample.parse().unwrap();
+        assert_eq!(code, InstructionCode::from_hex(sample).unwrap());
+    }
+
+    #[test]
+    fn test_from_str_invalid_long() {
+        let sample = "12f356ab0";
+        let code: Result<InstructionCode, _> = sample.parse();
+        assert!(code.is_err());
+    }
+
+    #[test]
+    fn test_from_str_invalid_short() {
+        let sample = "12f356a";
+        let code: Result<InstructionCode, _> = sample.parse();
+        assert!(code.is_err());
+    }
+
+    #[test]
+    fn test_from_str_invalid_char() {
+        let sample = "12f_56ab";
+        let code: Result<InstructionCode, _> = sample.parse();
+        assert!(code.is_err());
+    }
+
+    #[test]
+    fn test_partial_eq_u32() {
+        let code = InstructionCode::from_u32(0x12_f3_56_ab);
+        assert!(code == 0x12_f3_56_ab);
+    }
+
+    #[test]
+    fn test_partial_neq_u32() {
+        let code = InstructionCode::from_u32(0x12_f3_56_ab);
+        assert!(code != 0x13_f3_56_ab);
     }
 }
