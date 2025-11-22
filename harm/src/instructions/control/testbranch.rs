@@ -62,13 +62,13 @@ impl RawInstruction for TestBranch<RegOrZero64, UBitValue<6>> {
         let b40 = bit & 0b11111;
 
         if self.op {
-            TBNZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.code())
+            TBNZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.index())
         } else {
             TBZ_only_testbranch(
                 (bit >> 5).into(),
                 (bit & 0b11111).into(),
                 self.offset.into(),
-                self.reg.code(),
+                self.reg.index(),
             )
         }
     }
@@ -82,9 +82,9 @@ impl RawInstruction for TestBranch<RegOrZero32, UBitValue<5>> {
         let b40 = bit;
 
         if self.op {
-            TBNZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.code())
+            TBNZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.index())
         } else {
-            TBZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.code())
+            TBZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.index())
         }
     }
 }

@@ -163,13 +163,13 @@ where
 
 impl RawInstruction for MovK<MovImmArgs<RegOrZero32>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
-        MOVK_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
+        MOVK_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.index())
     }
 }
 
 impl RawInstruction for MovK<MovImmArgs<RegOrZero64>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
-        MOVK_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
+        MOVK_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.index())
     }
 }
 
@@ -189,13 +189,13 @@ where
 
 impl RawInstruction for MovN<MovImmArgs<RegOrZero32>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
-        MOVN_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
+        MOVN_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.index())
     }
 }
 
 impl RawInstruction for MovN<MovImmArgs<RegOrZero64>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
-        MOVN_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
+        MOVN_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.index())
     }
 }
 
@@ -215,13 +215,13 @@ where
 
 impl RawInstruction for MovZ<MovImmArgs<RegOrZero32>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
-        MOVZ_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
+        MOVZ_32_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.index())
     }
 }
 
 impl RawInstruction for MovZ<MovImmArgs<RegOrZero64>> {
     fn to_code(&self) -> aarchmrs_types::InstructionCode {
-        MOVZ_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.code())
+        MOVZ_64_movewide(self.0.shift.into(), self.0.imm16.into(), self.0.rd.index())
     }
 }
 

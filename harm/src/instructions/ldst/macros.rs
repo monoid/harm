@@ -71,11 +71,11 @@ macro_rules! define_reg_offset_rules {
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     [<$mnem:upper _ $bitness _ldst_regoff>](
-                        offset.offset.code(),
+                        offset.offset.index(),
                         (offset.extend as u8).into(),
                         offset.shifted.into(),
-                        base.code(),
-                        self.rt.code(),
+                        base.index(),
+                        self.rt.index(),
                     )
                 }
             }
@@ -85,11 +85,11 @@ macro_rules! define_reg_offset_rules {
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     [<$mnem:upper _ $bitness _ldst_regoff>](
-                        offset.offset.code(),
+                        offset.offset.index(),
                         (offset.extend as u8).into(),
                         offset.shifted.into(),
-                        base.code(),
-                        self.rt.code(),
+                        base.index(),
+                        self.rt.index(),
                     )
                 }
             }
@@ -99,11 +99,11 @@ macro_rules! define_reg_offset_rules {
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
                     [<$mnem:upper _ $bitness _ldst_regoff>](
-                        offset.code(),
+                        offset.index(),
                         (LdStExtendOption64::default() as u8).into(),
                         0b0.into(),
-                        base.code(),
-                        self.rt.code(),
+                        base.index(),
+                        self.rt.index(),
                     )
                 }
             }
@@ -234,7 +234,7 @@ macro_rules! define_imm_offset_rules {
                 #[inline]
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
-                    let code = [<$mnem:upper _ $bitness _ldst_pos>](offset.into(), base.code(), self.rt.code());
+                    let code = [<$mnem:upper _ $bitness _ldst_pos>](offset.into(), base.index(), self.rt.index());
                     code
                 }
             }
@@ -243,7 +243,7 @@ macro_rules! define_imm_offset_rules {
                 #[inline]
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (inc, base) = self.addr;
-                    let code = [<$mnem:upper _ $bitness _ldst_immpre>](inc.offset.into(), base.code(), self.rt.code());
+                    let code = [<$mnem:upper _ $bitness _ldst_immpre>](inc.offset.into(), base.index(), self.rt.index());
                     code
                 }
             }
@@ -253,7 +253,7 @@ macro_rules! define_imm_offset_rules {
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (base, inc) = self.addr;
 
-                    let code = [<$mnem:upper _ $bitness _ldst_immpost>](inc.offset.into(), base.code(), self.rt.code());
+                    let code = [<$mnem:upper _ $bitness _ldst_immpost>](inc.offset.into(), base.index(), self.rt.index());
                     code
                 }
             }
@@ -332,7 +332,7 @@ macro_rules! define_unscaled_imm_offset_rules {
                 #[inline]
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
-                    [<$mnem:upper _ $bitness _ldst_unscaled>](offset.into(), base.code(), self.rt.code())
+                    [<$mnem:upper _ $bitness _ldst_unscaled>](offset.into(), base.index(), self.rt.index())
                 }
             }
         }
@@ -384,7 +384,7 @@ macro_rules! define_pc_offset_rules {
                 #[inline]
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (_pc, offset) = self.addr;
-                    let code = [<$mnem:upper _ $bitness _ loadlit>](offset.into(), self.rt.code());
+                    let code = [<$mnem:upper _ $bitness _ loadlit>](offset.into(), self.rt.index());
                     code
                 }
             }
@@ -563,9 +563,9 @@ macro_rules! define_pair_imm_offset_rules {
                     let (base, offset) = self.addr;
                     let code = [<$mnem _ $bitness _ldstpair_off>](
                         offset.into(),
-                        self.rt.1.code(),
-                        base.code(),
-                        self.rt.0.code(),
+                        self.rt.1.index(),
+                        base.index(),
+                        self.rt.0.index(),
                     );
                     code
                 }
@@ -576,9 +576,9 @@ macro_rules! define_pair_imm_offset_rules {
                     let (inc, base) = self.addr;
                     let code = [<$mnem _ $bitness _ldstpair_pre>](
                         inc.offset.into(),
-                        self.rt.1.code(),
-                        base.code(),
-                        self.rt.0.code(),
+                        self.rt.1.index(),
+                        base.index(),
+                        self.rt.0.index(),
                     );
                     code
                 }
@@ -589,9 +589,9 @@ macro_rules! define_pair_imm_offset_rules {
                     let (base, inc) = self.addr;
                     let code = [<$mnem _ $bitness _ldstpair_post>](
                         inc.offset.into(),
-                        self.rt.1.code(),
-                        base.code(),
-                        self.rt.0.code(),
+                        self.rt.1.index(),
+                        base.index(),
+                        self.rt.0.index(),
                     );
                     code
                 }
