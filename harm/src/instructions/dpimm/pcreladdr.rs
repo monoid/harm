@@ -16,8 +16,12 @@ use crate::{
     register::{IntoReg, RegOrZero64, Register},
 };
 
-pub type AdrOffset = SBitValue<19>;
-pub type AdrpOffset = SBitValue<19, 12>;
+pub type AdrOffset = SBitValue<21>;
+/// Offset for `ADRP` instruction is shifted left by 12 bits (i.e. real address offset, not page offset).
+///
+/// The largest and smallest offsets can be constructed from `i64` value with `AdrpOffset::new_i64` or with
+/// `AdrpOffset::from_shifted`.
+pub type AdrpOffset = SBitValue<21, 12>;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub struct Adr<Offset> {
@@ -108,7 +112,8 @@ mod tests {
         let adr_offset: AdrOffset = SBitValue::new(-4).unwrap();
         let adr = adr(X29, adr_offset);
         let adr_code = adr.to_code();
-        assert_eq!(adr_code, 0x103ffffd, "0x{:x}", adr_code.unpack());
+        let expected_code = 0x10fffffd;
+        assert_eq!(adr_code, expected_code, "{adr_code} != {expected_code:x}");
     }
 
     #[test]
@@ -116,7 +121,8 @@ mod tests {
         let adr_offset: AdrOffset = SBitValue::new(-1).unwrap();
         let adr = adr(X29, adr_offset);
         let adr_code = adr.to_code();
-        assert_eq!(adr_code, 0x703ffffd, "0x{:x}", adr_code.unpack());
+        let expected_code = 0x70fffffd;
+        assert_eq!(adr_code, expected_code, "{adr_code} != {expected_code:x}");
     }
 
     #[test]
@@ -125,16 +131,29 @@ mod tests {
         let adr = adr(X28, adr_offset);
         let adr_code = adr.to_code();
         // TODO check the value is correct
-        assert_eq!(adr_code, 0x30091a3c, "0x{:x}", adr_code.unpack());
+        let expected_code = 0x30091a3c;
+        assert_eq!(adr_code, expected_code, "{adr_code} != {expected_code:x}");
     }
 
+    // adrp  xN, labelK@PAGE
     #[test]
     fn test_adrp_m4() {
         let adr_offset: AdrpOffset = SBitValue::new(-4 << 12).unwrap();
         let adrp = adrp(X27, adr_offset);
         let adrp_code = adrp.to_code();
         // TODO check the value is correct
-        assert_eq!(adrp_code, 0x903ffffb, "0x{:x}", adrp_code.unpack());
+        let expected_code = 0x90fffffb;
+        assert_eq!(adrp_code, expected_code, "{adrp_code} != {expected_code:x}");
+    }
+
+    #[test]
+    fn test_adrp_m1() {
+        let adr_offset: AdrpOffset = SBitValue::new(-1 << 12).unwrap();
+        let adrp = adrp(X15, adr_offset);
+        let adrp_code = adrp.to_code();
+        // TODO check the value is correct
+        let expected_code = 0xf0ffffef;
+        assert_eq!(adrp_code, expected_code, "{adrp_code} != {expected_code:x}");
     }
 
     #[test]
@@ -144,5 +163,15 @@ mod tests {
         let adrp_code = adrp.to_code();
         // TODO check the value is correct
         assert_eq!(adrp_code, 0xb0091a29, "0x{:x}", adrp_code.unpack());
+    }
+
+    #[test]
+    fn test_adrp_i64() {
+        let upper_range: i64 = (1 << 20) - 1;
+        let adr_offset: AdrpOffset = SBitValue::new_i64(upper_range << 12).unwrap();
+        let adrp = adrp(X9, adr_offset);
+        let adrp_code = adrp.to_code();
+        // TODO check the value is correct
+        assert_eq!(adrp_code, 0xf07fffe9, "0x{:x}", adrp_code.unpack());
     }
 }
