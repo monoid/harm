@@ -8,6 +8,7 @@ pub enum BitError {
     Overflow { significant_bits: u8, align: u8 },
     SignOutRange,
     Alignment { align: u8 },
+    Unsupported,
 }
 
 impl core::error::Error for BitError {}
@@ -26,6 +27,9 @@ impl fmt::Display for BitError {
             }
             BitError::Alignment { align } => {
                 write!(f, "Value not aligned to {align} bits")
+            }
+            BitError::Unsupported => {
+                write!(f, "Unsupported value")
             }
         }
     }
@@ -151,6 +155,10 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> SBitValue<SIGNIFICANT_BITS, 
         if value != shifted_value << ALIGN {
             return Err(BitError::Alignment { align: ALIGN as _ });
         }
+        Self::from_shifted(shifted_value)
+    }
+
+    pub const fn from_shifted(shifted_value: i32) -> Result<Self, BitError> {
         // TODO comparing ranges may be cleaner, and produces exactly same code.
         let upper_bits = i32::BITS - SIGNIFICANT_BITS;
         let there_and_back_again = (shifted_value << upper_bits) >> upper_bits;
@@ -164,6 +172,21 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> SBitValue<SIGNIFICANT_BITS, 
                 align: ALIGN as _,
             })
         }
+    }
+
+    pub const fn new_i64(value: i64) -> Result<Self, BitError> {
+        let shifted_value64 = value >> ALIGN;
+        if value != shifted_value64 << ALIGN {
+            return Err(BitError::Alignment { align: ALIGN as _ });
+        }
+        // It would be nice to have a try_into here, but it's not const yet.
+        // https://github.com/rust-lang/rust/issues/143773
+        let shifted_value: i32 = if (shifted_value64 as i32 as i64) == shifted_value64 {
+            shifted_value64 as i32
+        } else {
+            return Err(BitError::Unsupported);
+        };
+        Self::from_shifted(shifted_value)
     }
 
     pub fn new_u32(value: u32) -> Result<Self, BitError> {
@@ -336,5 +359,59 @@ mod tests {
     fn test_sbitvalue_new_u32_sign_error() {
         let res = SBitValue::<8>::new_u32(u32::MAX);
         assert_eq!(res, Err(BitError::SignOutRange));
+    }
+
+    #[test]
+    fn test_sbitvalue_new_i64() {
+        assert_eq!(SBitValue::<18, 4>::new_i64(42), SBitValue::<18, 4>::new(42));
+    }
+
+    #[test]
+    fn test_sbitvalue_new_i64_large() {
+        let val: u32 = (1 << 20) - 1;
+        assert_eq!(
+            SBitValue::<21, 12>::new_i64((val as i64) << 12)
+                .unwrap()
+                .bits(),
+            val
+        );
+    }
+
+    #[test]
+    fn test_sbitvalue_new_i64_neg() {
+        assert_eq!(
+            SBitValue::<21, 12>::new_i64(-1 << 12).unwrap().bits(),
+            (1 << 21) - 1
+        );
+    }
+
+    #[test]
+    fn test_sbitvalue_from_shifted_valid() {
+        let out_of_range = 1 << 4; // N.B. 5-th bit is a sign bit
+        type S5A2 = SBitValue<5, 2>;
+        let val = S5A2::from_shifted((out_of_range - 1) as i32).unwrap();
+        assert_eq!(val.bits(), out_of_range - 1);
+    }
+
+    #[test]
+    fn test_sbitvalue_from_shifted_invalid() {
+        let out_of_range = 1 << 4;
+        let res = SBitValue::<5, 2>::from_shifted(out_of_range);
+        assert_eq!(
+            res,
+            Err(BitError::Overflow {
+                significant_bits: 5,
+                align: 2
+            })
+        );
+    }
+
+    #[test]
+    fn test_sbitvalue_new_i64_unsupported() {
+        // Actually, harm doesn't use wide types so wide.
+        type WideType = SBitValue<31, 0>;
+        let large_value: i64 = 1 << 31; // Does not fit into `i32`, but would fit the `WideType`.
+        let res = WideType::new_i64(large_value);
+        assert_eq!(res, Err(BitError::Unsupported));
     }
 }
