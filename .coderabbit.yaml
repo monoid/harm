@@ -1,2 +1,3 @@
-path_filters:
-  - "!aarchmrs-instructions/**"
+reviews:
+  path_filters:
+    - "!aarchmrs-instructions/**"
