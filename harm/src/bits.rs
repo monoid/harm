@@ -29,7 +29,7 @@ impl fmt::Display for BitError {
                 write!(f, "Value not aligned to {align} bits")
             }
             BitError::Unsupported => {
-                write!(f, "Unsupported value")
+                write!(f, "Shifted value cannot be represented in implementation type")
             }
         }
     }
@@ -410,7 +410,7 @@ mod tests {
     fn test_sbitvalue_new_i64_unsupported() {
         // Actually, harm doesn't use wide types so wide.
         type WideType = SBitValue<31, 0>;
-        let large_value: i64 = 1 << 31; // Does not fit into `i32`, but would fit the `WideType`.
+        let large_value: i64 = 1 << 31; // Does not fit into `i32`.
         let res = WideType::new_i64(large_value);
         assert_eq!(res, Err(BitError::Unsupported));
     }
