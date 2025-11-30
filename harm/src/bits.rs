@@ -29,7 +29,10 @@ impl fmt::Display for BitError {
                 write!(f, "Value not aligned to {align} bits")
             }
             BitError::Unsupported => {
-                write!(f, "Shifted value cannot be represented in implementation type")
+                write!(
+                    f,
+                    "Shifted value cannot be represented in implementation type"
+                )
             }
         }
     }
