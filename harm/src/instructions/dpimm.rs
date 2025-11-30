@@ -5,5 +5,7 @@
 
 pub mod log_imm;
 pub mod movewide;
+pub mod pcreladdr;
 pub use self::log_imm::*;
 pub use self::movewide::*;
+pub use self::pcreladdr::*;
