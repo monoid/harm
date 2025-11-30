@@ -104,74 +104,52 @@ impl RawInstruction for Adrp<AdrpOffset> {
 
 #[cfg(test)]
 mod tests {
+    use harm_test_utils::test_cases;
+
     use super::*;
+    use crate::instructions::InstructionSeq as _;
     use crate::register::Reg64::*;
 
-    #[test]
-    fn test_adr_m4() {
-        let adr_offset: AdrOffset = SBitValue::new(-4).unwrap();
-        let adr = adr(X29, adr_offset);
-        let adr_code = adr.to_code();
-        let expected_code = 0x10fffffd;
-        assert_eq!(adr_code, expected_code, "{adr_code} != {expected_code:x}");
-    }
+    // Verified with GNU as.
+    // N.B. using harm-asm-regen will break the values because it requires static linkage (i.e. no relocations),
+    // for example, building an executable.
+    // ```
+    // .global main
+    // main:
+    // 	adrp x27, .-0x4000
+    // 	adrp x15, .-0x1000
+    // 	adrp x15, .-1
+    // 	adrp x9, .+0x12345000
+    // 	adrp x8, .+0xfffff000
+    // 	adrp x7, .-0xfffff000
+    // 	ret
+    // ```
+    // ```
+    // $ gcc s.s
+    // $ objdump -d a.out
+    // ```
+    const PCRELADDR_CASES: &str = "
+10fffffd	adr x29, .-4
+70fffffd	adr x29, .-1
+30091a3c	adr x28, .+0x12345
+90fffffb	adrp x27, .-0x4000
+f0ffffef	adrp x15, .-0x1000
+b0091a29	adrp x9, .+0x12345000
+f07fffe8	adrp x8, .+0xfffff000
+b0800007	adrp x7, .-0xfffff000
+";
 
-    #[test]
-    fn test_adr_m1() {
-        let adr_offset: AdrOffset = SBitValue::new(-1).unwrap();
-        let adr = adr(X29, adr_offset);
-        let adr_code = adr.to_code();
-        let expected_code = 0x70fffffd;
-        assert_eq!(adr_code, expected_code, "{adr_code} != {expected_code:x}");
-    }
+    const MAX_ADRP_OFFSET: i64 = ((1 << 20) - 1) << 12;
 
-    #[test]
-    fn test_adr_0x12345() {
-        let adr_offset: AdrOffset = SBitValue::new(0x12345).unwrap();
-        let adr = adr(X28, adr_offset);
-        let adr_code = adr.to_code();
-        // TODO check the value is correct
-        let expected_code = 0x30091a3c;
-        assert_eq!(adr_code, expected_code, "{adr_code} != {expected_code:x}");
-    }
-
-    // adrp  xN, labelK@PAGE
-    #[test]
-    fn test_adrp_m4() {
-        let adr_offset: AdrpOffset = SBitValue::new(-4 << 12).unwrap();
-        let adrp = adrp(X27, adr_offset);
-        let adrp_code = adrp.to_code();
-        // TODO check the value is correct
-        let expected_code = 0x90fffffb;
-        assert_eq!(adrp_code, expected_code, "{adrp_code} != {expected_code:x}");
-    }
-
-    #[test]
-    fn test_adrp_m1() {
-        let adr_offset: AdrpOffset = SBitValue::new(-1 << 12).unwrap();
-        let adrp = adrp(X15, adr_offset);
-        let adrp_code = adrp.to_code();
-        // TODO check the value is correct
-        let expected_code = 0xf0ffffef;
-        assert_eq!(adrp_code, expected_code, "{adrp_code} != {expected_code:x}");
-    }
-
-    #[test]
-    fn test_adrp_0x12345() {
-        let adr_offset: AdrpOffset = SBitValue::new(0x12345 << 12).unwrap();
-        let adrp = adrp(X9, adr_offset);
-        let adrp_code = adrp.to_code();
-        // TODO check the value is correct
-        assert_eq!(adrp_code, 0xb0091a29, "0x{:x}", adrp_code.unpack());
-    }
-
-    #[test]
-    fn test_adrp_i64() {
-        let upper_range: i64 = (1 << 20) - 1;
-        let adr_offset: AdrpOffset = SBitValue::new_i64(upper_range << 12).unwrap();
-        let adrp = adrp(X9, adr_offset);
-        let adrp_code = adrp.to_code();
-        // TODO check the value is correct
-        assert_eq!(adrp_code, 0xf07fffe9, "0x{:x}", adrp_code.unpack());
+    test_cases! {
+        PCRELADDR_CASES, unchecked_pcreladdr_cases;
+        test_adr_m4, adr(X29, SBitValue::new(-4).unwrap()), "adr x29, .-4";
+        test_adr_m1, adr(X29, SBitValue::new(-1).unwrap()), "adr x29, .-1";
+        test_adr_0x12345, adr(X28, SBitValue::new(0x12345).unwrap()), "adr x28, .+0x12345";
+        test_adrp_m4, adrp(X27, SBitValue::new(-4 << 12).unwrap()), "adrp x27, .-0x4000";
+        test_adrp_m1, adrp(X15, SBitValue::new(-1 << 12).unwrap()), "adrp x15, .-0x1000";
+        test_adrp_0x12345, adrp(X9, SBitValue::new(0x12345 << 12).unwrap()), "adrp x9, .+0x12345000";
+        test_adrp_plus_max, adrp(X8, SBitValue::new_i64(MAX_ADRP_OFFSET).unwrap()), "adrp x8, .+0xfffff000";
+        test_adrp_minus_max, adrp(X7, SBitValue::new_i64(-MAX_ADRP_OFFSET).unwrap()), "adrp x7, .-0xfffff000";
     }
 }
