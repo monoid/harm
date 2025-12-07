@@ -141,6 +141,17 @@ impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<u32>
     }
 }
 
+impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<i64>
+    for SBitValue<SIGNIFICANT_BITS, ALIGN>
+{
+    type Error = BitError;
+
+    #[inline]
+    fn try_from(value: i64) -> Result<Self, Self::Error> {
+        Self::new_i64(value)
+    }
+}
+
 impl<const SIGNIFICANT_BITS: u32, const ALIGN: u32> TryFrom<i32>
     for SBitValue<SIGNIFICANT_BITS, ALIGN>
 {
