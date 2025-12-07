@@ -11,7 +11,7 @@ use aarchmrs_instructions::A64::dpimm::pcreladdr::{
 
 use crate::{
     InstructionCode,
-    bits::SBitValue,
+    bits::{BitError, SBitValue},
     instructions::RawInstruction,
     register::{IntoReg, RegOrZero64, Register},
 };
@@ -49,6 +49,16 @@ impl MakeAdr<AdrOffset> for Adr<AdrOffset> {
     }
 }
 
+impl MakeAdr<i32> for Adr<AdrOffset> {
+    type Outcome = Result<Self, BitError>;
+
+    fn new(rd: RegOrZero64, offset: i32) -> Self::Outcome {
+        offset
+            .try_into()
+            .map(|offset: AdrOffset| Self { reg: rd, offset })
+    }
+}
+
 pub trait MakeAdrp<OffsetIn> {
     type Outcome;
 
@@ -60,6 +70,16 @@ impl MakeAdrp<AdrpOffset> for Adrp<AdrpOffset> {
 
     fn new(rd: RegOrZero64, offset: AdrpOffset) -> Self::Outcome {
         Self { reg: rd, offset }
+    }
+}
+
+impl MakeAdrp<i64> for Adrp<AdrpOffset> {
+    type Outcome = Result<Self, BitError>;
+
+    fn new(rd: RegOrZero64, offset: i64) -> Self::Outcome {
+        offset
+            .try_into()
+            .map(|offset: AdrpOffset| Self { reg: rd, offset })
     }
 }
 
@@ -151,5 +171,8 @@ b0800007	adrp x7, .-0xfffff000
         test_adrp_0x12345, adrp(X9, SBitValue::new(0x12345 << 12).unwrap()), "adrp x9, .+0x12345000";
         test_adrp_plus_max, adrp(X8, SBitValue::new_i64(MAX_ADRP_OFFSET).unwrap()), "adrp x8, .+0xfffff000";
         test_adrp_minus_max, adrp(X7, SBitValue::new_i64(-MAX_ADRP_OFFSET).unwrap()), "adrp x7, .-0xfffff000";
+
+        test_adr_0x12345_faillible, adr(X28, 0x12345).unwrap(), "adr x28, .+0x12345";
+        test_adrp_0x12345_fallible, adrp(X9, 0x12345 << 12).unwrap(), "adrp x9, .+0x12345000";
     }
 }
