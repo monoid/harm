@@ -5,7 +5,7 @@
 
 use aarchmrs_types::InstructionCode;
 
-use crate::reloc::Reloc;
+use crate::reloc::Rel64;
 
 pub mod arith;
 pub mod control;
@@ -20,14 +20,14 @@ pub trait RawInstruction {
 }
 
 pub trait RelocatableInstruction {
-    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Reloc>);
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>);
 }
 
 impl<I> RelocatableInstruction for I
 where
     I: RawInstruction,
 {
-    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Reloc>) {
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
         (self.to_code(), None)
     }
 }
@@ -42,7 +42,7 @@ where
 // When the bug is fixed, it can be changed to &self.
 // // OTOH, currently all implementations are `Copy`.
 pub trait InstructionSeq: Sized {
-    fn encode(self) -> impl Iterator<Item = (InstructionCode, Option<Reloc>)> + 'static;
+    fn encode(self) -> impl Iterator<Item = (InstructionCode, Option<Rel64>)> + 'static;
 
     #[inline]
     fn instructions(self) -> impl Iterator<Item = InstructionCode> + 'static {
@@ -60,7 +60,7 @@ impl<I> InstructionSeq for I
 where
     I: RelocatableInstruction,
 {
-    fn encode(self) -> impl Iterator<Item = (InstructionCode, Option<Reloc>)> + 'static {
+    fn encode(self) -> impl Iterator<Item = (InstructionCode, Option<Rel64>)> + 'static {
         let code = self.to_code_with_reloc();
         core::iter::once(code)
     }

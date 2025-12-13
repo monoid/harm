@@ -19,12 +19,33 @@ pub type Addr = u64;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct LabelRef {
     pub id: LabelId,
-    pub offset: Offset,
+    pub addend: Offset,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Reloc {
-    Label(LabelRef),
-    // TODO lower bits, middle bits, signed and unsigned highest bits
-    Delta(LabelRef, LabelRef), // label1 - label2
+pub enum Rel64 {
+    None,
+    // Static data relocations
+    // ...
+    Abs64(LabelRef),
+    Abs32(LabelRef),
+    Abs16(LabelRef),
+    PRel64(LabelRef),
+    PRel32(LabelRef),
+    PRel16(LabelRef),
+    Plt32(LabelRef),
+
+    // Static AArch64 relocations
+    LdPrelLo19(LabelRef),
+    AdrPrelLo21(LabelRef),
+    AdrPrelPgHi21(LabelRef),
+    AdrPrelPgHi21Nc(LabelRef),
+    AddAbsLo12Nc(LabelRef),
+    // Static control flow relocations
+    TstBr14(LabelRef),
+    CondBr19(LabelRef),
+    Jump26(LabelRef),
+    Call26(LabelRef),  // same as Jump26 actually?
+
+    // TODO `MOVW` and some `add`/`ldst`-related relocations
 }

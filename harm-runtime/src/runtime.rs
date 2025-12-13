@@ -7,7 +7,7 @@ use std::collections::HashMap;
 
 use crate::labels::LabelRegistry;
 use harm::InstructionCode;
-use harm::reloc::{Reloc, LabelId};
+use harm::reloc::{Rel64, LabelId};
 use harm::instructions::InstructionSeq;
 
 // N.N. we keep here internal relocation type, and convert it to external on serialization.
@@ -15,7 +15,7 @@ use harm::instructions::InstructionSeq;
 pub struct Assembler {
     label_manager: LabelRegistry,
     instructions: Vec<InstructionCode>,
-    relocations: HashMap<usize, Reloc>,
+    relocations: HashMap<usize, Rel64>,
 }
 
 impl Assembler {
