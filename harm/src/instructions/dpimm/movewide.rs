@@ -7,12 +7,15 @@
  * Module for move instructions, like `MOVZ`, `MOVN` (not to be confused with `MVN`), `MOVK` in AArch64.
  */
 
+pub(crate) mod movewide_reloc;
+
 use aarchmrs_instructions::A64::dpimm::movewide::{
     MOVK_32_movewide::MOVK_32_movewide, MOVK_64_movewide::MOVK_64_movewide,
     MOVN_32_movewide::MOVN_32_movewide, MOVN_64_movewide::MOVN_64_movewide,
     MOVZ_32_movewide::MOVZ_32_movewide, MOVZ_64_movewide::MOVZ_64_movewide,
 };
 
+pub use self::movewide_reloc::*;
 use crate::{
     bits::{BitError, UBitValue},
     instructions::RawInstruction,
@@ -201,6 +204,7 @@ impl RawInstruction for MovN<MovImmArgs<RegOrZero64>> {
 
 pub struct MovZ<Args>(Args);
 
+// TODO use a type tag to make both immediates and labels work.
 pub fn movz<RIn, Val, ROut>(
     rd: RIn,
     val: Val,
