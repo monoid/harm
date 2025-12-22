@@ -1,3 +1,3 @@
 reviews:
   path_filters:
-    - "!aarchmrs-instructions/**"
+    - "!aarchmrs-instructions/src/**"

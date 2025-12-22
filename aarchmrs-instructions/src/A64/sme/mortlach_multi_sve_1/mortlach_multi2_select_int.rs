@@ -16,7 +16,7 @@ pub mod sel_mz_p_zz_2 {
     pub const fn sel_mz_p_zz_2(
         size: ::aarchmrs_types::BitValue<2>,
         Zm: ::aarchmrs_types::BitValue<4>,
-        PNg: ::aarchmrs_types::BitValue<3>,
+        PNv: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<4>,
         Zd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
@@ -26,7 +26,7 @@ pub mod sel_mz_p_zz_2 {
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 17u32
                 | 0b0100u32 << 13u32
-                | PNg.into_inner() << 10u32
+                | PNv.into_inner() << 10u32
                 | Zn.into_inner() << 6u32
                 | 0b0u32 << 5u32
                 | Zd.into_inner() << 1u32

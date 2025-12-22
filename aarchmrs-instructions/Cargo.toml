@@ -1,6 +1,6 @@
 [package]
 name = "aarchmrs-instructions"
-version = "0.3.0-2025-09"
+version = "0.3.0-2025-12"
 edition = "2024"
 description = "AARCHMRS-generated ARM instructions functions"
 license = "BSD-3-Clause"
