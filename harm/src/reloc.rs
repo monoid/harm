@@ -48,5 +48,14 @@ pub enum Rel64 {
     Call26(LabelRef),  // same as Jump26 actually?
 
     // TODO `MOVW` and some `add`/`ldst`-related relocations
-    AbsG0(LabelRef),
+    MovWAbsG0(LabelRef),
+    MovWAbsG0Nc(LabelRef),
+    MovWAbsG0S(LabelRef),
+    MovWAbsG1(LabelRef),
+    MovWAbsG1Nc(LabelRef),
+    MovWAbsG1S(LabelRef),
+    MovWAbsG2(LabelRef),
+    MovWAbsG2Nc(LabelRef),
+    MovWAbsG2S(LabelRef),
+    MovWAbsG3(LabelRef),
 }
