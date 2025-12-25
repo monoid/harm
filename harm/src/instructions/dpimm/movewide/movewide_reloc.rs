@@ -331,6 +331,20 @@ impl<RIn: IntoReg<RegOrZero64>, Rel: MoveWideReloc64> MakeMovArgs<RIn, Rel>
     }
 }
 
+impl<RIn: IntoReg<RegOrZero32>, Rel: MoveWideReloc32> MakeMovArgs<RIn, Rel>
+    for MovWideTypeTag<MovRelArgs<RegOrZero32, Rel>>
+{
+    type Outcome = Unfallible<MovRelArgs<RegOrZero32, Rel>>;
+
+    fn new(rd: RIn, rel: Rel) -> Self::Outcome {
+        Unfallible(MovRelArgs {
+            rd: rd.into_reg(),
+            rel,
+        })
+    }
+}
+
+
 impl<Rel: MoveWideReloc64> RelocatableInstruction for MovZ<MovRelArgs<RegOrZero64, Rel>> {
     fn to_code_with_reloc(&self) -> (aarchmrs_types::InstructionCode, Option<crate::reloc::Rel64>) {
         let MovRelArgs { rd, ref rel } = self.0;
@@ -388,6 +402,7 @@ impl<Rel: MoveWideReloc32> RelocatableInstruction for MovN<MovRelArgs<RegOrZero3
 #[cfg(test)]
 mod tests {
     use crate::register::Reg64::*;
+    use crate::register::Reg32::*;
     use crate::reloc::LabelId;
 
     use super::*;
@@ -479,5 +494,50 @@ mod tests {
         let inst = movk(X8, abs_g3(label)).to_code_with_reloc();
         assert_eq!(inst.0, movk(X8, (0, 48)).unwrap().to_code());
         assert_eq!(inst.1, Some(Rel64::MovWAbsG3(label)));
+    }
+
+    #[test]
+    fn test_32_abs_g0_movz() {
+        let label = LabelRef {
+            id: LabelId(1),
+            addend: 42,
+        };
+        let inst = movz(W1, abs_g0(label)).to_code_with_reloc();
+        assert_eq!(inst.0, movz(W1, (0, 0)).unwrap().to_code());
+        assert_eq!(inst.1, Some(Rel64::MovWAbsG0(label)));
+    }
+
+    #[test]
+    fn test_32_abs_g1_movk() {
+        let label = LabelRef {
+            id: LabelId(2),
+            addend: 43,
+        };
+        let inst = movk(W2, abs_g1(label)).to_code_with_reloc();
+        assert_eq!(inst.0, movk(W2, (0, 16)).unwrap().to_code());
+        assert_eq!(inst.1, Some(Rel64::MovWAbsG1(label)));
+    }
+
+    #[test]
+    fn test_32_abs_g1s_movn() {
+        let label = LabelRef {
+            id: LabelId(3),
+            addend: 44,
+        };
+        // Makes little sense, but gas accepts it.
+        let inst = movn(W3, abs_g1_s(label)).to_code_with_reloc();
+        assert_eq!(inst.0, movn(W3, (0, 16)).unwrap().to_code());
+        assert_eq!(inst.1, Some(Rel64::MovWAbsG1S(label)));
+    }
+
+    #[test]
+    fn test_32_abs_g1nc_movk() {
+        let label = LabelRef {
+            id: LabelId(4),
+            addend: 45,
+        };
+        let inst = movk(W4, abs_g1_nc(label)).to_code_with_reloc();
+        assert_eq!(inst.0, movk(W4, (0, 16)).unwrap().to_code());
+        assert_eq!(inst.1, Some(Rel64::MovWAbsG1Nc(label)));
     }
 }
