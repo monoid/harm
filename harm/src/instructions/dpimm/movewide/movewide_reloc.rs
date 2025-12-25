@@ -55,7 +55,7 @@ pub fn abs_g0_s(label: LabelRef) -> AbsG0S {
 #[repr(transparent)]
 pub struct AbsG1(LabelRef);
 
-/// First nibble (bits `[31:16]`) of the absolute address of the label, checked for unsinged overflow.
+/// First nibble (bits `[31:16]`) of the absolute address of the label, checked for unsigned overflow.
 #[inline]
 pub fn abs_g1(label: LabelRef) -> AbsG1 {
     AbsG1(label)
@@ -77,7 +77,7 @@ pub fn abs_g1_nc(label: LabelRef) -> AbsG1Nc {
 #[repr(transparent)]
 pub struct AbsG1S(LabelRef);
 
-/// First nibble (bits `[31:16]`) of the absolute address of the label, checked for singed overflow.
+/// First nibble (bits `[31:16]`) of the absolute address of the label, checked for signed overflow.
 #[inline]
 pub fn abs_g1_s(label: LabelRef) -> AbsG1S {
     AbsG1S(label)
@@ -88,7 +88,7 @@ pub fn abs_g1_s(label: LabelRef) -> AbsG1S {
 #[repr(transparent)]
 pub struct AbsG2(LabelRef);
 
-/// Second nibble (bits `[47:32]`) of the absolute address of the label, checked for unsinged overflow.
+/// Second nibble (bits `[47:32]`) of the absolute address of the label, checked for unsigned overflow.
 #[inline]
 pub fn abs_g2(label: LabelRef) -> AbsG2 {
     AbsG2(label)
@@ -110,7 +110,7 @@ pub fn abs_g2_nc(label: LabelRef) -> AbsG2Nc {
 #[repr(transparent)]
 pub struct AbsG2S(LabelRef);
 
-/// Second nibble (bits `[47:32]`) of the absolute address of the label, checked for singed overflow.
+/// Second nibble (bits `[47:32]`) of the absolute address of the label, checked for signed overflow.
 #[inline]
 pub fn abs_g2_s(label: LabelRef) -> AbsG2S {
     AbsG2S(label)
@@ -344,7 +344,6 @@ impl<RIn: IntoReg<RegOrZero32>, Rel: MoveWideReloc32> MakeMovArgs<RIn, Rel>
     }
 }
 
-
 impl<Rel: MoveWideReloc64> RelocatableInstruction for MovZ<MovRelArgs<RegOrZero64, Rel>> {
     fn to_code_with_reloc(&self) -> (aarchmrs_types::InstructionCode, Option<crate::reloc::Rel64>) {
         let MovRelArgs { rd, ref rel } = self.0;
@@ -401,8 +400,8 @@ impl<Rel: MoveWideReloc32> RelocatableInstruction for MovN<MovRelArgs<RegOrZero3
 
 #[cfg(test)]
 mod tests {
-    use crate::register::Reg64::*;
     use crate::register::Reg32::*;
+    use crate::register::Reg64::*;
     use crate::reloc::LabelId;
 
     use super::*;

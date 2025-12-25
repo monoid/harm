@@ -38,9 +38,9 @@ pub enum BranchCond {
     NV = 0b1111, // always
 }
 
-impl Into<BitValue<4>> for BranchCond {
-    fn into(self) -> BitValue<4> {
-        BitValue::new_u32(self as u8 as u32)
+impl From<BranchCond> for BitValue<4> {
+    fn from(cond: BranchCond) -> Self {
+        Self::new_u32(cond as u8 as u32)
     }
 }
 

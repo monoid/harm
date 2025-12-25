@@ -12,8 +12,4 @@ publish = false
 
 [dependencies]
 harm = { workspace = true }
-memmap = "0.7.0"
- 
-[dev-dependencies]
- 
-[features]
+memmap2 = "0.9.9"
