@@ -13,7 +13,7 @@ use crate::{
     bits::{BitError, SBitValue},
     instructions::{RawInstruction, RelocatableInstruction},
     register::{RegOrZero32, RegOrZero64, Register as _},
-    reloc::LabelRef,
+    reloc::{LabelRef, Rel64},
     sealed::Sealed,
 };
 
@@ -123,11 +123,11 @@ impl MakeBranch<LabelRef> for Branch<LabelRef> {
 
 impl RelocatableInstruction for Branch<LabelRef> {
     #[inline]
-    fn to_code_with_reloc(&self) -> (InstructionCode, Option<crate::reloc::Rel64>) {
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
         let zero = BranchOffset::default();
 
         let code = B_only_branch_imm(zero.into());
-        let reloc = crate::reloc::Rel64::Jump26(self.0);
+        let reloc = Rel64::Jump26(self.0);
 
         (code, Some(reloc))
     }
@@ -181,12 +181,12 @@ impl MakeBranchCond<LabelRef> for Branch<(BranchCond, LabelRef)> {
 
 impl RelocatableInstruction for Branch<(BranchCond, LabelRef)> {
     #[inline]
-    fn to_code_with_reloc(&self) -> (InstructionCode, Option<crate::reloc::Rel64>) {
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
         let zero = BranchCondOffset::default();
         let (cond, label_ref) = self.0;
 
         let code = B_only_condbranch(zero.into(), cond.into());
-        let reloc = crate::reloc::Rel64::CondBr19(label_ref);
+        let reloc = Rel64::CondBr19(label_ref);
 
         (code, Some(reloc))
     }
@@ -250,11 +250,11 @@ impl MakeBranchLink<LabelRef> for BranchLink<LabelRef> {
 
 impl RelocatableInstruction for BranchLink<LabelRef> {
     #[inline]
-    fn to_code_with_reloc(&self) -> (InstructionCode, Option<crate::reloc::Rel64>) {
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
         let zero = BranchOffset::default();
 
         let code = BL_only_branch_imm(zero.into());
-        let reloc = crate::reloc::Rel64::Call26(self.0);
+        let reloc = Rel64::Call26(self.0);
 
         (code, Some(reloc))
     }
@@ -275,14 +275,14 @@ pub trait MakeCompareBranch<Reg, Offset>: Sealed {
     fn new(equal: bool, reg: Reg, offset: Offset) -> Self::Output;
 }
 
-impl<R64> MakeCompareBranch<R64, CompareBranchOffset>
+impl<RegSrc64> MakeCompareBranch<RegSrc64, CompareBranchOffset>
     for CompareBranch<RegOrZero64, CompareBranchOffset>
 where
-    R64: Into<RegOrZero64>,
+    RegSrc64: Into<RegOrZero64>,
 {
     type Output = Self;
 
-    fn new(equal: bool, reg: R64, offset: CompareBranchOffset) -> Self {
+    fn new(equal: bool, reg: RegSrc64, offset: CompareBranchOffset) -> Self {
         Self {
             equal,
             reg: reg.into(),
@@ -293,13 +293,13 @@ where
 
 // N.B. joining these two implementation abstracting over `RegDst` in `CompareBranch<RegDst>`
 // doesn't work: Rust doesn't seems to be able to deduce the `RegDst` type
-impl<RegSrc> MakeCompareBranch<RegSrc, i32> for CompareBranch<RegOrZero64, CompareBranchOffset>
+impl<RegSrc64> MakeCompareBranch<RegSrc64, i32> for CompareBranch<RegOrZero64, CompareBranchOffset>
 where
-    RegOrZero64: From<RegSrc>,
+    RegOrZero64: From<RegSrc64>,
 {
     type Output = Result<Self, BitError>;
 
-    fn new(equal: bool, reg: RegSrc, offset: i32) -> Result<Self, BitError> {
+    fn new(equal: bool, reg: RegSrc64, offset: i32) -> Result<Self, BitError> {
         CompareBranchOffset::try_from(offset).map(|offset| Self {
             equal,
             reg: reg.into(),
@@ -308,29 +308,59 @@ where
     }
 }
 
-impl<RegSrc> MakeCompareBranch<RegSrc, i32> for CompareBranch<RegOrZero32, CompareBranchOffset>
+impl<RegSrc64> MakeCompareBranch<RegSrc64, LabelRef> for CompareBranch<RegOrZero64, LabelRef>
 where
-    RegOrZero32: From<RegSrc>,
-{
-    type Output = Result<Self, BitError>;
-
-    fn new(equal: bool, reg: RegSrc, offset: i32) -> Result<Self, BitError> {
-        CompareBranchOffset::try_from(offset).map(|offset| Self {
-            equal,
-            reg: reg.into(),
-            offset,
-        })
-    }
-}
-
-impl<R32> MakeCompareBranch<R32, CompareBranchOffset>
-    for CompareBranch<RegOrZero32, CompareBranchOffset>
-where
-    R32: Into<RegOrZero32>,
+    RegSrc64: Into<RegOrZero64>,
 {
     type Output = Self;
 
-    fn new(equal: bool, reg: R32, offset: CompareBranchOffset) -> Self {
+    fn new(equal: bool, reg: RegSrc64, offset: LabelRef) -> Self {
+        Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        }
+    }
+}
+
+impl<RegSrc32> MakeCompareBranch<RegSrc32, CompareBranchOffset>
+    for CompareBranch<RegOrZero32, CompareBranchOffset>
+where
+    RegSrc32: Into<RegOrZero32>,
+{
+    type Output = Self;
+
+    fn new(equal: bool, reg: RegSrc32, offset: CompareBranchOffset) -> Self {
+        Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        }
+    }
+}
+
+impl<RegSrc32> MakeCompareBranch<RegSrc32, i32> for CompareBranch<RegOrZero32, CompareBranchOffset>
+where
+    RegOrZero32: From<RegSrc32>,
+{
+    type Output = Result<Self, BitError>;
+
+    fn new(equal: bool, reg: RegSrc32, offset: i32) -> Result<Self, BitError> {
+        CompareBranchOffset::try_from(offset).map(|offset| Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        })
+    }
+}
+
+impl<RegSrc32> MakeCompareBranch<RegSrc32, LabelRef> for CompareBranch<RegOrZero32, LabelRef>
+where
+    RegSrc32: Into<RegOrZero32>,
+{
+    type Output = Self;
+
+    fn new(equal: bool, reg: RegSrc32, offset: LabelRef) -> Self {
         Self {
             equal,
             reg: reg.into(),
@@ -352,6 +382,24 @@ impl RawInstruction for CompareBranch<RegOrZero64, CompareBranchOffset> {
     }
 }
 
+impl RelocatableInstruction for CompareBranch<RegOrZero64, LabelRef> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let zero = CompareBranchOffset::default();
+
+        let code = CompareBranch {
+            equal: self.equal,
+            reg: self.reg,
+            offset: zero,
+        }
+        .to_code();
+
+        let reloc = Rel64::TstBr14(self.offset);
+
+        (code, Some(reloc))
+    }
+}
+
 impl RawInstruction for CompareBranch<RegOrZero32, CompareBranchOffset> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
@@ -362,6 +410,24 @@ impl RawInstruction for CompareBranch<RegOrZero32, CompareBranchOffset> {
         } else {
             compbranch::CBNZ_32_compbranch::CBNZ_32_compbranch(self.offset.into(), self.reg.index())
         }
+    }
+}
+
+impl RelocatableInstruction for CompareBranch<RegOrZero32, LabelRef> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let zero = CompareBranchOffset::default();
+
+        let code = CompareBranch {
+            equal: self.equal,
+            reg: self.reg,
+            offset: zero,
+        }
+        .to_code();
+
+        let reloc = Rel64::TstBr14(self.offset);
+
+        (code, Some(reloc))
     }
 }
 
@@ -394,6 +460,7 @@ mod tests {
     use crate::register::Reg64::*;
     use crate::register::RegOrZero32::WZR;
     use crate::register::RegOrZero64::XZR;
+    use crate::reloc::LabelId;
     use alloc::vec::Vec;
     use harm_test_utils::inst;
 
@@ -633,5 +700,57 @@ mod tests {
 
         let codes: Vec<_> = it.encode().collect();
         assert_eq!(codes, inst!(0x34000042));
+    }
+
+    #[test]
+    fn test_cbz_64_label() {
+        let label = LabelRef {
+            id: LabelId(1),
+            addend: 2,
+        };
+        let inst = cbz(X3, label);
+
+        let (code, reloc) = inst.to_code_with_reloc();
+        assert_eq!(code, cbz(X3, CompareBranchOffset::default()).to_code());
+        assert_eq!(reloc, Some(Rel64::TstBr14(label)));
+    }
+
+    #[test]
+    fn test_cbz_32_label() {
+        let label = LabelRef {
+            id: LabelId(2),
+            addend: 3,
+        };
+        let inst = cbz(W4, label);
+
+        let (code, reloc) = inst.to_code_with_reloc();
+        assert_eq!(code, cbz(W4, CompareBranchOffset::default()).to_code());
+        assert_eq!(reloc, Some(Rel64::TstBr14(label)));
+    }
+
+    #[test]
+    fn test_cbnz_64_label() {
+        let label = LabelRef {
+            id: LabelId(3),
+            addend: 4,
+        };
+        let inst = cbnz(X5, label);
+
+        let (code, reloc) = inst.to_code_with_reloc();
+        assert_eq!(code, cbnz(X5, CompareBranchOffset::default()).to_code());
+        assert_eq!(reloc, Some(Rel64::TstBr14(label)));
+    }
+
+    #[test]
+    fn test_cbnz_32_label() {
+        let label = LabelRef {
+            id: LabelId(4),
+            addend: 5,
+        };
+        let inst = cbnz(W6, label);
+
+        let (code, reloc) = inst.to_code_with_reloc();
+        assert_eq!(code, cbnz(W6, CompareBranchOffset::default()).to_code());
+        assert_eq!(reloc, Some(Rel64::TstBr14(label)));
     }
 }
