@@ -7,8 +7,8 @@ use std::collections::HashMap;
 
 use crate::labels::LabelRegistry;
 use harm::InstructionCode;
-use harm::reloc::{Rel64, LabelId};
 use harm::instructions::InstructionSeq;
+use harm::reloc::{LabelId, Rel64};
 
 // N.N. we keep here internal relocation type, and convert it to external on serialization.
 #[derive(Default)]
