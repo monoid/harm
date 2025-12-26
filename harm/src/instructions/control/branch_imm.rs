@@ -394,7 +394,7 @@ impl RelocatableInstruction for CompareBranch<RegOrZero64, LabelRef> {
         }
         .to_code();
 
-        let reloc = Rel64::TstBr14(self.offset);
+        let reloc = Rel64::CondBr19(self.offset);
 
         (code, Some(reloc))
     }
@@ -425,7 +425,7 @@ impl RelocatableInstruction for CompareBranch<RegOrZero32, LabelRef> {
         }
         .to_code();
 
-        let reloc = Rel64::TstBr14(self.offset);
+        let reloc = Rel64::CondBr19(self.offset);
 
         (code, Some(reloc))
     }
@@ -712,7 +712,7 @@ mod tests {
 
         let (code, reloc) = inst.to_code_with_reloc();
         assert_eq!(code, cbz(X3, CompareBranchOffset::default()).to_code());
-        assert_eq!(reloc, Some(Rel64::TstBr14(label)));
+        assert_eq!(reloc, Some(Rel64::CondBr19(label)));
     }
 
     #[test]
@@ -725,7 +725,7 @@ mod tests {
 
         let (code, reloc) = inst.to_code_with_reloc();
         assert_eq!(code, cbz(W4, CompareBranchOffset::default()).to_code());
-        assert_eq!(reloc, Some(Rel64::TstBr14(label)));
+        assert_eq!(reloc, Some(Rel64::CondBr19(label)));
     }
 
     #[test]
@@ -738,7 +738,7 @@ mod tests {
 
         let (code, reloc) = inst.to_code_with_reloc();
         assert_eq!(code, cbnz(X5, CompareBranchOffset::default()).to_code());
-        assert_eq!(reloc, Some(Rel64::TstBr14(label)));
+        assert_eq!(reloc, Some(Rel64::CondBr19(label)));
     }
 
     #[test]
@@ -751,6 +751,6 @@ mod tests {
 
         let (code, reloc) = inst.to_code_with_reloc();
         assert_eq!(code, cbnz(W6, CompareBranchOffset::default()).to_code());
-        assert_eq!(reloc, Some(Rel64::TstBr14(label)));
+        assert_eq!(reloc, Some(Rel64::CondBr19(label)));
     }
 }
