@@ -463,7 +463,7 @@ mod tests {
     }
 
     #[test]
-    fn test_64_abs_g2s_movk() {
+    fn test_64_abs_g2s_movz() {
         let label = LabelRef {
             id: LabelId(6),
             addend: 47,
@@ -479,8 +479,8 @@ mod tests {
             id: LabelId(7),
             addend: 48,
         };
-        let inst = movz(X7, abs_g2_nc(label)).to_code_with_reloc();
-        assert_eq!(inst.0, movz(X7, (0, 32)).unwrap().to_code());
+        let inst = movk(X7, abs_g2_nc(label)).to_code_with_reloc();
+        assert_eq!(inst.0, movk(X7, (0, 32)).unwrap().to_code());
         assert_eq!(inst.1, Some(Rel64::MovWAbsG2Nc(label)));
     }
 
