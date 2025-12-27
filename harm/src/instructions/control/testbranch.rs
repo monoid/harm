@@ -15,23 +15,28 @@ use crate::{
     sealed::Sealed,
 };
 
-pub struct TestBranch<Reg, Bit> {
+pub type TestBranchBit64 = UBitValue<6>;
+pub type TestBranchBit32 = UBitValue<5>;
+pub type TestBranchOffset = SBitValue<14, 2>;
+
+pub struct TestBranch<Reg, Bit, Offset> {
     op: bool,
     reg: Reg,
     bit: Bit,
-    offset: SBitValue<14, 2>,
+    offset: Offset,
 }
 
-impl<Reg, Bit> Sealed for TestBranch<Reg, Bit> {}
+impl Sealed for TestBranch<RegOrZero64, TestBranchBit64, TestBranchOffset> {}
+impl Sealed for TestBranch<RegOrZero32, TestBranchBit32, TestBranchOffset> {}
 
-pub trait MakeTestBranch<Reg, Bit>: Sealed {
-    fn new(op: bool, reg: Reg, bit: Bit, offset: SBitValue<14, 2>) -> Self;
+pub trait MakeTestBranch<Reg, Bit, Offset>: Sealed {
+    fn new(op: bool, reg: Reg, bit: Bit, offset: Offset) -> Self;
 }
 
-impl<R: IntoReg<RegOrZero64>> MakeTestBranch<R, UBitValue<6>>
-    for TestBranch<RegOrZero64, UBitValue<6>>
+impl<R: IntoReg<RegOrZero64>> MakeTestBranch<R, TestBranchBit64, TestBranchOffset>
+    for TestBranch<RegOrZero64, TestBranchBit64, TestBranchOffset>
 {
-    fn new(op: bool, reg: R, bit: UBitValue<6>, offset: SBitValue<14, 2>) -> Self {
+    fn new(op: bool, reg: R, bit: TestBranchBit64, offset: TestBranchOffset) -> Self {
         Self {
             op,
             reg: reg.into_reg(),
@@ -41,20 +46,20 @@ impl<R: IntoReg<RegOrZero64>> MakeTestBranch<R, UBitValue<6>>
     }
 }
 
-impl<R: Into<RegOrZero32>> MakeTestBranch<R, UBitValue<5>>
-    for TestBranch<RegOrZero32, UBitValue<5>>
+impl<R: IntoReg<RegOrZero32>> MakeTestBranch<R, TestBranchBit32, TestBranchOffset>
+    for TestBranch<RegOrZero32, TestBranchBit32, TestBranchOffset>
 {
-    fn new(op: bool, reg: R, bit: UBitValue<5>, offset: SBitValue<14, 2>) -> Self {
+    fn new(op: bool, reg: R, bit: TestBranchBit32, offset: TestBranchOffset) -> Self {
         Self {
             op,
-            reg: reg.into(),
+            reg: reg.into_reg(),
             bit,
             offset,
         }
     }
 }
 
-impl RawInstruction for TestBranch<RegOrZero64, UBitValue<6>> {
+impl RawInstruction for TestBranch<RegOrZero64, TestBranchBit64, TestBranchOffset> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
         let bit = self.bit.bits();
@@ -64,17 +69,12 @@ impl RawInstruction for TestBranch<RegOrZero64, UBitValue<6>> {
         if self.op {
             TBNZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.index())
         } else {
-            TBZ_only_testbranch(
-                (bit >> 5).into(),
-                (bit & 0b11111).into(),
-                self.offset.into(),
-                self.reg.index(),
-            )
+            TBZ_only_testbranch(b5.into(), b40.into(), self.offset.into(), self.reg.index())
         }
     }
 }
 
-impl RawInstruction for TestBranch<RegOrZero32, UBitValue<5>> {
+impl RawInstruction for TestBranch<RegOrZero32, TestBranchBit32, TestBranchOffset> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
         let bit = self.bit.bits();
@@ -89,20 +89,20 @@ impl RawInstruction for TestBranch<RegOrZero32, UBitValue<5>> {
     }
 }
 
-pub fn tbnz<Reg, InpReg, Bit>(
+pub fn tbnz<Reg, InpReg, Bit, Offset>(
     reg: InpReg,
     bit: Bit,
-    offset: SBitValue<14, 2>,
-) -> TestBranch<Reg, Bit>
+    offset: Offset,
+) -> TestBranch<Reg, Bit, Offset>
 where
-    TestBranch<Reg, Bit>: MakeTestBranch<InpReg, Bit>,
+    TestBranch<Reg, Bit, Offset>: MakeTestBranch<InpReg, Bit, Offset>,
 {
     TestBranch::new(true, reg, bit, offset)
 }
 
-pub fn tbz<R, Reg, Bit>(reg: Reg, bit: Bit, offset: SBitValue<14, 2>) -> TestBranch<R, Bit>
+pub fn tbz<R, Reg, Bit, Offset>(reg: Reg, bit: Bit, offset: Offset) -> TestBranch<R, Bit, Offset>
 where
-    TestBranch<R, Bit>: MakeTestBranch<Reg, Bit>,
+    TestBranch<R, Bit, Offset>: MakeTestBranch<Reg, Bit, Offset>,
 {
     TestBranch::new(false, reg, bit, offset)
 }
@@ -122,57 +122,133 @@ mod tests {
 
     #[test]
     fn test_tbz_64_big_pos() {
-        let offset = SBitValue::new(76).unwrap();
-        let bit = UBitValue::new(42).unwrap();
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(42).unwrap();
         let it = tbz(X2, bit, offset);
         let words: Vec<_> = it.encode().collect();
         // tbz x2, 42, 76
-        assert_eq!(words, inst!([0x62, 0x02, 0x50, 0xb6])); // 0xb6500262
+        assert_eq!(words, inst!(0xb6500262));
     }
 
     #[test]
     fn test_tbz_64_small_pos() {
-        let offset = SBitValue::new(76).unwrap();
-        let bit = UBitValue::new(29).unwrap();
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
         let it = tbz(X2, bit, offset);
         let words: Vec<_> = it.encode().collect();
 
-        assert_eq!(words, inst!([0x62, 0x02, 0xe8, 0x36])); // 0x36e80262
+        assert_eq!(words, inst!(0x36e80262));
     }
 
     #[test]
     fn test_tbz_xzr_big_pos() {
-        let offset = SBitValue::new(76).unwrap();
-        let bit = UBitValue::new(42).unwrap();
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(42).unwrap();
         let it = tbz(XZR, bit, offset);
         let words: Vec<_> = it.encode().collect();
-        assert_eq!(words, inst!([0x7f, 0x02, 0x50, 0xb6])); // 0xb650027f
+        assert_eq!(words, inst!(0xb650027f));
+    }
+
+    #[test]
+    fn test_tbz_64_neg_pos() {
+        let offset = TestBranchOffset::new(-76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
+        let it = tbz(X2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+
+        assert_eq!(words, inst!(0x36effda2));
     }
 
     #[test]
     fn test_tbz_xzr_small_pos() {
-        let offset = SBitValue::new(76).unwrap();
-        let bit = UBitValue::new(29).unwrap();
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
         let it = tbz(XZR, bit, offset);
         let words: Vec<_> = it.encode().collect();
-        assert_eq!(words, inst!([0x7f, 0x02, 0xe8, 0x36])); // 0x36e8027f
+        assert_eq!(words, inst!(0x36e8027f));
     }
 
     #[test]
     fn test_tbz_32_pos() {
-        let offset = SBitValue::new(76).unwrap();
-        let bit = UBitValue::new(29).unwrap();
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit32::new(29).unwrap();
         let it = tbz(W2, bit, offset);
         let words: Vec<_> = it.encode().collect();
-        assert_eq!(words, inst!([0x62, 0x02, 0xe8, 0x36])); // 0x36e80262
+        assert_eq!(words, inst!(0x36e80262));
     }
 
     #[test]
     fn test_tbz_wzr_pos() {
-        let offset = SBitValue::new(76).unwrap();
-        let bit = UBitValue::new(29).unwrap();
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit32::new(29).unwrap();
         let it = tbz(WZR, bit, offset);
         let words: Vec<_> = it.encode().collect();
-        assert_eq!(words, inst!([0x7f, 0x02, 0xe8, 0x36])); // 0x36e8027f
+        assert_eq!(words, inst!(0x36e8027f));
+    }
+
+    #[test]
+    fn test_tbnz_64_big_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(42).unwrap();
+        let it = tbnz(X2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        // tbnz x2, 42, 76
+        assert_eq!(words, inst!(0xb7500262));
+    }
+
+    #[test]
+    fn test_tbnz_64_small_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
+        let it = tbnz(X2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+
+        assert_eq!(words, inst!(0x37e80262));
+    }
+
+    #[test]
+    fn test_tbnz_xzr_big_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(42).unwrap();
+        let it = tbnz(XZR, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        assert_eq!(words, inst!(0xb750027f));
+    }
+
+    #[test]
+    fn test_tbnz_64_neg_pos() {
+        let offset = TestBranchOffset::new(-76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
+        let it = tbnz(X2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+
+        assert_eq!(words, inst!(0x37effda2));
+    }
+
+    #[test]
+    fn test_tbnz_xzr_small_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
+        let it = tbnz(XZR, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        assert_eq!(words, inst!(0x37e8027f));
+    }
+
+    #[test]
+    fn test_tbnz_32_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit32::new(29).unwrap();
+        let it = tbnz(W2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        assert_eq!(words, inst!(0x37e80262));
+    }
+
+    #[test]
+    fn test_tbnz_wzr_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit32::new(29).unwrap();
+        let it = tbnz(WZR, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        assert_eq!(words, inst!(0x37e8027f));
     }
 }
