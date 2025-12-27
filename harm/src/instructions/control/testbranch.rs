@@ -46,13 +46,13 @@ impl<R: IntoReg<RegOrZero64>> MakeTestBranch<R, TestBranchBit64, TestBranchOffse
     }
 }
 
-impl<R: Into<RegOrZero32>> MakeTestBranch<R, TestBranchBit32, TestBranchOffset>
+impl<R: IntoReg<RegOrZero32>> MakeTestBranch<R, TestBranchBit32, TestBranchOffset>
     for TestBranch<RegOrZero32, TestBranchBit32, TestBranchOffset>
 {
     fn new(op: bool, reg: R, bit: TestBranchBit32, offset: TestBranchOffset) -> Self {
         Self {
             op,
-            reg: reg.into(),
+            reg: reg.into_reg(),
             bit,
             offset,
         }
@@ -150,6 +150,16 @@ mod tests {
     }
 
     #[test]
+    fn test_tbz_64_neg_pos() {
+        let offset = TestBranchOffset::new(-76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
+        let it = tbz(X2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+
+        assert_eq!(words, inst!(0x36effda2));
+    }
+
+    #[test]
     fn test_tbz_xzr_small_pos() {
         let offset = TestBranchOffset::new(76).unwrap();
         let bit = TestBranchBit64::new(29).unwrap();
@@ -174,5 +184,71 @@ mod tests {
         let it = tbz(WZR, bit, offset);
         let words: Vec<_> = it.encode().collect();
         assert_eq!(words, inst!(0x36e8027f));
+    }
+
+    #[test]
+    fn test_tbnz_64_big_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(42).unwrap();
+        let it = tbnz(X2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        // tbnz x2, 42, 76
+        assert_eq!(words, inst!(0xb7500262));
+    }
+
+    #[test]
+    fn test_tbnz_64_small_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
+        let it = tbnz(X2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+
+        assert_eq!(words, inst!(0x37e80262));
+    }
+
+    #[test]
+    fn test_tbnz_xzr_big_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(42).unwrap();
+        let it = tbnz(XZR, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        assert_eq!(words, inst!(0xb750027f));
+    }
+
+    #[test]
+    fn test_tbnz_64_neg_pos() {
+        let offset = TestBranchOffset::new(-76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
+        let it = tbnz(X2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+
+        assert_eq!(words, inst!(0x37effda2));
+    }
+
+    #[test]
+    fn test_tbnz_xzr_small_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit64::new(29).unwrap();
+        let it = tbnz(XZR, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        assert_eq!(words, inst!(0x37e8027f));
+    }
+
+    #[test]
+    fn test_tbnz_32_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit32::new(29).unwrap();
+        let it = tbnz(W2, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        assert_eq!(words, inst!(0x37e80262));
+    }
+
+    #[test]
+    fn test_tbnz_wzr_pos() {
+        let offset = TestBranchOffset::new(76).unwrap();
+        let bit = TestBranchBit32::new(29).unwrap();
+        let it = tbnz(WZR, bit, offset);
+        let words: Vec<_> = it.encode().collect();
+        assert_eq!(words, inst!(0x37e8027f));
     }
 }
