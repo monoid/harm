@@ -165,8 +165,22 @@ define_imm_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero32, 32, ScaledOffset32);
 //
 // ## LDR (PC-relative literal)
 //
-define_pc_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero64, 64);
-define_pc_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero32, 32);
+define_pc_offset_rules!(
+    Ldr,
+    MakeLdr,
+    LDR,
+    RegOrZero64,
+    64,
+    crate::reloc::Rel64::LdPrelLo19
+);
+define_pc_offset_rules!(
+    Ldr,
+    MakeLdr,
+    LDR,
+    RegOrZero32,
+    32,
+    crate::reloc::Rel64::LdPrelLo19
+);
 
 //
 // ## Faillible

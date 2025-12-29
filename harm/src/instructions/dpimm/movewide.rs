@@ -7,12 +7,17 @@
  * Module for move instructions, like `MOVZ`, `MOVN` (not to be confused with `MVN`), `MOVK` in AArch64.
  */
 
+pub(crate) mod movewide_reloc;
+
+use core::marker::PhantomData;
+
 use aarchmrs_instructions::A64::dpimm::movewide::{
     MOVK_32_movewide::MOVK_32_movewide, MOVK_64_movewide::MOVK_64_movewide,
     MOVN_32_movewide::MOVN_32_movewide, MOVN_64_movewide::MOVN_64_movewide,
     MOVZ_32_movewide::MOVZ_32_movewide, MOVZ_64_movewide::MOVZ_64_movewide,
 };
 
+pub use self::movewide_reloc::*;
 use crate::{
     bits::{BitError, UBitValue},
     instructions::RawInstruction,
@@ -20,6 +25,12 @@ use crate::{
     register::{IntoReg, RegOrZero32, RegOrZero64, Register},
     sealed::Sealed,
 };
+
+/// This is a technical type used for type constraints.  It is never constructed, but only used in trait definitions
+/// and constraints.
+pub struct MovWideTypeTag<X>(PhantomData<X>);
+
+impl<X: Sealed> Sealed for MovWideTypeTag<X> {}
 
 // Either 0 or 16 = 1 << 4.
 pub type Shift32 = UBitValue<1, 4>;
@@ -56,12 +67,12 @@ pub struct MovImmArgs<Reg: MoveShift> {
 impl<Reg: MoveShift> Sealed for MovImmArgs<Reg> {}
 
 impl<RIn: IntoReg<RegOrZero32>, Imm16: Into<MoveImm16>> MakeMovArgs<RIn, (Imm16, Shift32)>
-    for MovImmArgs<RegOrZero32>
+    for MovWideTypeTag<MovImmArgs<RegOrZero32>>
 {
-    type Outcome = Unfallible<Self>;
+    type Outcome = Unfallible<MovImmArgs<RegOrZero32>>;
 
     fn new(rd: RIn, (imm16, shift): (Imm16, <RegOrZero32 as MoveShift>::Shift)) -> Self::Outcome {
-        Unfallible(Self {
+        Unfallible(MovImmArgs {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift,
@@ -69,15 +80,15 @@ impl<RIn: IntoReg<RegOrZero32>, Imm16: Into<MoveImm16>> MakeMovArgs<RIn, (Imm16,
     }
 }
 
-impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovImmArgs<RegOrZero32>
+impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovWideTypeTag<MovImmArgs<RegOrZero32>>
 where
     RIn: IntoReg<RegOrZero32>,
     Imm16: Into<MoveImm16>,
 {
-    type Outcome = Result<Self, BitError>;
+    type Outcome = Result<MovImmArgs<RegOrZero32>, BitError>;
 
     fn new(rd: RIn, (imm16, shift): (Imm16, u8)) -> Self::Outcome {
-        (shift as u32).try_into().map(|shift| Self {
+        (shift as u32).try_into().map(|shift| MovImmArgs {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift,
@@ -85,15 +96,15 @@ where
     }
 }
 
-impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovImmArgs<RegOrZero32>
+impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovWideTypeTag<MovImmArgs<RegOrZero32>>
 where
     RIn: IntoReg<RegOrZero32>,
     Imm16: Into<MoveImm16>,
 {
-    type Outcome = Unfallible<Self>;
+    type Outcome = Unfallible<MovImmArgs<RegOrZero32>>;
 
     fn new(rd: RIn, imm16: Imm16) -> Self::Outcome {
-        Unfallible(Self {
+        Unfallible(MovImmArgs {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift: <_>::default(),
@@ -102,12 +113,13 @@ where
 }
 
 impl<RIn: IntoReg<RegOrZero64>, Imm16: Into<MoveImm16>>
-    MakeMovArgs<RIn, (Imm16, <RegOrZero64 as MoveShift>::Shift)> for MovImmArgs<RegOrZero64>
+    MakeMovArgs<RIn, (Imm16, <RegOrZero64 as MoveShift>::Shift)>
+    for MovWideTypeTag<MovImmArgs<RegOrZero64>>
 {
-    type Outcome = Unfallible<Self>;
+    type Outcome = Unfallible<MovImmArgs<RegOrZero64>>;
 
     fn new(rd: RIn, (imm16, shift): (Imm16, Shift64)) -> Self::Outcome {
-        Unfallible(Self {
+        Unfallible(MovImmArgs {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift,
@@ -115,15 +127,15 @@ impl<RIn: IntoReg<RegOrZero64>, Imm16: Into<MoveImm16>>
     }
 }
 
-impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovImmArgs<RegOrZero64>
+impl<RIn, Imm16> MakeMovArgs<RIn, Imm16> for MovWideTypeTag<MovImmArgs<RegOrZero64>>
 where
     RIn: IntoReg<RegOrZero64>,
     Imm16: Into<MoveImm16>,
 {
-    type Outcome = Unfallible<Self>;
+    type Outcome = Unfallible<MovImmArgs<RegOrZero64>>;
 
     fn new(rd: RIn, imm16: Imm16) -> Self::Outcome {
-        Unfallible(Self {
+        Unfallible(MovImmArgs {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift: <_>::default(),
@@ -131,15 +143,15 @@ where
     }
 }
 
-impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovImmArgs<RegOrZero64>
+impl<RIn, Imm16> MakeMovArgs<RIn, (Imm16, u8)> for MovWideTypeTag<MovImmArgs<RegOrZero64>>
 where
     RIn: IntoReg<RegOrZero64>,
     Imm16: Into<MoveImm16>,
 {
-    type Outcome = Result<Self, BitError>;
+    type Outcome = Result<MovImmArgs<RegOrZero64>, BitError>;
 
     fn new(rd: RIn, (imm16, shift): (Imm16, u8)) -> Self::Outcome {
-        (shift as u32).try_into().map(|shift| Self {
+        (shift as u32).try_into().map(|shift| MovImmArgs {
             rd: rd.into_reg(),
             imm16: imm16.into(),
             shift,
@@ -149,16 +161,15 @@ where
 
 pub struct MovK<Args>(Args);
 
-pub fn movk<RIn, Val, ROut>(
+pub fn movk<RIn, Val, Args>(
     rd: RIn,
     val: Val,
-) -> <<MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovK<MovImmArgs<ROut>>>
+) -> <<MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovK<Args>>
 where
-    ROut: MoveShift,
-    MovImmArgs<ROut>: MakeMovArgs<RIn, Val>,
-    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovImmArgs<ROut>>,
+    MovWideTypeTag<Args>: MakeMovArgs<RIn, Val>,
+    <MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = Args>,
 {
-    (<MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val)).map(MovK)
+    (<MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::new(rd, val)).map(MovK)
 }
 
 impl RawInstruction for MovK<MovImmArgs<RegOrZero32>> {
@@ -175,16 +186,15 @@ impl RawInstruction for MovK<MovImmArgs<RegOrZero64>> {
 
 pub struct MovN<Args>(Args);
 
-pub fn movn<RIn, Val, ROut>(
+pub fn movn<RIn, Val, Args>(
     rd: RIn,
     val: Val,
-) -> <<MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovN<MovImmArgs<ROut>>>
+) -> <<MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovN<Args>>
 where
-    ROut: MoveShift,
-    MovImmArgs<ROut>: MakeMovArgs<RIn, Val>,
-    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovImmArgs<ROut>>,
+    MovWideTypeTag<Args>: MakeMovArgs<RIn, Val>,
+    <MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = Args>,
 {
-    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovN)
+    (<MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::new(rd, val)).map(MovN)
 }
 
 impl RawInstruction for MovN<MovImmArgs<RegOrZero32>> {
@@ -201,16 +211,15 @@ impl RawInstruction for MovN<MovImmArgs<RegOrZero64>> {
 
 pub struct MovZ<Args>(Args);
 
-pub fn movz<RIn, Val, ROut>(
+pub fn movz<RIn, Val, Args>(
     rd: RIn,
     val: Val,
-) -> <<MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovZ<MovImmArgs<ROut>>>
+) -> <<MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::Outcome as Outcome>::Output<MovZ<Args>>
 where
-    ROut: MoveShift,
-    MovImmArgs<ROut>: MakeMovArgs<RIn, Val>,
-    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = MovImmArgs<ROut>>,
+    MovWideTypeTag<Args>: MakeMovArgs<RIn, Val>,
+    <MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::Outcome: Outcome<Inner = Args>,
 {
-    <MovImmArgs<ROut> as MakeMovArgs<RIn, Val>>::new(rd, val).map(MovZ)
+    (<MovWideTypeTag<Args> as MakeMovArgs<RIn, Val>>::new(rd, val)).map(MovZ)
 }
 
 impl RawInstruction for MovZ<MovImmArgs<RegOrZero32>> {

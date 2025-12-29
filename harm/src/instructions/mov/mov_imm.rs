@@ -7,7 +7,7 @@ use super::*;
 use crate::instructions::RawInstruction;
 use crate::instructions::dpimm::immediate::LogicalImmFields;
 use crate::instructions::dpimm::{
-    MakeMovArgs, MovImmArgs, MoveImm16, MoveShift, Shift32, Shift64, movn, movz,
+    MakeMovArgs, MovImmArgs, MovWideTypeTag, MoveImm16, MoveShift, Shift32, Shift64, movn, movz,
 };
 use crate::instructions::logical::{LogicalArgs, Orr, orr};
 use crate::outcome::Outcome;
@@ -142,7 +142,8 @@ fn try_into_mov_z_or_k_32(
         let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift32 = Shift32::new(shift).expect("invalid shift generated");
         matches_halfword(v.into(), shift).map(|val| {
-            MovImmArgs::new(reg, (val, shift32)).map(|args| MovNOrZImm { neg: false, args })
+            <MovWideTypeTag<MovImmArgs<_>> as MakeMovArgs<_, _>>::new(reg, (val, shift32))
+                .map(|args| MovNOrZImm { neg: false, args })
         })
     };
 
@@ -152,7 +153,8 @@ fn try_into_mov_z_or_k_32(
         let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift32 = Shift32::new(shift).expect("invalid shift generated");
         matches_halfword(neg_v.into(), shift).map(|val| {
-            MovImmArgs::new(reg, (val, shift32)).map(|args| MovNOrZImm { neg: true, args })
+            <MovWideTypeTag<MovImmArgs<_>> as MakeMovArgs<_, _>>::new(reg, (val, shift32))
+                .map(|args| MovNOrZImm { neg: true, args })
         })
     };
 
@@ -220,7 +222,8 @@ fn try_into_mov_z_or_k_64(
         let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift64 = Shift64::new(shift).expect("invalid shift generated");
         matches_halfword(v, shift).map(|val| {
-            MovImmArgs::new(reg, (val, shift64)).map(|args| MovNOrZImm { neg: false, args })
+            <MovWideTypeTag<MovImmArgs<_>> as MakeMovArgs<_, _>>::new(reg, (val, shift64))
+                .map(|args| MovNOrZImm { neg: false, args })
         })
     };
 
@@ -230,7 +233,8 @@ fn try_into_mov_z_or_k_64(
         let shift = MOVZ_HALFWORD_SIZE * min_hw;
         let shift64 = Shift64::new(shift).expect("invalid shift generated");
         matches_halfword(neg_v, shift).map(|val| {
-            MovImmArgs::new(reg, (val, shift64)).map(|args| MovNOrZImm { neg: true, args })
+            <MovWideTypeTag<MovImmArgs<_>> as MakeMovArgs<_, _>>::new(reg, (val, shift64))
+                .map(|args| MovNOrZImm { neg: true, args })
         })
     };
 

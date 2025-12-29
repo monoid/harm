@@ -340,7 +340,7 @@ macro_rules! define_unscaled_imm_offset_rules {
 }
 
 macro_rules! define_pc_offset_rules {
-    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr) => {
+    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $rel:expr) => {
         #[doc = "`"]
         #[doc = stringify!($mnem)]
         #[doc = "` with an immediate PC-related offset."]
@@ -379,13 +379,44 @@ macro_rules! define_pc_offset_rules {
             }
         }
 
+        #[doc = "`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with a label reference."]
+        impl<Rt> $trait_name<Rt, $crate::reloc::LabelRef>
+            for $name<$rt, $crate::reloc::LabelRef>
+        where
+            Rt: IntoReg<$rt>,
+        {
+            type Output = Self;
+
+            #[inline]
+            fn new(rt: Rt, addr: $crate::reloc::LabelRef) -> Self {
+                Self {
+                    rt: rt.into_reg(),
+                    addr,
+                }
+            }
+        }
+
         ::paste::paste! {
-            impl $crate::instructions::RawInstruction for $name<$rt, ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)> {
+            impl $crate::instructions::RawInstruction for $name<
+                $rt,
+                ($crate::instructions::ldst::Pc, $crate::instructions::ldst::LdStPcOffset)
+            > {
                 #[inline]
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (_pc, offset) = self.addr;
                     let code = [<$mnem:upper _ $bitness _ loadlit>](offset.into(), self.rt.index());
                     code
+                }
+            }
+
+            impl $crate::instructions::RelocatableInstruction for $name<$rt, $crate::reloc::LabelRef> {
+                #[inline]
+                fn to_code_with_reloc(&self) -> ($crate::InstructionCode, Option<$crate::reloc::Rel64>) {
+                    let code = [<$mnem:upper _ $bitness _ loadlit>](0.into(), self.rt.index());
+                    let rel = $rel(self.addr);
+                    (code, Some(rel))
                 }
             }
         }

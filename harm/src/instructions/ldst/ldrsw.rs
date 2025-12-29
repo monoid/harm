@@ -157,7 +157,14 @@ define_imm_offset_rules!(Ldrsw, MakeLdrsw, LDRSW, RegOrZero64, 64, ScaledOffset3
 //
 // ## LDRSW (PC-relative literal)
 //
-define_pc_offset_rules!(Ldrsw, MakeLdrsw, LDRSW, RegOrZero64, 64);
+define_pc_offset_rules!(
+    Ldrsw,
+    MakeLdrsw,
+    LDRSW,
+    RegOrZero64,
+    64,
+    crate::reloc::Rel64::LdPrelLo19
+);
 
 //
 // ## Faillible

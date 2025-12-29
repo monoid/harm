@@ -6,6 +6,7 @@ members = [
    "aarchmrs-parser",
    "aarchmrs-types",
    "harm",
+   "harm-runtime",
    "harm-types",
    "tools/aarchmrs-generate",
    "tools/harm-asm-regen",

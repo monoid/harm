@@ -10,8 +10,9 @@ use aarchmrs_types::InstructionCode;
 
 use crate::{
     bits::{SBitValue, UBitValue},
-    instructions::RawInstruction,
+    instructions::{RawInstruction, RelocatableInstruction},
     register::{IntoReg, RegOrZero32, RegOrZero64, Register as _},
+    reloc::{LabelRef, Rel64},
     sealed::Sealed,
 };
 
@@ -28,6 +29,8 @@ pub struct TestBranch<Reg, Bit, Offset> {
 
 impl Sealed for TestBranch<RegOrZero64, TestBranchBit64, TestBranchOffset> {}
 impl Sealed for TestBranch<RegOrZero32, TestBranchBit32, TestBranchOffset> {}
+impl Sealed for TestBranch<RegOrZero64, TestBranchBit64, LabelRef> {}
+impl Sealed for TestBranch<RegOrZero32, TestBranchBit32, LabelRef> {}
 
 pub trait MakeTestBranch<Reg, Bit, Offset>: Sealed {
     fn new(op: bool, reg: Reg, bit: Bit, offset: Offset) -> Self;
@@ -50,6 +53,32 @@ impl<R: IntoReg<RegOrZero32>> MakeTestBranch<R, TestBranchBit32, TestBranchOffse
     for TestBranch<RegOrZero32, TestBranchBit32, TestBranchOffset>
 {
     fn new(op: bool, reg: R, bit: TestBranchBit32, offset: TestBranchOffset) -> Self {
+        Self {
+            op,
+            reg: reg.into_reg(),
+            bit,
+            offset,
+        }
+    }
+}
+
+impl<R: IntoReg<RegOrZero64>> MakeTestBranch<R, TestBranchBit64, LabelRef>
+    for TestBranch<RegOrZero64, TestBranchBit64, LabelRef>
+{
+    fn new(op: bool, reg: R, bit: TestBranchBit64, offset: LabelRef) -> Self {
+        Self {
+            op,
+            reg: reg.into_reg(),
+            bit,
+            offset,
+        }
+    }
+}
+
+impl<R: IntoReg<RegOrZero32>> MakeTestBranch<R, TestBranchBit32, LabelRef>
+    for TestBranch<RegOrZero32, TestBranchBit32, LabelRef>
+{
+    fn new(op: bool, reg: R, bit: TestBranchBit32, offset: LabelRef) -> Self {
         Self {
             op,
             reg: reg.into_reg(),
@@ -89,6 +118,36 @@ impl RawInstruction for TestBranch<RegOrZero32, TestBranchBit32, TestBranchOffse
     }
 }
 
+impl RelocatableInstruction for TestBranch<RegOrZero64, TestBranchBit64, LabelRef> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let code = TestBranch {
+            op: self.op,
+            reg: self.reg,
+            bit: self.bit,
+            offset: TestBranchOffset::default(),
+        }
+        .to_code();
+        let rel = Rel64::TstBr14(self.offset.clone());
+        (code, Some(rel))
+    }
+}
+
+impl RelocatableInstruction for TestBranch<RegOrZero32, TestBranchBit32, LabelRef> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let code = TestBranch {
+            op: self.op,
+            reg: self.reg,
+            bit: self.bit,
+            offset: TestBranchOffset::default(),
+        }
+        .to_code();
+        let rel = Rel64::TstBr14(self.offset.clone());
+        (code, Some(rel))
+    }
+}
+
 pub fn tbnz<Reg, InpReg, Bit, Offset>(
     reg: InpReg,
     bit: Bit,
@@ -118,6 +177,7 @@ mod tests {
     use crate::register::Reg64::*;
     use crate::register::RegOrZero32::WZR;
     use crate::register::RegOrZero64::XZR;
+    use crate::reloc::LabelId;
     use alloc::vec::Vec;
 
     #[test]
@@ -250,5 +310,29 @@ mod tests {
         let it = tbnz(WZR, bit, offset);
         let words: Vec<_> = it.encode().collect();
         assert_eq!(words, inst!(0x37e8027f));
+    }
+
+    #[test]
+    fn test_tbz_64_reloc() {
+        let bit = TestBranchBit64::new(29).unwrap();
+        let label = LabelRef {
+            id: LabelId(8),
+            addend: 3,
+        };
+        let (opcode, rel) = tbz(X2, bit, label.clone()).to_code_with_reloc();
+        assert_eq!(opcode, tbz(X2, bit, TestBranchOffset::default()).to_code());
+        assert_eq!(rel, Some(Rel64::TstBr14(label)));
+    }
+
+    #[test]
+    fn test_tbnz_64_reloc() {
+        let bit = TestBranchBit64::new(29).unwrap();
+        let label = LabelRef {
+            id: LabelId(8),
+            addend: 3,
+        };
+        let (opcode, rel) = tbnz(X2, bit, label.clone()).to_code_with_reloc();
+        assert_eq!(opcode, tbnz(X2, bit, TestBranchOffset::default()).to_code());
+        assert_eq!(rel, Some(Rel64::TstBr14(label)));
     }
 }

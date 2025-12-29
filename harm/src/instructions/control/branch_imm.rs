@@ -7,12 +7,13 @@ use aarchmrs_instructions::A64::control::{
     branch_imm::{B_only_branch_imm::B_only_branch_imm, BL_only_branch_imm::BL_only_branch_imm},
     condbranch::B_only_condbranch::B_only_condbranch, // TODO BC: branch consistent conditionally
 };
-use aarchmrs_types::InstructionCode;
+use aarchmrs_types::{BitValue, InstructionCode};
 
 use crate::{
     bits::{BitError, SBitValue},
-    instructions::RawInstruction,
+    instructions::{RawInstruction, RelocatableInstruction},
     register::{RegOrZero32, RegOrZero64, Register as _},
+    reloc::{LabelRef, Rel64},
     sealed::Sealed,
 };
 
@@ -35,6 +36,12 @@ pub enum BranchCond {
     LE = 0b1101, // signed less than or equal
     AL = 0b1110, // always
     NV = 0b1111, // always
+}
+
+impl From<BranchCond> for BitValue<4> {
+    fn from(cond: BranchCond) -> Self {
+        Self::new_u32(cond as u8 as u32)
+    }
 }
 
 pub type BranchOffset = SBitValue<26, 2>;
@@ -105,6 +112,27 @@ impl RawInstruction for Branch<BranchOffset> {
     }
 }
 
+impl MakeBranch<LabelRef> for Branch<LabelRef> {
+    type Output = Self;
+
+    #[inline]
+    fn make(label_ref: LabelRef) -> Self::Output {
+        Self(label_ref)
+    }
+}
+
+impl RelocatableInstruction for Branch<LabelRef> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let zero = BranchOffset::default();
+
+        let code = B_only_branch_imm(zero.into());
+        let reloc = Rel64::Jump26(self.0);
+
+        (code, Some(reloc))
+    }
+}
+
 pub fn b_cond<InpAddr, RealAddr>(
     cond: BranchCond,
     offset: InpAddr,
@@ -124,6 +152,7 @@ impl MakeBranchCond<BranchCondOffset> for Branch<(BranchCond, BranchCondOffset)>
     }
 }
 
+#[cfg(feature = "rich_api")]
 impl MakeBranchCond<i32> for Branch<(BranchCond, BranchCondOffset)> {
     type Output = Result<Self, BitError>;
 
@@ -137,7 +166,29 @@ impl RawInstruction for Branch<(BranchCond, BranchCondOffset)> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
         let (cond, imm19) = self.0;
-        B_only_condbranch(imm19.into(), (cond as u8).into())
+        B_only_condbranch(imm19.into(), cond.into())
+    }
+}
+
+impl MakeBranchCond<LabelRef> for Branch<(BranchCond, LabelRef)> {
+    type Output = Self;
+
+    #[inline]
+    fn make(cond: BranchCond, label_ref: LabelRef) -> Self::Output {
+        Self((cond, label_ref))
+    }
+}
+
+impl RelocatableInstruction for Branch<(BranchCond, LabelRef)> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let zero = BranchCondOffset::default();
+        let (cond, label_ref) = self.0;
+
+        let code = B_only_condbranch(zero.into(), cond.into());
+        let reloc = Rel64::CondBr19(label_ref);
+
+        (code, Some(reloc))
     }
 }
 
@@ -148,19 +199,20 @@ pub trait MakeBranchLink<Args>: Sealed {
 }
 
 #[inline]
-pub fn bl<InpArgs>(args: InpArgs) -> <BranchLink as MakeBranchLink<InpArgs>>::Output
+pub fn bl<InpArgs, Offset>(args: InpArgs) -> <BranchLink<Offset> as MakeBranchLink<InpArgs>>::Output
 where
-    BranchLink: MakeBranchLink<InpArgs>,
+    BranchLink<Offset>: MakeBranchLink<InpArgs>,
 {
-    <BranchLink as MakeBranchLink<InpArgs>>::make(args)
+    <BranchLink<Offset> as MakeBranchLink<InpArgs>>::make(args)
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
-pub struct BranchLink(BranchOffset);
+pub struct BranchLink<Offset>(Offset);
 
-impl Sealed for BranchLink {}
+impl Sealed for BranchLink<BranchOffset> {}
+impl Sealed for BranchLink<LabelRef> {}
 
-impl MakeBranchLink<BranchOffset> for BranchLink {
+impl MakeBranchLink<BranchOffset> for BranchLink<BranchOffset> {
     type Output = Self;
 
     #[inline]
@@ -169,7 +221,8 @@ impl MakeBranchLink<BranchOffset> for BranchLink {
     }
 }
 
-impl MakeBranchLink<i32> for BranchLink {
+#[cfg(feature = "rich_api")]
+impl MakeBranchLink<i32> for BranchLink<BranchOffset> {
     type Output = Result<Self, BitError>;
 
     #[inline]
@@ -178,7 +231,7 @@ impl MakeBranchLink<i32> for BranchLink {
     }
 }
 
-impl RawInstruction for BranchLink {
+impl RawInstruction for BranchLink<BranchOffset> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
         let imm26 = self.0;
@@ -186,13 +239,35 @@ impl RawInstruction for BranchLink {
     }
 }
 
-pub struct CompareBranch<Reg> {
-    equal: bool,
-    reg: Reg,
-    offset: CompareBranchOffset,
+impl MakeBranchLink<LabelRef> for BranchLink<LabelRef> {
+    type Output = Self;
+
+    #[inline]
+    fn make(label_ref: LabelRef) -> Self::Output {
+        Self(label_ref)
+    }
 }
 
-impl<Reg> Sealed for CompareBranch<Reg> {}
+impl RelocatableInstruction for BranchLink<LabelRef> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let zero = BranchOffset::default();
+
+        let code = BL_only_branch_imm(zero.into());
+        let reloc = Rel64::Call26(self.0);
+
+        (code, Some(reloc))
+    }
+}
+
+pub struct CompareBranch<Reg, Offset> {
+    equal: bool,
+    reg: Reg,
+    offset: Offset,
+}
+
+impl<Reg> Sealed for CompareBranch<Reg, CompareBranchOffset> {}
+impl<Reg> Sealed for CompareBranch<Reg, LabelRef> {}
 
 pub trait MakeCompareBranch<Reg, Offset>: Sealed {
     type Output;
@@ -200,13 +275,14 @@ pub trait MakeCompareBranch<Reg, Offset>: Sealed {
     fn new(equal: bool, reg: Reg, offset: Offset) -> Self::Output;
 }
 
-impl<R64> MakeCompareBranch<R64, CompareBranchOffset> for CompareBranch<RegOrZero64>
+impl<RegSrc64> MakeCompareBranch<RegSrc64, CompareBranchOffset>
+    for CompareBranch<RegOrZero64, CompareBranchOffset>
 where
-    R64: Into<RegOrZero64>,
+    RegSrc64: Into<RegOrZero64>,
 {
     type Output = Self;
 
-    fn new(equal: bool, reg: R64, offset: CompareBranchOffset) -> Self {
+    fn new(equal: bool, reg: RegSrc64, offset: CompareBranchOffset) -> Self {
         Self {
             equal,
             reg: reg.into(),
@@ -217,13 +293,13 @@ where
 
 // N.B. joining these two implementation abstracting over `RegDst` in `CompareBranch<RegDst>`
 // doesn't work: Rust doesn't seems to be able to deduce the `RegDst` type
-impl<RegSrc> MakeCompareBranch<RegSrc, i32> for CompareBranch<RegOrZero64>
+impl<RegSrc64> MakeCompareBranch<RegSrc64, i32> for CompareBranch<RegOrZero64, CompareBranchOffset>
 where
-    RegOrZero64: From<RegSrc>,
+    RegOrZero64: From<RegSrc64>,
 {
     type Output = Result<Self, BitError>;
 
-    fn new(equal: bool, reg: RegSrc, offset: i32) -> Result<Self, BitError> {
+    fn new(equal: bool, reg: RegSrc64, offset: i32) -> Result<Self, BitError> {
         CompareBranchOffset::try_from(offset).map(|offset| Self {
             equal,
             reg: reg.into(),
@@ -232,28 +308,13 @@ where
     }
 }
 
-impl<RegSrc> MakeCompareBranch<RegSrc, i32> for CompareBranch<RegOrZero32>
+impl<RegSrc64> MakeCompareBranch<RegSrc64, LabelRef> for CompareBranch<RegOrZero64, LabelRef>
 where
-    RegOrZero32: From<RegSrc>,
-{
-    type Output = Result<Self, BitError>;
-
-    fn new(equal: bool, reg: RegSrc, offset: i32) -> Result<Self, BitError> {
-        CompareBranchOffset::try_from(offset).map(|offset| Self {
-            equal,
-            reg: reg.into(),
-            offset,
-        })
-    }
-}
-
-impl<R32> MakeCompareBranch<R32, CompareBranchOffset> for CompareBranch<RegOrZero32>
-where
-    R32: Into<RegOrZero32>,
+    RegSrc64: Into<RegOrZero64>,
 {
     type Output = Self;
 
-    fn new(equal: bool, reg: R32, offset: CompareBranchOffset) -> Self {
+    fn new(equal: bool, reg: RegSrc64, offset: LabelRef) -> Self {
         Self {
             equal,
             reg: reg.into(),
@@ -262,7 +323,53 @@ where
     }
 }
 
-impl RawInstruction for CompareBranch<RegOrZero64> {
+impl<RegSrc32> MakeCompareBranch<RegSrc32, CompareBranchOffset>
+    for CompareBranch<RegOrZero32, CompareBranchOffset>
+where
+    RegSrc32: Into<RegOrZero32>,
+{
+    type Output = Self;
+
+    fn new(equal: bool, reg: RegSrc32, offset: CompareBranchOffset) -> Self {
+        Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        }
+    }
+}
+
+impl<RegSrc32> MakeCompareBranch<RegSrc32, i32> for CompareBranch<RegOrZero32, CompareBranchOffset>
+where
+    RegOrZero32: From<RegSrc32>,
+{
+    type Output = Result<Self, BitError>;
+
+    fn new(equal: bool, reg: RegSrc32, offset: i32) -> Result<Self, BitError> {
+        CompareBranchOffset::try_from(offset).map(|offset| Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        })
+    }
+}
+
+impl<RegSrc32> MakeCompareBranch<RegSrc32, LabelRef> for CompareBranch<RegOrZero32, LabelRef>
+where
+    RegSrc32: Into<RegOrZero32>,
+{
+    type Output = Self;
+
+    fn new(equal: bool, reg: RegSrc32, offset: LabelRef) -> Self {
+        Self {
+            equal,
+            reg: reg.into(),
+            offset,
+        }
+    }
+}
+
+impl RawInstruction for CompareBranch<RegOrZero64, CompareBranchOffset> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
         use aarchmrs_instructions::A64::control::compbranch;
@@ -275,7 +382,25 @@ impl RawInstruction for CompareBranch<RegOrZero64> {
     }
 }
 
-impl RawInstruction for CompareBranch<RegOrZero32> {
+impl RelocatableInstruction for CompareBranch<RegOrZero64, LabelRef> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let zero = CompareBranchOffset::default();
+
+        let code = CompareBranch {
+            equal: self.equal,
+            reg: self.reg,
+            offset: zero,
+        }
+        .to_code();
+
+        let reloc = Rel64::CondBr19(self.offset);
+
+        (code, Some(reloc))
+    }
+}
+
+impl RawInstruction for CompareBranch<RegOrZero32, CompareBranchOffset> {
     #[inline]
     fn to_code(&self) -> InstructionCode {
         use aarchmrs_instructions::A64::control::compbranch;
@@ -288,22 +413,40 @@ impl RawInstruction for CompareBranch<RegOrZero32> {
     }
 }
 
-pub fn cbz<RegSrc, Offset, RegDst>(
+impl RelocatableInstruction for CompareBranch<RegOrZero32, LabelRef> {
+    #[inline]
+    fn to_code_with_reloc(&self) -> (InstructionCode, Option<Rel64>) {
+        let zero = CompareBranchOffset::default();
+
+        let code = CompareBranch {
+            equal: self.equal,
+            reg: self.reg,
+            offset: zero,
+        }
+        .to_code();
+
+        let reloc = Rel64::CondBr19(self.offset);
+
+        (code, Some(reloc))
+    }
+}
+
+pub fn cbz<RegSrc, Offset, RegDst, OffsetDst>(
     reg: RegSrc,
     offset: Offset,
-) -> <CompareBranch<RegDst> as MakeCompareBranch<RegSrc, Offset>>::Output
+) -> <CompareBranch<RegDst, OffsetDst> as MakeCompareBranch<RegSrc, Offset>>::Output
 where
-    CompareBranch<RegDst>: MakeCompareBranch<RegSrc, Offset>,
+    CompareBranch<RegDst, OffsetDst>: MakeCompareBranch<RegSrc, Offset>,
 {
     CompareBranch::new(true, reg, offset)
 }
 
-pub fn cbnz<RegSrc, Offset, RegDst>(
+pub fn cbnz<RegSrc, Offset, RegDst, OffsetDst>(
     reg: RegSrc,
     offset: Offset,
-) -> <CompareBranch<RegDst> as MakeCompareBranch<RegSrc, Offset>>::Output
+) -> <CompareBranch<RegDst, OffsetDst> as MakeCompareBranch<RegSrc, Offset>>::Output
 where
-    CompareBranch<RegDst>: MakeCompareBranch<RegSrc, Offset>,
+    CompareBranch<RegDst, OffsetDst>: MakeCompareBranch<RegSrc, Offset>,
 {
     CompareBranch::new(false, reg, offset)
 }
@@ -317,6 +460,7 @@ mod tests {
     use crate::register::Reg64::*;
     use crate::register::RegOrZero32::WZR;
     use crate::register::RegOrZero64::XZR;
+    use crate::reloc::LabelId;
     use alloc::vec::Vec;
     use harm_test_utils::inst;
 
@@ -556,5 +700,57 @@ mod tests {
 
         let codes: Vec<_> = it.encode().collect();
         assert_eq!(codes, inst!(0x34000042));
+    }
+
+    #[test]
+    fn test_cbz_64_label() {
+        let label = LabelRef {
+            id: LabelId(1),
+            addend: 2,
+        };
+        let inst = cbz(X3, label);
+
+        let (code, reloc) = inst.to_code_with_reloc();
+        assert_eq!(code, cbz(X3, CompareBranchOffset::default()).to_code());
+        assert_eq!(reloc, Some(Rel64::CondBr19(label)));
+    }
+
+    #[test]
+    fn test_cbz_32_label() {
+        let label = LabelRef {
+            id: LabelId(2),
+            addend: 3,
+        };
+        let inst = cbz(W4, label);
+
+        let (code, reloc) = inst.to_code_with_reloc();
+        assert_eq!(code, cbz(W4, CompareBranchOffset::default()).to_code());
+        assert_eq!(reloc, Some(Rel64::CondBr19(label)));
+    }
+
+    #[test]
+    fn test_cbnz_64_label() {
+        let label = LabelRef {
+            id: LabelId(3),
+            addend: 4,
+        };
+        let inst = cbnz(X5, label);
+
+        let (code, reloc) = inst.to_code_with_reloc();
+        assert_eq!(code, cbnz(X5, CompareBranchOffset::default()).to_code());
+        assert_eq!(reloc, Some(Rel64::CondBr19(label)));
+    }
+
+    #[test]
+    fn test_cbnz_32_label() {
+        let label = LabelRef {
+            id: LabelId(4),
+            addend: 5,
+        };
+        let inst = cbnz(W6, label);
+
+        let (code, reloc) = inst.to_code_with_reloc();
+        assert_eq!(code, cbnz(W6, CompareBranchOffset::default()).to_code());
+        assert_eq!(reloc, Some(Rel64::CondBr19(label)));
     }
 }
