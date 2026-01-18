@@ -6,7 +6,6 @@
 use std::collections::HashMap;
 
 use crate::labels::LabelRegistry;
-use harm::InstructionCode;
 use harm::instructions::InstructionSeq;
 use harm::reloc::{LabelId, Offset, Rel64};
 
@@ -14,7 +13,7 @@ use harm::reloc::{LabelId, Offset, Rel64};
 #[derive(Default)]
 pub struct Assembler {
     label_manager: LabelRegistry,
-    memory: Vec<InstructionCode>,
+    memory: Vec<u8>,
     relocations: HashMap<usize, Rel64>,
 }
 
@@ -41,10 +40,10 @@ impl Assembler {
         // TODO align by instruction alignment?
         for (inst, rel) in s.encode() {
             let pos = self.memory.len();
+            self.memory.extend(inst.0);
             if let Some(rel) = rel {
                 self.relocations.insert(pos, rel);
             }
-            self.memory.push(inst);
         }
     }
 
