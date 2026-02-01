@@ -7,7 +7,7 @@ use std::collections::HashMap;
 
 use crate::labels::LabelRegistry;
 use harm::instructions::InstructionSeq;
-use harm::reloc::{LabelId, Offset, Rel64};
+use harm::reloc::{LabelId, Offset64, Rel64};
 
 // N.N. we keep here internal relocation type, and convert it to external on serialization.
 #[derive(Default)]
@@ -54,7 +54,7 @@ impl Assembler {
 
         // TODO can be fused
         let label_id = self.label_manager.forward_label();
-        self.label_manager.define_label(label_id, pos as Offset);
+        self.label_manager.define_label(label_id, pos as Offset64);
 
         label_id
     }
@@ -76,6 +76,6 @@ impl Assembler {
     pub fn assign_forward_label(&mut self, label_id: LabelId) {
         let pos = self.memory.len();
 
-        self.label_manager.define_label(label_id, pos as Offset);
+        self.label_manager.define_label(label_id, pos as Offset64);
     }
 }

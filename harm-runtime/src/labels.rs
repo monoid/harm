@@ -5,13 +5,13 @@
 
 use std::collections::HashMap;
 
-use harm::reloc::{LabelId, Offset};
+use harm::reloc::{LabelId, Offset64};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum LabelInfo {
     Forward,
     // TODO segment
-    Offset(Offset),
+    Offset(Offset64),
 }
 
 #[derive(Debug, Default)]
@@ -46,7 +46,7 @@ impl LabelRegistry {
         id
     }
 
-    pub fn define_label(&mut self, label_id: LabelId, offset: Offset) {
+    pub fn define_label(&mut self, label_id: LabelId, offset: Offset64) {
         if let Some(info) = self.labels.get_mut(&label_id) {
             match info {
                 LabelInfo::Forward => {
@@ -57,12 +57,12 @@ impl LabelRegistry {
                 }
             }
         } else {
-            panic!("Label {label_id:?} is not registered");
+            todo!("Label {label_id:?} is not registered");
         }
     }
 
     #[inline]
-    pub fn define_named_label(&mut self, name: &str, offset: Offset) -> LabelId {
+    pub fn define_named_label(&mut self, name: &str, offset: Offset64) -> LabelId {
         if let Some(id) = self.named_labels.get(name).copied() {
             self.labels.insert(id, LabelInfo::Offset(offset));
             id
@@ -78,7 +78,7 @@ impl LabelRegistry {
         if self.labels.contains_key(&id) {
             self.named_labels.insert(name.to_string(), id);
         } else {
-            panic!("Label {id:?} is not registered");
+            todo!("Label {id:?} is not registered");
         }
     }
 

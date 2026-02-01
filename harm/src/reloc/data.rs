@@ -3,7 +3,7 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use super::{Addr, Rel64Error, calc_delta, get_bytes_mut};
+use super::{Addr64, Rel64Error, calc_delta, get_bytes_mut};
 
 #[inline]
 pub fn abs64_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
@@ -30,8 +30,8 @@ pub fn abs16_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel6
 
 #[inline]
 pub fn prel64_reloc(
-    base: Addr,
-    symbol: Addr,
+    base: Addr64,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -43,8 +43,8 @@ pub fn prel64_reloc(
 
 #[inline]
 pub fn prel32_reloc(
-    base: Addr,
-    symbol: Addr,
+    base: Addr64,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -58,8 +58,8 @@ pub fn prel32_reloc(
 
 #[inline]
 pub fn prel16_reloc(
-    base: Addr,
-    symbol: Addr,
+    base: Addr64,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -73,8 +73,8 @@ pub fn prel16_reloc(
 
 #[inline]
 pub fn plt32_reloc(
-    base: Addr,
-    symbol: Addr,
+    base: Addr64,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {

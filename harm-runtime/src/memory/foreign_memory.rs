@@ -3,32 +3,32 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use harm::reloc::Addr;
+use harm::reloc::Addr64;
 
 use super::Memory;
 
 /// Memory that is not intended to be executed immediately, but stored or transferred.
 pub struct ForeignMemoryBuffer {
     mem: alloc::vec::Vec<u8>,
-    base_addr: Addr,
+    base_addr: Addr64,
 }
 
 impl<'mem> ForeignMemoryBuffer {
-    pub fn new(base_addr: Addr) -> Self {
+    pub fn new(base_addr: Addr64) -> Self {
         Self {
             mem: Vec::new(),
             base_addr,
         }
     }
 
-    pub fn with_capacity(base_addr: Addr, capacity: usize) -> Self {
+    pub fn with_capacity(base_addr: Addr64, capacity: usize) -> Self {
         Self {
             mem: Vec::with_capacity(capacity),
             base_addr,
         }
     }
 
-    pub fn base_addr(&self) -> Addr {
+    pub fn base_addr(&self) -> Addr64 {
         self.base_addr
     }
 }
@@ -66,14 +66,14 @@ impl Memory<ForeignMemory> for ForeignMemoryBuffer {
 
 pub struct ForeignMemory {
     mem: alloc::vec::Vec<u8>,
-    base_addr: Addr,
+    base_addr: Addr64,
 }
 
 impl ForeignMemory {
-    pub fn base_addr(&self) -> Addr {
+    pub fn base_addr(&self) -> Addr64 {
         self.base_addr
     }
-    pub fn into_inner(self) -> (Addr, alloc::vec::Vec<u8>) {
+    pub fn into_inner(self) -> (Addr64, alloc::vec::Vec<u8>) {
         (self.base_addr, self.mem)
     }
 }
