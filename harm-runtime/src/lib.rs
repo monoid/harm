@@ -4,3 +4,5 @@
  */
 
 pub mod labels;
+pub mod memory;
+pub mod runtime;

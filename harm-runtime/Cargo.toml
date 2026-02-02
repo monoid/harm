@@ -12,4 +12,9 @@ publish = false
 
 [dependencies]
 harm = { workspace = true }
-memmap2 = "0.9.9"
+memmap2 = { version = "0.9.9", optional = true }
+thiserror = "2.0.18"
+
+[features]
+default = ["memmap2"]
+memmap2 = ["dep:memmap2"]
