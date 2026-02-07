@@ -5,7 +5,7 @@
 
 use std::collections::HashMap;
 
-use harm::reloc::{LabelId, Offset64};
+use harm::reloc::{Addr64, LabelId, Offset64};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum LabelInfo {

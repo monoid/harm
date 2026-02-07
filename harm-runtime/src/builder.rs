@@ -14,10 +14,7 @@ pub enum BuilderError {
     #[error("Address overflow: base {0}, offset {1}")]
     AddressOverflow(u64, usize),
     #[error("Relocation error: {nested:?} at offset {offset}")]
-    Relocation {
-        nested: Rel64Error,
-        offset: usize,
-    },
+    Relocation { nested: Rel64Error, offset: usize },
 }
 
 /// Do static relocations: recalculate labels and applies relocations, producing memory ready for execution.
@@ -36,7 +33,7 @@ impl<'mem> Builder<'mem> {
 
     pub fn build(
         self,
-        _labels: impl Iterator<Item = (&'mem str, i64)>,
+        _label_defs: impl Iterator<Item = (&'mem str, i64)>,
         relocations: impl Iterator<Item = (usize, Rel64)>,
     ) -> Result<HashMap<&'mem str, u64>, BuilderError> {
         // Recalculate labels.
@@ -55,23 +52,33 @@ impl<'mem> Builder<'mem> {
 
 #[cfg(test)]
 mod tests {
+    use harm::reloc::{LabelId, LabelRef, Rel64Tag};
+
     use super::*;
 
     #[test]
     fn test_good_offset() {
         let mut mem = vec![0u8; 4];
         let builder = Builder::new(&mut mem, 0);
-        let relocations = [(0, Rel64::None)];
+        let label_ref = LabelRef {
+            id: LabelId(0),
+            addend: 0,
+        };
+        let relocations = [(0, Rel64::new(Rel64Tag::NONE, label_ref))];
         let res = builder.build([].into_iter(), relocations.into_iter());
 
-        assert!(matches!(res, Ok(_)));
+        assert!(res.is_ok());
     }
 
     #[test]
     fn test_bad_offset() {
         let mut mem = vec![0u8; 4];
         let builder = Builder::new(&mut mem, 0);
-        let relocations = [(1, Rel64::None)];
+        let label_ref = LabelRef {
+            id: LabelId(0),
+            addend: 0,
+        };
+        let relocations = [(1, Rel64::new(Rel64Tag::NONE, label_ref))];
         let res = builder.build([].into_iter(), relocations.into_iter());
 
         assert!(matches!(res, Err(BuilderError::BadRelocationOffset(_))));
@@ -81,7 +88,11 @@ mod tests {
     fn test_bad_offset_max() {
         let mut mem = vec![0u8; 4];
         let builder = Builder::new(&mut mem, 0);
-        let relocations = [(usize::MAX, Rel64::None)];
+        let label_ref = LabelRef {
+            id: LabelId(0),
+            addend: 0,
+        };
+        let relocations = [(usize::MAX, Rel64::new(Rel64Tag::NONE, label_ref))];
         let res = builder.build([].into_iter(), relocations.into_iter());
 
         assert!(matches!(res, Err(BuilderError::BadRelocationOffset(_))));

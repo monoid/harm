@@ -19,3 +19,6 @@ thiserror = "2.0.18"
 default = ["memmap2", "alloc"]
 memmap2 = ["dep:memmap2"]
 alloc = []
+
+[dev-dependencies]
+clear-cache = "0.1.3"

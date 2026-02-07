@@ -175,19 +175,27 @@ mod tests {
     #[test]
     #[cfg(target_arch = "aarch64")]
     fn test_mmap_execute() {
-        let mut buf = Mmap2Buffer::allocate(4).expect("mmap failed, system problem");
-        buf.try_extend(harm::instructions::control::ret().bytes())
-            .unwrap();
+        use harm::{
+            instructions::{arith::add::add, control::ret},
+            register::Reg64::*,
+        };
+        let mut buf = Mmap2Buffer::allocate(8).expect("mmap failed, system problem");
+        buf.try_extend(add(X0, X0, X1).bytes()).unwrap();
+        buf.try_extend(ret().bytes()).unwrap();
 
         let mem = buf.into_fixed_memory().unwrap();
         // Doing relocations...
 
         let exec = mem.into_executable_memory().unwrap();
 
+        let res;
         unsafe {
-            let func: unsafe extern "C" fn() = std::mem::transmute(exec.as_ptr());
-            func();
+            clear_cache::clear_cache(exec.as_ptr(), exec.as_ptr().add(exec.len()));
+
+            let func: unsafe extern "C" fn(i64, i64) -> i64 = std::mem::transmute(exec.as_ptr());
+            res = func(1, 2);
         }
+        assert_eq!(res, 3);
     }
 
     #[test]
