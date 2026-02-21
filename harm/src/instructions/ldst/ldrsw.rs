@@ -163,7 +163,7 @@ define_pc_offset_rules!(
     LDRSW,
     RegOrZero64,
     64,
-    crate::reloc::Rel64::LdPrelLo19
+    crate::reloc::Rel64::ld_prel_lo19
 );
 
 //

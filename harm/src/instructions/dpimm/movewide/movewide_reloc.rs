@@ -164,7 +164,7 @@ impl MoveWideReloc64 for AbsG0 {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG0(self.0)
+        Rel64::mov_w_abs_g0(self.0)
     }
 }
 
@@ -176,7 +176,7 @@ impl MoveWideReloc64 for AbsG0Nc {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG0Nc(self.0)
+        Rel64::mov_w_abs_g0nc(self.0)
     }
 }
 
@@ -188,7 +188,7 @@ impl MoveWideReloc64 for AbsG0S {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG0S(self.0)
+        Rel64::mov_w_abs_g0s(self.0)
     }
 }
 
@@ -200,7 +200,7 @@ impl MoveWideReloc64 for AbsG1 {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG1(self.0)
+        Rel64::mov_w_abs_g1(self.0)
     }
 }
 
@@ -212,7 +212,7 @@ impl MoveWideReloc64 for AbsG1Nc {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG1Nc(self.0)
+        Rel64::mov_w_abs_g1nc(self.0)
     }
 }
 
@@ -224,7 +224,7 @@ impl MoveWideReloc64 for AbsG1S {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG1S(self.0)
+        Rel64::mov_w_abs_g1s(self.0)
     }
 }
 
@@ -236,7 +236,7 @@ impl MoveWideReloc64 for AbsG2 {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG2(self.0)
+        Rel64::mov_w_abs_g2(self.0)
     }
 }
 
@@ -248,7 +248,7 @@ impl MoveWideReloc64 for AbsG2Nc {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG2Nc(self.0)
+        Rel64::mov_w_abs_g2nc(self.0)
     }
 }
 
@@ -260,7 +260,7 @@ impl MoveWideReloc64 for AbsG2S {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG2S(self.0)
+        Rel64::mov_w_abs_g2s(self.0)
     }
 }
 
@@ -272,7 +272,7 @@ impl MoveWideReloc64 for AbsG3 {
 
     #[inline]
     fn get_relocation(&self) -> Rel64 {
-        Rel64::MovWAbsG3(self.0)
+        Rel64::mov_w_abs_g3(self.0)
     }
 }
 
@@ -414,7 +414,7 @@ mod tests {
         };
         let inst = movz(X1, abs_g0(label)).to_code_with_reloc();
         assert_eq!(inst.0, movz(X1, (0, 0)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG0(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g0(label)));
     }
 
     #[test]
@@ -425,7 +425,7 @@ mod tests {
         };
         let inst = movk(X2, abs_g1(label)).to_code_with_reloc();
         assert_eq!(inst.0, movk(X2, (0, 16)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG1(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g1(label)));
     }
 
     #[test]
@@ -437,7 +437,7 @@ mod tests {
         // Makes little sense, but gas accepts it.
         let inst = movn(X3, abs_g1_s(label)).to_code_with_reloc();
         assert_eq!(inst.0, movn(X3, (0, 16)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG1S(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g1s(label)));
     }
 
     #[test]
@@ -448,7 +448,7 @@ mod tests {
         };
         let inst = movk(X4, abs_g1_nc(label)).to_code_with_reloc();
         assert_eq!(inst.0, movk(X4, (0, 16)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG1Nc(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g1nc(label)));
     }
 
     #[test]
@@ -459,7 +459,7 @@ mod tests {
         };
         let inst = movz(X5, abs_g2(label)).to_code_with_reloc();
         assert_eq!(inst.0, movz(X5, (0, 32)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG2(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g2(label)));
     }
 
     #[test]
@@ -470,7 +470,7 @@ mod tests {
         };
         let inst = movz(X6, abs_g2_s(label)).to_code_with_reloc();
         assert_eq!(inst.0, movz(X6, (0, 32)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG2S(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g2s(label)));
     }
 
     #[test]
@@ -481,7 +481,7 @@ mod tests {
         };
         let inst = movk(X7, abs_g2_nc(label)).to_code_with_reloc();
         assert_eq!(inst.0, movk(X7, (0, 32)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG2Nc(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g2nc(label)));
     }
 
     #[test]
@@ -492,7 +492,7 @@ mod tests {
         };
         let inst = movk(X8, abs_g3(label)).to_code_with_reloc();
         assert_eq!(inst.0, movk(X8, (0, 48)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG3(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g3(label)));
     }
 
     #[test]
@@ -503,7 +503,7 @@ mod tests {
         };
         let inst = movz(W1, abs_g0(label)).to_code_with_reloc();
         assert_eq!(inst.0, movz(W1, (0, 0)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG0(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g0(label)));
     }
 
     #[test]
@@ -514,7 +514,7 @@ mod tests {
         };
         let inst = movk(W2, abs_g1(label)).to_code_with_reloc();
         assert_eq!(inst.0, movk(W2, (0, 16)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG1(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g1(label)));
     }
 
     #[test]
@@ -526,7 +526,7 @@ mod tests {
         // Makes little sense, but gas accepts it.
         let inst = movn(W3, abs_g1_s(label)).to_code_with_reloc();
         assert_eq!(inst.0, movn(W3, (0, 16)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG1S(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g1s(label)));
     }
 
     #[test]
@@ -537,6 +537,6 @@ mod tests {
         };
         let inst = movk(W4, abs_g1_nc(label)).to_code_with_reloc();
         assert_eq!(inst.0, movk(W4, (0, 16)).unwrap().to_code());
-        assert_eq!(inst.1, Some(Rel64::MovWAbsG1Nc(label)));
+        assert_eq!(inst.1, Some(Rel64::mov_w_abs_g1nc(label)));
     }
 }
