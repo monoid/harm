@@ -12,6 +12,30 @@ pub mod pext_pn_rr_ {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "pext_pn_rr_";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Pd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Pd_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_PNn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_PNn_WIDTH: u32 = 3u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm2_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm2_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
     #[inline]
     pub const fn pext_pn_rr_(
         size: ::aarchmrs_types::BitValue<2>,
@@ -39,6 +63,30 @@ pub mod pext_pp_rr_ {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "pext_pp_rr_";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Pd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Pd_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_PNn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_PNn_WIDTH: u32 = 3u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_i1_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_i1_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
     #[inline]
     pub const fn pext_pp_rr_(
         size: ::aarchmrs_types::BitValue<2>,

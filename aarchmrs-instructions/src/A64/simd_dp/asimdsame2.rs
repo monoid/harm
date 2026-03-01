@@ -12,6 +12,36 @@ pub mod SDOT_asimdsame2_D {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SDOT_asimdsame2_D";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SDOT_asimdsame2_D(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -42,6 +72,30 @@ pub mod FCVTN_asimdsame2_H {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCVTN_asimdsame2_H";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FCVTN_asimdsame2_H(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -69,6 +123,30 @@ pub mod FDOT_asimdsame2_DD {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FDOT_asimdsame2_DD";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FDOT_asimdsame2_DD(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -96,6 +174,30 @@ pub mod FCVTN_asimdsame2_D {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCVTN_asimdsame2_D";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FCVTN_asimdsame2_D(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -123,6 +225,30 @@ pub mod FDOT_asimdsame2_D {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FDOT_asimdsame2_D";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FDOT_asimdsame2_D(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -150,6 +276,30 @@ pub mod USDOT_asimdsame2_D {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "USDOT_asimdsame2_D";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn USDOT_asimdsame2_D(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -177,6 +327,30 @@ pub mod FDOT_asimdsame2_FP16FP32 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FDOT_asimdsame2_FP16FP32";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FDOT_asimdsame2_FP16FP32(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -204,6 +378,36 @@ pub mod SQRDMLAH_asimdsame2_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SQRDMLAH_asimdsame2_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SQRDMLAH_asimdsame2_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -234,6 +438,36 @@ pub mod SQRDMLSH_asimdsame2_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SQRDMLSH_asimdsame2_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SQRDMLSH_asimdsame2_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -264,6 +498,36 @@ pub mod UDOT_asimdsame2_D {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "UDOT_asimdsame2_D";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn UDOT_asimdsame2_D(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -294,6 +558,42 @@ pub mod FCMLA_asimdsame2_C {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMLA_asimdsame2_C";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_rot_OFFSET: u32 = 11u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_rot_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FCMLA_asimdsame2_C(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -327,6 +627,42 @@ pub mod FCADD_asimdsame2_C {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCADD_asimdsame2_C";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_rot_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_rot_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FCADD_asimdsame2_C(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -360,6 +696,30 @@ pub mod BFDOT_asimdsame2_D {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BFDOT_asimdsame2_D";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn BFDOT_asimdsame2_D(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -387,6 +747,30 @@ pub mod BFMLAL_asimdsame2_F_ {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BFMLAL_asimdsame2_F_";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn BFMLAL_asimdsame2_F_(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -414,6 +798,24 @@ pub mod FMLALLBB_asimdsame2_G {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMLALLBB_asimdsame2_G";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMLALLBB_asimdsame2_G(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -438,6 +840,24 @@ pub mod FMLALLBT_asimdsame2_G {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMLALLBT_asimdsame2_G";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMLALLBT_asimdsame2_G(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -462,6 +882,24 @@ pub mod FMLALB_asimdsame2_J {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMLALB_asimdsame2_J";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMLALB_asimdsame2_J(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -486,6 +924,24 @@ pub mod FMLALLTB_asimdsame2_G {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMLALLTB_asimdsame2_G";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMLALLTB_asimdsame2_G(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -510,6 +966,24 @@ pub mod FMLALLTT_asimdsame2_G {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMLALLTT_asimdsame2_G";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMLALLTT_asimdsame2_G(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -534,6 +1008,24 @@ pub mod SMMLA_asimdsame2_G {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SMMLA_asimdsame2_G";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn SMMLA_asimdsame2_G(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -558,6 +1050,24 @@ pub mod USMMLA_asimdsame2_G {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "USMMLA_asimdsame2_G";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn USMMLA_asimdsame2_G(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -582,6 +1092,24 @@ pub mod FMMLA_asimd_FP16FP16 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMMLA_asimd_FP16FP16";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMMLA_asimd_FP16FP16(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -606,6 +1134,24 @@ pub mod FMLALT_asimdsame2_J {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMLALT_asimdsame2_J";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMLALT_asimdsame2_J(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -630,6 +1176,24 @@ pub mod FMMLA_asimd_FP8FP16 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMMLA_asimd_FP8FP16";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMMLA_asimd_FP8FP16(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -654,6 +1218,24 @@ pub mod FMMLA_asimd_FP16FP32 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMMLA_asimd_FP16FP32";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMMLA_asimd_FP16FP32(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -678,6 +1260,24 @@ pub mod BFMMLA_asimdsame2_E {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BFMMLA_asimdsame2_E";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn BFMMLA_asimdsame2_E(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -702,6 +1302,24 @@ pub mod FMMLA_asimd_FP8FP32 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMMLA_asimd_FP8FP32";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMMLA_asimd_FP8FP32(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -726,6 +1344,24 @@ pub mod UMMLA_asimdsame2_G {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "UMMLA_asimdsame2_G";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn UMMLA_asimdsame2_G(
         Rm: ::aarchmrs_types::BitValue<5>,

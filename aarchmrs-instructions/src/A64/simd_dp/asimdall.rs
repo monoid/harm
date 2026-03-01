@@ -12,6 +12,30 @@ pub mod SADDLV_asimdall_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SADDLV_asimdall_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SADDLV_asimdall_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -39,6 +63,30 @@ pub mod SMAXV_asimdall_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SMAXV_asimdall_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SMAXV_asimdall_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -66,6 +114,30 @@ pub mod SMINV_asimdall_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SMINV_asimdall_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SMINV_asimdall_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -93,6 +165,30 @@ pub mod ADDV_asimdall_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ADDV_asimdall_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn ADDV_asimdall_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -120,6 +216,24 @@ pub mod FMAXNMV_asimdall_only_H {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMAXNMV_asimdall_only_H";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FMAXNMV_asimdall_only_H(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -144,6 +258,24 @@ pub mod FMAXV_asimdall_only_H {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMAXV_asimdall_only_H";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FMAXV_asimdall_only_H(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -168,6 +300,24 @@ pub mod FMINNMV_asimdall_only_H {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMINNMV_asimdall_only_H";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FMINNMV_asimdall_only_H(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -192,6 +342,24 @@ pub mod FMINV_asimdall_only_H {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMINV_asimdall_only_H";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn FMINV_asimdall_only_H(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -216,6 +384,30 @@ pub mod UADDLV_asimdall_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "UADDLV_asimdall_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn UADDLV_asimdall_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -243,6 +435,30 @@ pub mod UMAXV_asimdall_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "UMAXV_asimdall_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn UMAXV_asimdall_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -270,6 +486,30 @@ pub mod UMINV_asimdall_only {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "UMINV_asimdall_only";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_OFFSET: u32 = 22u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_size_WIDTH: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_OFFSET: u32 = 30u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Q_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn UMINV_asimdall_only(
         Q: ::aarchmrs_types::BitValue<1>,
@@ -297,6 +537,18 @@ pub mod FMAXNMV_asimdall_only_SD {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMAXNMV_asimdall_only_SD";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMAXNMV_asimdall_only_SD(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -318,6 +570,18 @@ pub mod FMAXV_asimdall_only_SD {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMAXV_asimdall_only_SD";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMAXV_asimdall_only_SD(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -339,6 +603,18 @@ pub mod FMINNMV_asimdall_only_SD {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMINNMV_asimdall_only_SD";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMINNMV_asimdall_only_SD(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -360,6 +636,18 @@ pub mod FMINV_asimdall_only_SD {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FMINV_asimdall_only_SD";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FMINV_asimdall_only_SD(
         Rn: ::aarchmrs_types::BitValue<5>,

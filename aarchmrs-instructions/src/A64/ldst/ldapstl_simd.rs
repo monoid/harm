@@ -12,6 +12,24 @@ pub mod STLUR_B_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLUR_B_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn STLUR_B_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -36,6 +54,24 @@ pub mod LDAPUR_B_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDAPUR_B_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn LDAPUR_B_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -60,6 +96,24 @@ pub mod STLUR_Q_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLUR_Q_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn STLUR_Q_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -84,6 +138,24 @@ pub mod LDAPUR_Q_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDAPUR_Q_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn LDAPUR_Q_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -108,6 +180,24 @@ pub mod STLUR_H_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLUR_H_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn STLUR_H_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -132,6 +222,24 @@ pub mod LDAPUR_H_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDAPUR_H_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn LDAPUR_H_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -156,6 +264,24 @@ pub mod STLUR_S_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLUR_S_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn STLUR_S_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -180,6 +306,24 @@ pub mod LDAPUR_S_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDAPUR_S_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn LDAPUR_S_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -204,6 +348,24 @@ pub mod STLUR_D_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLUR_D_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn STLUR_D_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,
@@ -228,6 +390,24 @@ pub mod LDAPUR_D_ldapstl_simd {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDAPUR_D_ldapstl_simd";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm9_WIDTH: u32 = 9u32;
     #[inline]
     pub const fn LDAPUR_D_ldapstl_simd(
         imm9: ::aarchmrs_types::BitValue<9>,

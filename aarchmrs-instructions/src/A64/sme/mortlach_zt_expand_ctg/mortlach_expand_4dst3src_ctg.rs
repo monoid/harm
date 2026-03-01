@@ -12,6 +12,18 @@ pub mod luti6_mz4_ztmz3_1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "luti6_mz4_ztmz3_1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zd_OFFSET: u32 = 2u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zd_WIDTH: u32 = 3u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zn_OFFSET: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zn_WIDTH: u32 = 3u32;
     #[inline]
     pub const fn luti6_mz4_ztmz3_1(
         Zn: ::aarchmrs_types::BitValue<3>,

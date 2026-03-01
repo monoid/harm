@@ -12,6 +12,30 @@ pub mod CPS_T2_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010100000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "CPS_T2_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_OFFSET: u32 = 6u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_OFFSET: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn CPS_T2_AS(
         A: ::aarchmrs_types::BitValue<1>,
@@ -37,6 +61,30 @@ pub mod CPSID_T2_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010100000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "CPSID_T2_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_OFFSET: u32 = 6u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_OFFSET: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn CPSID_T2_AS(
         A: ::aarchmrs_types::BitValue<1>,
@@ -62,6 +110,30 @@ pub mod CPSID_T2_ASM {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010100000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "CPSID_T2_ASM";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_OFFSET: u32 = 6u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_OFFSET: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn CPSID_T2_ASM(
         A: ::aarchmrs_types::BitValue<1>,
@@ -87,6 +159,30 @@ pub mod CPSIE_T2_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010100000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "CPSIE_T2_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_OFFSET: u32 = 6u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_OFFSET: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn CPSIE_T2_AS(
         A: ::aarchmrs_types::BitValue<1>,
@@ -112,6 +208,30 @@ pub mod CPSIE_T2_ASM {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010100000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "CPSIE_T2_ASM";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_F_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_OFFSET: u32 = 6u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_I_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_OFFSET: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_A_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn CPSIE_T2_ASM(
         A: ::aarchmrs_types::BitValue<1>,

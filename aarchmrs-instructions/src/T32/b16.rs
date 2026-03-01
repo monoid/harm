@@ -12,6 +12,12 @@ pub mod B_T2 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "B_T2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm11_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm11_WIDTH: u32 = 11u32;
     #[inline]
     pub const fn B_T2(imm11: ::aarchmrs_types::BitValue<11>) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(

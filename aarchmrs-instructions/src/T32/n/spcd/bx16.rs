@@ -12,6 +12,12 @@ pub mod BX_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BX_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 3u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn BX_T1(Rm: ::aarchmrs_types::BitValue<4>) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
@@ -28,6 +34,12 @@ pub mod BLX_r_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BLX_r_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 3u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn BLX_r_T1(Rm: ::aarchmrs_types::BitValue<4>) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(

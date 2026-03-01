@@ -4,6 +4,7 @@
 
 ### Added
 - README.md is module docstring. 
+- `meta_field` feature flag that adds field offsets and size constants.
 
 ## [0.2.1] - 2025-08-10
 

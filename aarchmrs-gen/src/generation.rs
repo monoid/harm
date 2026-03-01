@@ -28,6 +28,26 @@ pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenS
     let should_be_mask: syn::LitInt =
         syn::parse_str(&format!("0b{:0w$b}u32", should_be_mask, w = 32))
             .expect("internal error: malformed should_be_mask");
+    let arg_metas = desc
+        .iter()
+        .filter_map(|bits| match bits {
+            Bits::Bit { .. } => None,
+            Bits::Field { name, range } => Some((name, range)),
+        })
+        .map(|(name, range)| {
+            let name_offset = format_ident!("FIELD_{}_OFFSET", name.as_ref());
+            let name_width = format_ident!("FIELD_{}_WIDTH", name.as_ref());
+            let offset = range.start;
+            let width = range.width;
+            quote! {
+                #[cfg(feature = "meta_field")]
+                #[allow(nonstandard_style)]
+                pub const #name_offset: u32 = #offset;
+                #[cfg(feature = "meta_field")]
+                #[allow(nonstandard_style)]
+                pub const #name_width: u32 = #width;
+            }
+        });
     let expanded = quote! {
         #[cfg(feature = "meta")]
         pub const OPCODE_MASK: u32 = #mask;
@@ -37,6 +57,8 @@ pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenS
         pub const SHOULD_BE_MASK: u32 = #should_be_mask;
         #[cfg(feature = "meta")]
         pub const NAME: &str = #name;
+
+        #(#arg_metas)*
 
         #[inline]
         pub const fn #fmt_name(#(#args),*) -> ::aarchmrs_types::InstructionCode {
@@ -219,6 +241,42 @@ mod tests {
                 "pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;\n",
                 "#[cfg(feature = \"meta\")]\n",
                 "pub const NAME: &str = \"ADD_64_addsub_shift\";\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_Rd_OFFSET: u32 = 0u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_Rd_WIDTH: u32 = 5u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_Rn_OFFSET: u32 = 5u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_Rn_WIDTH: u32 = 5u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_im3_OFFSET: u32 = 10u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_im3_WIDTH: u32 = 3u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_option_OFFSET: u32 = 13u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_option_WIDTH: u32 = 3u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_Rm_OFFSET: u32 = 16u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_Rm_WIDTH: u32 = 5u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_s_OFFSET: u32 = 31u32;\n",
+                "#[cfg(feature = \"meta_field\")]\n",
+                "#[allow(nonstandard_style)]\n",
+                "pub const FIELD_s_WIDTH: u32 = 1u32;\n",
                 "#[inline]\n",
                 "pub const fn ADD_64_addsub_shift(\n",
                 "    s: ::aarchmrs_types::BitValue<1>,\n",

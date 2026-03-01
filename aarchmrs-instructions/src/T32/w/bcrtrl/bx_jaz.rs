@@ -12,6 +12,12 @@ pub mod BXJ_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000010111111111111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BXJ_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn BXJ_T1(Rm: ::aarchmrs_types::BitValue<4>) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(

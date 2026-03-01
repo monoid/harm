@@ -152,6 +152,12 @@ pub mod DBG_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010100000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DBG_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_option_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_option_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn DBG_T1(
         option: ::aarchmrs_types::BitValue<4>,

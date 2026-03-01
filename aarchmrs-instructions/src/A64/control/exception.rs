@@ -12,6 +12,12 @@ pub mod SVC_EX_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SVC_EX_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn SVC_EX_exception(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -30,6 +36,12 @@ pub mod HVC_EX_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "HVC_EX_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn HVC_EX_exception(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -48,6 +60,12 @@ pub mod SMC_EX_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SMC_EX_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn SMC_EX_exception(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -66,6 +84,12 @@ pub mod BRK_EX_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BRK_EX_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn BRK_EX_exception(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -84,6 +108,12 @@ pub mod HLT_EX_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "HLT_EX_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn HLT_EX_exception(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -102,6 +132,12 @@ pub mod DCPS1_DC_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DCPS1_DC_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn DCPS1_DC_exception(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -120,6 +156,12 @@ pub mod DCPS2_DC_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DCPS2_DC_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn DCPS2_DC_exception(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -138,6 +180,12 @@ pub mod DCPS3_DC_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DCPS3_DC_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn DCPS3_DC_exception(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -156,6 +204,18 @@ pub mod TENTER_te_exception {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000011111000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "TENTER_te_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm7_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm7_WIDTH: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op1_OFFSET: u32 = 17u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op1_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn TENTER_te_exception(
         op1: ::aarchmrs_types::BitValue<1>,

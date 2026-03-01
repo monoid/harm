@@ -12,6 +12,18 @@ pub mod SRS_T1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011111111111111100000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SRS_T1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SRS_T1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -34,6 +46,18 @@ pub mod RFE_T1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000001111111111111111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RFE_T1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn RFE_T1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -57,6 +81,30 @@ pub mod STM_T2 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000001000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STM_T2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_register_list_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_register_list_WIDTH: u32 = 14u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_M_OFFSET: u32 = 14u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_M_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn STM_T2(
         W: ::aarchmrs_types::BitValue<1>,
@@ -84,6 +132,36 @@ pub mod LDM_T2 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDM_T2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_register_list_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_register_list_WIDTH: u32 = 14u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_M_OFFSET: u32 = 14u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_M_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_P_OFFSET: u32 = 15u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_P_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn LDM_T2(
         W: ::aarchmrs_types::BitValue<1>,
@@ -112,6 +190,30 @@ pub mod STMDB_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000001000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STMDB_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_register_list_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_register_list_WIDTH: u32 = 14u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_M_OFFSET: u32 = 14u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_M_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn STMDB_T1(
         W: ::aarchmrs_types::BitValue<1>,
@@ -139,6 +241,36 @@ pub mod LDMDB_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDMDB_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_register_list_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_register_list_WIDTH: u32 = 14u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_M_OFFSET: u32 = 14u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_M_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_P_OFFSET: u32 = 15u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_P_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn LDMDB_T1(
         W: ::aarchmrs_types::BitValue<1>,
@@ -167,6 +299,18 @@ pub mod SRS_T2_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011111111111111100000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SRS_T2_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SRS_T2_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -189,6 +333,18 @@ pub mod RFE_T2_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000001111111111111111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RFE_T2_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn RFE_T2_AS(
         W: ::aarchmrs_types::BitValue<1>,

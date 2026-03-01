@@ -12,6 +12,12 @@ pub mod ADD_SP_i_T2 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ADD_SP_i_T2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm7_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm7_WIDTH: u32 = 7u32;
     #[inline]
     pub const fn ADD_SP_i_T2(
         imm7: ::aarchmrs_types::BitValue<7>,
@@ -30,6 +36,12 @@ pub mod SUB_SP_i_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SUB_SP_i_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm7_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm7_WIDTH: u32 = 7u32;
     #[inline]
     pub const fn SUB_SP_i_T1(
         imm7: ::aarchmrs_types::BitValue<7>,

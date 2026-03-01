@@ -12,6 +12,12 @@ pub mod aesmc_z_z_ {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "aesmc_z_z_";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zdn_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zdn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn aesmc_z_z_(
         Zdn: ::aarchmrs_types::BitValue<5>,
@@ -30,6 +36,12 @@ pub mod aesimc_z_z_ {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "aesimc_z_z_";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zdn_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zdn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn aesimc_z_z_(
         Zdn: ::aarchmrs_types::BitValue<5>,

@@ -12,6 +12,12 @@ pub mod UDF_only_perm_undef {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "UDF_only_perm_undef";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn UDF_only_perm_undef(
         imm16: ::aarchmrs_types::BitValue<16>,

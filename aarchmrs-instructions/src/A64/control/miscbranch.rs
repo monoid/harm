@@ -12,6 +12,12 @@ pub mod RETAASPPC_only_miscbranch {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RETAASPPC_only_miscbranch";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn RETAASPPC_only_miscbranch(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -30,6 +36,12 @@ pub mod RETABSPPC_only_miscbranch {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RETABSPPC_only_miscbranch";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn RETABSPPC_only_miscbranch(
         imm16: ::aarchmrs_types::BitValue<16>,

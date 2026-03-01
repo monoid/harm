@@ -12,6 +12,24 @@ pub mod VMOV_toh_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000001101111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "VMOV_toh_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_N_OFFSET: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_N_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Vn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Vn_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn VMOV_toh_T1(
         Vn: ::aarchmrs_types::BitValue<4>,
@@ -37,6 +55,24 @@ pub mod VMOV_h_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000001101111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "VMOV_h_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_N_OFFSET: u32 = 7u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_N_WIDTH: u32 = 1u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 12u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Vn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Vn_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn VMOV_h_T1(
         Vn: ::aarchmrs_types::BitValue<4>,
