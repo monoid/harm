@@ -12,6 +12,12 @@ pub mod CLREX_BN_barriers {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "CLREX_BN_barriers";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn CLREX_BN_barriers(
         CRm: ::aarchmrs_types::BitValue<4>,
@@ -30,6 +36,12 @@ pub mod DSB_BO_barriers {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DSB_BO_barriers";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn DSB_BO_barriers(
         CRm: ::aarchmrs_types::BitValue<4>,
@@ -48,6 +60,12 @@ pub mod DMB_BO_barriers {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DMB_BO_barriers";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn DMB_BO_barriers(
         CRm: ::aarchmrs_types::BitValue<4>,
@@ -66,6 +84,12 @@ pub mod ISB_BI_barriers {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ISB_BI_barriers";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn ISB_BI_barriers(
         CRm: ::aarchmrs_types::BitValue<4>,
@@ -98,6 +122,12 @@ pub mod DSB_BOn_barriers {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DSB_BOn_barriers";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm2_OFFSET: u32 = 10u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm2_WIDTH: u32 = 2u32;
     #[inline]
     pub const fn DSB_BOn_barriers(
         imm2: ::aarchmrs_types::BitValue<2>,

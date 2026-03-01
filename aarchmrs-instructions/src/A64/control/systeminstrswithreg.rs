@@ -12,6 +12,12 @@ pub mod WFET_only_systeminstrswithreg {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "WFET_only_systeminstrswithreg";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn WFET_only_systeminstrswithreg(
         Rd: ::aarchmrs_types::BitValue<5>,
@@ -30,6 +36,12 @@ pub mod WFIT_only_systeminstrswithreg {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "WFIT_only_systeminstrswithreg";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn WFIT_only_systeminstrswithreg(
         Rd: ::aarchmrs_types::BitValue<5>,

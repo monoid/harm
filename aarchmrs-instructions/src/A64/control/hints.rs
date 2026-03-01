@@ -12,6 +12,18 @@ pub mod HINT_HM_hints {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "HINT_HM_hints";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_WIDTH: u32 = 3u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn HINT_HM_hints(
         CRm: ::aarchmrs_types::BitValue<4>,
@@ -398,6 +410,12 @@ pub mod BTI_HB_hints {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BTI_HB_hints";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_OFFSET: u32 = 6u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_WIDTH: u32 = 2u32;
     #[inline]
     pub const fn BTI_HB_hints(
         op2: ::aarchmrs_types::BitValue<2>,
@@ -444,6 +462,12 @@ pub mod STSHH_HI_hints {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STSHH_HI_hints";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn STSHH_HI_hints(
         op2: ::aarchmrs_types::BitValue<1>,
@@ -462,6 +486,12 @@ pub mod SHUH_HI_hints {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SHUH_HI_hints";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SHUH_HI_hints(
         op2: ::aarchmrs_types::BitValue<1>,

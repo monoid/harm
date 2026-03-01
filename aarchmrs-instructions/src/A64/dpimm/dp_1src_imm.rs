@@ -12,6 +12,12 @@ pub mod AUTIASPPC_only_dp_1src_imm {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "AUTIASPPC_only_dp_1src_imm";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn AUTIASPPC_only_dp_1src_imm(
         imm16: ::aarchmrs_types::BitValue<16>,
@@ -30,6 +36,12 @@ pub mod AUTIBSPPC_only_dp_1src_imm {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "AUTIBSPPC_only_dp_1src_imm";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
     #[inline]
     pub const fn AUTIBSPPC_only_dp_1src_imm(
         imm16: ::aarchmrs_types::BitValue<16>,

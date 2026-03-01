@@ -12,6 +12,12 @@ pub mod B_only_branch_imm {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "B_only_branch_imm";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm26_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm26_WIDTH: u32 = 26u32;
     #[inline]
     pub const fn B_only_branch_imm(
         imm26: ::aarchmrs_types::BitValue<26>,
@@ -30,6 +36,12 @@ pub mod BL_only_branch_imm {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "BL_only_branch_imm";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm26_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm26_WIDTH: u32 = 26u32;
     #[inline]
     pub const fn BL_only_branch_imm(
         imm26: ::aarchmrs_types::BitValue<26>,

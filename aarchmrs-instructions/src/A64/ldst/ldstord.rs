@@ -12,6 +12,18 @@ pub mod STLLRB_SL32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLLRB_SL32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLLRB_SL32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -33,6 +45,18 @@ pub mod STLRB_SL32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLRB_SL32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLRB_SL32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -54,6 +78,18 @@ pub mod LDLARB_LR32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDLARB_LR32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDLARB_LR32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -75,6 +111,18 @@ pub mod LDARB_LR32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDARB_LR32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDARB_LR32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -96,6 +144,18 @@ pub mod STLLRH_SL32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLLRH_SL32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLLRH_SL32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -117,6 +177,18 @@ pub mod STLRH_SL32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLRH_SL32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLRH_SL32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -138,6 +210,18 @@ pub mod LDLARH_LR32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDLARH_LR32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDLARH_LR32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -159,6 +243,18 @@ pub mod LDARH_LR32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDARH_LR32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDARH_LR32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -180,6 +276,18 @@ pub mod STLLR_SL32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLLR_SL32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLLR_SL32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -201,6 +309,18 @@ pub mod STLR_SL32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLR_SL32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLR_SL32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -222,6 +342,18 @@ pub mod LDLAR_LR32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDLAR_LR32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDLAR_LR32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -243,6 +375,18 @@ pub mod LDAR_LR32_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDAR_LR32_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDAR_LR32_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -264,6 +408,18 @@ pub mod STLLR_SL64_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLLR_SL64_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLLR_SL64_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -285,6 +441,18 @@ pub mod STLR_SL64_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLR_SL64_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLR_SL64_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -306,6 +474,18 @@ pub mod LDLAR_LR64_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDLAR_LR64_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDLAR_LR64_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -327,6 +507,18 @@ pub mod LDAR_LR64_ldstord {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDAR_LR64_ldstord";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDAR_LR64_ldstord(
         Rn: ::aarchmrs_types::BitValue<5>,

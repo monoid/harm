@@ -12,6 +12,18 @@ pub mod FCMP_S_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMP_S_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMP_S_floatcmp(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -35,6 +47,12 @@ pub mod FCMP_SZ_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMP_SZ_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMP_SZ_floatcmp(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -53,6 +71,18 @@ pub mod FCMPE_S_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMPE_S_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMPE_S_floatcmp(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -76,6 +106,12 @@ pub mod FCMPE_SZ_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMPE_SZ_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMPE_SZ_floatcmp(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -94,6 +130,18 @@ pub mod FCMP_D_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMP_D_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMP_D_floatcmp(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -117,6 +165,12 @@ pub mod FCMP_DZ_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMP_DZ_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMP_DZ_floatcmp(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -135,6 +189,18 @@ pub mod FCMPE_D_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMPE_D_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMPE_D_floatcmp(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -158,6 +224,12 @@ pub mod FCMPE_DZ_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMPE_DZ_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMPE_DZ_floatcmp(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -176,6 +248,18 @@ pub mod FCMP_H_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMP_H_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMP_H_floatcmp(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -199,6 +283,12 @@ pub mod FCMP_HZ_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMP_HZ_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMP_HZ_floatcmp(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -217,6 +307,18 @@ pub mod FCMPE_H_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMPE_H_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMPE_H_floatcmp(
         Rm: ::aarchmrs_types::BitValue<5>,
@@ -240,6 +342,12 @@ pub mod FCMPE_HZ_floatcmp {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110000000000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "FCMPE_HZ_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn FCMPE_HZ_floatcmp(
         Rn: ::aarchmrs_types::BitValue<5>,

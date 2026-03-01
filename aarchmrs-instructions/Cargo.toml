@@ -15,6 +15,7 @@ aarchmrs-types = { workspace = true }
 [features]
 default = ["A64"]
 meta = []
+meta_field = []
 A64 = []
 A32 = []
 T32 = []

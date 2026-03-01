@@ -28,6 +28,26 @@ pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenS
     let should_be_mask: syn::LitInt =
         syn::parse_str(&format!("0b{:0w$b}u32", should_be_mask, w = 32))
             .expect("internal error: malformed should_be_mask");
+    let arg_metas = desc
+        .iter()
+        .filter_map(|bits| match bits {
+            Bits::Bit { .. } => None,
+            Bits::Field { name, range } => Some((name, range)),
+        })
+        .map(|(name, range)| {
+            let name_offset = format_ident!("FIELD_{}_OFFSET", name.as_ref());
+            let name_width = format_ident!("FIELD_{}_WIDTH", name.as_ref());
+            let offset = range.start;
+            let width = range.width;
+            quote! {
+                #[cfg(feature = "meta_field")]
+                #[allow(nonstandard_style)]
+                pub const #name_offset: u32 = #offset;
+                #[cfg(feature = "meta_field")]
+                #[allow(nonstandard_style)]
+                pub const #name_width: u32 = #width;
+            }
+        });
     let expanded = quote! {
         #[cfg(feature = "meta")]
         pub const OPCODE_MASK: u32 = #mask;
@@ -37,6 +57,8 @@ pub fn gen_constructor(name: &str, desc: &[Bits], should_be_mask: u32) -> TokenS
         pub const SHOULD_BE_MASK: u32 = #should_be_mask;
         #[cfg(feature = "meta")]
         pub const NAME: &str = #name;
+
+        #(#arg_metas)*
 
         #[inline]
         pub const fn #fmt_name(#(#args),*) -> ::aarchmrs_types::InstructionCode {

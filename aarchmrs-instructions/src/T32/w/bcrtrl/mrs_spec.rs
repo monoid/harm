@@ -12,6 +12,18 @@ pub mod MRS_T1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010000011011111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "MRS_T1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_R_OFFSET: u32 = 20u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_R_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn MRS_T1_AS(
         R: ::aarchmrs_types::BitValue<1>,

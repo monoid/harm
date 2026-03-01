@@ -12,6 +12,24 @@ pub mod STTXR_SR32_ldstexclr_unpriv {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STTXR_SR32_ldstexclr_unpriv";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STTXR_SR32_ldstexclr_unpriv(
         Rs: ::aarchmrs_types::BitValue<5>,
@@ -36,6 +54,24 @@ pub mod STLTXR_SR32_ldstexclr_unpriv {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLTXR_SR32_ldstexclr_unpriv";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLTXR_SR32_ldstexclr_unpriv(
         Rs: ::aarchmrs_types::BitValue<5>,
@@ -60,6 +96,18 @@ pub mod LDTXR_LR32_ldstexclr_unpriv {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDTXR_LR32_ldstexclr_unpriv";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDTXR_LR32_ldstexclr_unpriv(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -81,6 +129,18 @@ pub mod LDATXR_LR32_ldstexclr_unpriv {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDATXR_LR32_ldstexclr_unpriv";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDATXR_LR32_ldstexclr_unpriv(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -102,6 +162,24 @@ pub mod STTXR_SR64_ldstexclr_unpriv {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STTXR_SR64_ldstexclr_unpriv";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STTXR_SR64_ldstexclr_unpriv(
         Rs: ::aarchmrs_types::BitValue<5>,
@@ -126,6 +204,24 @@ pub mod STLTXR_SR64_ldstexclr_unpriv {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "STLTXR_SR64_ldstexclr_unpriv";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn STLTXR_SR64_ldstexclr_unpriv(
         Rs: ::aarchmrs_types::BitValue<5>,
@@ -150,6 +246,18 @@ pub mod LDTXR_LR64_ldstexclr_unpriv {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDTXR_LR64_ldstexclr_unpriv";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDTXR_LR64_ldstexclr_unpriv(
         Rn: ::aarchmrs_types::BitValue<5>,
@@ -171,6 +279,18 @@ pub mod LDATXR_LR64_ldstexclr_unpriv {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000111110111110000000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "LDATXR_LR64_ldstexclr_unpriv";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
     #[inline]
     pub const fn LDATXR_LR64_ldstexclr_unpriv(
         Rn: ::aarchmrs_types::BitValue<5>,

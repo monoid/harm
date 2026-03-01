@@ -12,6 +12,18 @@ pub mod RFEDA_A1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000001111111111111111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RFEDA_A1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn RFEDA_A1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -35,6 +47,18 @@ pub mod RFEDB_A1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000001111111111111111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RFEDB_A1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn RFEDB_A1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -58,6 +82,18 @@ pub mod RFEIA_A1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000001111111111111111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RFEIA_A1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn RFEIA_A1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -81,6 +117,18 @@ pub mod RFEIB_A1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000001111111111111111u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "RFEIB_A1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn RFEIB_A1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -104,6 +152,18 @@ pub mod SRSDA_A1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011111111111111100000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SRSDA_A1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SRSDA_A1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -126,6 +186,18 @@ pub mod SRSDB_A1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011111111111111100000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SRSDB_A1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SRSDB_A1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -148,6 +220,18 @@ pub mod SRSIA_A1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011111111111111100000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SRSIA_A1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SRSIA_A1_AS(
         W: ::aarchmrs_types::BitValue<1>,
@@ -170,6 +254,18 @@ pub mod SRSIB_A1_AS {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011111111111111100000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "SRSIB_A1_AS";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_mode_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_OFFSET: u32 = 21u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_W_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn SRSIB_A1_AS(
         W: ::aarchmrs_types::BitValue<1>,

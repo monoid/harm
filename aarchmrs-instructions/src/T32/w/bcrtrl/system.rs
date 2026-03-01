@@ -26,6 +26,12 @@ pub mod DSB_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010111100000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DSB_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_option_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_option_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn DSB_T1(
         option: ::aarchmrs_types::BitValue<4>,
@@ -72,6 +78,12 @@ pub mod DMB_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010111100000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "DMB_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_option_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_option_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn DMB_T1(
         option: ::aarchmrs_types::BitValue<4>,
@@ -90,6 +102,12 @@ pub mod ISB_T1 {
     pub const SHOULD_BE_MASK: u32 = 0b00000000000011110010111100000000u32;
     #[cfg(feature = "meta")]
     pub const NAME: &str = "ISB_T1";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_option_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_option_WIDTH: u32 = 4u32;
     #[inline]
     pub const fn ISB_T1(
         option: ::aarchmrs_types::BitValue<4>,
