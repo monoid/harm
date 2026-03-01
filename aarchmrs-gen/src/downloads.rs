@@ -20,7 +20,7 @@ pub enum DownloadError {
 }
 
 pub(crate) fn ensure_archive(cache_dir: &Path) -> Result<PathBuf, DownloadError> {
-    let archive_file = dbg!(cache_dir.join(AARCHMRS_2025_12_FILE));
+    let archive_file = cache_dir.join(AARCHMRS_2025_12_FILE);
     if !is_valid_archive(&archive_file) {
         eprintln!("Downloading an archive file...");
         download_archive(&archive_file)?;
