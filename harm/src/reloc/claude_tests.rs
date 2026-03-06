@@ -379,14 +379,14 @@ fn mov_w_abs_g0_overflow() {
     let mut mem = MOVZ_X0.to_le_bytes().to_vec();
     assert!(matches!(
         mov_w_abs_g0_reloc(0x1_0000, &mut mem, 0),
-        Err(Rel64Error::InvalidBits(..))
+        Err(Rel64Error::InvalidValue(..))
     ));
 }
 
 #[test]
 fn mov_w_abs_g0nc_no_overflow() {
     let mut mem = MOVZ_X0.to_le_bytes().to_vec();
-    mov_w_abs_g0nc_reloc(0xDEAD_BEEF_0000_1234u64 as i64, &mut mem, 0).unwrap();
+    mov_w_abs_g0nc_reloc(0xDEAD_BEEF_0000_1234u64, &mut mem, 0).unwrap();
     assert_eq!(insn_mov_w_imm(u32_at(&mem, 0)), 0x1234);
 }
 
@@ -402,7 +402,7 @@ fn mov_w_abs_g1_overflow() {
     let mut mem = MOVZ_X0.to_le_bytes().to_vec();
     assert!(matches!(
         mov_w_abs_g1_reloc(0x1_0000_0000, &mut mem, 0),
-        Err(Rel64Error::InvalidBits(..))
+        Err(Rel64Error::InvalidValue(..))
     ));
 }
 
@@ -416,7 +416,7 @@ fn mov_w_abs_g2_basic() {
 #[test]
 fn mov_w_abs_g3_basic() {
     let mut mem = MOVZ_X0.to_le_bytes().to_vec();
-    mov_w_abs_g3_reloc(0xBEEF_0000_0000_0000u64 as i64, &mut mem, 0).unwrap();
+    mov_w_abs_g3_reloc(0xBEEF_0000_0000_0000u64, &mut mem, 0).unwrap();
     assert_eq!(insn_mov_w_imm(u32_at(&mem, 0)), 0xBEEF);
 }
 

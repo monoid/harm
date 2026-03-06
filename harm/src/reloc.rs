@@ -276,16 +276,16 @@ impl Rel64Tag {
             Rel64Tag::CondBr19 => cond_br19_reloc(base, target, memory, offset),
             Rel64Tag::Jump26 | Rel64Tag::Call26 => jump26_reloc(base, target, memory, offset),
 
-            Rel64Tag::MovWAbsG0 => mov_w_abs_g0_reloc(target.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG0Nc => mov_w_abs_g0nc_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG0 => mov_w_abs_g0_reloc(target, memory, offset),
+            Rel64Tag::MovWAbsG0Nc => mov_w_abs_g0nc_reloc(target, memory, offset),
             Rel64Tag::MovWAbsG0S => mov_w_abs_g0s_reloc(target.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG1 => mov_w_abs_g1_reloc(target.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG1Nc => mov_w_abs_g1nc_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG1 => mov_w_abs_g1_reloc(target, memory, offset),
+            Rel64Tag::MovWAbsG1Nc => mov_w_abs_g1nc_reloc(target, memory, offset),
             Rel64Tag::MovWAbsG1S => mov_w_abs_g1s_reloc(target.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG2 => mov_w_abs_g2_reloc(target.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG2Nc => mov_w_abs_g2nc_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG2 => mov_w_abs_g2_reloc(target, memory, offset),
+            Rel64Tag::MovWAbsG2Nc => mov_w_abs_g2nc_reloc(target, memory, offset),
             Rel64Tag::MovWAbsG2S => mov_w_abs_g2s_reloc(target.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG3 => mov_w_abs_g3_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG3 => mov_w_abs_g3_reloc(target, memory, offset),
         }
     }
 }
