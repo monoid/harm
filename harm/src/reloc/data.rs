@@ -11,13 +11,15 @@ pub fn abs64_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel
     Ok(())
 }
 
-pub fn abs32_reloc(target: u32, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn abs32_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+    let target: u32 = target.try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
     *bytes = target.to_le_bytes();
     Ok(())
 }
 
-pub fn abs16_reloc(target: u16, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn abs16_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+    let target: u16 = target.try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
     *bytes = target.to_le_bytes();
     Ok(())

@@ -6,8 +6,9 @@
 use aarchmrs_types::InstructionCode;
 
 use super::{Rel64Error, cond_br19_reloc};
+use crate::instructions::dpimm::{AdrOffset, AdrpOffset};
+use crate::reloc::calc_offset;
 use crate::reloc::get_bytes_mut;
-use crate::{instructions::dpimm::AdrpOffset, reloc::calc_offset};
 
 const ADR_ADRP_IMMHI_OFFSET: u32 = 5u32;
 const ADR_ADRP_IMMHI_WIDTH: u32 = 19u32;
@@ -33,18 +34,17 @@ pub fn adr_prel_lo21_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    const VALUE_MASK: u32 = (1 << (ADR_ADRP_IMMHI_WIDTH + ADR_ADRP_IMMLO_WIDTH)) - 1;
-
     let bytes = get_bytes_mut(mem, offset)?;
-    // It is not checked.
-    let delta = calc_offset(base, target, offset)? as u32;
-    patch_adr_adrp(bytes, delta & VALUE_MASK);
+
+    let delta = calc_offset(base, target, offset)?;
+    let delta = AdrOffset::new_i64(delta)?;
+    patch_adr_adrp(bytes, delta.bits());
 
     Ok(())
 }
 
 #[inline]
-pub fn adr_prel_pg_hi21_reloc(
+pub fn adrp_prel_pg_hi21_reloc(
     base: u64,
     target: u64,
     mem: &mut [u8],
@@ -54,7 +54,7 @@ pub fn adr_prel_pg_hi21_reloc(
 
     let bytes = get_bytes_mut(mem, offset)?;
 
-    let delta = calc_offset(base, target, offset)? >> 21;
+    let delta = calc_offset(base, target, offset)? >> 12 << 12;
     let delta = AdrpOffset::new_i64(delta).map_err(Rel64Error::InvalidBits)?;
     patch_adr_adrp(bytes, delta.bits() & VALUE_MASK);
 
@@ -62,7 +62,7 @@ pub fn adr_prel_pg_hi21_reloc(
 }
 
 #[inline]
-pub fn adr_prel_pg_hi21_nc_reloc(
+pub fn adrp_prel_pg_hi21_nc_reloc(
     base: u64,
     target: u64,
     mem: &mut [u8],

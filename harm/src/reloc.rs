@@ -168,7 +168,7 @@ impl Rel64 {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum Rel64Error {
     NotEnoughMemory { offset: usize },
     InvalidOffset { offset: usize },
@@ -260,32 +260,32 @@ impl Rel64Tag {
                 Ok(())
             }
             Rel64Tag::Abs64 => abs64_reloc(target, memory, offset),
-            Rel64Tag::Abs32 => abs32_reloc(target.try_into()?, memory, offset),
-            Rel64Tag::Abs16 => abs16_reloc(target.try_into()?, memory, offset),
+            Rel64Tag::Abs32 => abs32_reloc(target, memory, offset),
+            Rel64Tag::Abs16 => abs16_reloc(target, memory, offset),
             Rel64Tag::PRel64 => prel64_reloc(base, target, memory, offset),
             Rel64Tag::PRel32 => prel32_reloc(base, target, memory, offset),
             Rel64Tag::PRel16 => prel16_reloc(base, target, memory, offset),
 
             Rel64Tag::LdPrelLo19 => ld_prel_lo19_reloc(base, target, memory, offset),
             Rel64Tag::AdrPrelLo21 => adr_prel_lo21_reloc(base, target, memory, offset),
-            Rel64Tag::AdrPrelPgHi21 => adr_prel_pg_hi21_reloc(base, target, memory, offset),
-            Rel64Tag::AdrPrelPgHi21Nc => adr_prel_pg_hi21_nc_reloc(base, target, memory, offset),
+            Rel64Tag::AdrPrelPgHi21 => adrp_prel_pg_hi21_reloc(base, target, memory, offset),
+            Rel64Tag::AdrPrelPgHi21Nc => adrp_prel_pg_hi21_nc_reloc(base, target, memory, offset),
             Rel64Tag::AddAbsLo12Nc => add_abs_lo_12_nc_reloc(base, target, memory, offset),
 
             Rel64Tag::TstBr14 => tst_br14_reloc(base, target, memory, offset),
             Rel64Tag::CondBr19 => cond_br19_reloc(base, target, memory, offset),
             Rel64Tag::Jump26 | Rel64Tag::Call26 => jump26_reloc(base, target, memory, offset),
 
-            Rel64Tag::MovWAbsG0 => mov_w_abs_g0_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG0Nc => mov_w_abs_g0nc_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG0S => mov_w_abs_g0s_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG1 => mov_w_abs_g1_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG1Nc => mov_w_abs_g1nc_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG1S => mov_w_abs_g1s_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG2 => mov_w_abs_g2_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG2Nc => mov_w_abs_g2nc_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG2S => mov_w_abs_g2s_reloc(base, target, memory, offset),
-            Rel64Tag::MovWAbsG3 => mov_w_abs_g3_reloc(base, target, memory, offset),
+            Rel64Tag::MovWAbsG0 => mov_w_abs_g0_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG0Nc => mov_w_abs_g0nc_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG0S => mov_w_abs_g0s_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG1 => mov_w_abs_g1_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG1Nc => mov_w_abs_g1nc_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG1S => mov_w_abs_g1s_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG2 => mov_w_abs_g2_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG2Nc => mov_w_abs_g2nc_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG2S => mov_w_abs_g2s_reloc(target.cast_signed(), memory, offset),
+            Rel64Tag::MovWAbsG3 => mov_w_abs_g3_reloc(target.cast_signed(), memory, offset),
         }
     }
 }
@@ -315,6 +315,9 @@ fn calc_offset(base: u64, target: u64, offset: usize) -> Result<Offset, Rel64Err
 
     Ok(target.wrapping_sub(instruction_addr).cast_signed())
 }
+
+#[cfg(test)]
+mod claude_tests;
 
 #[cfg(test)]
 mod tests {
