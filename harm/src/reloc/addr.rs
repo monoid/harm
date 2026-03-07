@@ -54,7 +54,7 @@ pub fn adrp_prel_pg_hi21_reloc(
 
     let bytes = get_bytes_mut(mem, offset)?;
 
-    let delta = calc_offset(base, target, offset)? >> 12 << 12;
+    let delta = calc_offset(base, target, offset)? & !0xFFF;
     let delta = AdrpOffset::new_i64(delta).map_err(Rel64Error::InvalidBits)?;
     patch_adr_adrp(bytes, delta.bits() & VALUE_MASK);
 
@@ -72,7 +72,7 @@ pub fn adrp_prel_pg_hi21_nc_reloc(
 
     let bytes = get_bytes_mut(mem, offset)?;
     // It is not checked.
-    let delta = calc_offset(base, target, offset)? >> 21;
+    let delta = calc_offset(base, target, offset)? >> 12;
 
     patch_adr_adrp(bytes, (delta as u32) & VALUE_MASK);
     Ok(())
