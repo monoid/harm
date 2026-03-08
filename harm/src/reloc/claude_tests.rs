@@ -778,29 +778,128 @@ fn sanity_page_aligned_place_formulas_always_agree() {
 #[test]
 fn add_abs_lo12_nc_basic() {
     let mut mem = insn_buf(ADD);
-    add_abs_lo_12_nc_reloc(0, 0x1ABC, &mut mem, 0).unwrap();
+    add_abs_lo_12_nc_reloc(0x1ABC, &mut mem, 0).unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
 }
 
 #[test]
 fn add_abs_lo12_nc_zero() {
     let mut mem = insn_buf(ADD);
-    add_abs_lo_12_nc_reloc(0, 0x0, &mut mem, 0).unwrap();
+    add_abs_lo_12_nc_reloc(0x0, &mut mem, 0).unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0);
 }
 
 #[test]
 fn add_abs_lo12_nc_max_field() {
     let mut mem = insn_buf(ADD);
-    add_abs_lo_12_nc_reloc(0, 0xFFF, &mut mem, 0).unwrap();
+    add_abs_lo_12_nc_reloc(0xFFF, &mut mem, 0).unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFFF);
 }
 
 #[test]
 fn add_abs_lo12_nc_masks_high_bits() {
     let mut mem = insn_buf(ADD);
-    add_abs_lo_12_nc_reloc(0, 0xDEAD_BEEF_FFFF_1234, &mut mem, 0).unwrap();
+    add_abs_lo_12_nc_reloc(0xDEAD_BEEF_FFFF_1234, &mut mem, 0).unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x234);
+}
+// ─────────────────────────────────────────────────────────────────────
+// Cases where (S+A) & 0xFFF  ≠  (S+A − P) & 0xFFF
+// ─────────────────────────────────────────────────────────────────────
+
+#[test]
+fn place_nonzero_lo12_typical() {
+    // target = 0x2_ABC  →  correct imm12 = 0xABC
+    // place  = 0x1_400  →  buggy   imm12 = (0x2_ABC - 0x1_400) & 0xFFF = 0x6BC
+    //
+    // base=0x1_000, offset=0x400  →  place = 0x1_400
+    let mut mem = [0u8; 0x404];
+    mem[0x400..0x404].copy_from_slice(&ADD.to_le_bytes());
+    Rel64Tag::AddAbsLo12Nc
+        .apply(0x1_000, 0x2_ABC, &mut mem, 0x400)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0x400)), 0xABC);
+}
+
+#[test]
+fn place_lo12_exceeds_target_lo12() {
+    // target = 0x2_200  →  correct imm12 = 0x200
+    // place  = 0x1_800  →  buggy   imm12 = (0x2_200 - 0x1_800) & 0xFFF = 0xA00
+    //
+    // base=0x1_000, offset=0x800  →  place = 0x1_800
+    let mut mem = [0u8; 0x804];
+    mem[0x800..0x804].copy_from_slice(&ADD.to_le_bytes());
+    Rel64Tag::AddAbsLo12Nc
+        .apply(0x1_000, 0x2_200, &mut mem, 0x800)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0x800)), 0x200);
+}
+
+#[test]
+fn place_lo12_equals_target_lo12() {
+    // target = 0x2_500  →  correct imm12 = 0x500
+    // place  = 0x1_500  →  buggy   imm12 = (0x2_500 - 0x1_500) & 0xFFF = 0x000
+    //
+    // base=0x1_000, offset=0x500  →  place = 0x1_500
+    let mut mem = [0u8; 0x504];
+    mem[0x500..0x504].copy_from_slice(&ADD.to_le_bytes());
+    Rel64Tag::AddAbsLo12Nc
+        .apply(0x1_000, 0x2_500, &mut mem, 0x500)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0x500)), 0x500);
+}
+
+#[test]
+fn target_page_aligned_place_not() {
+    // target = 0x3_000  →  correct imm12 = 0x000
+    // place  = 0x1_ABC  →  buggy   imm12 = (0x3_000 - 0x1_ABC) & 0xFFF = 0x544
+    //
+    // base=0x1_000, offset=0xABC  →  place = 0x1_ABC
+    let mut mem = [0u8; 0xAC0];
+    mem[0xABC..0xAC0].copy_from_slice(&ADD.to_le_bytes());
+    Rel64Tag::AddAbsLo12Nc
+        .apply(0x1_000, 0x3_000, &mut mem, 0xABC)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0xABC)), 0x000);
+}
+
+#[test]
+fn place_from_nonzero_base_and_offset_both_contribute() {
+    // Checks that place = base + offset, not just base or just offset.
+    //
+    // target = 0x5_700  →  correct imm12 = 0x700
+    // base=0x1_200, offset=0x400  →  place = 0x1_600
+    // buggy: (0x5_700 - 0x1_600) & 0xFFF = 0x100  ← wrong
+    let mut mem = [0u8; 0x404];
+    mem[0x400..0x404].copy_from_slice(&ADD.to_le_bytes());
+    Rel64Tag::AddAbsLo12Nc
+        .apply(0x1_200, 0x5_700, &mut mem, 0x400)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0x400)), 0x700);
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Sanity: page-aligned place — both formulas agree, bug is invisible
+// ─────────────────────────────────────────────────────────────────────
+
+#[test]
+fn sanity_page_aligned_place_formulas_agree() {
+    // place = 0x2_000 (page-aligned) → P & 0xFFF = 0
+    // Both formulas give the same result; existing tests all look like this.
+    let mut mem = ADD.to_le_bytes();
+    Rel64Tag::AddAbsLo12Nc
+        .apply(0x2_000, 0x4_ABC, &mut mem, 0)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
+}
+
+#[test]
+fn sanity_zero_base_zero_offset_formulas_agree() {
+    // place = 0 → both formulas identical; this is what the original tests use.
+    let mut mem = ADD.to_le_bytes();
+    Rel64Tag::AddAbsLo12Nc
+        .apply(0, 0x4_ABC, &mut mem, 0)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
 }
 
 // ═══════════════════════════════════════════════════════════════════════

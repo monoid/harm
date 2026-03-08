@@ -80,7 +80,6 @@ pub fn adrp_prel_pg_hi21_nc_reloc(
 
 #[inline]
 pub fn add_abs_lo_12_nc_reloc(
-    base: Addr,
     symbol: Addr,
     mem: &mut [u8],
     offset: usize,
@@ -89,13 +88,9 @@ pub fn add_abs_lo_12_nc_reloc(
 
     let bytes = get_bytes_mut(mem, offset)?;
 
-    // delta is semantically a signed value, but we are using here lower bits only,
-    // so we use an unsigned value.
-    let delta = calc_offset(base, symbol, offset)? as u32;
-
     let mut inst_code = InstructionCode(*bytes).unpack();
     inst_code &= !(MASK << ADD_IMM12_OFFSET);
-    inst_code |= (delta & MASK) << ADD_IMM12_OFFSET;
+    inst_code |= (symbol as u32 & MASK) << ADD_IMM12_OFFSET;
 
     *bytes = InstructionCode::from_u32(inst_code).0;
 
