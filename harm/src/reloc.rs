@@ -295,10 +295,11 @@ fn get_bytes_mut<const N: usize>(
     offset: usize,
 ) -> Result<&mut [u8; N], Rel64Error> {
     let mem_chunk = mem
-        .get_mut(offset..(offset + N))
+        .get_mut(offset..)
         .ok_or(Rel64Error::InvalidOffset { offset })?;
     let bytes: &mut [u8; N] = mem_chunk
-        .as_mut_array()
+        .get_mut(..N)
+        .and_then(|chunk| chunk.as_mut_array())
         .ok_or(Rel64Error::NotEnoughMemory { offset })?;
     Ok(bytes)
 }
@@ -311,7 +312,7 @@ fn calc_offset(base: u64, target: u64, offset: usize) -> Result<Offset, Rel64Err
 
     let instruction_addr = base
         .checked_add(offset64)
-        .ok_or_else(|| Rel64Error::InvalidOffset { offset })?;
+        .ok_or(Rel64Error::InvalidOffset { offset })?;
 
     Ok(target.wrapping_sub(instruction_addr).cast_signed())
 }
