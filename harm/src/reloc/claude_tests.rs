@@ -625,6 +625,136 @@ fn adrp_nonzero_offset() {
     assert_eq!(dec_imm21_adr(u32_at(&mem, 4)), 2);
 }
 
+// Additionaly ADRP tests
+#[test]
+fn lo12_target_below_lo12_place_typical() {
+    // S+A = 0x4_300  →  Page(S+A) = 0x4_000  (lo12 = 0x300)
+    // P   = 0x2_A00  →  Page(P)   = 0x2_000  (lo12 = 0xA00)
+    //
+    // 0x300 < 0xA00, so formulas diverge:
+    //   correct: (0x4_000 - 0x2_000) >> 12 = 2
+    //   buggy:   Page(0x4_300 - 0x2_A00) = Page(0x1_900) >> 12 = 1
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_reloc(0x2_A00, 0x4_300, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
+}
+
+#[test]
+fn lo12_target_one_lo12_place_max() {
+    // Extreme: target lo12 nearly zero, place lo12 nearly 0xFFF.
+    //
+    // S+A = 0x3_001  →  Page(S+A) = 0x3_000  (lo12 = 0x001)
+    // P   = 0x1_FFF  →  Page(P)   = 0x1_000  (lo12 = 0xFFF)
+    //
+    //   correct: (0x3_000 - 0x1_000) >> 12 = 2
+    //   buggy:   Page(0x3_001 - 0x1_FFF) = Page(0x1_002) >> 12 = 1
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_reloc(0x1_FFF, 0x3_001, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
+}
+
+#[test]
+fn lo12_target_zero_lo12_place_nonzero() {
+    // Target is page-aligned; any non-zero lo12 in place triggers the bug.
+    //
+    // S+A = 0x5_000  →  Page(S+A) = 0x5_000  (lo12 = 0x000)
+    // P   = 0x3_001  →  Page(P)   = 0x3_000  (lo12 = 0x001)
+    //
+    //   correct: (0x5_000 - 0x3_000) >> 12 = 2
+    //   buggy:   Page(0x5_000 - 0x3_001) = Page(0x1_FFF) >> 12 = 1
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_reloc(0x3_001, 0x5_000, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
+}
+
+#[test]
+fn lo12_target_below_lo12_place_negative_imm() {
+    // Backward reference — same divergence condition, negative result.
+    //
+    // S+A = 0x1_200  →  Page(S+A) = 0x1_000  (lo12 = 0x200)
+    // P   = 0x3_800  →  Page(P)   = 0x3_000  (lo12 = 0x800)
+    //
+    //   correct: (0x1_000 - 0x3_000) >> 12 = -2
+    //   buggy:   Page(0x1_200 - 0x3_800) wrapping = Page(…E400) >> 12
+    //            interpreted as signed: -3  ← one page off
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_reloc(0x3_800, 0x1_200, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), -2);
+}
+
+#[test]
+fn lo12_target_below_lo12_place_with_offset() {
+    // Confirms offset is included when computing place = base + offset.
+    // (With the current impl signature, pass the pre-computed place directly;
+    // here offset advances within the buffer, not changing the place value.)
+    //
+    // place = 0x2_600  (lo12 = 0x600)
+    // S+A   = 0x4_300  (lo12 = 0x300)
+    //
+    // 0x300 < 0x600:
+    //   correct: (0x4_000 - 0x2_000) >> 12 = 2
+    //   buggy:   Page(0x4_300 - 0x2_600) = Page(0x1_D00) >> 12 = 1
+    let mut mem = [0u8; 8];
+    mem[4..8].copy_from_slice(&ADRP.to_le_bytes());
+    adrp_prel_pg_hi21_reloc(0x2_600, 0x4_300, &mut mem, 4).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 4)), 2);
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Same diverging cases for the NC (no-overflow-check) variant
+// ─────────────────────────────────────────────────────────────────────
+
+#[test]
+fn nc_lo12_target_below_lo12_place_typical() {
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_nc_reloc(0x2_A00, 0x4_300, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
+}
+
+#[test]
+fn nc_lo12_target_zero_lo12_place_nonzero() {
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_nc_reloc(0x3_001, 0x5_000, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
+}
+
+#[test]
+fn nc_lo12_target_below_lo12_place_negative_imm() {
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_nc_reloc(0x3_800, 0x1_200, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), -2);
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Sanity: cases where the formulas agree (lo12 target >= lo12 place).
+// Included to confirm the test logic and to show the reader why the
+// failing cases above are the interesting ones.
+// ─────────────────────────────────────────────────────────────────────
+
+#[test]
+fn sanity_lo12_equal_formulas_agree() {
+    // lo12(S+A) = lo12(P) = 0x500  →  no divergence, imm = 2
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_reloc(0x2_500, 0x4_500, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
+}
+
+#[test]
+fn sanity_lo12_target_above_lo12_place_formulas_agree() {
+    // lo12(S+A) = 0xF00 > lo12(P) = 0x100  →  no divergence, imm = 2
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_reloc(0x2_100, 0x4_F00, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
+}
+
+#[test]
+fn sanity_page_aligned_place_formulas_always_agree() {
+    // lo12(P) = 0  →  condition lo12(target) < lo12(place) can never hold
+    let mut mem = ADRP.to_le_bytes();
+    adrp_prel_pg_hi21_reloc(0x2_000, 0x4_300, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
+}
+
 // ═══════════════════════════════════════════════════════════════════════
 // add_abs_lo12_nc  (target, mem, offset)
 //

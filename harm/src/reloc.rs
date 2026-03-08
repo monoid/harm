@@ -317,6 +317,25 @@ fn calc_offset(base: u64, target: u64, offset: usize) -> Result<Offset, Rel64Err
     Ok(target.wrapping_sub(instruction_addr).cast_signed())
 }
 
+/// A function for calculating PC-relative relocation difference Page(S) - Page(P), where P is `base + offset` and S is
+/// `value`.
+///
+/// Please note that the difference is uses address offsets, i.e. the difference is not divided by page size (4096).
+pub fn calc_page_offset(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64Error> {
+    const PAGE_MASK: u64 = !0xfff;
+    let offset64 = offset
+        .try_into()
+        .map_err(|_e| Rel64Error::InvalidOffset { offset })?;
+
+    let instruction_addr = base
+        .checked_add(offset64)
+        .ok_or(Rel64Error::InvalidOffset { offset })?;
+
+    Ok((value & PAGE_MASK)
+        .wrapping_sub(instruction_addr & PAGE_MASK)
+        .cast_signed())
+}
+
 #[cfg(test)]
 mod claude_tests;
 
