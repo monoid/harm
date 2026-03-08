@@ -16,10 +16,10 @@ const MOV_OPCODE_MOVZ: u32 = 2;
 const MOV_IMM16_OFFSET: u32 = 5;
 const MOV_IMM16_WIDTH: u32 = 16;
 
-pub fn mov_w_abs_g0_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g0_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = ((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET;
 
-    let target: u16 = target.try_into()?;
+    let target: u16 = value.try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -30,10 +30,10 @@ pub fn mov_w_abs_g0_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<
     Ok(())
 }
 
-pub fn mov_w_abs_g0nc_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g0nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = ((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET;
 
-    let target = target as u16;
+    let target = value as u16;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -44,11 +44,11 @@ pub fn mov_w_abs_g0nc_reloc(target: u64, mem: &mut [u8], offset: usize) -> Resul
     Ok(())
 }
 
-pub fn mov_w_abs_g0s_reloc(target: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g0s_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = (((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET)
         | (((1 << MOV_OPCODE_WIDTH) - 1) << MOV_OPCODE_OFFSET);
 
-    let target: i16 = target.try_into()?;
+    let target: i16 = value.try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -65,10 +65,10 @@ pub fn mov_w_abs_g0s_reloc(target: i64, mem: &mut [u8], offset: usize) -> Result
     Ok(())
 }
 
-pub fn mov_w_abs_g1_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g1_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = ((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET;
 
-    let target: u16 = (target >> 16).try_into()?;
+    let target: u16 = (value >> 16).try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -79,10 +79,10 @@ pub fn mov_w_abs_g1_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<
     Ok(())
 }
 
-pub fn mov_w_abs_g1nc_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g1nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = ((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET;
 
-    let target = (target >> 16) as u16;
+    let target = (value >> 16) as u16;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -93,11 +93,11 @@ pub fn mov_w_abs_g1nc_reloc(target: u64, mem: &mut [u8], offset: usize) -> Resul
     Ok(())
 }
 
-pub fn mov_w_abs_g1s_reloc(target: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g1s_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = (((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET)
         | (((1 << MOV_OPCODE_WIDTH) - 1) << MOV_OPCODE_OFFSET);
 
-    let target: i16 = (target >> 16).try_into()?;
+    let target: i16 = (value >> 16).try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -114,10 +114,10 @@ pub fn mov_w_abs_g1s_reloc(target: i64, mem: &mut [u8], offset: usize) -> Result
     Ok(())
 }
 
-pub fn mov_w_abs_g2_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g2_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = ((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET;
 
-    let target: u16 = (target >> 32).try_into()?;
+    let target: u16 = (value >> 32).try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -128,10 +128,10 @@ pub fn mov_w_abs_g2_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<
     Ok(())
 }
 
-pub fn mov_w_abs_g2nc_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g2nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = ((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET;
 
-    let target = (target >> 32) as u16;
+    let target = (value >> 32) as u16;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -142,11 +142,11 @@ pub fn mov_w_abs_g2nc_reloc(target: u64, mem: &mut [u8], offset: usize) -> Resul
     Ok(())
 }
 
-pub fn mov_w_abs_g2s_reloc(target: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g2s_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = (((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET)
         | (((1 << MOV_OPCODE_WIDTH) - 1) << MOV_OPCODE_OFFSET);
 
-    let target: i16 = (target >> 32).try_into()?;
+    let target: i16 = (value >> 32).try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
@@ -163,10 +163,10 @@ pub fn mov_w_abs_g2s_reloc(target: i64, mem: &mut [u8], offset: usize) -> Result
     Ok(())
 }
 
-pub fn mov_w_abs_g3_reloc(target: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn mov_w_abs_g3_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     const INST_MASK: u32 = ((1 << MOV_IMM16_WIDTH) - 1) << MOV_IMM16_OFFSET;
 
-    let target = (target >> 48) as u32;
+    let target = (value >> 48) as u32;
     let bytes = get_bytes_mut(mem, offset)?;
 
     let mut inst_code = InstructionCode(*bytes).unpack();

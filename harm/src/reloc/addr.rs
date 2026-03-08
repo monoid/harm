@@ -5,7 +5,7 @@
 
 use aarchmrs_types::InstructionCode;
 
-use super::{Rel64Error, cond_br19_reloc};
+use super::{Addr, Rel64Error, cond_br19_reloc};
 use crate::instructions::dpimm::{AdrOffset, AdrpOffset};
 use crate::reloc::get_bytes_mut;
 use crate::reloc::{calc_offset, calc_page_offset};
@@ -20,23 +20,23 @@ const ADD_IMM12_WIDTH: u32 = 12u32;
 
 #[inline]
 pub fn ld_prel_lo19_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    symbol: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    cond_br19_reloc(base, target, mem, offset)
+    cond_br19_reloc(base, symbol, mem, offset)
 }
 
 pub fn adr_prel_lo21_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    symbol: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
     let bytes = get_bytes_mut(mem, offset)?;
 
-    let delta = calc_offset(base, target, offset)?;
+    let delta = calc_offset(base, symbol, offset)?;
     let delta = AdrOffset::new_i64(delta)?;
     patch_adr_adrp(bytes, delta.bits());
 
@@ -45,8 +45,8 @@ pub fn adr_prel_lo21_reloc(
 
 #[inline]
 pub fn adrp_prel_pg_hi21_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    symbol: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -54,7 +54,7 @@ pub fn adrp_prel_pg_hi21_reloc(
 
     let bytes = get_bytes_mut(mem, offset)?;
 
-    let delta = calc_page_offset(base, target, offset)?;
+    let delta = calc_page_offset(base, symbol, offset)?;
     let delta = AdrpOffset::new_i64(delta).map_err(Rel64Error::InvalidBits)?;
     patch_adr_adrp(bytes, delta.bits() & VALUE_MASK);
 
@@ -63,8 +63,8 @@ pub fn adrp_prel_pg_hi21_reloc(
 
 #[inline]
 pub fn adrp_prel_pg_hi21_nc_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    symbol: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -72,7 +72,7 @@ pub fn adrp_prel_pg_hi21_nc_reloc(
 
     let bytes = get_bytes_mut(mem, offset)?;
     // It is not checked.
-    let delta = calc_page_offset(base, target, offset)? >> 12;
+    let delta = calc_page_offset(base, symbol, offset)? >> 12;
 
     patch_adr_adrp(bytes, (delta as u32) & VALUE_MASK);
     Ok(())
@@ -80,8 +80,8 @@ pub fn adrp_prel_pg_hi21_nc_reloc(
 
 #[inline]
 pub fn add_abs_lo_12_nc_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    symbol: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -91,7 +91,7 @@ pub fn add_abs_lo_12_nc_reloc(
 
     // delta is semantically a signed value, but we are using here lower bits only,
     // so we use an unsigned value.
-    let delta = calc_offset(base, target, offset)? as u32;
+    let delta = calc_offset(base, symbol, offset)? as u32;
 
     let mut inst_code = InstructionCode(*bytes).unpack();
     inst_code &= !(MASK << ADD_IMM12_OFFSET);

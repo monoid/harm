@@ -5,7 +5,7 @@
 
 use aarchmrs_types::InstructionCode;
 
-use super::{Rel64Error, calc_offset};
+use super::{Addr, Rel64Error, calc_offset};
 use crate::instructions::control::{BranchCondOffset, BranchOffset, TestBranchOffset};
 use crate::reloc::get_bytes_mut;
 
@@ -19,8 +19,8 @@ const COND_BR_IMM19_OFFSET: u32 = 5u32;
 const COND_BR_IMM19_WIDTH: u32 = 19u32;
 
 pub fn jump26_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    target: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -41,8 +41,8 @@ pub fn jump26_reloc(
 
 #[inline]
 pub fn call26_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    target: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -50,8 +50,8 @@ pub fn call26_reloc(
 }
 
 pub fn tst_br14_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    target: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -71,8 +71,8 @@ pub fn tst_br14_reloc(
 }
 
 pub fn cond_br19_reloc(
-    base: u64,
-    target: u64,
+    base: Addr,
+    target: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {

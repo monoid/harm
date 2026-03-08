@@ -166,22 +166,29 @@ fn abs64_max() {
 #[test]
 fn abs32_basic() {
     let mut mem = [0u8; 8];
-    abs32_reloc(0xABCD_1234, &mut mem, 2).unwrap();
-    assert_eq!(u32_at(&mem, 2), 0xABCD_1234);
+    abs32_reloc(0x7BCD_1234, &mut mem, 2).unwrap();
+    assert_eq!(u32_at(&mem, 2), 0x7BCD_1234);
+}
+
+#[test]
+fn abs32_neg() {
+    let mut mem = [0u8; 4];
+    abs32_reloc(-1, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0), (-1i32) as u32);
 }
 
 #[test]
 fn abs32_max() {
     let mut mem = [0u8; 4];
-    abs32_reloc(0xFFFF_FFFF, &mut mem, 0).unwrap();
-    assert_eq!(u32_at(&mem, 0), 0xFFFF_FFFF);
+    abs32_reloc(i32::MAX as i64, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0), i32::MAX as u32);
 }
 
 #[test]
 fn abs32_overflow() {
     let mut mem = [0u8; 4];
     assert!(matches!(
-        abs32_reloc(0x1_0000_0000, &mut mem, 0),
+        abs32_reloc(0x1_0000_0000 as i64, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -193,15 +200,22 @@ fn abs32_overflow() {
 #[test]
 fn abs16_basic() {
     let mut mem = [0u8; 4];
-    abs16_reloc(0xBEEF, &mut mem, 0).unwrap();
-    assert_eq!(u16_at(&mem, 0), 0xBEEF);
+    abs16_reloc(0x7EEF, &mut mem, 0).unwrap();
+    assert_eq!(u16_at(&mem, 0), 0x7EEF);
+}
+
+#[test]
+fn abs16_neg() {
+    let mut mem = [0u8; 4];
+    abs16_reloc(-1, &mut mem, 0).unwrap();
+    assert_eq!(u16_at(&mem, 0), (-1i16) as u16);
 }
 
 #[test]
 fn abs16_max() {
     let mut mem = [0u8; 2];
-    abs16_reloc(0xFFFF, &mut mem, 0).unwrap();
-    assert_eq!(u16_at(&mem, 0), 0xFFFF);
+    abs16_reloc(i16::MAX as _, &mut mem, 0).unwrap();
+    assert_eq!(u16_at(&mem, 0), i16::MAX as u16);
 }
 
 #[test]
@@ -1439,8 +1453,8 @@ fn tag_abs64_roundtrip() {
 #[test]
 fn tag_abs32_via_apply() {
     let mut mem = [0u8; 4];
-    Rel64Tag::Abs32.apply(0, 0xDEAD_BEEF, &mut mem, 0).unwrap();
-    assert_eq!(u32_at(&mem, 0), 0xDEAD_BEEF);
+    Rel64Tag::Abs32.apply(0, 0x7EAD_BEEF, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0), 0x7EAD_BEEF);
 }
 
 #[test]
