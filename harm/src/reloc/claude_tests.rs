@@ -1630,3 +1630,292 @@ fn tag_place_is_base_plus_offset() {
     Rel64Tag::Jump26.apply(0x0FFC, 0x1010, &mut mem, 4).unwrap();
     assert_eq!(dec_imm26(u32_at(&mem, 4)), 4);
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+// ldst{8,16,32,64,128}_abs_lo12_nc  (target, mem, offset)
+//
+//   imm12 = (target & 0xFFF) >> shift
+//   where shift = 0 / 1 / 2 / 3 / 4 for 8/16/32/64/128-bit access.
+//   UnalignedValue if the low `shift` bits of target are non-zero.
+//   No overflow check (NC): high bits above 12 are silently discarded.
+//
+//   Instruction skeletons (LDR Rt, [Rn, #0]):
+//     LDRB W0,[X1] → 0x3940_0020   (8-bit)
+//     LDRH W0,[X1] → 0x7940_0020   (16-bit)
+//     LDR  W0,[X1] → 0xB940_0020   (32-bit)
+//     LDR  X0,[X1] → 0xF940_0020   (64-bit)
+//     LDR  Q0,[X1] → 0x3DC0_0020   (128-bit)
+// ═══════════════════════════════════════════════════════════════════════
+
+// Skeleton instruction words for load/store unsigned-offset forms.
+const LDRB: u32 = 0x3940_0020; // LDRB W0, [X1, #0]
+const LDRH: u32 = 0x7940_0020; // LDRH W0, [X1, #0]
+const LDR_W: u32 = 0xB940_0020; // LDR  W0, [X1, #0]
+const LDR_X: u32 = 0xF940_0020; // LDR  X0, [X1, #0]
+const LDR_Q: u32 = 0x3DC0_0020; // LDR  Q0, [X1, #0] (128-bit)
+
+// ── ldst8 (shift = 0, no alignment requirement) ───────────────────────
+
+#[test]
+fn ldst8_basic() {
+    let mut mem = insn_buf(LDRB);
+    ldst8_abs_lo12_nc_reloc(0x1ABC, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
+}
+
+#[test]
+fn ldst8_odd_target() {
+    // Byte access: odd addresses are valid.
+    let mut mem = insn_buf(LDRB);
+    ldst8_abs_lo12_nc_reloc(0x1, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x001);
+}
+
+#[test]
+fn ldst8_max_field() {
+    let mut mem = insn_buf(LDRB);
+    ldst8_abs_lo12_nc_reloc(0xFFF, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFFF);
+}
+
+#[test]
+fn ldst8_masks_high_bits() {
+    let mut mem = insn_buf(LDRB);
+    ldst8_abs_lo12_nc_reloc(0xDEAD_BEEF_CAFE_1234, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x234);
+}
+
+// ── ldst16 (shift = 1, must be 2-byte aligned) ────────────────────────
+
+#[test]
+fn ldst16_basic() {
+    // target = 0x1_ABC (even) → imm12 = 0xABC >> 1 = 0x55E
+    let mut mem = insn_buf(LDRH);
+    ldst16_abs_lo12_nc_reloc(0x1_ABC, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC >> 1);
+}
+
+#[test]
+fn ldst16_max_field() {
+    // Max aligned lo12 = 0xFFE → imm12 = 0x7FF
+    let mut mem = insn_buf(LDRH);
+    ldst16_abs_lo12_nc_reloc(0xFFE, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x7FF);
+}
+
+#[test]
+fn ldst16_masks_high_bits() {
+    // Only lo12 matters; high bits discarded before shift.
+    let mut mem = insn_buf(LDRH);
+    ldst16_abs_lo12_nc_reloc(0xDEAD_BEEF_CAFE_1234, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x234 >> 1);
+}
+
+#[test]
+fn ldst16_unaligned() {
+    let mut mem = [0u8; 4];
+    assert!(matches!(
+        ldst16_abs_lo12_nc_reloc(0x1, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Alignment { align: 1 }))
+    ));
+}
+
+// ── ldst32 (shift = 2, must be 4-byte aligned) ────────────────────────
+
+#[test]
+fn ldst32_basic() {
+    // target = 0x1_ABC, but 0xABC & 3 = 0 → only multiples of 4 are valid.
+    // Use 0x1_ABC & !3 = 0x1_AB8 → wait, 0xABC = 0b1010_1011_1100, & 3 = 0 ✓
+    // Actually 0xABC = 2748, 2748 % 4 = 0 ✓
+    let mut mem = insn_buf(LDR_W);
+    ldst32_abs_lo12_nc_reloc(0x1_ABC, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC >> 2);
+}
+
+#[test]
+fn ldst32_max_field() {
+    // Max aligned lo12 = 0xFFC → imm12 = 0x3FF
+    let mut mem = insn_buf(LDR_W);
+    ldst32_abs_lo12_nc_reloc(0xFFC, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x3FF);
+}
+
+#[test]
+fn ldst32_masks_high_bits() {
+    let mut mem = insn_buf(LDR_W);
+    ldst32_abs_lo12_nc_reloc(0xDEAD_BEEF_CAFE_1234, &mut mem, 0).unwrap();
+    // 0x234 & !3 = 0x234 (already aligned); 0x234 >> 2 = 0x8D
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x234 >> 2);
+}
+
+#[test]
+fn ldst32_unaligned_by_1() {
+    let mut mem = [0u8; 4];
+    assert!(matches!(
+        ldst32_abs_lo12_nc_reloc(0x1, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Alignment { align: 2 }))
+    ));
+}
+
+#[test]
+fn ldst32_unaligned_by_2() {
+    let mut mem = [0u8; 4];
+    assert!(matches!(
+        ldst32_abs_lo12_nc_reloc(0x2, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Alignment { align: 2 }))
+    ));
+}
+
+// ── ldst64 (shift = 3, must be 8-byte aligned) ────────────────────────
+
+#[test]
+fn ldst64_basic() {
+    // 0xFF8 & 7 = 0 ✓ → imm12 = 0xFF8 >> 3 = 0x1FF
+    let mut mem = insn_buf(LDR_X);
+    ldst64_abs_lo12_nc_reloc(0xFF8, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF8 >> 3);
+}
+
+#[test]
+fn ldst64_max_field() {
+    // Max aligned lo12 = 0xFF8 → imm12 = 0x1FF
+    let mut mem = insn_buf(LDR_X);
+    ldst64_abs_lo12_nc_reloc(0xFF8, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x1FF);
+}
+
+#[test]
+fn ldst64_masks_high_bits() {
+    // 0x1_000_000_FF8: lo12 = 0xFF8, already 8-aligned; imm12 = 0x1FF
+    let mut mem = insn_buf(LDR_X);
+    ldst64_abs_lo12_nc_reloc(0x1_0000_0000_0FF8, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF8 >> 3);
+}
+
+#[test]
+fn ldst64_unaligned() {
+    let mut mem = [0u8; 4];
+    assert!(matches!(
+        ldst64_abs_lo12_nc_reloc(0x4, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Alignment { align: 3 }))
+    ));
+}
+
+// ── ldst128 (shift = 4, must be 16-byte aligned) ──────────────────────
+
+#[test]
+fn ldst128_basic() {
+    // 0xFF0 & 15 = 0 ✓ → imm12 = 0xFF0 >> 4 = 0xFF
+    let mut mem = insn_buf(LDR_Q);
+    ldst128_abs_lo12_nc_reloc(0xFF0, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF);
+}
+
+#[test]
+fn ldst128_max_field() {
+    // Max aligned lo12 = 0xFF0 → imm12 = 0xFF
+    let mut mem = insn_buf(LDR_Q);
+    ldst128_abs_lo12_nc_reloc(0xFF0, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF);
+}
+
+#[test]
+fn ldst128_masks_high_bits() {
+    let mut mem = insn_buf(LDR_Q);
+    ldst128_abs_lo12_nc_reloc(0xDEAD_BEEF_0001_0FF0, &mut mem, 0).unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF0 >> 4);
+}
+
+#[test]
+fn ldst128_unaligned() {
+    let mut mem = [0u8; 4];
+    assert!(matches!(
+        ldst128_abs_lo12_nc_reloc(0x8, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Alignment { align: 4 }))
+    ));
+}
+
+// ── Cross-cutting: non-immediate bits are preserved ───────────────────
+
+#[test]
+fn ldst_patch_preserves_non_imm12_fields() {
+    // Use LDR X5, [X3, #0]: size=11, V=0, opc=01, Rn=3, Rt=5 → 0xF940_0065
+    let ldr_x5_x3: u32 = 0xF940_0065;
+    let mut mem = ldr_x5_x3.to_le_bytes();
+    ldst64_abs_lo12_nc_reloc(0x1_0000_0000_0FF8, &mut mem, 0).unwrap();
+    let insn = u32_at(&mem, 0);
+    assert_eq!(dec_imm12(insn), 0xFF8 >> 3);
+    assert_eq!(insn & 0xFC00_03FF, ldr_x5_x3 & 0xFC00_03FF); // size/opc/Rn/Rt preserved
+}
+
+// ── Tag dispatch ──────────────────────────────────────────────────────
+
+#[test]
+fn tag_ldst8_via_apply() {
+    let mut mem = insn_buf(LDRB);
+    Rel64Tag::LdSt8AbsLo12Nc
+        .apply(0, 0xABC, &mut mem, 0)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
+}
+
+#[test]
+fn tag_ldst16_via_apply() {
+    let mut mem = insn_buf(LDRH);
+    Rel64Tag::LdSt16AbsLo12Nc
+        .apply(0, 0xABC, &mut mem, 0)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC >> 1);
+}
+
+#[test]
+fn tag_ldst32_via_apply() {
+    let mut mem = insn_buf(LDR_W);
+    Rel64Tag::LdSt32AbsLo12Nc
+        .apply(0, 0xABC, &mut mem, 0)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC >> 2);
+}
+
+#[test]
+fn tag_ldst64_via_apply() {
+    let mut mem = insn_buf(LDR_X);
+    Rel64Tag::LdSt64AbsLo12Nc
+        .apply(0, 0xFF8, &mut mem, 0)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF8 >> 3);
+}
+
+#[test]
+fn tag_ldst128_via_apply() {
+    let mut mem = insn_buf(LDR_Q);
+    Rel64Tag::LdSt128AbsLo12Nc
+        .apply(0, 0xFF0, &mut mem, 0)
+        .unwrap();
+    assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF0 >> 4);
+}
+
+#[test]
+fn tag_ldst_unaligned_via_apply() {
+    // Alignment is enforced through the tag dispatcher too.
+    let mut mem = [0u8; 4];
+    assert!(matches!(
+        Rel64Tag::LdSt64AbsLo12Nc.apply(0, 0x4, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(_))
+    ));
+}
+
+// ── Contrast with AddAbsLo12Nc (same imm12 field, shift=0) ───────────
+
+#[test]
+fn ldst8_and_add_produce_identical_imm12() {
+    // LdSt8 is shift=0, identical formula to AddAbsLo12Nc.
+    let mut mem_ldst = insn_buf(LDRB);
+    let mut mem_add = insn_buf(ADD);
+    ldst8_abs_lo12_nc_reloc(0x1_ABC, &mut mem_ldst, 0).unwrap();
+    add_abs_lo_12_nc_reloc(0x1_ABC, &mut mem_add, 0).unwrap();
+    assert_eq!(
+        dec_imm12(u32_at(&mem_ldst, 0)),
+        dec_imm12(u32_at(&mem_add, 0))
+    );
+}

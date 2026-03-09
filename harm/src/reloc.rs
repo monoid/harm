@@ -56,6 +56,51 @@ impl Rel64 {
     }
 
     #[inline]
+    pub const fn adr_prel_lo21(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::AdrPrelLo21, label)
+    }
+
+    #[inline]
+    pub const fn adr_prel_pg_hi21(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::AdrPrelPgHi21, label)
+    }
+
+    #[inline]
+    pub const fn adr_prel_pg_hi21nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::AdrPrelPgHi21Nc, label)
+    }
+
+    #[inline]
+    pub const fn add_abs_lo12nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::AddAbsLo12Nc, label)
+    }
+
+    #[inline]
+    pub const fn ld_st8abs_lo12nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LdSt8AbsLo12Nc, label)
+    }
+
+    #[inline]
+    pub const fn ld_st16abs_lo12nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LdSt16AbsLo12Nc, label)
+    }
+
+    #[inline]
+    pub const fn ld_st32abs_lo12nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LdSt32AbsLo12Nc, label)
+    }
+
+    #[inline]
+    pub const fn ld_st64abs_lo12nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LdSt64AbsLo12Nc, label)
+    }
+
+    #[inline]
+    pub const fn ld_st128abs_lo12nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LdSt128AbsLo12Nc, label)
+    }
+
+    #[inline]
     pub const fn cond_br19(label: LabelRef) -> Self {
         Self {
             rel: Rel64Tag::CondBr19,
@@ -217,12 +262,19 @@ pub enum Rel64Tag {
     PRel32,
     PRel16,
 
-    // Static AArch64 relocations
+    // Static AArch64 address relocations
     LdPrelLo19,
     AdrPrelLo21,
     AdrPrelPgHi21,
     AdrPrelPgHi21Nc,
     AddAbsLo12Nc,
+
+    LdSt8AbsLo12Nc,
+    LdSt16AbsLo12Nc,
+    LdSt32AbsLo12Nc,
+    LdSt64AbsLo12Nc,
+    LdSt128AbsLo12Nc,
+
     // Static control flow relocations
     TstBr14,
     CondBr19,
@@ -271,6 +323,12 @@ impl Rel64Tag {
             Rel64Tag::AdrPrelPgHi21 => adrp_prel_pg_hi21_reloc(base, value, memory, offset),
             Rel64Tag::AdrPrelPgHi21Nc => adrp_prel_pg_hi21_nc_reloc(base, value, memory, offset),
             Rel64Tag::AddAbsLo12Nc => add_abs_lo_12_nc_reloc(value, memory, offset),
+
+            Rel64Tag::LdSt8AbsLo12Nc => ldst8_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LdSt16AbsLo12Nc => ldst16_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LdSt32AbsLo12Nc => ldst32_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LdSt64AbsLo12Nc => ldst64_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LdSt128AbsLo12Nc => ldst128_abs_lo12_nc_reloc(value, memory, offset),
 
             Rel64Tag::TstBr14 => tst_br14_reloc(base, value, memory, offset),
             Rel64Tag::CondBr19 => cond_br19_reloc(base, value, memory, offset),
