@@ -104,7 +104,7 @@ pub fn adrp_prel_pg_hi21_nc_reloc(
 }
 
 #[inline]
-pub fn add_abs_lo_12_nc_reloc(
+pub fn add_abs_lo12_nc_reloc(
     symbol: Addr,
     mem: &mut [u8],
     offset: usize,
@@ -142,7 +142,7 @@ pub fn ldst8_abs_lo12_nc_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    add_abs_lo_12_nc_reloc(symbol, mem, offset)
+    add_abs_lo12_nc_reloc(symbol, mem, offset)
 }
 
 pub fn ldst16_abs_lo12_nc_reloc(

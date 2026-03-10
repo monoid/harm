@@ -322,7 +322,7 @@ impl Rel64Tag {
             Rel64Tag::AdrPrelLo21 => adr_prel_lo21_reloc(base, value, memory, offset),
             Rel64Tag::AdrPrelPgHi21 => adrp_prel_pg_hi21_reloc(base, value, memory, offset),
             Rel64Tag::AdrPrelPgHi21Nc => adrp_prel_pg_hi21_nc_reloc(base, value, memory, offset),
-            Rel64Tag::AddAbsLo12Nc => add_abs_lo_12_nc_reloc(value, memory, offset),
+            Rel64Tag::AddAbsLo12Nc => add_abs_lo12_nc_reloc(value, memory, offset),
 
             Rel64Tag::LdSt8AbsLo12Nc => ldst8_abs_lo12_nc_reloc(value, memory, offset),
             Rel64Tag::LdSt16AbsLo12Nc => ldst16_abs_lo12_nc_reloc(value, memory, offset),

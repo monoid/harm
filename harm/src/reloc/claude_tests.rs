@@ -778,28 +778,28 @@ fn sanity_page_aligned_place_formulas_always_agree() {
 #[test]
 fn add_abs_lo12_nc_basic() {
     let mut mem = insn_buf(ADD);
-    add_abs_lo_12_nc_reloc(0x1ABC, &mut mem, 0).unwrap();
+    add_abs_lo12_nc_reloc(0x1ABC, &mut mem, 0).unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
 }
 
 #[test]
 fn add_abs_lo12_nc_zero() {
     let mut mem = insn_buf(ADD);
-    add_abs_lo_12_nc_reloc(0x0, &mut mem, 0).unwrap();
+    add_abs_lo12_nc_reloc(0x0, &mut mem, 0).unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0);
 }
 
 #[test]
 fn add_abs_lo12_nc_max_field() {
     let mut mem = insn_buf(ADD);
-    add_abs_lo_12_nc_reloc(0xFFF, &mut mem, 0).unwrap();
+    add_abs_lo12_nc_reloc(0xFFF, &mut mem, 0).unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFFF);
 }
 
 #[test]
 fn add_abs_lo12_nc_masks_high_bits() {
     let mut mem = insn_buf(ADD);
-    add_abs_lo_12_nc_reloc(0xDEAD_BEEF_FFFF_1234, &mut mem, 0).unwrap();
+    add_abs_lo12_nc_reloc(0xDEAD_BEEF_FFFF_1234, &mut mem, 0).unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0x234);
 }
 // ─────────────────────────────────────────────────────────────────────
@@ -1913,7 +1913,7 @@ fn ldst8_and_add_produce_identical_imm12() {
     let mut mem_ldst = insn_buf(LDRB);
     let mut mem_add = insn_buf(ADD);
     ldst8_abs_lo12_nc_reloc(0x1_ABC, &mut mem_ldst, 0).unwrap();
-    add_abs_lo_12_nc_reloc(0x1_ABC, &mut mem_add, 0).unwrap();
+    add_abs_lo12_nc_reloc(0x1_ABC, &mut mem_add, 0).unwrap();
     assert_eq!(
         dec_imm12(u32_at(&mem_ldst, 0)),
         dec_imm12(u32_at(&mem_add, 0))
