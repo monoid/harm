@@ -1,7 +1,23 @@
-/* Copyright (C) 2025 Ivan Boldyrev
+/* Copyright (C) 2026 Ivan Boldyrev
  *
  * This document is licensed under the BSD 3-clause license.
  */
+
+//! AArch64 instruction relocations.
+//!
+//! This module defines relocation types used by the `harm` project, and code to apply them to instructions.
+//!
+//! There relocations follow the static AArch64 ELF relocation types.  It is important to note that while the spec
+//! uses `S+A` for destination address, this module assumes that `A` is already added to the symbol address.
+//!
+//! The functions do not require the memory to be in place.  The functions' parameters are:
+//!   - `base`: the base (starting) address of the memory.  This can be different from the real memory location for
+//!     flexibility: the memory can be moved to final location later, even to another host.
+//!   - `value`: the real target address ('S+A').
+//!   - `memory`: the memory mutable slice to apply the relocation to.
+//!   - `offset`: the offset in the memory to apply the relocation at.
+//!   
+//!  So, `P` in the spec is `base + offset`, and the memory to be modified starts from `&memory[offset]`.
 
 mod addr;
 mod control;
@@ -28,7 +44,6 @@ pub type Offset = i64;
 
 pub type Addr = u64;
 
-// b_cond(Cond, LabelRef)
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct LabelRef {
     pub id: LabelId,
@@ -213,7 +228,7 @@ impl Rel64 {
     }
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Rel64Error {
     NotEnoughMemory { offset: usize },
     InvalidOffset { offset: usize },
@@ -250,7 +265,7 @@ impl From<BitError> for Rel64Error {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum Rel64Tag {
     None,
     // Static data relocations
@@ -279,9 +294,8 @@ pub enum Rel64Tag {
     TstBr14,
     CondBr19,
     Jump26,
-    Call26, // same as Jump26 actually?
+    Call26, // same as Jump26 actually
 
-    // TODO `MOVW` and some `add`/`ldst`-related relocations
     MovWAbsG0,
     MovWAbsG0Nc,
     MovWAbsG0S,
@@ -297,7 +311,7 @@ pub enum Rel64Tag {
 impl Rel64Tag {
     /// Applies the relocation in the `memory` at the `offset`, presuming the real target address ('S+A') is `value`,
     /// presuming that base (starting) address of the `memory` is `base` (the can be different from real `memory`
-    /// location for flexibility: the memory can be translated on another host).
+    /// location for flexibility: the memory can be moved to real destination later).
     pub fn apply(
         self,
         base: Addr,
@@ -454,7 +468,6 @@ mod tests {
         Rel64Tag::PRel64
             .apply(0x1000, 0x123456789abcdef0, &mut mem, 0)
             .unwrap();
-        // TODO is it correct?
         assert_eq!(
             mem,
             0x123456789abcdef0u64.wrapping_sub(0x1000).to_le_bytes()
