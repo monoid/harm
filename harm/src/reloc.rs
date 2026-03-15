@@ -65,60 +65,60 @@ impl Rel64 {
     #[inline]
     pub const fn ld_prel_lo19(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::LdPrelLo19,
+            rel: Rel64Tag::LD_PREL_LO19,
             label,
         }
     }
 
     #[inline]
     pub const fn adr_prel_lo21(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::AdrPrelLo21, label)
+        Self::new(Rel64Tag::ADR_PREL_LO21, label)
     }
 
     #[inline]
     pub const fn adr_prel_pg_hi21(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::AdrPrelPgHi21, label)
+        Self::new(Rel64Tag::ADR_PREL_PG_HI21, label)
     }
 
     #[inline]
-    pub const fn adr_prel_pg_hi21nc(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::AdrPrelPgHi21Nc, label)
+    pub const fn adr_prel_pg_hi21_nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::ADR_PREL_PG_HI21_NC, label)
     }
 
     #[inline]
-    pub const fn add_abs_lo12nc(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::AddAbsLo12Nc, label)
+    pub const fn add_abs_lo12_nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::ADD_ABS_LO12_NC, label)
     }
 
     #[inline]
-    pub const fn ld_st8abs_lo12nc(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::LdSt8AbsLo12Nc, label)
+    pub const fn ldst8_abs_lo12_nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LDST8_ABS_LO12_NC, label)
     }
 
     #[inline]
-    pub const fn ld_st16abs_lo12nc(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::LdSt16AbsLo12Nc, label)
+    pub const fn ldst16_abs_lo12_nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LDST16_ABS_LO12_NC, label)
     }
 
     #[inline]
-    pub const fn ld_st32abs_lo12nc(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::LdSt32AbsLo12Nc, label)
+    pub const fn ldst32_abs_lo12_nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LDST32_ABS_LO12_NC, label)
     }
 
     #[inline]
-    pub const fn ld_st64abs_lo12nc(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::LdSt64AbsLo12Nc, label)
+    pub const fn ldst64_abs_lo12_nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LDST64_ABS_LO12_NC, label)
     }
 
     #[inline]
-    pub const fn ld_st128abs_lo12nc(label: LabelRef) -> Self {
-        Self::new(Rel64Tag::LdSt128AbsLo12Nc, label)
+    pub const fn ldst128_abs_lo12_nc(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::LDST128_ABS_LO12_NC, label)
     }
 
     #[inline]
     pub const fn cond_br19(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::CondBr19,
+            rel: Rel64Tag::CONDBR19,
             label,
         }
     }
@@ -126,7 +126,7 @@ impl Rel64 {
     #[inline]
     pub const fn tst_br14(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::TstBr14,
+            rel: Rel64Tag::TSTBR14,
             label,
         }
     }
@@ -134,7 +134,7 @@ impl Rel64 {
     #[inline]
     pub const fn jump26(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::Jump26,
+            rel: Rel64Tag::JUMP26,
             label,
         }
     }
@@ -142,87 +142,87 @@ impl Rel64 {
     #[inline]
     pub const fn call26(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::Call26,
+            rel: Rel64Tag::CALL26,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g0(label: LabelRef) -> Self {
+    pub const fn movw_uabs_g0(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG0,
+            rel: Rel64Tag::MOVW_UABS_G0,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g0nc(label: LabelRef) -> Self {
+    pub const fn movw_uabs_g0_nc(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG0Nc,
+            rel: Rel64Tag::MOVW_UABS_G0_NC,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g0s(label: LabelRef) -> Self {
+    pub const fn movw_sabs_g0(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG0S,
+            rel: Rel64Tag::MOVW_SABS_G0,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g1(label: LabelRef) -> Self {
+    pub const fn movw_uabs_g1(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG1,
+            rel: Rel64Tag::MOVW_UABS_G1,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g1nc(label: LabelRef) -> Self {
+    pub const fn movw_uabs_g1_nc(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG1Nc,
+            rel: Rel64Tag::MOVW_UABS_G1_NC,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g1s(label: LabelRef) -> Self {
+    pub const fn movw_sabs_g1(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG1S,
+            rel: Rel64Tag::MOVW_SABS_G1,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g2(label: LabelRef) -> Self {
+    pub const fn movw_uabs_g2(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG2,
+            rel: Rel64Tag::MOVW_UABS_G2,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g2nc(label: LabelRef) -> Self {
+    pub const fn movw_uabs_g2_nc(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG2Nc,
+            rel: Rel64Tag::MOVW_UABS_G2_NC,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g2s(label: LabelRef) -> Self {
+    pub const fn movw_sabs_g2(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG2S,
+            rel: Rel64Tag::MOVW_SABS_G2,
             label,
         }
     }
 
     #[inline]
-    pub const fn mov_w_abs_g3(label: LabelRef) -> Self {
+    pub const fn movw_uabs_g3(label: LabelRef) -> Self {
         Self {
-            rel: Rel64Tag::MovWAbsG3,
+            rel: Rel64Tag::MOVW_UABS_G3,
             label,
         }
     }
@@ -266,46 +266,47 @@ impl From<BitError> for Rel64Error {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[allow(non_camel_case_types)]
 pub enum Rel64Tag {
-    None,
+    NONE,
     // Static data relocations
     // ...
-    Abs64,
-    Abs32,
-    Abs16,
-    PRel64,
-    PRel32,
-    PRel16,
+    ABS64,
+    ABS32,
+    ABS16,
+    PREL64,
+    PREL32,
+    PREL16,
 
     // Static AArch64 address relocations
-    LdPrelLo19,
-    AdrPrelLo21,
-    AdrPrelPgHi21,
-    AdrPrelPgHi21Nc,
-    AddAbsLo12Nc,
+    LD_PREL_LO19,
+    ADR_PREL_LO21,
+    ADR_PREL_PG_HI21,
+    ADR_PREL_PG_HI21_NC,
+    ADD_ABS_LO12_NC,
 
-    LdSt8AbsLo12Nc,
-    LdSt16AbsLo12Nc,
-    LdSt32AbsLo12Nc,
-    LdSt64AbsLo12Nc,
-    LdSt128AbsLo12Nc,
+    LDST8_ABS_LO12_NC,
+    LDST16_ABS_LO12_NC,
+    LDST32_ABS_LO12_NC,
+    LDST64_ABS_LO12_NC,
+    LDST128_ABS_LO12_NC,
 
     // Static control flow relocations
-    TstBr14,
-    CondBr19,
-    Jump26,
-    Call26, // same as Jump26 actually
+    TSTBR14,
+    CONDBR19,
+    JUMP26,
+    CALL26, // same as JUMP26 actually
 
-    MovWAbsG0,
-    MovWAbsG0Nc,
-    MovWAbsG0S,
-    MovWAbsG1,
-    MovWAbsG1Nc,
-    MovWAbsG1S,
-    MovWAbsG2,
-    MovWAbsG2Nc,
-    MovWAbsG2S,
-    MovWAbsG3,
+    MOVW_UABS_G0,
+    MOVW_UABS_G0_NC,
+    MOVW_SABS_G0,
+    MOVW_UABS_G1,
+    MOVW_UABS_G1_NC,
+    MOVW_SABS_G1,
+    MOVW_UABS_G2,
+    MOVW_UABS_G2_NC,
+    MOVW_SABS_G2,
+    MOVW_UABS_G3,
 }
 
 impl Rel64Tag {
@@ -320,44 +321,46 @@ impl Rel64Tag {
         offset: usize,
     ) -> Result<(), Rel64Error> {
         match self {
-            Rel64Tag::None => {
+            Rel64Tag::NONE => {
                 // check parameters validity
                 get_bytes_mut::<0>(memory, offset)?;
                 Ok(())
             }
-            Rel64Tag::Abs64 => abs64_reloc(value, memory, offset),
-            Rel64Tag::Abs32 => abs32_reloc(value.cast_signed(), memory, offset),
-            Rel64Tag::Abs16 => abs16_reloc(value.cast_signed(), memory, offset),
-            Rel64Tag::PRel64 => prel64_reloc(base, value, memory, offset),
-            Rel64Tag::PRel32 => prel32_reloc(base, value, memory, offset),
-            Rel64Tag::PRel16 => prel16_reloc(base, value, memory, offset),
+            Rel64Tag::ABS64 => abs64_reloc(value, memory, offset),
+            Rel64Tag::ABS32 => abs32_reloc(value.cast_signed(), memory, offset),
+            Rel64Tag::ABS16 => abs16_reloc(value.cast_signed(), memory, offset),
+            Rel64Tag::PREL64 => prel64_reloc(base, value, memory, offset),
+            Rel64Tag::PREL32 => prel32_reloc(base, value, memory, offset),
+            Rel64Tag::PREL16 => prel16_reloc(base, value, memory, offset),
 
-            Rel64Tag::LdPrelLo19 => ld_prel_lo19_reloc(base, value, memory, offset),
-            Rel64Tag::AdrPrelLo21 => adr_prel_lo21_reloc(base, value, memory, offset),
-            Rel64Tag::AdrPrelPgHi21 => adrp_prel_pg_hi21_reloc(base, value, memory, offset),
-            Rel64Tag::AdrPrelPgHi21Nc => adrp_prel_pg_hi21_nc_reloc(base, value, memory, offset),
-            Rel64Tag::AddAbsLo12Nc => add_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LD_PREL_LO19 => ld_prel_lo19_reloc(base, value, memory, offset),
+            Rel64Tag::ADR_PREL_LO21 => adr_prel_lo21_reloc(base, value, memory, offset),
+            Rel64Tag::ADR_PREL_PG_HI21 => adrp_prel_pg_hi21_reloc(base, value, memory, offset),
+            Rel64Tag::ADR_PREL_PG_HI21_NC => {
+                adrp_prel_pg_hi21_nc_reloc(base, value, memory, offset)
+            }
+            Rel64Tag::ADD_ABS_LO12_NC => add_abs_lo12_nc_reloc(value, memory, offset),
 
-            Rel64Tag::LdSt8AbsLo12Nc => ldst8_abs_lo12_nc_reloc(value, memory, offset),
-            Rel64Tag::LdSt16AbsLo12Nc => ldst16_abs_lo12_nc_reloc(value, memory, offset),
-            Rel64Tag::LdSt32AbsLo12Nc => ldst32_abs_lo12_nc_reloc(value, memory, offset),
-            Rel64Tag::LdSt64AbsLo12Nc => ldst64_abs_lo12_nc_reloc(value, memory, offset),
-            Rel64Tag::LdSt128AbsLo12Nc => ldst128_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LDST8_ABS_LO12_NC => ldst8_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LDST16_ABS_LO12_NC => ldst16_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LDST32_ABS_LO12_NC => ldst32_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LDST64_ABS_LO12_NC => ldst64_abs_lo12_nc_reloc(value, memory, offset),
+            Rel64Tag::LDST128_ABS_LO12_NC => ldst128_abs_lo12_nc_reloc(value, memory, offset),
 
-            Rel64Tag::TstBr14 => tst_br14_reloc(base, value, memory, offset),
-            Rel64Tag::CondBr19 => cond_br19_reloc(base, value, memory, offset),
-            Rel64Tag::Jump26 | Rel64Tag::Call26 => jump26_reloc(base, value, memory, offset),
+            Rel64Tag::TSTBR14 => tst_br14_reloc(base, value, memory, offset),
+            Rel64Tag::CONDBR19 => cond_br19_reloc(base, value, memory, offset),
+            Rel64Tag::JUMP26 | Rel64Tag::CALL26 => jump26_reloc(base, value, memory, offset),
 
-            Rel64Tag::MovWAbsG0 => mov_w_abs_g0_reloc(value, memory, offset),
-            Rel64Tag::MovWAbsG0Nc => mov_w_abs_g0nc_reloc(value, memory, offset),
-            Rel64Tag::MovWAbsG0S => mov_w_abs_g0s_reloc(value.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG1 => mov_w_abs_g1_reloc(value, memory, offset),
-            Rel64Tag::MovWAbsG1Nc => mov_w_abs_g1nc_reloc(value, memory, offset),
-            Rel64Tag::MovWAbsG1S => mov_w_abs_g1s_reloc(value.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG2 => mov_w_abs_g2_reloc(value, memory, offset),
-            Rel64Tag::MovWAbsG2Nc => mov_w_abs_g2nc_reloc(value, memory, offset),
-            Rel64Tag::MovWAbsG2S => mov_w_abs_g2s_reloc(value.cast_signed(), memory, offset),
-            Rel64Tag::MovWAbsG3 => mov_w_abs_g3_reloc(value, memory, offset),
+            Rel64Tag::MOVW_UABS_G0 => movw_uabs_g0_reloc(value, memory, offset),
+            Rel64Tag::MOVW_UABS_G0_NC => movw_uabs_g0_nc_reloc(value, memory, offset),
+            Rel64Tag::MOVW_SABS_G0 => movw_sabs_g0_reloc(value.cast_signed(), memory, offset),
+            Rel64Tag::MOVW_UABS_G1 => movw_uabs_g1_reloc(value, memory, offset),
+            Rel64Tag::MOVW_UABS_G1_NC => movw_uabs_g1_nc_reloc(value, memory, offset),
+            Rel64Tag::MOVW_SABS_G1 => movw_sabs_g1_reloc(value.cast_signed(), memory, offset),
+            Rel64Tag::MOVW_UABS_G2 => movw_uabs_g2_reloc(value, memory, offset),
+            Rel64Tag::MOVW_UABS_G2_NC => movw_uabs_g2_nc_reloc(value, memory, offset),
+            Rel64Tag::MOVW_SABS_G2 => movw_sabs_g2_reloc(value.cast_signed(), memory, offset),
+            Rel64Tag::MOVW_UABS_G3 => movw_uabs_g3_reloc(value, memory, offset),
         }
     }
 }
@@ -422,14 +425,14 @@ mod tests {
         const MEM: [u8; 8] = [0xfb, 0xa6, 0xd3, 0x67, 0x58, 0x50, 0x1d, 0x46];
 
         let mut mem = MEM;
-        Rel64Tag::None.apply(0, 0, &mut mem, 0).unwrap();
+        Rel64Tag::NONE.apply(0, 0, &mut mem, 0).unwrap();
         assert_eq!(mem, MEM);
     }
 
     #[test]
     fn test_abs64() {
         let mut mem = [0; 8];
-        Rel64Tag::Abs64
+        Rel64Tag::ABS64
             .apply(0, 0x123456789abcdef0, &mut mem, 0)
             .unwrap();
         assert_eq!(mem, 0x123456789abcdef0u64.to_le_bytes());
@@ -438,7 +441,7 @@ mod tests {
     #[test]
     fn test_abs64_invalid_offset() {
         let mut mem = [0; 16];
-        let err = Rel64Tag::Abs64.apply(0, 0, &mut mem, 17).unwrap_err();
+        let err = Rel64Tag::ABS64.apply(0, 0, &mut mem, 17).unwrap_err();
         assert!(
             matches!(err, Rel64Error::InvalidOffset { offset: 17 }),
             "{err:?}"
@@ -448,14 +451,14 @@ mod tests {
     #[test]
     fn test_abs32() {
         let mut mem = [0; 4];
-        Rel64Tag::Abs32.apply(0, 0x12345678, &mut mem, 0).unwrap();
+        Rel64Tag::ABS32.apply(0, 0x12345678, &mut mem, 0).unwrap();
         assert_eq!(mem, 0x12345678u32.to_le_bytes());
     }
 
     #[test]
     fn test_abs32_invalid_offset() {
         let mut mem = [0; 16];
-        let err = Rel64Tag::Abs32.apply(0, 0, &mut mem, 17).unwrap_err();
+        let err = Rel64Tag::ABS32.apply(0, 0, &mut mem, 17).unwrap_err();
         assert!(
             matches!(err, Rel64Error::InvalidOffset { offset: 17 }),
             "{err:?}"
@@ -465,7 +468,7 @@ mod tests {
     #[test]
     fn test_prel64() {
         let mut mem = [0; 8];
-        Rel64Tag::PRel64
+        Rel64Tag::PREL64
             .apply(0x1000, 0x123456789abcdef0, &mut mem, 0)
             .unwrap();
         assert_eq!(
@@ -477,7 +480,7 @@ mod tests {
     #[test]
     fn test_prel64_invalid_offset() {
         let mut mem = [0; 16];
-        let err = Rel64Tag::PRel64
+        let err = Rel64Tag::PREL64
             .apply(0x1000, 0x123456789abcdef0, &mut mem, 17)
             .unwrap_err();
         assert!(
@@ -490,14 +493,14 @@ mod tests {
     fn test_jump26() {
         let mut mem = crate::instructions::control::b(40).unwrap().to_code().0;
         let expected = crate::instructions::control::b(0x1020).unwrap().to_code().0;
-        Rel64Tag::Jump26.apply(0x1000, 0x2020, &mut mem, 0).unwrap();
+        Rel64Tag::JUMP26.apply(0x1000, 0x2020, &mut mem, 0).unwrap();
         assert_eq!(mem, expected);
     }
 
     #[test]
     fn test_jump26_unaligned() {
         let mut mem = crate::instructions::control::b(40).unwrap().to_code().0;
-        let err = Rel64Tag::Jump26.apply(0x1000, 0x2022, &mut mem, 0);
+        let err = Rel64Tag::JUMP26.apply(0x1000, 0x2022, &mut mem, 0);
         assert!(
             matches!(
                 err,
