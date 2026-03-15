@@ -13,10 +13,10 @@
 //! The functions do not require the memory to be in place.  The functions' parameters are:
 //!   - `base`: the base (starting) address of the memory.  This can be different from the real memory location for
 //!             flexibility: the memory can be moved to final location later, even to another host.
-//!   - `value`: the real target address ('S+A').
+//!   - `value`: the real target address (`S+A`).
 //!   - `memory`: the memory mutable slice to apply the relocation to.
 //!   - `offset`: the offset in the memory to apply the relocation at.
-//!   
+//!
 //!  So, `P` in the spec is `base + offset`, and the memory to be modified starts from `&memory[offset]`.
 
 mod addr;

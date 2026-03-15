@@ -193,6 +193,23 @@ fn abs32_overflow() {
     ));
 }
 
+#[test]
+fn abs32_unsigned_boundary() {
+    // 0x8000_0000 = i32::MAX + 1: valid as an unsigned 32-bit value,
+    // but a buggy impl that checks fits_signed(v, 32) rejects it.
+    let mut mem = [0u8; 4];
+    abs32_reloc(0x8000_0000, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0), 0x8000_0000);
+}
+
+#[test]
+fn abs32_unsigned_mid() {
+    // Mid-point of the unsigned-only half [2^31, 2^32).
+    let mut mem = [0u8; 4];
+    abs32_reloc(0xC000_0000, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0), 0xC000_0000);
+}
+
 // ═══════════════════════════════════════════════════════════════════════
 // abs16  (target, mem, offset)
 // ═══════════════════════════════════════════════════════════════════════
@@ -225,6 +242,23 @@ fn abs16_overflow() {
         abs16_reloc(0x1_0000, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
+}
+
+#[test]
+fn abs16_unsigned_boundary() {
+    // 0x8000 = i16::MAX + 1: valid as an unsigned 16-bit value,
+    // but a buggy impl that checks fits_signed(v, 16) rejects it.
+    let mut mem = [0u8; 2];
+    abs16_reloc(0x8000, &mut mem, 0).unwrap();
+    assert_eq!(u16_at(&mem, 0), 0x8000);
+}
+
+#[test]
+fn abs16_unsigned_mid() {
+    // Mid-point of the unsigned-only half [2^15, 2^16).
+    let mut mem = [0u8; 2];
+    abs16_reloc(0xC000, &mut mem, 0).unwrap();
+    assert_eq!(u16_at(&mem, 0), 0xC000);
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -268,7 +302,7 @@ fn prel64_nonzero_offset() {
 // ═══════════════════════════════════════════════════════════════════════
 // prel32  (base, target, mem, offset)
 //
-//   diff = target − place;  must fit in [i32::MIN, i32::MAX]
+//   diff = target − place;  must fit in [i32::MIN, u32::MAX]
 // ═══════════════════════════════════════════════════════════════════════
 
 #[test]
@@ -303,11 +337,28 @@ fn prel32_max_negative() {
 }
 
 #[test]
+fn prel32_unsigned_boundary() {
+    // diff = 0x8000_0000: valid as an unsigned 32-bit value;
+    // a buggy fits_signed(diff, 32) check incorrectly rejects it.
+    let mut mem = [0u8; 4];
+    prel32_reloc(0x0, 0x8000_0000, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0), 0x8000_0000);
+}
+
+#[test]
+fn prel32_unsigned_max() {
+    // diff = 0xFFFF_FFFF = u32::MAX: the largest valid unsigned 32-bit value.
+    let mut mem = [0u8; 4];
+    prel32_reloc(0x0, 0xFFFF_FFFF, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0), 0xFFFF_FFFF);
+}
+
+#[test]
 fn prel32_overflow_positive() {
-    // diff = 0x8000_0000 = i32::MAX + 1
+    // diff = 0x1_0000_0000 = u32::MAX + 1: truly out of range.
     let mut mem = [0u8; 4];
     assert!(matches!(
-        prel32_reloc(0x0, 0x8000_0000, &mut mem, 0),
+        prel32_reloc(0x0, 0x1_0000_0000, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -333,7 +384,7 @@ fn prel32_nonzero_offset() {
 // ═══════════════════════════════════════════════════════════════════════
 // prel16  (base, target, mem, offset)
 //
-//   diff must fit in [i16::MIN, i16::MAX]
+//   diff must fit in [i16::MIN, u16::MAX]
 // ═══════════════════════════════════════════════════════════════════════
 
 #[test]
@@ -368,10 +419,28 @@ fn prel16_max_negative() {
 }
 
 #[test]
+fn prel16_unsigned_boundary() {
+    // diff = 0x8000: valid as an unsigned 16-bit value;
+    // a buggy fits_signed(diff, 16) check incorrectly rejects it.
+    let mut mem = [0u8; 2];
+    prel16_reloc(0x0, 0x8000, &mut mem, 0).unwrap();
+    assert_eq!(u16_at(&mem, 0), 0x8000);
+}
+
+#[test]
+fn prel16_unsigned_max() {
+    // diff = 0xFFFF = u16::MAX: the largest valid unsigned 16-bit value.
+    let mut mem = [0u8; 2];
+    prel16_reloc(0x0, 0xFFFF, &mut mem, 0).unwrap();
+    assert_eq!(u16_at(&mem, 0), 0xFFFF);
+}
+
+#[test]
 fn prel16_overflow_positive() {
+    // diff = 0x1_0000 = u16::MAX + 1: truly out of range.
     let mut mem = [0u8; 2];
     assert!(matches!(
-        prel16_reloc(0x0, 0x8000, &mut mem, 0),
+        prel16_reloc(0x0, 0x1_0000, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
