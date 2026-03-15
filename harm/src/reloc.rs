@@ -226,6 +226,62 @@ impl Rel64 {
             label,
         }
     }
+
+    #[inline]
+    pub const fn movw_prel_g0(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::MOVW_PREL_G0,
+            label,
+        }
+    }
+
+    #[inline]
+    pub const fn movw_prel_g0_nc(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::MOVW_PREL_G0_NC,
+            label,
+        }
+    }
+
+    #[inline]
+    pub const fn movw_prel_g1(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::MOVW_PREL_G1,
+            label,
+        }
+    }
+
+    #[inline]
+    pub const fn movw_prel_g1_nc(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::MOVW_PREL_G1_NC,
+            label,
+        }
+    }
+
+    #[inline]
+    pub const fn movw_prel_g2(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::MOVW_PREL_G2,
+            label,
+        }
+    }
+
+    #[inline]
+    pub const fn movw_prel_g2_nc(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::MOVW_PREL_G2_NC,
+            label,
+        }
+    }
+
+    #[inline]
+    pub const fn movw_prel_g3(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::MOVW_PREL_G3,
+            label,
+        }
+    }
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -307,6 +363,14 @@ pub enum Rel64Tag {
     MOVW_UABS_G2_NC,
     MOVW_SABS_G2,
     MOVW_UABS_G3,
+
+    MOVW_PREL_G0,
+    MOVW_PREL_G0_NC,
+    MOVW_PREL_G1,
+    MOVW_PREL_G1_NC,
+    MOVW_PREL_G2,
+    MOVW_PREL_G2_NC,
+    MOVW_PREL_G3,
 }
 
 impl Rel64Tag {
@@ -361,6 +425,14 @@ impl Rel64Tag {
             Rel64Tag::MOVW_UABS_G2_NC => movw_uabs_g2_nc_reloc(value, memory, offset),
             Rel64Tag::MOVW_SABS_G2 => movw_sabs_g2_reloc(value.cast_signed(), memory, offset),
             Rel64Tag::MOVW_UABS_G3 => movw_uabs_g3_reloc(value, memory, offset),
+
+            Rel64Tag::MOVW_PREL_G0 => movw_prel_g0_reloc(base, value, memory, offset),
+            Rel64Tag::MOVW_PREL_G0_NC => movw_prel_g0_nc_reloc(base, value, memory, offset),
+            Rel64Tag::MOVW_PREL_G1 => movw_prel_g1_reloc(base, value, memory, offset),
+            Rel64Tag::MOVW_PREL_G1_NC => movw_prel_g1_nc_reloc(base, value, memory, offset),
+            Rel64Tag::MOVW_PREL_G2 => movw_prel_g2_reloc(base, value, memory, offset),
+            Rel64Tag::MOVW_PREL_G2_NC => movw_prel_g2_nc_reloc(base, value, memory, offset),
+            Rel64Tag::MOVW_PREL_G3 => movw_prel_g3_reloc(base, value, memory, offset),
         }
     }
 }
@@ -380,7 +452,7 @@ fn get_bytes_mut<const N: usize>(
 }
 
 /// A function for calculating PC-relative relocation difference S - P, where P is `base + offset` and S is `value`.
-pub fn calc_offset(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64Error> {
+pub fn calc_delta(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64Error> {
     let offset64 = offset
         .try_into()
         .map_err(|_e| Rel64Error::InvalidOffset { offset })?;

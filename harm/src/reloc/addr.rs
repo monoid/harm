@@ -9,7 +9,7 @@ use super::{Addr, Rel64Error, cond_br19_reloc};
 use crate::instructions::dpimm::{AdrOffset, AdrpOffset};
 use crate::instructions::ldst::{ScaledOffset16, ScaledOffset32, ScaledOffset64, ScaledOffset128};
 use crate::reloc::get_bytes_mut;
-use crate::reloc::{calc_offset, calc_page_offset};
+use crate::reloc::{calc_delta, calc_page_offset};
 
 const ADR_ADRP_IMMHI_OFFSET: u32 = 5u32;
 const ADR_ADRP_IMMHI_WIDTH: u32 = 19u32;
@@ -61,7 +61,7 @@ pub fn adr_prel_lo21_reloc(
 ) -> Result<(), Rel64Error> {
     let bytes = get_bytes_mut(mem, offset)?;
 
-    let delta = calc_offset(base, symbol, offset)?;
+    let delta = calc_delta(base, symbol, offset)?;
     let delta = AdrOffset::new_i64(delta)?;
     patch_adr_adrp(bytes, delta.bits());
 

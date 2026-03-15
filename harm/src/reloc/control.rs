@@ -5,7 +5,7 @@
 
 use aarchmrs_types::InstructionCode;
 
-use super::{Addr, Rel64Error, calc_offset};
+use super::{Addr, Rel64Error, calc_delta};
 use crate::instructions::control::{BranchCondOffset, BranchOffset, TestBranchOffset};
 use crate::reloc::get_bytes_mut;
 
@@ -24,7 +24,7 @@ pub fn jump26_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let jump_offset64 = calc_offset(base, target, offset)?;
+    let jump_offset64 = calc_delta(base, target, offset)?;
     let jump_offset = BranchOffset::new_i64(jump_offset64)?;
     let bytes = get_bytes_mut(mem, offset)?;
     let code = InstructionCode(*bytes).unpack();
@@ -55,7 +55,7 @@ pub fn tst_br14_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let tst_offset64 = calc_offset(base, target, offset)?;
+    let tst_offset64 = calc_delta(base, target, offset)?;
     let tst_offset = TestBranchOffset::new_i64(tst_offset64)?;
     let bytes = get_bytes_mut(mem, offset)?;
     let code = InstructionCode(*bytes).unpack();
@@ -76,7 +76,7 @@ pub fn cond_br19_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let cond_offset64 = calc_offset(base, target, offset)?;
+    let cond_offset64 = calc_delta(base, target, offset)?;
     let cond_offset = BranchCondOffset::new_i64(cond_offset64)?;
     let bytes = get_bytes_mut(mem, offset)?;
     let code = InstructionCode(*bytes).unpack();

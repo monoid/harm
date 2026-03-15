@@ -4,8 +4,8 @@
  */
 use aarchmrs_types::InstructionCode;
 
-use super::{Rel64Error, calc_offset};
-use crate::{bits::SBitValue, reloc::get_bytes_mut};
+use super::{Rel64Error, calc_delta, get_bytes_mut};
+use crate::bits::SBitValue;
 
 const MOV_OPCODE_OFFSET: u32 = 29;
 const MOV_OPCODE_WIDTH: u32 = 2;
@@ -65,6 +65,14 @@ pub fn movw_uabs_g2_nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Resul
 }
 
 #[inline]
+pub fn movw_uabs_g3_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+    let target = (value >> 48) as u16;
+    let bytes = get_bytes_mut(mem, offset)?;
+    patch_mov(target, bytes);
+    Ok(())
+}
+
+#[inline]
 pub fn movw_sabs_g0_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target = SBitValue::<17>::new_i64(value)?;
     let bytes = get_bytes_mut(mem, offset)?;
@@ -83,22 +91,13 @@ pub fn movw_sabs_g2_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(
 }
 
 #[inline]
-pub fn movw_uabs_g3_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
-    let target = (value >> 48) as u16;
-    let bytes = get_bytes_mut(mem, offset)?;
-    patch_mov(target, bytes);
-    Ok(())
-}
-
-#[inline]
 pub fn movw_prel_g0_reloc(
     base: u64,
     value: u64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let delta = calc_offset(base, value, offset)?;
-    // TODO it seems the range check is different.
+    let delta = calc_delta(base, value, offset)?;
     movw_sabs_g0_reloc(delta, mem, offset)
 }
 
@@ -109,7 +108,7 @@ pub fn movw_prel_g0_nc_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let delta = calc_offset(base, value, offset)?;
+    let delta = calc_delta(base, value, offset)?;
     movw_uabs_g0_nc_reloc(delta as _, mem, offset)
 }
 
@@ -120,7 +119,7 @@ pub fn movw_prel_g1_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let delta = calc_offset(base, value, offset)?;
+    let delta = calc_delta(base, value, offset)?;
     movw_sabs_g1_reloc(delta, mem, offset)
 }
 
@@ -131,7 +130,7 @@ pub fn movw_prel_g1_nc_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let delta = calc_offset(base, value, offset)?;
+    let delta = calc_delta(base, value, offset)?;
     movw_uabs_g1_nc_reloc(delta as _, mem, offset)
 }
 
@@ -142,7 +141,7 @@ pub fn movw_prel_g2_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let delta = calc_offset(base, value, offset)?;
+    let delta = calc_delta(base, value, offset)?;
     movw_sabs_g2_reloc(delta, mem, offset)
 }
 
@@ -153,7 +152,7 @@ pub fn movw_prel_g2_nc_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let delta = calc_offset(base, value, offset)?;
+    let delta = calc_delta(base, value, offset)?;
     movw_uabs_g2_nc_reloc(delta as _, mem, offset)
 }
 
@@ -164,7 +163,7 @@ pub fn movw_prel_g3_reloc(
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
-    let delta = calc_offset(base, value, offset)?;
+    let delta = calc_delta(base, value, offset)?;
     movw_uabs_g3_reloc(delta as _, mem, offset)
 }
 

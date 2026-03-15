@@ -3,7 +3,7 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use super::{Addr, Rel64Error, calc_offset, get_bytes_mut};
+use super::{Addr, Rel64Error, calc_delta, get_bytes_mut};
 
 pub fn abs64_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let bytes = get_bytes_mut(mem, offset)?;
@@ -33,7 +33,7 @@ pub fn prel64_reloc(
 ) -> Result<(), Rel64Error> {
     let bytes = get_bytes_mut(mem, offset)?;
 
-    *bytes = calc_offset(base, symbol, offset)?.to_le_bytes();
+    *bytes = calc_delta(base, symbol, offset)?.to_le_bytes();
     Ok(())
 }
 
@@ -45,7 +45,7 @@ pub fn prel32_reloc(
 ) -> Result<(), Rel64Error> {
     let bytes = get_bytes_mut(mem, offset)?;
 
-    let delta = calc_offset(base, symbol, offset)?;
+    let delta = calc_delta(base, symbol, offset)?;
     let value = try_unsigned_and_signed::<u32, i32>(delta)?;
     *bytes = value.to_le_bytes();
     Ok(())
@@ -59,7 +59,7 @@ pub fn prel16_reloc(
 ) -> Result<(), Rel64Error> {
     let bytes = get_bytes_mut(mem, offset)?;
 
-    let delta = calc_offset(base, symbol, offset)?;
+    let delta = calc_delta(base, symbol, offset)?;
     let value = try_unsigned_and_signed::<u16, i16>(delta)?;
     *bytes = value.to_le_bytes();
     Ok(())
