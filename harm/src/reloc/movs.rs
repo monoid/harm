@@ -16,70 +16,70 @@ const MOV_OPCODE_MOVZ: u32 = 2;
 const MOV_IMM16_OFFSET: u32 = 5;
 const MOV_IMM16_WIDTH: u32 = 16;
 
-pub fn mov_w_abs_g0_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_uabs_g0_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target: u16 = value.try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g0nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_uabs_g0_nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target = value as u16;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g0s_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_sabs_g0_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target: i16 = value.try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov_signed(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g1_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_uabs_g1_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target: u16 = (value >> 16).try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g1nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_uabs_g1_nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target = (value >> 16) as u16;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g1s_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_sabs_g1_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target: i16 = (value >> 16).try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov_signed(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g2_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_uabs_g2_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target: u16 = (value >> 32).try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g2nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_uabs_g2_nc_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target = (value >> 32) as u16;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g2s_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_sabs_g2_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target: i16 = (value >> 32).try_into()?;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov_signed(target, bytes);
     Ok(())
 }
 
-pub fn mov_w_abs_g3_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
+pub fn movw_uabs_g3_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target = (value >> 48) as u16;
     let bytes = get_bytes_mut(mem, offset)?;
     patch_mov(target, bytes);

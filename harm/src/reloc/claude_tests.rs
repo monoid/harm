@@ -883,7 +883,7 @@ fn place_nonzero_lo12_typical() {
     // base=0x1_000, offset=0x400  →  place = 0x1_400
     let mut mem = [0u8; 0x404];
     mem[0x400..0x404].copy_from_slice(&ADD.to_le_bytes());
-    Rel64Tag::AddAbsLo12Nc
+    Rel64Tag::ADD_ABS_LO12_NC
         .apply(0x1_000, 0x2_ABC, &mut mem, 0x400)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0x400)), 0xABC);
@@ -897,7 +897,7 @@ fn place_lo12_exceeds_target_lo12() {
     // base=0x1_000, offset=0x800  →  place = 0x1_800
     let mut mem = [0u8; 0x804];
     mem[0x800..0x804].copy_from_slice(&ADD.to_le_bytes());
-    Rel64Tag::AddAbsLo12Nc
+    Rel64Tag::ADD_ABS_LO12_NC
         .apply(0x1_000, 0x2_200, &mut mem, 0x800)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0x800)), 0x200);
@@ -911,7 +911,7 @@ fn place_lo12_equals_target_lo12() {
     // base=0x1_000, offset=0x500  →  place = 0x1_500
     let mut mem = [0u8; 0x504];
     mem[0x500..0x504].copy_from_slice(&ADD.to_le_bytes());
-    Rel64Tag::AddAbsLo12Nc
+    Rel64Tag::ADD_ABS_LO12_NC
         .apply(0x1_000, 0x2_500, &mut mem, 0x500)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0x500)), 0x500);
@@ -925,7 +925,7 @@ fn target_page_aligned_place_not() {
     // base=0x1_000, offset=0xABC  →  place = 0x1_ABC
     let mut mem = [0u8; 0xAC0];
     mem[0xABC..0xAC0].copy_from_slice(&ADD.to_le_bytes());
-    Rel64Tag::AddAbsLo12Nc
+    Rel64Tag::ADD_ABS_LO12_NC
         .apply(0x1_000, 0x3_000, &mut mem, 0xABC)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0xABC)), 0x000);
@@ -940,7 +940,7 @@ fn place_from_nonzero_base_and_offset_both_contribute() {
     // buggy: (0x5_700 - 0x1_600) & 0xFFF = 0x100  ← wrong
     let mut mem = [0u8; 0x404];
     mem[0x400..0x404].copy_from_slice(&ADD.to_le_bytes());
-    Rel64Tag::AddAbsLo12Nc
+    Rel64Tag::ADD_ABS_LO12_NC
         .apply(0x1_200, 0x5_700, &mut mem, 0x400)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0x400)), 0x700);
@@ -955,7 +955,7 @@ fn sanity_page_aligned_place_formulas_agree() {
     // place = 0x2_000 (page-aligned) → P & 0xFFF = 0
     // Both formulas give the same result; existing tests all look like this.
     let mut mem = ADD.to_le_bytes();
-    Rel64Tag::AddAbsLo12Nc
+    Rel64Tag::ADD_ABS_LO12_NC
         .apply(0x2_000, 0x4_ABC, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
@@ -965,7 +965,7 @@ fn sanity_page_aligned_place_formulas_agree() {
 fn sanity_zero_base_zero_offset_formulas_agree() {
     // place = 0 → both formulas identical; this is what the original tests use.
     let mut mem = ADD.to_le_bytes();
-    Rel64Tag::AddAbsLo12Nc
+    Rel64Tag::ADD_ABS_LO12_NC
         .apply(0, 0x4_ABC, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
@@ -1259,14 +1259,14 @@ fn call26_unaligned() {
 #[test]
 fn mov_w_abs_g0_basic() {
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0_reloc(0xABCD, &mut mem, 0).unwrap();
+    movw_uabs_g0_reloc(0xABCD, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xABCD);
 }
 
 #[test]
 fn mov_w_abs_g0_max() {
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0_reloc(0xFFFF, &mut mem, 0).unwrap();
+    movw_uabs_g0_reloc(0xFFFF, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xFFFF);
 }
 
@@ -1274,7 +1274,7 @@ fn mov_w_abs_g0_max() {
 fn mov_w_abs_g0_overflow() {
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g0_reloc(0x1_0000, &mut mem, 0),
+        movw_uabs_g0_reloc(0x1_0000, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1284,7 +1284,7 @@ fn mov_w_abs_g0_overflow() {
 #[test]
 fn mov_w_abs_g0nc_basic() {
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0nc_reloc(0x1234, &mut mem, 0).unwrap();
+    movw_uabs_g0_nc_reloc(0x1234, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0x1234);
 }
 
@@ -1292,7 +1292,7 @@ fn mov_w_abs_g0nc_basic() {
 fn mov_w_abs_g0nc_strips_high_bits() {
     // Only S[15:0] written; upper bits silently discarded
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0nc_reloc(0xDEAD_BEEF_0000_1234, &mut mem, 0).unwrap();
+    movw_uabs_g0_nc_reloc(0xDEAD_BEEF_0000_1234, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0x1234);
 }
 
@@ -1301,7 +1301,7 @@ fn mov_w_abs_g0nc_strips_high_bits() {
 #[test]
 fn mov_w_abs_g0s_positive() {
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0s_reloc(0x1234, &mut mem, 0).unwrap();
+    movw_sabs_g0_reloc(0x1234, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVZ);
     assert_eq!(dec_movw(i), 0x1234);
@@ -1311,7 +1311,7 @@ fn mov_w_abs_g0s_positive() {
 fn mov_w_abs_g0s_max_positive() {
     // 0x7FFF = i16::MAX — largest that fits
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0s_reloc(0x7FFF, &mut mem, 0).unwrap();
+    movw_sabs_g0_reloc(0x7FFF, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVZ);
     assert_eq!(dec_movw(i), 0x7FFF);
@@ -1321,7 +1321,7 @@ fn mov_w_abs_g0s_max_positive() {
 fn mov_w_abs_g0s_minus_one() {
     // MOVN imm=0 encodes −1
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0s_reloc(-1, &mut mem, 0).unwrap();
+    movw_sabs_g0_reloc(-1, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVN);
     assert_eq!(dec_movw(i), 0x0000); // ~(−1)[15:0] = 0
@@ -1331,7 +1331,7 @@ fn mov_w_abs_g0s_minus_one() {
 fn mov_w_abs_g0s_max_negative() {
     // i16::MIN = −0x8000;  imm = ~(−0x8000)[15:0] = 0x7FFF
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0s_reloc(-0x8000, &mut mem, 0).unwrap();
+    movw_sabs_g0_reloc(-0x8000, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVN);
     assert_eq!(dec_movw(i), 0x7FFF);
@@ -1341,7 +1341,7 @@ fn mov_w_abs_g0s_max_negative() {
 fn mov_w_abs_g0s_negative_value() {
     // −0x1234;  imm = ~(−0x1234)[15:0] = 0x1233
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g0s_reloc(-0x1234, &mut mem, 0).unwrap();
+    movw_sabs_g0_reloc(-0x1234, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVN);
     assert_eq!(dec_movw(i), 0x1233);
@@ -1352,7 +1352,7 @@ fn mov_w_abs_g0s_overflow_positive() {
     // 0x8000 > i16::MAX
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g0s_reloc(0x8000, &mut mem, 0),
+        movw_sabs_g0_reloc(0x8000, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1362,7 +1362,7 @@ fn mov_w_abs_g0s_overflow_negative() {
     // −0x8001 < i16::MIN
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g0s_reloc(-0x8001, &mut mem, 0),
+        movw_sabs_g0_reloc(-0x8001, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1373,7 +1373,7 @@ fn mov_w_abs_g0s_overflow_negative() {
 fn mov_w_abs_g1_basic() {
     // S[31:16] of 0xABCD_0000 = 0xABCD
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g1_reloc(0xABCD_0000, &mut mem, 0).unwrap();
+    movw_uabs_g1_reloc(0xABCD_0000, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xABCD);
 }
 
@@ -1381,7 +1381,7 @@ fn mov_w_abs_g1_basic() {
 fn mov_w_abs_g1_max() {
     // 0xFFFF_FFFF — max value; S[31:16] = 0xFFFF
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g1_reloc(0xFFFF_FFFF, &mut mem, 0).unwrap();
+    movw_uabs_g1_reloc(0xFFFF_FFFF, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xFFFF);
 }
 
@@ -1389,7 +1389,7 @@ fn mov_w_abs_g1_max() {
 fn mov_w_abs_g1_overflow() {
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g1_reloc(0x1_0000_0000, &mut mem, 0),
+        movw_uabs_g1_reloc(0x1_0000_0000, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1399,7 +1399,7 @@ fn mov_w_abs_g1_overflow() {
 #[test]
 fn mov_w_abs_g1nc_basic() {
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g1nc_reloc(0xABCD_0000, &mut mem, 0).unwrap();
+    movw_uabs_g1_nc_reloc(0xABCD_0000, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xABCD);
 }
 
@@ -1407,7 +1407,7 @@ fn mov_w_abs_g1nc_basic() {
 fn mov_w_abs_g1nc_strips_high_bits() {
     // Only S[31:16] written; bits [63:32] discarded
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g1nc_reloc(0xDEAD_BEEF_ABCD_0000, &mut mem, 0).unwrap();
+    movw_uabs_g1_nc_reloc(0xDEAD_BEEF_ABCD_0000, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xABCD);
 }
 
@@ -1417,7 +1417,7 @@ fn mov_w_abs_g1nc_strips_high_bits() {
 fn mov_w_abs_g1s_positive() {
     // 0x7FFF_0000 fits in signed 32-bit; chunk 1 = 0x7FFF
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g1s_reloc(0x7FFF_0000, &mut mem, 0).unwrap();
+    movw_sabs_g1_reloc(0x7FFF_0000, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVZ);
     assert_eq!(dec_movw(i), 0x7FFF);
@@ -1427,7 +1427,7 @@ fn mov_w_abs_g1s_positive() {
 fn mov_w_abs_g1s_max_positive() {
     // i32::MAX = 0x7FFF_FFFF;  chunk 1 = 0x7FFF
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g1s_reloc(0x7FFF_FFFF, &mut mem, 0).unwrap();
+    movw_sabs_g1_reloc(0x7FFF_FFFF, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVZ);
     assert_eq!(dec_movw(i), 0x7FFF);
@@ -1437,7 +1437,7 @@ fn mov_w_abs_g1s_max_positive() {
 fn mov_w_abs_g1s_negative() {
     // −0x8000_0000 = i32::MIN;  ~target = 0x7FFF_FFFF;  chunk 1 = 0x7FFF
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g1s_reloc(-0x8000_0000, &mut mem, 0).unwrap();
+    movw_sabs_g1_reloc(-0x8000_0000, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVN);
     assert_eq!(dec_movw(i), 0x7FFF);
@@ -1447,7 +1447,7 @@ fn mov_w_abs_g1s_negative() {
 fn mov_w_abs_g1s_negative_value() {
     // −0x1234_5678;  ~target = 0x1234_5677;  chunk 1 = 0x1234
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g1s_reloc(-0x1234_5678, &mut mem, 0).unwrap();
+    movw_sabs_g1_reloc(-0x1234_5678, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVN);
     assert_eq!(dec_movw(i), 0x1234);
@@ -1458,7 +1458,7 @@ fn mov_w_abs_g1s_overflow_positive() {
     // 0x8000_0000 = i32::MAX + 1
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g1s_reloc(0x8000_0000, &mut mem, 0),
+        movw_sabs_g1_reloc(0x8000_0000, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1468,7 +1468,7 @@ fn mov_w_abs_g1s_overflow_negative() {
     // −0x8000_0001 < i32::MIN
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g1s_reloc(-0x8000_0001, &mut mem, 0),
+        movw_sabs_g1_reloc(-0x8000_0001, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1479,7 +1479,7 @@ fn mov_w_abs_g1s_overflow_negative() {
 fn mov_w_abs_g2_basic() {
     // S[47:32] of 0x0001_0000_0000 = 0x0001
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g2_reloc(0x0001_0000_0000, &mut mem, 0).unwrap();
+    movw_uabs_g2_reloc(0x0001_0000_0000, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0x0001);
 }
 
@@ -1487,7 +1487,7 @@ fn mov_w_abs_g2_basic() {
 fn mov_w_abs_g2_max() {
     // 0xFFFF_FFFF_FFFF — max value; S[47:32] = 0xFFFF
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g2_reloc(0xFFFF_FFFF_FFFF, &mut mem, 0).unwrap();
+    movw_uabs_g2_reloc(0xFFFF_FFFF_FFFF, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xFFFF);
 }
 
@@ -1495,7 +1495,7 @@ fn mov_w_abs_g2_max() {
 fn mov_w_abs_g2_overflow() {
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g2_reloc(0x0001_0000_0000_0000, &mut mem, 0),
+        movw_uabs_g2_reloc(0x0001_0000_0000_0000, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1506,7 +1506,7 @@ fn mov_w_abs_g2_overflow() {
 fn mov_w_abs_g2nc_basic() {
     // S[47:32] of 0xDEAD_1234_0000_0000 = 0x1234
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g2nc_reloc(0xDEAD_1234_0000_0000, &mut mem, 0).unwrap();
+    movw_uabs_g2_nc_reloc(0xDEAD_1234_0000_0000, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0x1234);
 }
 
@@ -1514,7 +1514,7 @@ fn mov_w_abs_g2nc_basic() {
 fn mov_w_abs_g2nc_strips_high_bits() {
     // Bits [63:48] discarded without error
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g2nc_reloc(0xFFFF_ABCD_0000_0000, &mut mem, 0).unwrap();
+    movw_uabs_g2_nc_reloc(0xFFFF_ABCD_0000_0000, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xABCD);
 }
 
@@ -1524,7 +1524,7 @@ fn mov_w_abs_g2nc_strips_high_bits() {
 fn mov_w_abs_g2s_positive() {
     // 0x0000_1234_0000_0000 fits in signed 48-bit; chunk 2 = 0x1234
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g2s_reloc(0x0000_1234_0000_0000_i64, &mut mem, 0).unwrap();
+    movw_sabs_g2_reloc(0x0000_1234_0000_0000_i64, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVZ);
     assert_eq!(dec_movw(i), 0x1234);
@@ -1534,7 +1534,7 @@ fn mov_w_abs_g2s_positive() {
 fn mov_w_abs_g2s_negative() {
     // −0x1234_0000_0000;  ~target = 0x1233_FFFF_FFFF;  chunk 2 = 0x1233
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g2s_reloc(-0x1234_0000_0000_i64, &mut mem, 0).unwrap();
+    movw_sabs_g2_reloc(-0x1234_0000_0000_i64, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVN);
     assert_eq!(dec_movw(i), 0x1233);
@@ -1545,7 +1545,7 @@ fn mov_w_abs_g2s_overflow_positive() {
     // 2^47 — one above signed 48-bit max (2^47 − 1)
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g2s_reloc(0x0000_8000_0000_0000_u64 as i64, &mut mem, 0),
+        movw_sabs_g2_reloc(0x0000_8000_0000_0000_u64 as i64, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1555,7 +1555,7 @@ fn mov_w_abs_g2s_overflow_negative() {
     // −(2^47 + 1) — one below signed 48-bit min (−2^47)
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        mov_w_abs_g2s_reloc(-0x8000_0000_0001_i64, &mut mem, 0),
+        movw_sabs_g2_reloc(-0x8000_0000_0001_i64, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -1566,21 +1566,21 @@ fn mov_w_abs_g2s_overflow_negative() {
 fn mov_w_abs_g3_basic() {
     // S[63:48] of 0xBEEF_0000_0000_0000 = 0xBEEF
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g3_reloc(0xBEEF_0000_0000_0000, &mut mem, 0).unwrap();
+    movw_uabs_g3_reloc(0xBEEF_0000_0000_0000, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xBEEF);
 }
 
 #[test]
 fn mov_w_abs_g3_max() {
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g3_reloc(0xFFFF_0000_0000_0000, &mut mem, 0).unwrap();
+    movw_uabs_g3_reloc(0xFFFF_0000_0000_0000, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xFFFF);
 }
 
 #[test]
 fn mov_w_abs_g3_zero() {
     let mut mem = insn_buf(MOVZ);
-    mov_w_abs_g3_reloc(0x0, &mut mem, 0).unwrap();
+    movw_uabs_g3_reloc(0x0, &mut mem, 0).unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0x0000);
 }
 
@@ -1591,7 +1591,7 @@ fn patch_preserves_non_immediate_fields() {
     // MOVK X5, #0 (opc=11, Rd=5) → 0xF280_0005
     let movk_x5: u32 = 0xF280_0005;
     let mut mem = movk_x5.to_le_bytes().to_vec();
-    mov_w_abs_g0nc_reloc(0xABCD, &mut mem, 0).unwrap();
+    movw_uabs_g0_nc_reloc(0xABCD, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(dec_movw(i), 0xABCD);
     assert_eq!(mov_w_opc(i), 0b11); // opc preserved
@@ -1605,14 +1605,14 @@ fn patch_preserves_non_immediate_fields() {
 #[test]
 fn tag_none_is_noop() {
     let mut mem = [0xFFu8; 8];
-    Rel64Tag::None.apply(0, 0, &mut mem, 0).unwrap();
+    Rel64Tag::NONE.apply(0, 0, &mut mem, 0).unwrap();
     assert!(mem.iter().all(|&b| b == 0xFF));
 }
 
 #[test]
 fn tag_abs64_roundtrip() {
     let mut mem = [0u8; 8];
-    Rel64Tag::Abs64
+    Rel64Tag::ABS64
         .apply(0, 0x1122_3344_5566_7788, &mut mem, 0)
         .unwrap();
     assert_eq!(u64_at(&mem, 0), 0x1122_3344_5566_7788);
@@ -1621,7 +1621,7 @@ fn tag_abs64_roundtrip() {
 #[test]
 fn tag_abs32_via_apply() {
     let mut mem = [0u8; 4];
-    Rel64Tag::Abs32.apply(0, 0x7EAD_BEEF, &mut mem, 0).unwrap();
+    Rel64Tag::ABS32.apply(0, 0x7EAD_BEEF, &mut mem, 0).unwrap();
     assert_eq!(u32_at(&mem, 0), 0x7EAD_BEEF);
 }
 
@@ -1629,7 +1629,7 @@ fn tag_abs32_via_apply() {
 fn tag_prel32_via_apply() {
     // base=0, offset=0 → place=0;  diff=i32::MAX
     let mut mem = [0u8; 4];
-    Rel64Tag::PRel32
+    Rel64Tag::PREL32
         .apply(0x0, 0x7FFF_FFFF, &mut mem, 0)
         .unwrap();
     assert_eq!(u32_at(&mem, 0) as i32, i32::MAX);
@@ -1639,7 +1639,7 @@ fn tag_prel32_via_apply() {
 fn tag_jump26_via_apply() {
     // base=0, offset=0 → place=0;  diff=8;  imm26=2
     let mut mem = insn_buf(B);
-    Rel64Tag::Jump26.apply(0x0, 0x0008, &mut mem, 0).unwrap();
+    Rel64Tag::JUMP26.apply(0x0, 0x0008, &mut mem, 0).unwrap();
     assert_eq!(dec_imm26(u32_at(&mem, 0)), 2);
 }
 
@@ -1647,7 +1647,7 @@ fn tag_jump26_via_apply() {
 fn tag_call26_via_apply() {
     // base=0, offset=0 → place=0;  diff=4;  imm26=1
     let mut mem = insn_buf(BL);
-    Rel64Tag::Call26.apply(0x0, 0x0004, &mut mem, 0).unwrap();
+    Rel64Tag::CALL26.apply(0x0, 0x0004, &mut mem, 0).unwrap();
     assert_eq!(dec_imm26(u32_at(&mem, 0)), 1);
 }
 
@@ -1656,7 +1656,7 @@ fn tag_adrp_via_apply() {
     // base=0x1100, offset=0 → place=0x1100 (page 0x1000)
     // target=0x3500 → page 0x3000;  imm21=2
     let mut mem = [0u8; 4];
-    Rel64Tag::AdrPrelPgHi21
+    Rel64Tag::ADR_PREL_PG_HI21
         .apply(0x1100, 0x3500, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
@@ -1665,7 +1665,7 @@ fn tag_adrp_via_apply() {
 #[test]
 fn tag_mov_w_g1nc_via_apply() {
     let mut mem = insn_buf(MOVZ);
-    Rel64Tag::MovWAbsG1Nc
+    Rel64Tag::MOVW_UABS_G1_NC
         .apply(0, 0xDEAD_BEEF_ABCD_0000, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xABCD);
@@ -1674,7 +1674,7 @@ fn tag_mov_w_g1nc_via_apply() {
 #[test]
 fn tag_mov_w_g2nc_via_apply() {
     let mut mem = insn_buf(MOVZ);
-    Rel64Tag::MovWAbsG2Nc
+    Rel64Tag::MOVW_UABS_G2_NC
         .apply(0, 0xDEAD_1234_0000_0000, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0x1234);
@@ -1683,7 +1683,7 @@ fn tag_mov_w_g2nc_via_apply() {
 #[test]
 fn tag_mov_w_g3_via_apply() {
     let mut mem = insn_buf(MOVZ);
-    Rel64Tag::MovWAbsG3
+    Rel64Tag::MOVW_UABS_G3
         .apply(0, 0xBEEF_0000_0000_0000, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_movw(u32_at(&mem, 0)), 0xBEEF);
@@ -1696,7 +1696,7 @@ fn tag_place_is_base_plus_offset() {
     // target=0x1010;  diff=0x10;  imm26=4
     let mut mem = [0u8; 8];
     mem[4..8].copy_from_slice(&B.to_le_bytes());
-    Rel64Tag::Jump26.apply(0x0FFC, 0x1010, &mut mem, 4).unwrap();
+    Rel64Tag::JUMP26.apply(0x0FFC, 0x1010, &mut mem, 4).unwrap();
     assert_eq!(dec_imm26(u32_at(&mem, 4)), 4);
 }
 
@@ -1922,7 +1922,7 @@ fn ldst_patch_preserves_non_imm12_fields() {
 #[test]
 fn tag_ldst8_via_apply() {
     let mut mem = insn_buf(LDRB);
-    Rel64Tag::LdSt8AbsLo12Nc
+    Rel64Tag::LDST8_ABS_LO12_NC
         .apply(0, 0xABC, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC);
@@ -1931,7 +1931,7 @@ fn tag_ldst8_via_apply() {
 #[test]
 fn tag_ldst16_via_apply() {
     let mut mem = insn_buf(LDRH);
-    Rel64Tag::LdSt16AbsLo12Nc
+    Rel64Tag::LDST16_ABS_LO12_NC
         .apply(0, 0xABC, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC >> 1);
@@ -1940,7 +1940,7 @@ fn tag_ldst16_via_apply() {
 #[test]
 fn tag_ldst32_via_apply() {
     let mut mem = insn_buf(LDR_W);
-    Rel64Tag::LdSt32AbsLo12Nc
+    Rel64Tag::LDST32_ABS_LO12_NC
         .apply(0, 0xABC, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xABC >> 2);
@@ -1949,7 +1949,7 @@ fn tag_ldst32_via_apply() {
 #[test]
 fn tag_ldst64_via_apply() {
     let mut mem = insn_buf(LDR_X);
-    Rel64Tag::LdSt64AbsLo12Nc
+    Rel64Tag::LDST64_ABS_LO12_NC
         .apply(0, 0xFF8, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF8 >> 3);
@@ -1958,7 +1958,7 @@ fn tag_ldst64_via_apply() {
 #[test]
 fn tag_ldst128_via_apply() {
     let mut mem = insn_buf(LDR_Q);
-    Rel64Tag::LdSt128AbsLo12Nc
+    Rel64Tag::LDST128_ABS_LO12_NC
         .apply(0, 0xFF0, &mut mem, 0)
         .unwrap();
     assert_eq!(dec_imm12(u32_at(&mem, 0)), 0xFF0 >> 4);
@@ -1969,16 +1969,16 @@ fn tag_ldst_unaligned_via_apply() {
     // Alignment is enforced through the tag dispatcher too.
     let mut mem = [0u8; 4];
     assert!(matches!(
-        Rel64Tag::LdSt64AbsLo12Nc.apply(0, 0x4, &mut mem, 0),
+        Rel64Tag::LDST64_ABS_LO12_NC.apply(0, 0x4, &mut mem, 0),
         Err(Rel64Error::InvalidBits(_))
     ));
 }
 
-// ── Contrast with AddAbsLo12Nc (same imm12 field, shift=0) ───────────
+// ── Contrast with ADD_ABS_LO12_NC (same imm12 field, shift=0) ───────────
 
 #[test]
 fn ldst8_and_add_produce_identical_imm12() {
-    // LdSt8 is shift=0, identical formula to AddAbsLo12Nc.
+    // LdSt8 is shift=0, identical formula to ADD_ABS_LO12_NC.
     let mut mem_ldst = insn_buf(LDRB);
     let mut mem_add = insn_buf(ADD);
     ldst8_abs_lo12_nc_reloc(0x1_ABC, &mut mem_ldst, 0).unwrap();
