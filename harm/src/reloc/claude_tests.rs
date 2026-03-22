@@ -1309,12 +1309,12 @@ fn mov_w_abs_g0s_positive() {
 
 #[test]
 fn mov_w_abs_g0s_max_positive() {
-    // 0x7FFF = i16::MAX — largest that fits
+    // 0xFFFF = u16::MAX — largest that fits
     let mut mem = insn_buf(MOVZ);
-    movw_sabs_g0_reloc(0x7FFF, &mut mem, 0).unwrap();
+    movw_sabs_g0_reloc(0xFFFF, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVZ);
-    assert_eq!(dec_movw(i), 0x7FFF);
+    assert_eq!(dec_movw(i), 0xFFFF);
 }
 
 #[test]
@@ -1329,12 +1329,12 @@ fn mov_w_abs_g0s_minus_one() {
 
 #[test]
 fn mov_w_abs_g0s_max_negative() {
-    // i16::MIN = −0x8000;  imm = ~(−0x8000)[15:0] = 0x7FFF
+    // ~i16::MIN = −0x8000~;  imm = ~(−0x8000)[15:0] = 0x7FFF
     let mut mem = insn_buf(MOVZ);
-    movw_sabs_g0_reloc(-0x8000, &mut mem, 0).unwrap();
+    movw_sabs_g0_reloc(-0x10000, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVN);
-    assert_eq!(dec_movw(i), 0x7FFF);
+    assert_eq!(dec_movw(i), 0xFFFF);
 }
 
 #[test]
@@ -1349,21 +1349,20 @@ fn mov_w_abs_g0s_negative_value() {
 
 #[test]
 fn mov_w_abs_g0s_overflow_positive() {
-    // 0x8000 > i16::MAX
+    // 0x10000 > u16::MAX
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        movw_sabs_g0_reloc(0x8000, &mut mem, 0),
-        Err(Rel64Error::InvalidValue(_))
+        movw_sabs_g0_reloc(0x10000, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(_))
     ));
 }
 
 #[test]
 fn mov_w_abs_g0s_overflow_negative() {
-    // −0x8001 < i16::MIN
     let mut mem = insn_buf(MOVZ);
     assert!(matches!(
-        movw_sabs_g0_reloc(-0x8001, &mut mem, 0),
-        Err(Rel64Error::InvalidValue(_))
+        movw_sabs_g0_reloc(-0x10001, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(_))
     ));
 }
 
@@ -1425,22 +1424,20 @@ fn mov_w_abs_g1s_positive() {
 
 #[test]
 fn mov_w_abs_g1s_max_positive() {
-    // i32::MAX = 0x7FFF_FFFF;  chunk 1 = 0x7FFF
     let mut mem = insn_buf(MOVZ);
-    movw_sabs_g1_reloc(0x7FFF_FFFF, &mut mem, 0).unwrap();
+    movw_sabs_g1_reloc(0xFFFF_FFFF, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVZ);
-    assert_eq!(dec_movw(i), 0x7FFF);
+    assert_eq!(dec_movw(i), 0xFFFF);
 }
 
 #[test]
 fn mov_w_abs_g1s_negative() {
-    // −0x8000_0000 = i32::MIN;  ~target = 0x7FFF_FFFF;  chunk 1 = 0x7FFF
     let mut mem = insn_buf(MOVZ);
-    movw_sabs_g1_reloc(-0x8000_0000, &mut mem, 0).unwrap();
+    movw_sabs_g1_reloc(-0x10000_0000, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(mov_w_opc(i), MOV_W_OPC_MOVN);
-    assert_eq!(dec_movw(i), 0x7FFF);
+    assert_eq!(dec_movw(i), 0xFFFF);
 }
 
 #[test]
@@ -1455,22 +1452,27 @@ fn mov_w_abs_g1s_negative_value() {
 
 #[test]
 fn mov_w_abs_g1s_overflow_positive() {
-    // 0x8000_0000 = i32::MAX + 1
     let mut mem = insn_buf(MOVZ);
-    assert!(matches!(
-        movw_sabs_g1_reloc(0x8000_0000, &mut mem, 0),
-        Err(Rel64Error::InvalidValue(_))
-    ));
+    assert_eq!(
+        movw_sabs_g1_reloc(0x10000_0000, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Overflow {
+            significant_bits: 17,
+            align: 0
+        }))
+    );
 }
 
 #[test]
 fn mov_w_abs_g1s_overflow_negative() {
     // −0x8000_0001 < i32::MIN
     let mut mem = insn_buf(MOVZ);
-    assert!(matches!(
-        movw_sabs_g1_reloc(-0x8000_0001, &mut mem, 0),
-        Err(Rel64Error::InvalidValue(_))
-    ));
+    assert_eq!(
+        movw_sabs_g1_reloc(-0x10000_0001, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Overflow {
+            significant_bits: 17,
+            align: 0
+        }))
+    );
 }
 
 // ── G2 ───────────────────────────────────────────────────────────────
@@ -1542,22 +1544,26 @@ fn mov_w_abs_g2s_negative() {
 
 #[test]
 fn mov_w_abs_g2s_overflow_positive() {
-    // 2^47 — one above signed 48-bit max (2^47 − 1)
     let mut mem = insn_buf(MOVZ);
-    assert!(matches!(
-        movw_sabs_g2_reloc(0x0000_8000_0000_0000_u64 as i64, &mut mem, 0),
-        Err(Rel64Error::InvalidValue(_))
-    ));
+    assert_eq!(
+        movw_sabs_g2_reloc(0x0001_0000_0000_0000_u64 as i64, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Overflow {
+            significant_bits: 17,
+            align: 0
+        }))
+    );
 }
 
 #[test]
 fn mov_w_abs_g2s_overflow_negative() {
-    // −(2^47 + 1) — one below signed 48-bit min (−2^47)
     let mut mem = insn_buf(MOVZ);
-    assert!(matches!(
-        movw_sabs_g2_reloc(-0x8000_0000_0001_i64, &mut mem, 0),
-        Err(Rel64Error::InvalidValue(_))
-    ));
+    assert_eq!(
+        movw_sabs_g2_reloc(-0x10000_0000_0001_i64, &mut mem, 0),
+        Err(Rel64Error::InvalidBits(BitError::Overflow {
+            significant_bits: 17,
+            align: 0
+        }))
+    );
 }
 
 // ── G3 ───────────────────────────────────────────────────────────────
