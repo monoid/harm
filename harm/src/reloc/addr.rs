@@ -145,6 +145,7 @@ pub fn ldst8_abs_lo12_nc_reloc(
     add_abs_lo12_nc_reloc(symbol, mem, offset)
 }
 
+#[inline]
 pub fn ldst16_abs_lo12_nc_reloc(
     symbol: Addr,
     mem: &mut [u8],
@@ -165,6 +166,7 @@ pub fn ldst16_abs_lo12_nc_reloc(
     Ok(())
 }
 
+#[inline]
 pub fn ldst32_abs_lo12_nc_reloc(
     symbol: Addr,
     mem: &mut [u8],
@@ -185,6 +187,7 @@ pub fn ldst32_abs_lo12_nc_reloc(
     Ok(())
 }
 
+#[inline]
 pub fn ldst64_abs_lo12_nc_reloc(
     symbol: Addr,
     mem: &mut [u8],
@@ -205,6 +208,7 @@ pub fn ldst64_abs_lo12_nc_reloc(
     Ok(())
 }
 
+#[inline]
 pub fn ldst128_abs_lo12_nc_reloc(
     symbol: Addr,
     mem: &mut [u8],

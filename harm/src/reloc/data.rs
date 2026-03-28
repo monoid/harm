@@ -98,6 +98,7 @@ where
 }
 
 // It repeats partially the num-traits crate, but I want the crate to be leaner.
+#[allow(clippy::wrong_self_convention)]
 trait AsPrimitive<Other> {
     fn as_primitive(self) -> Other;
 }

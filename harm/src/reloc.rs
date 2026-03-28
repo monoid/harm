@@ -38,8 +38,6 @@ use crate::bits::BitError;
 #[repr(transparent)]
 pub struct LabelId(pub usize);
 
-// Every offset in an instruction does fit in i32.
-// But "[relocation] is sign-extended to 64 bits".
 pub type Offset = i64;
 
 pub type Addr = u64;
@@ -376,7 +374,6 @@ impl From<BitError> for Rel64Error {
 pub enum Rel64Tag {
     NONE,
     // Static data relocations
-    // ...
     ABS64,
     ABS32,
     ABS16,
@@ -503,7 +500,8 @@ fn get_bytes_mut<const N: usize>(
     Ok(bytes)
 }
 
-/// A function for calculating PC-relative relocation difference S - P, where P is `base + offset` and S is `value`.
+/// A function for calculating PC-relative relocation signed difference S - P, where P is `base + offset` (checked)
+/// and S is `value`.
 pub fn calc_delta(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64Error> {
     let offset64 = offset
         .try_into()
@@ -516,8 +514,8 @@ pub fn calc_delta(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64E
     Ok(value.wrapping_sub(instruction_addr).cast_signed())
 }
 
-/// A function for calculating PC-relative relocation difference Page(S) - Page(P), where P is `base + offset` and S is
-/// `value`.
+/// A function for calculating PC-relative relocation signed difference Page(S) - Page(P), where P is `base + offset`
+/// (checked) and S is `value`.
 ///
 /// Please note that the difference is uses address offsets, i.e. the difference is not divided by page size (4096).
 pub fn calc_page_offset(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64Error> {

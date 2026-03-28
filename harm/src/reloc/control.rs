@@ -18,6 +18,7 @@ const TST_BR_IMM14_WIDTH: u32 = 14u32;
 const COND_BR_IMM19_OFFSET: u32 = 5u32;
 const COND_BR_IMM19_WIDTH: u32 = 19u32;
 
+#[inline]
 pub fn jump26_reloc(
     base: Addr,
     target: Addr,
@@ -49,6 +50,7 @@ pub fn call26_reloc(
     jump26_reloc(base, target, mem, offset)
 }
 
+#[inline]
 pub fn tst_br14_reloc(
     base: Addr,
     target: Addr,
@@ -70,6 +72,7 @@ pub fn tst_br14_reloc(
     Ok(())
 }
 
+#[inline]
 pub fn cond_br19_reloc(
     base: Addr,
     target: Addr,
