@@ -128,7 +128,7 @@ impl RelocatableInstruction for TestBranch<RegOrZero64, TestBranchBit64, LabelRe
             offset: TestBranchOffset::default(),
         }
         .to_code();
-        let rel = Rel64::TstBr14(self.offset.clone());
+        let rel = Rel64::tst_br14(self.offset.clone());
         (code, Some(rel))
     }
 }
@@ -143,7 +143,7 @@ impl RelocatableInstruction for TestBranch<RegOrZero32, TestBranchBit32, LabelRe
             offset: TestBranchOffset::default(),
         }
         .to_code();
-        let rel = Rel64::TstBr14(self.offset.clone());
+        let rel = Rel64::tst_br14(self.offset.clone());
         (code, Some(rel))
     }
 }
@@ -321,7 +321,7 @@ mod tests {
         };
         let (opcode, rel) = tbz(X2, bit, label.clone()).to_code_with_reloc();
         assert_eq!(opcode, tbz(X2, bit, TestBranchOffset::default()).to_code());
-        assert_eq!(rel, Some(Rel64::TstBr14(label)));
+        assert_eq!(rel, Some(Rel64::tst_br14(label)));
     }
 
     #[test]
@@ -333,6 +333,6 @@ mod tests {
         };
         let (opcode, rel) = tbnz(X2, bit, label.clone()).to_code_with_reloc();
         assert_eq!(opcode, tbnz(X2, bit, TestBranchOffset::default()).to_code());
-        assert_eq!(rel, Some(Rel64::TstBr14(label)));
+        assert_eq!(rel, Some(Rel64::tst_br14(label)));
     }
 }
