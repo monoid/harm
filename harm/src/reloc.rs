@@ -63,6 +63,56 @@ impl Rel64 {
     }
 
     #[inline]
+    pub const fn ab_s64(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::ABS64,
+            label,
+        }
+    }
+    #[inline]
+    pub const fn ab_s32(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::ABS32,
+            label,
+        }
+    }
+    #[inline]
+    pub const fn ab_s16(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::ABS16,
+            label,
+        }
+    }
+    #[inline]
+    pub const fn pre_l64(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::PREL64,
+            label,
+        }
+    }
+    #[inline]
+    pub const fn pre_l32(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::PREL32,
+            label,
+        }
+    }
+    #[inline]
+    pub const fn pre_l16(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::PREL16,
+            label,
+        }
+    }
+    #[inline]
+    pub const fn pl_t32(label: LabelRef) -> Self {
+        Self {
+            rel: Rel64Tag::PLT32,
+            label,
+        }
+    }
+
+    #[inline]
     pub const fn ld_prel_lo19(label: LabelRef) -> Self {
         Self {
             rel: Rel64Tag::LD_PREL_LO19,
@@ -333,6 +383,7 @@ pub enum Rel64Tag {
     PREL64,
     PREL32,
     PREL16,
+    PLT32,
 
     // Static AArch64 address relocations
     LD_PREL_LO19,
@@ -396,6 +447,7 @@ impl Rel64Tag {
             Rel64Tag::PREL64 => prel64_reloc(base, value, memory, offset),
             Rel64Tag::PREL32 => prel32_reloc(base, value, memory, offset),
             Rel64Tag::PREL16 => prel16_reloc(base, value, memory, offset),
+            Rel64Tag::PLT32 => plt32_reloc(base, value, memory, offset),
 
             Rel64Tag::LD_PREL_LO19 => ld_prel_lo19_reloc(base, value, memory, offset),
             Rel64Tag::ADR_PREL_LO21 => adr_prel_lo21_reloc(base, value, memory, offset),

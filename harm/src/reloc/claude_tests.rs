@@ -456,6 +456,71 @@ fn prel16_overflow_negative() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════
+// plt32  (base, target, mem, offset)
+//
+//   diff = target − place;  must fit in [i32::MIN, u32::MAX]
+// ═══════════════════════════════════════════════════════════════════════
+
+#[test]
+fn plt32_forward() {
+    let mut mem = [0u8; 4];
+    plt32_reloc(0x4000, 0x5000, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0) as i32, 0x1000);
+}
+
+#[test]
+fn plt32_backward() {
+    // place=0x5000;  diff = 0x4000 − 0x5000 = −0x1000
+    let mut mem = [0u8; 4];
+    plt32_reloc(0x5000, 0x4000, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0) as i32, -0x1000);
+}
+
+#[test]
+fn plt32_max_positive() {
+    // diff = i32::MAX = 0x7FFF_FFFF — just fits
+    let mut mem = [0u8; 4];
+    plt32_reloc(0x0, 0x7FFF_FFFF, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0) as i32, i32::MAX);
+}
+
+#[test]
+fn plt32_max_negative() {
+    // place=0x8000_0000;  diff = 0 − 0x8000_0000 = i32::MIN — just fits
+    let mut mem = [0u8; 4];
+    plt32_reloc(0x8000_0000, 0x0, &mut mem, 0).unwrap();
+    assert_eq!(u32_at(&mem, 0) as i32, i32::MIN);
+}
+
+#[test]
+fn plt32_overflow_positive() {
+    // diff = 0x8000_0000 = i32::MAX + 1: truly out of range.
+    let mut mem = [0u8; 4];
+    assert!(matches!(
+        plt32_reloc(0x0, 0x8000_0000, &mut mem, 0),
+        Err(Rel64Error::InvalidValue(_))
+    ));
+}
+
+#[test]
+fn plt32_overflow_negative() {
+    // place=0x8000_0001;  diff = −0x8000_0001 < i32::MIN
+    let mut mem = [0u8; 4];
+    assert!(matches!(
+        plt32_reloc(0x8000_0001, 0x0, &mut mem, 0),
+        Err(Rel64Error::InvalidValue(_))
+    ));
+}
+
+#[test]
+fn plt32_nonzero_offset() {
+    // base=0x0, offset=8 → place=0x8;  diff=0x1008−0x8=0x1000
+    let mut mem = [0u8; 12];
+    plt32_reloc(0x0, 0x1008, &mut mem, 8).unwrap();
+    assert_eq!(u32_at(&mem, 8) as i32, 0x1000);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
 // ld_prel_lo19  (base, target, mem, offset)
 //
 //   imm19 = (target − place) / 4

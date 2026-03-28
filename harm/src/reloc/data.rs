@@ -5,12 +5,14 @@
 
 use super::{Addr, Rel64Error, calc_delta, get_bytes_mut};
 
+#[inline]
 pub fn abs64_reloc(value: u64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let bytes = get_bytes_mut(mem, offset)?;
     *bytes = value.to_le_bytes();
     Ok(())
 }
 
+#[inline]
 pub fn abs32_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target: u32 = try_unsigned_and_signed::<u32, i32>(value)?;
     let bytes = get_bytes_mut(mem, offset)?;
@@ -18,6 +20,7 @@ pub fn abs32_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel6
     Ok(())
 }
 
+#[inline]
 pub fn abs16_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel64Error> {
     let target: u16 = try_unsigned_and_signed::<u16, i16>(value)?;
     let bytes = get_bytes_mut(mem, offset)?;
@@ -25,6 +28,7 @@ pub fn abs16_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(), Rel6
     Ok(())
 }
 
+#[inline]
 pub fn prel64_reloc(
     base: Addr,
     symbol: Addr,
@@ -37,6 +41,7 @@ pub fn prel64_reloc(
     Ok(())
 }
 
+#[inline]
 pub fn prel32_reloc(
     base: Addr,
     symbol: Addr,
@@ -51,6 +56,7 @@ pub fn prel32_reloc(
     Ok(())
 }
 
+#[inline]
 pub fn prel16_reloc(
     base: Addr,
     symbol: Addr,
@@ -61,6 +67,22 @@ pub fn prel16_reloc(
 
     let delta = calc_delta(base, symbol, offset)?;
     let value = try_unsigned_and_signed::<u16, i16>(delta)?;
+    *bytes = value.to_le_bytes();
+    Ok(())
+}
+
+#[inline]
+pub fn plt32_reloc(
+    base: Addr,
+    symbol: Addr,
+    mem: &mut [u8],
+    offset: usize,
+) -> Result<(), Rel64Error> {
+    let bytes = get_bytes_mut(mem, offset)?;
+
+    let delta = calc_delta(base, symbol, offset)?;
+    // Just like PREL32, but the conversion is more restrictive.
+    let value = i32::try_from(delta)?;
     *bytes = value.to_le_bytes();
     Ok(())
 }
