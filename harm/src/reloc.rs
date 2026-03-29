@@ -61,61 +61,43 @@ impl Rel64 {
     }
 
     #[inline]
-    pub const fn ab_s64(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::ABS64,
-            label,
-        }
+    pub const fn abs64(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::ABS64, label)
     }
+
     #[inline]
-    pub const fn ab_s32(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::ABS32,
-            label,
-        }
+    pub const fn abs32(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::ABS32, label)
     }
+
     #[inline]
-    pub const fn ab_s16(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::ABS16,
-            label,
-        }
+    pub const fn abs16(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::ABS16, label)
     }
+
     #[inline]
-    pub const fn pre_l64(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::PREL64,
-            label,
-        }
+    pub const fn prel64(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::PREL64, label)
     }
+
     #[inline]
-    pub const fn pre_l32(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::PREL32,
-            label,
-        }
+    pub const fn prel32(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::PREL32, label)
     }
+
     #[inline]
-    pub const fn pre_l16(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::PREL16,
-            label,
-        }
+    pub const fn prel16(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::PREL16, label)
     }
+
     #[inline]
-    pub const fn pl_t32(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::PLT32,
-            label,
-        }
+    pub const fn plt32(label: LabelRef) -> Self {
+        Self::new(Rel64Tag::PLT32, label)
     }
 
     #[inline]
     pub const fn ld_prel_lo19(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::LD_PREL_LO19,
-            label,
-        }
+        Self::new(Rel64Tag::LD_PREL_LO19, label)
     }
 
     #[inline]
@@ -165,170 +147,107 @@ impl Rel64 {
 
     #[inline]
     pub const fn cond_br19(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::CONDBR19,
-            label,
-        }
+        Self::new(Rel64Tag::CONDBR19, label)
     }
 
     #[inline]
     pub const fn tst_br14(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::TSTBR14,
-            label,
-        }
+        Self::new(Rel64Tag::TSTBR14, label)
     }
 
     #[inline]
     pub const fn jump26(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::JUMP26,
-            label,
-        }
+        Self::new(Rel64Tag::JUMP26, label)
     }
 
     #[inline]
     pub const fn call26(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::CALL26,
-            label,
-        }
+        Self::new(Rel64Tag::CALL26, label)
     }
 
     #[inline]
     pub const fn movw_uabs_g0(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_UABS_G0,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_UABS_G0, label)
     }
 
     #[inline]
     pub const fn movw_uabs_g0_nc(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_UABS_G0_NC,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_UABS_G0_NC, label)
     }
 
     #[inline]
     pub const fn movw_sabs_g0(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_SABS_G0,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_SABS_G0, label)
     }
 
     #[inline]
     pub const fn movw_uabs_g1(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_UABS_G1,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_UABS_G1, label)
     }
 
     #[inline]
     pub const fn movw_uabs_g1_nc(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_UABS_G1_NC,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_UABS_G1_NC, label)
     }
 
     #[inline]
     pub const fn movw_sabs_g1(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_SABS_G1,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_SABS_G1, label)
     }
 
     #[inline]
     pub const fn movw_uabs_g2(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_UABS_G2,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_UABS_G2, label)
     }
 
     #[inline]
     pub const fn movw_uabs_g2_nc(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_UABS_G2_NC,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_UABS_G2_NC, label)
     }
 
     #[inline]
     pub const fn movw_sabs_g2(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_SABS_G2,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_SABS_G2, label)
     }
 
     #[inline]
     pub const fn movw_uabs_g3(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_UABS_G3,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_UABS_G3, label)
     }
 
     #[inline]
     pub const fn movw_prel_g0(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_PREL_G0,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_PREL_G0, label)
     }
 
     #[inline]
     pub const fn movw_prel_g0_nc(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_PREL_G0_NC,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_PREL_G0_NC, label)
     }
 
     #[inline]
     pub const fn movw_prel_g1(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_PREL_G1,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_PREL_G1, label)
     }
 
     #[inline]
     pub const fn movw_prel_g1_nc(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_PREL_G1_NC,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_PREL_G1_NC, label)
     }
 
     #[inline]
     pub const fn movw_prel_g2(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_PREL_G2,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_PREL_G2, label)
     }
 
     #[inline]
     pub const fn movw_prel_g2_nc(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_PREL_G2_NC,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_PREL_G2_NC, label)
     }
 
     #[inline]
     pub const fn movw_prel_g3(label: LabelRef) -> Self {
-        Self {
-            rel: Rel64Tag::MOVW_PREL_G3,
-            label,
-        }
+        Self::new(Rel64Tag::MOVW_PREL_G3, label)
     }
 }
 

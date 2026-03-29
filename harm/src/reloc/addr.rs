@@ -53,6 +53,7 @@ pub fn ld_prel_lo19_reloc(
     cond_br19_reloc(base, symbol, mem, offset)
 }
 
+#[inline]
 pub fn adr_prel_lo21_reloc(
     base: Addr,
     symbol: Addr,

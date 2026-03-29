@@ -4,7 +4,7 @@
  */
 use aarchmrs_types::InstructionCode;
 
-use super::{Rel64Error, calc_delta, get_bytes_mut};
+use super::{Addr, Rel64Error, calc_delta, get_bytes_mut};
 use crate::bits::SBitValue;
 
 const MOV_OPCODE_OFFSET: u32 = 29;
@@ -92,8 +92,8 @@ pub fn movw_sabs_g2_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(
 
 #[inline]
 pub fn movw_prel_g0_reloc(
-    base: u64,
-    value: u64,
+    base: Addr,
+    value: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -103,8 +103,8 @@ pub fn movw_prel_g0_reloc(
 
 #[inline]
 pub fn movw_prel_g0_nc_reloc(
-    base: u64,
-    value: u64,
+    base: Addr,
+    value: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -114,8 +114,8 @@ pub fn movw_prel_g0_nc_reloc(
 
 #[inline]
 pub fn movw_prel_g1_reloc(
-    base: u64,
-    value: u64,
+    base: Addr,
+    value: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -125,8 +125,8 @@ pub fn movw_prel_g1_reloc(
 
 #[inline]
 pub fn movw_prel_g1_nc_reloc(
-    base: u64,
-    value: u64,
+    base: Addr,
+    value: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -136,8 +136,8 @@ pub fn movw_prel_g1_nc_reloc(
 
 #[inline]
 pub fn movw_prel_g2_reloc(
-    base: u64,
-    value: u64,
+    base: Addr,
+    value: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -147,8 +147,8 @@ pub fn movw_prel_g2_reloc(
 
 #[inline]
 pub fn movw_prel_g2_nc_reloc(
-    base: u64,
-    value: u64,
+    base: Addr,
+    value: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -158,12 +158,15 @@ pub fn movw_prel_g2_nc_reloc(
 
 #[inline]
 pub fn movw_prel_g3_reloc(
-    base: u64,
-    value: u64,
+    base: Addr,
+    value: Addr,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
     let delta = calc_delta(base, value, offset)?;
+    // We implement it as unsigned MOVZ despite the spec saying it should be signed MOVZ/MOVN, because there is no
+    // higher bits in G3 to propagate the sign, so it doesn't make a difference. Also, the correct sign would require
+    // i128 arithmetic, the 63rd bit of the delta is not a sign.
     movw_uabs_g3_reloc(delta as _, mem, offset)
 }
 
