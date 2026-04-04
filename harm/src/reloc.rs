@@ -7,7 +7,7 @@
 //!
 //! This module defines relocation types used by the `harm` project, and code to apply them to instructions.
 //!
-//! There relocations follow the static AArch64 ELF relocation types.  It is important to note that while the spec
+//! These relocations follow the static AArch64 ELF relocation types.  It is important to note that while the spec
 //! uses `S+A` for destination address, this module assumes that `A` is already added to the symbol address.
 //!
 //! The functions do not require the memory to be in place.  The functions' parameters are:
@@ -25,6 +25,8 @@ mod data;
 mod movs;
 
 use ::core::fmt;
+
+use aarchmrs_types::InstructionCode;
 
 pub use self::addr::*;
 pub use self::control::*;
@@ -367,10 +369,8 @@ impl Rel64Tag {
 
             Rel64Tag::LD_PREL_LO19 => ld_prel_lo19_reloc(base, value, memory, offset),
             Rel64Tag::ADR_PREL_LO21 => adr_prel_lo21_reloc(base, value, memory, offset),
-            Rel64Tag::ADR_PREL_PG_HI21 => adrp_prel_pg_hi21_reloc(base, value, memory, offset),
-            Rel64Tag::ADR_PREL_PG_HI21_NC => {
-                adrp_prel_pg_hi21_nc_reloc(base, value, memory, offset)
-            }
+            Rel64Tag::ADR_PREL_PG_HI21 => adr_prel_pg_hi21_reloc(base, value, memory, offset),
+            Rel64Tag::ADR_PREL_PG_HI21_NC => adr_prel_pg_hi21_nc_reloc(base, value, memory, offset),
             Rel64Tag::ADD_ABS_LO12_NC => add_abs_lo12_nc_reloc(value, memory, offset),
 
             Rel64Tag::LDST8_ABS_LO12_NC => ldst8_abs_lo12_nc_reloc(value, memory, offset),

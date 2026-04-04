@@ -33,7 +33,7 @@ fn dec_imm14(insn: u32) -> i32 {
     sign_ext((insn >> 5) & 0x3FFF, 14)
 }
 fn dec_imm19(insn: u32) -> i32 {
-    sign_ext((insn >> 5) & 0x007F_FFFF, 19)
+    sign_ext((insn >> 5) & 0x0007_FFFF, 19)
 }
 fn dec_imm26(insn: u32) -> i32 {
     sign_ext(insn & 0x03FF_FFFF, 26)
@@ -688,7 +688,7 @@ fn adr_prel_lo21_nonzero_offset() {
 fn adrp_same_page() {
     // Both on page 0x1000 → imm21=0
     let mut mem = insn_buf(ADRP);
-    adrp_prel_pg_hi21_reloc(0x1000, 0x1234, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x1000, 0x1234, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 0);
 }
 
@@ -696,7 +696,7 @@ fn adrp_same_page() {
 fn adrp_next_page() {
     // place page=0x1000; target page=0x2000 → imm21=1
     let mut mem = insn_buf(ADRP);
-    adrp_prel_pg_hi21_reloc(0x1ABC, 0x2ABC, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x1ABC, 0x2ABC, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 1);
 }
 
@@ -704,7 +704,7 @@ fn adrp_next_page() {
 fn adrp_prev_page() {
     // place page=0x2000; target page=0x1000 → imm21=−1
     let mut mem = insn_buf(ADRP);
-    adrp_prel_pg_hi21_reloc(0x2ABC, 0x1ABC, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x2ABC, 0x1ABC, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), -1);
 }
 
@@ -713,7 +713,7 @@ fn adrp_max_positive() {
     // imm21 max = (1<<20)−1 page offsets
     // target page = ((1<<20)−1) * 0x1000 = 0xF_FFFF_000
     let mut mem = insn_buf(ADRP);
-    adrp_prel_pg_hi21_reloc(0x0, 0xF_FFFF_FFF, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x0, 0xF_FFFF_FFF, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), (1 << 20) - 1);
 }
 
@@ -722,7 +722,7 @@ fn adrp_max_negative() {
     // imm21 min = −(1<<20);  page diff = −(1<<20)
     // place page = (1<<20)*0x1000 = 0x10_0000_000;  target=0
     let mut mem = insn_buf(ADRP);
-    adrp_prel_pg_hi21_reloc(0x10_0000_000, 0x0, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x10_0000_000, 0x0, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), -(1 << 20));
 }
 
@@ -730,7 +730,7 @@ fn adrp_max_negative() {
 fn adrp_overflow_positive() {
     let mut mem = [0u8; 4];
     assert!(matches!(
-        adrp_prel_pg_hi21_reloc(0x0, 0x1_0000_0000_0000, &mut mem, 0),
+        adr_prel_pg_hi21_reloc(0x0, 0x1_0000_0000_0000, &mut mem, 0),
         // TODO Unsupported seems to have obsure semantics.
         Err(Rel64Error::InvalidBits(BitError::Unsupported))
     ));
@@ -740,7 +740,7 @@ fn adrp_overflow_positive() {
 fn adrp_overflow_negative() {
     let mut mem = [0u8; 4];
     assert!(matches!(
-        adrp_prel_pg_hi21_reloc(0x1_0000_0000_0000, 0x0, &mut mem, 0),
+        adr_prel_pg_hi21_reloc(0x1_0000_0000_0000, 0x0, &mut mem, 0),
         // TODO Unsupported seems to have obsure semantics.
         // Actually it should be BitError::Overflow.
         Err(Rel64Error::InvalidBits(BitError::Unsupported))
@@ -751,8 +751,8 @@ fn adrp_overflow_negative() {
 fn adrp_nc_identical_to_checked_in_range() {
     let mut mc = insn_buf(ADRP);
     let mut mn = insn_buf(ADRP);
-    adrp_prel_pg_hi21_reloc(0x1000, 0x5678, &mut mc, 0).unwrap();
-    adrp_prel_pg_hi21_nc_reloc(0x1000, 0x5678, &mut mn, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x1000, 0x5678, &mut mc, 0).unwrap();
+    adr_prel_pg_hi21_nc_reloc(0x1000, 0x5678, &mut mn, 0).unwrap();
     assert_eq!(mc, mn);
 }
 
@@ -760,7 +760,7 @@ fn adrp_nc_identical_to_checked_in_range() {
 fn adrp_nc_no_overflow() {
     // Would be rejected by the checked variant; NC silently truncates
     let mut mem = [0u8; 4];
-    adrp_prel_pg_hi21_nc_reloc(0x0, 0x1_0000_0000_0000, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_nc_reloc(0x0, 0x1_0000_0000_0000, &mut mem, 0).unwrap();
 }
 
 #[test]
@@ -769,7 +769,7 @@ fn adrp_nonzero_offset() {
     // target=0x3ABC → page=0x3000;  imm21=2
     let mut mem = [0u8; 8];
     mem[4..8].copy_from_slice(&ADRP.to_le_bytes());
-    adrp_prel_pg_hi21_reloc(0x0FFC, 0x3ABC, &mut mem, 4).unwrap();
+    adr_prel_pg_hi21_reloc(0x0FFC, 0x3ABC, &mut mem, 4).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 4)), 2);
 }
 
@@ -783,7 +783,7 @@ fn lo12_target_below_lo12_place_typical() {
     //   correct: (0x4_000 - 0x2_000) >> 12 = 2
     //   buggy:   Page(0x4_300 - 0x2_A00) = Page(0x1_900) >> 12 = 1
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_reloc(0x2_A00, 0x4_300, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x2_A00, 0x4_300, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
 }
 
@@ -797,7 +797,7 @@ fn lo12_target_one_lo12_place_max() {
     //   correct: (0x3_000 - 0x1_000) >> 12 = 2
     //   buggy:   Page(0x3_001 - 0x1_FFF) = Page(0x1_002) >> 12 = 1
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_reloc(0x1_FFF, 0x3_001, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x1_FFF, 0x3_001, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
 }
 
@@ -811,7 +811,7 @@ fn lo12_target_zero_lo12_place_nonzero() {
     //   correct: (0x5_000 - 0x3_000) >> 12 = 2
     //   buggy:   Page(0x5_000 - 0x3_001) = Page(0x1_FFF) >> 12 = 1
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_reloc(0x3_001, 0x5_000, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x3_001, 0x5_000, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
 }
 
@@ -826,7 +826,7 @@ fn lo12_target_below_lo12_place_negative_imm() {
     //   buggy:   Page(0x1_200 - 0x3_800) wrapping = Page(…E400) >> 12
     //            interpreted as signed: -3  ← one page off
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_reloc(0x3_800, 0x1_200, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x3_800, 0x1_200, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), -2);
 }
 
@@ -844,7 +844,7 @@ fn lo12_target_below_lo12_place_with_offset() {
     //   buggy:   Page(0x4_300 - 0x2_600) = Page(0x1_D00) >> 12 = 1
     let mut mem = [0u8; 8];
     mem[4..8].copy_from_slice(&ADRP.to_le_bytes());
-    adrp_prel_pg_hi21_reloc(0x2_600, 0x4_300, &mut mem, 4).unwrap();
+    adr_prel_pg_hi21_reloc(0x2_600, 0x4_300, &mut mem, 4).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 4)), 2);
 }
 
@@ -855,21 +855,21 @@ fn lo12_target_below_lo12_place_with_offset() {
 #[test]
 fn nc_lo12_target_below_lo12_place_typical() {
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_nc_reloc(0x2_A00, 0x4_300, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_nc_reloc(0x2_A00, 0x4_300, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
 }
 
 #[test]
 fn nc_lo12_target_zero_lo12_place_nonzero() {
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_nc_reloc(0x3_001, 0x5_000, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_nc_reloc(0x3_001, 0x5_000, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
 }
 
 #[test]
 fn nc_lo12_target_below_lo12_place_negative_imm() {
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_nc_reloc(0x3_800, 0x1_200, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_nc_reloc(0x3_800, 0x1_200, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), -2);
 }
 
@@ -883,7 +883,7 @@ fn nc_lo12_target_below_lo12_place_negative_imm() {
 fn sanity_lo12_equal_formulas_agree() {
     // lo12(S+A) = lo12(P) = 0x500  →  no divergence, imm = 2
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_reloc(0x2_500, 0x4_500, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x2_500, 0x4_500, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
 }
 
@@ -891,7 +891,7 @@ fn sanity_lo12_equal_formulas_agree() {
 fn sanity_lo12_target_above_lo12_place_formulas_agree() {
     // lo12(S+A) = 0xF00 > lo12(P) = 0x100  →  no divergence, imm = 2
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_reloc(0x2_100, 0x4_F00, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x2_100, 0x4_F00, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
 }
 
@@ -899,7 +899,7 @@ fn sanity_lo12_target_above_lo12_place_formulas_agree() {
 fn sanity_page_aligned_place_formulas_always_agree() {
     // lo12(P) = 0  →  condition lo12(target) < lo12(place) can never hold
     let mut mem = ADRP.to_le_bytes();
-    adrp_prel_pg_hi21_reloc(0x2_000, 0x4_300, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x2_000, 0x4_300, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), 2);
 }
 

@@ -70,7 +70,7 @@ pub fn adr_prel_lo21_reloc(
 }
 
 #[inline]
-pub fn adrp_prel_pg_hi21_reloc(
+pub fn adr_prel_pg_hi21_reloc(
     base: Addr,
     symbol: Addr,
     mem: &mut [u8],
@@ -88,7 +88,7 @@ pub fn adrp_prel_pg_hi21_reloc(
 }
 
 #[inline]
-pub fn adrp_prel_pg_hi21_nc_reloc(
+pub fn adr_prel_pg_hi21_nc_reloc(
     base: Addr,
     symbol: Addr,
     mem: &mut [u8],
