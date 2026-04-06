@@ -452,6 +452,14 @@ pub fn calc_page_offset(base: u64, value: u64, offset: usize) -> Result<Offset, 
         .cast_signed())
 }
 
+#[inline]
+fn patch_instruction_bits<const OFFSET: u32, const WIDTH: u32>(bytes: &mut [u8; 4], value: u32) {
+    let inst = InstructionCode(*bytes);
+    let mask = ((1 << WIDTH) - 1) << OFFSET;
+    let value_shifted = (value << OFFSET) & mask;
+    *bytes = InstructionCode::from_u32((inst.unpack() & !mask) | value_shifted).0;
+}
+
 #[cfg(test)]
 mod claude_tests;
 
