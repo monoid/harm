@@ -188,7 +188,7 @@ fn abs32_max() {
 fn abs32_overflow() {
     let mut mem = [0u8; 4];
     assert!(matches!(
-        abs32_reloc(0x1_0000_0000 as i64, &mut mem, 0),
+        abs32_reloc(0x1_0000_0000i64, &mut mem, 0),
         Err(Rel64Error::InvalidValue(_))
     ));
 }
@@ -713,7 +713,7 @@ fn adrp_max_positive() {
     // imm21 max = (1<<20)−1 page offsets
     // target page = ((1<<20)−1) * 0x1000 = 0xF_FFFF_000
     let mut mem = insn_buf(ADRP);
-    adr_prel_pg_hi21_reloc(0x0, 0xF_FFFF_FFF, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x0, 0xFFFF_FFFF, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), (1 << 20) - 1);
 }
 
@@ -722,7 +722,7 @@ fn adrp_max_negative() {
     // imm21 min = −(1<<20);  page diff = −(1<<20)
     // place page = (1<<20)*0x1000 = 0x10_0000_000;  target=0
     let mut mem = insn_buf(ADRP);
-    adr_prel_pg_hi21_reloc(0x10_0000_000, 0x0, &mut mem, 0).unwrap();
+    adr_prel_pg_hi21_reloc(0x1_0000_0000, 0x0, &mut mem, 0).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 0)), -(1 << 20));
 }
 
@@ -1499,7 +1499,7 @@ fn mov_w_abs_g1s_max_positive() {
 #[test]
 fn mov_w_abs_g1s_negative() {
     let mut mem = insn_buf(MOVZ);
-    movw_sabs_g1_reloc(-0x10000_0000, &mut mem, 0).unwrap();
+    movw_sabs_g1_reloc(-0x1_0000_0000, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
     assert_eq!(movw_opc(i), MOVW_OPC_MOVN);
     assert_eq!(dec_movw(i), 0xFFFF);
@@ -1519,7 +1519,7 @@ fn mov_w_abs_g1s_negative_value() {
 fn mov_w_abs_g1s_overflow_positive() {
     let mut mem = insn_buf(MOVZ);
     assert_eq!(
-        movw_sabs_g1_reloc(0x10000_0000, &mut mem, 0),
+        movw_sabs_g1_reloc(0x1_0000_0000, &mut mem, 0),
         Err(Rel64Error::InvalidBits(BitError::Overflow {
             significant_bits: 17,
             align: 0
@@ -1532,7 +1532,7 @@ fn mov_w_abs_g1s_overflow_negative() {
     // −0x8000_0001 < i32::MIN
     let mut mem = insn_buf(MOVZ);
     assert_eq!(
-        movw_sabs_g1_reloc(-0x10000_0001, &mut mem, 0),
+        movw_sabs_g1_reloc(-0x1_0000_0001, &mut mem, 0),
         Err(Rel64Error::InvalidBits(BitError::Overflow {
             significant_bits: 17,
             align: 0
@@ -1611,7 +1611,7 @@ fn mov_w_abs_g2s_negative() {
 fn mov_w_abs_g2s_overflow_positive() {
     let mut mem = insn_buf(MOVZ);
     assert_eq!(
-        movw_sabs_g2_reloc(0x0001_0000_0000_0000_u64 as i64, &mut mem, 0),
+        movw_sabs_g2_reloc(0x1_0000_0000_0000_u64 as i64, &mut mem, 0),
         Err(Rel64Error::InvalidBits(BitError::Overflow {
             significant_bits: 17,
             align: 0
@@ -1623,7 +1623,7 @@ fn mov_w_abs_g2s_overflow_positive() {
 fn mov_w_abs_g2s_overflow_negative() {
     let mut mem = insn_buf(MOVZ);
     assert_eq!(
-        movw_sabs_g2_reloc(-0x10000_0000_0001_i64, &mut mem, 0),
+        movw_sabs_g2_reloc(-0x1_0000_0000_0001_i64, &mut mem, 0),
         Err(Rel64Error::InvalidBits(BitError::Overflow {
             significant_bits: 17,
             align: 0
@@ -2311,12 +2311,13 @@ fn movw_prel_g3_forward() {
 
 #[test]
 fn movw_prel_g3_backward() {
-    // diff wrapping: 0 − 0x1000_0000_0000_0000 = −0x1000_0000_0000_0000
-    // MOVN chunk 3: ~(−0x1000_0000_0000_0000) >> 48 & 0xFFFF = 0x0FFF
+    // diff wrapping: 0 − 0x1000_0000_0000_0000 = −0x1000_0000_0000_0000 = 0xF000_0000_0000_0000
+    // MOVN chunk 3: (0xF000_0000_0000_0000 >> 48) & 0xFFFF = 0xF000
     let mut mem = insn_buf(MOVZ);
-    movw_prel_g3_reloc(0x0, 0x1000_0000_0000_0000, &mut mem, 0).unwrap();
+    movw_prel_g3_reloc(0x1000_0000_0000_0000, 0x0, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
-    assert_eq!(dec_movw(i), 0x1000);
+    assert_eq!(movw_opc(i), MOVW_OPC_MOVZ);
+    assert_eq!(dec_movw(i), 0xF000);
 }
 
 #[test]
