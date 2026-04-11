@@ -67,6 +67,7 @@ pub type ScaledOffset8 = UBitValue<12, 0>;
 pub type ScaledOffset16 = UBitValue<12, 1>;
 pub type ScaledOffset32 = UBitValue<12, 2>;
 pub type ScaledOffset64 = UBitValue<12, 3>;
+pub type ScaledOffset128 = UBitValue<12, 4>;
 
 pub type UnscaledOffset = SBitValue<9>;
 
