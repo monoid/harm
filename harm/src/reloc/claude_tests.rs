@@ -731,7 +731,7 @@ fn adrp_overflow_positive() {
     let mut mem = [0u8; 4];
     assert!(matches!(
         adr_prel_pg_hi21_reloc(0x0, 0x1_0000_0000_0000, &mut mem, 0),
-        // TODO Unsupported seems to have obsure semantics.
+        // TODO Unsupported seems to have obscure semantics.
         Err(Rel64Error::InvalidBits(BitError::Unsupported))
     ));
 }
@@ -741,7 +741,7 @@ fn adrp_overflow_negative() {
     let mut mem = [0u8; 4];
     assert!(matches!(
         adr_prel_pg_hi21_reloc(0x1_0000_0000_0000, 0x0, &mut mem, 0),
-        // TODO Unsupported seems to have obsure semantics.
+        // TODO Unsupported seems to have obscure semantics.
         // Actually it should be BitError::Overflow.
         Err(Rel64Error::InvalidBits(BitError::Unsupported))
     ),);
@@ -773,7 +773,7 @@ fn adrp_nonzero_offset() {
     assert_eq!(dec_imm21_adr(u32_at(&mem, 4)), 2);
 }
 
-// Additionaly ADRP tests
+// Additional ADRP tests
 #[test]
 fn lo12_target_below_lo12_place_typical() {
     // S+A = 0x4_300  →  Page(S+A) = 0x4_000  (lo12 = 0x300)
@@ -1394,7 +1394,7 @@ fn mov_w_abs_g0s_minus_one() {
 
 #[test]
 fn mov_w_abs_g0s_max_negative() {
-    // ~i16::MIN = −0x8000~;  imm = ~(−0x8000)[15:0] = 0x7FFF
+    // -(1 << 16) = -0x10000;  imm = ~(-0x10000)[15:0] = 0xFFFF
     let mut mem = insn_buf(MOVZ);
     movw_sabs_g0_reloc(-0x10000, &mut mem, 0).unwrap();
     let i = u32_at(&mem, 0);
