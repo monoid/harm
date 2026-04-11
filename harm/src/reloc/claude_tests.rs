@@ -836,15 +836,14 @@ fn lo12_target_below_lo12_place_with_offset() {
     // (With the current impl signature, pass the pre-computed place directly;
     // here offset advances within the buffer, not changing the place value.)
     //
-    // place = 0x2_600  (lo12 = 0x600)
+    // place = 0x2_000  (lo12 = 0xFFF)
     // S+A   = 0x4_300  (lo12 = 0x300)
     //
-    // 0x300 < 0x600:
     //   correct: (0x4_000 - 0x2_000) >> 12 = 2
-    //   buggy:   Page(0x4_300 - 0x2_600) = Page(0x1_D00) >> 12 = 1
+    //   buggy:   Page(0x4_300) - Page(0x1_FFC) = 3
     let mut mem = [0u8; 8];
     mem[4..8].copy_from_slice(&ADRP.to_le_bytes());
-    adr_prel_pg_hi21_reloc(0x2_600, 0x4_300, &mut mem, 4).unwrap();
+    adr_prel_pg_hi21_reloc(0x2_000 - 4, 0x4_300, &mut mem, 4).unwrap();
     assert_eq!(dec_imm21_adr(u32_at(&mem, 4)), 2);
 }
 
@@ -2064,7 +2063,8 @@ fn ldst8_and_add_produce_identical_imm12() {
 // movw_prel_{g0,g0_nc,g1,g1_nc,g2,g2_nc,g3}  (target, place, mem, offset)
 //
 //   diff = target − place  (wrapping)
-//   Encoding: diff >= 0 → MOVZ with chunk k; diff < 0 → MOVN with ~diff chunk k.
+//   Encoding: diff >= 0 → MOVZ with chunk k; diff < 0 → MOVN with ~diff chunk k;
+//             for G3 it is always MOVZ.
 //   Ranges (checked variants): G0 [−2^16, 2^16−1], G1 [−2^32, 2^32−1],
 //                               G2 [−2^48, 2^48−1], G3 always fits.
 // ═══════════════════════════════════════════════════════════════════════
