@@ -5,7 +5,7 @@
 
 use std::collections::HashMap;
 
-use harm::reloc::{Rel64, Rel64Error};
+use harm::reloc::{Addr64, Rel64, Rel64Error};
 
 #[derive(Debug, thiserror::Error)]
 pub enum BuilderError {
@@ -23,11 +23,11 @@ pub enum BuilderError {
 /// and then move data to real position later.
 pub struct Builder<'mem> {
     mem: &'mem mut [u8], // real memory
-    base: u64,           // virtual base, on ARM system usually matches with `mem` start
+    base: Addr64,           // virtual base, on ARM system usually matches with `mem` start
 }
 
 impl<'mem> Builder<'mem> {
-    pub fn new(mem: &'mem mut [u8], base: u64) -> Self {
+    pub fn new(mem: &'mem mut [u8], base: Addr64) -> Self {
         Self { mem, base }
     }
 

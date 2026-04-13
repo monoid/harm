@@ -5,6 +5,8 @@
 
 use std::convert::Infallible;
 
+use harm::reloc::Addr64;
+
 use super::{FixedMemory, Memory};
 
 #[derive(thiserror::Error, Debug)]
@@ -103,6 +105,11 @@ impl FixedMemory for Mmap2FixedMemory {
 
     type ExecutableMemoryError = std::io::Error;
 
+    // TODO makes sense only on AArch64.
+    fn get_base_address(&self) -> Addr64 {
+        self.0.as_ptr() as Addr64
+    }
+    
     #[inline]
     fn into_executable_memory(self) -> Result<Self::ExecutableMemory, Self::ExecutableMemoryError> {
         self.0.make_exec()

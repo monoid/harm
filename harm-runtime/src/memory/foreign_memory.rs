@@ -73,6 +73,7 @@ impl ForeignMemory {
     pub fn base_addr(&self) -> Addr64 {
         self.base_addr
     }
+
     pub fn into_inner(self) -> (Addr64, alloc::vec::Vec<u8>) {
         (self.base_addr, self.mem)
     }

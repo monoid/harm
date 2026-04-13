@@ -6,6 +6,8 @@
 #[cfg(feature = "memmap2")]
 mod memmap2;
 
+use harm::reloc::Addr64;
+
 #[cfg(feature = "memmap2")]
 pub use self::memmap2::{Mmap2Buffer, Mmap2FixedMemory};
 
@@ -48,6 +50,7 @@ pub trait FixedMemory: AsMut<[u8]> {
     type ExecutableMemory;
     type ExecutableMemoryError;
 
+    fn get_base_address(&self) -> Addr64;
     fn into_executable_memory(self) -> Result<Self::ExecutableMemory, Self::ExecutableMemoryError>;
 }
 
