@@ -3,9 +3,8 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use std::borrow::Cow;
 use std::io;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use aarchmrs_parser::instructions::{
     Encodeset, InstructionGroup, InstructionGroupOrInstruction, License,
@@ -35,19 +34,19 @@ pub fn gen_instructions(
     cache_dir: &Path,
     r#mod: bool,
     doc_file: Option<&Path>,
-    archive_path: Option<&Path>,
+    archive_path: Option<PathBuf>,
 ) -> Result<(), DownloadError> {
     let archive_path = match archive_path {
         Some(archive_path) => {
-            if is_valid_archive(archive_path) {
-                Cow::Borrowed(archive_path)
+            if is_valid_archive(&archive_path) {
+                archive_path
             } else {
                 return Err(DownloadError::Io(io::Error::other(
                     "The archive file doesn't match the parameters or doesn't exist",
                 )));
             }
         }
-        None => Cow::Owned(ensure_archive(cache_dir)?),
+        None => ensure_archive(cache_dir)?,
     };
 
     let gz_archive_file = std::fs::File::open(archive_path)?;

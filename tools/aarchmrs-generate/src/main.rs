@@ -31,7 +31,7 @@ fn main() -> eyre::Result<()> {
         &temp_dir,
         args.r#mod,
         args.doc_file.as_deref(),
-        args.archive_file.as_deref(),
+        args.archive_file,
     )
     .unwrap();
 
