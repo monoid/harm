@@ -45,7 +45,7 @@ fn download_archive(archive_file: &Path) -> Result<(), DownloadError> {
     Ok(())
 }
 
-fn is_valid_archive(archive_file: &Path) -> bool {
+pub(crate) fn is_valid_archive(archive_file: &Path) -> bool {
     if !std::fs::exists(archive_file).unwrap_or(false) {
         return false;
     }

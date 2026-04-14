@@ -3,12 +3,14 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
+use std::borrow::Cow;
 use std::io;
 use std::path::Path;
 
 use aarchmrs_parser::instructions::{
     Encodeset, InstructionGroup, InstructionGroupOrInstruction, License,
 };
+use downloads::is_valid_archive;
 use itertools::Itertools;
 use proc_macro2::TokenStream;
 
@@ -33,8 +35,20 @@ pub fn gen_instructions(
     cache_dir: &Path,
     r#mod: bool,
     doc_file: Option<&Path>,
+    archive_path: Option<&Path>,
 ) -> Result<(), DownloadError> {
-    let archive_path = ensure_archive(cache_dir)?;
+    let archive_path = match archive_path {
+        Some(archive_path) => {
+            if is_valid_archive(archive_path) {
+                Cow::Borrowed(archive_path)
+            } else {
+                return Err(DownloadError::Io(io::Error::other(
+                    "The archive file doesn't match the parameters or doesn't exist",
+                )));
+            }
+        }
+        None => Cow::Owned(ensure_archive(cache_dir)?),
+    };
 
     let gz_archive_file = std::fs::File::open(archive_path)?;
     let tar_file = flate2::read::GzDecoder::new(gz_archive_file);

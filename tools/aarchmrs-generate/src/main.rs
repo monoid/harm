@@ -8,8 +8,13 @@ use std::path::PathBuf;
 
 #[derive(Parser, Debug)]
 struct Args {
-    #[clap(long)]
+    #[clap(
+        long,
+        help = "Generate mod.rs instead of lib.rs file for the root module"
+    )]
     r#mod: bool,
+    #[clap(long, help = "Archive file")]
+    archive_file: Option<PathBuf>,
     #[clap(long)]
     temp_dir: Option<PathBuf>,
     #[clap(long)]
@@ -26,6 +31,7 @@ fn main() -> eyre::Result<()> {
         &temp_dir,
         args.r#mod,
         args.doc_file.as_deref(),
+        args.archive_file.as_deref(),
     )
     .unwrap();
 
