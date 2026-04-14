@@ -20,10 +20,10 @@ mod encoding;
 mod generation;
 mod stack;
 
-pub const AARCHMRS_2025_12_URL: &str = "https://developer.arm.com/-/cdn-downloads/permalink/Exploration-Tools-OS-Machine-Readable-Data/AARCHMRS_BSD/AARCHMRS_OPENSOURCE_A_profile_FAT-2025-12.tar.gz";
-pub const AARCHMRS_2025_12_FILE: &str = "AARCHMRS_OPENSOURCE_A_profile_FAT-2025-12.tar.gz";
-pub const AARCHMRS_2025_12_MD5: [u8; 16] = hex_literal::hex!("89828523b3ec54597d23a1bd1cf483e7");
-pub const AARCHMRS_2025_12_SIZE: u64 = 5_371_270;
+pub const AARCHMRS_2026_03_URL: &str = "https://developer.arm.com/-/cdn-downloads/permalink/Exploration-Tools-OS-Machine-Readable-Data/AARCHMRS_BSD/AARCHMRS_OPENSOURCE_A_profile_FAT-2026-03.tar.gz";
+pub const AARCHMRS_2026_03_FILE: &str = "AARCHMRS_OPENSOURCE_A_profile_FAT-2026-03.tar.gz";
+pub const AARCHMRS_2026_03_MD5: [u8; 16] = hex_literal::hex!("bffb39150432bb7e15be722a29625d0c");
+pub const AARCHMRS_2026_03_SIZE: u64 = 5_341_284;
 pub const AARCHMRS_INSTRUCTIONS_FILE: &str = "Instructions.json";
 
 const FEATURES: [&str; 3] = ["A64", "A32", "T32"];

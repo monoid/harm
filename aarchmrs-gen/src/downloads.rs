@@ -7,7 +7,7 @@ use std::io;
 use std::path::{Path, PathBuf};
 
 use crate::{
-    AARCHMRS_2025_12_FILE, AARCHMRS_2025_12_MD5, AARCHMRS_2025_12_SIZE, AARCHMRS_2025_12_URL,
+    AARCHMRS_2026_03_FILE, AARCHMRS_2026_03_MD5, AARCHMRS_2026_03_SIZE, AARCHMRS_2026_03_URL,
 };
 use md5::{Digest, Md5};
 
@@ -20,7 +20,7 @@ pub enum DownloadError {
 }
 
 pub(crate) fn ensure_archive(cache_dir: &Path) -> Result<PathBuf, DownloadError> {
-    let archive_file = cache_dir.join(AARCHMRS_2025_12_FILE);
+    let archive_file = cache_dir.join(AARCHMRS_2026_03_FILE);
     if !is_valid_archive(&archive_file) {
         eprintln!("Downloading an archive file...");
         download_archive(&archive_file)?;
@@ -37,7 +37,7 @@ fn download_archive(archive_file: &Path) -> Result<(), DownloadError> {
     let _ = std::fs::remove_file(archive_file);
     let _ = std::fs::remove_dir(archive_file);
 
-    let mut req = ureq::get(AARCHMRS_2025_12_URL).call()?;
+    let mut req = ureq::get(AARCHMRS_2026_03_URL).call()?;
     let mut body_reader = req.body_mut().as_reader();
     let mut out_file = std::fs::File::create(archive_file)?;
 
@@ -53,7 +53,7 @@ fn is_valid_archive(archive_file: &Path) -> bool {
         Ok(mut file) => {
             match file.metadata() {
                 Ok(metadata) => {
-                    if metadata.len() != AARCHMRS_2025_12_SIZE {
+                    if metadata.len() != AARCHMRS_2026_03_SIZE {
                         return false;
                     }
                     if !metadata.is_file() {
@@ -70,7 +70,7 @@ fn is_valid_archive(archive_file: &Path) -> bool {
             };
 
             let md5 = hasher.finalize();
-            md5[..] == AARCHMRS_2025_12_MD5
+            md5[..] == AARCHMRS_2026_03_MD5
         }
         Err(_err) => false,
     }
