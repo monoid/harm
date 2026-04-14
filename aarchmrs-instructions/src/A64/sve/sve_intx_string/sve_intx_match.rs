@@ -1,11 +1,11 @@
-/* Copyright (c) 2010-2025 Arm Limited or its affiliates. All rights reserved.
+/* Copyright (c) 2010-2026 Arm Limited or its affiliates. All rights reserved.
  *
  * This document is Non-confidential and licensed under the BSD 3-clause license.
  */
 
 pub mod match_p_p_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111101000001110000000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000101001000001000000000000000u32;
     #[cfg(feature = "meta")]
@@ -38,21 +38,21 @@ pub mod match_p_p_zz_ {
     pub const FIELD_Zm_WIDTH: u32 = 5u32;
     #[cfg(feature = "meta_field")]
     #[allow(nonstandard_style)]
-    pub const FIELD_size_OFFSET: u32 = 22u32;
+    pub const FIELD_sz_OFFSET: u32 = 22u32;
     #[cfg(feature = "meta_field")]
     #[allow(nonstandard_style)]
-    pub const FIELD_size_WIDTH: u32 = 2u32;
+    pub const FIELD_sz_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn match_p_p_zz_(
-        size: ::aarchmrs_types::BitValue<2>,
+        sz: ::aarchmrs_types::BitValue<1>,
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000101u32 << 24u32
-                | size.into_inner() << 22u32
+            0b010001010u32 << 23u32
+                | sz.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
                 | 0b100u32 << 13u32
@@ -65,7 +65,7 @@ pub mod match_p_p_zz_ {
 }
 pub mod nmatch_p_p_zz_ {
     #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111001000001110000000010000u32;
+    pub const OPCODE_MASK: u32 = 0b11111111101000001110000000010000u32;
     #[cfg(feature = "meta")]
     pub const OPCODE: u32 = 0b01000101001000001000000000010000u32;
     #[cfg(feature = "meta")]
@@ -98,21 +98,21 @@ pub mod nmatch_p_p_zz_ {
     pub const FIELD_Zm_WIDTH: u32 = 5u32;
     #[cfg(feature = "meta_field")]
     #[allow(nonstandard_style)]
-    pub const FIELD_size_OFFSET: u32 = 22u32;
+    pub const FIELD_sz_OFFSET: u32 = 22u32;
     #[cfg(feature = "meta_field")]
     #[allow(nonstandard_style)]
-    pub const FIELD_size_WIDTH: u32 = 2u32;
+    pub const FIELD_sz_WIDTH: u32 = 1u32;
     #[inline]
     pub const fn nmatch_p_p_zz_(
-        size: ::aarchmrs_types::BitValue<2>,
+        sz: ::aarchmrs_types::BitValue<1>,
         Zm: ::aarchmrs_types::BitValue<5>,
         Pg: ::aarchmrs_types::BitValue<3>,
         Zn: ::aarchmrs_types::BitValue<5>,
         Pd: ::aarchmrs_types::BitValue<4>,
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
-            0b01000101u32 << 24u32
-                | size.into_inner() << 22u32
+            0b010001010u32 << 23u32
+                | sz.into_inner() << 22u32
                 | 0b1u32 << 21u32
                 | Zm.into_inner() << 16u32
                 | 0b100u32 << 13u32

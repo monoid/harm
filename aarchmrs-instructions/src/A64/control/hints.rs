@@ -1,42 +1,8 @@
-/* Copyright (c) 2010-2025 Arm Limited or its affiliates. All rights reserved.
+/* Copyright (c) 2010-2026 Arm Limited or its affiliates. All rights reserved.
  *
  * This document is Non-confidential and licensed under the BSD 3-clause license.
  */
 
-pub mod HINT_HM_hints {
-    #[cfg(feature = "meta")]
-    pub const OPCODE_MASK: u32 = 0b11111111111111111111000000011111u32;
-    #[cfg(feature = "meta")]
-    pub const OPCODE: u32 = 0b11010101000000110010000000011111u32;
-    #[cfg(feature = "meta")]
-    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
-    #[cfg(feature = "meta")]
-    pub const NAME: &str = "HINT_HM_hints";
-    #[cfg(feature = "meta_field")]
-    #[allow(nonstandard_style)]
-    pub const FIELD_op2_OFFSET: u32 = 5u32;
-    #[cfg(feature = "meta_field")]
-    #[allow(nonstandard_style)]
-    pub const FIELD_op2_WIDTH: u32 = 3u32;
-    #[cfg(feature = "meta_field")]
-    #[allow(nonstandard_style)]
-    pub const FIELD_CRm_OFFSET: u32 = 8u32;
-    #[cfg(feature = "meta_field")]
-    #[allow(nonstandard_style)]
-    pub const FIELD_CRm_WIDTH: u32 = 4u32;
-    #[inline]
-    pub const fn HINT_HM_hints(
-        CRm: ::aarchmrs_types::BitValue<4>,
-        op2: ::aarchmrs_types::BitValue<3>,
-    ) -> ::aarchmrs_types::InstructionCode {
-        ::aarchmrs_types::InstructionCode::from_u32(
-            0b11010101000000110010u32 << 12u32
-                | CRm.into_inner() << 8u32
-                | op2.into_inner() << 5u32
-                | 0b11111u32 << 0u32,
-        )
-    }
-}
 pub mod NOP_HI_hints {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111111111111111111111u32;
@@ -513,5 +479,39 @@ pub mod STCPH_HI_hints {
     #[inline]
     pub const fn STCPH_HI_hints() -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(0b11010101000000110010011010011111u32 << 0u32)
+    }
+}
+pub mod HINT_HM_hints {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111000000011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11010101000000110010000000011111u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "HINT_HM_hints";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_op2_WIDTH: u32 = 3u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_OFFSET: u32 = 8u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_CRm_WIDTH: u32 = 4u32;
+    #[inline]
+    pub const fn HINT_HM_hints(
+        CRm: ::aarchmrs_types::BitValue<4>,
+        op2: ::aarchmrs_types::BitValue<3>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11010101000000110010u32 << 12u32
+                | CRm.into_inner() << 8u32
+                | op2.into_inner() << 5u32
+                | 0b11111u32 << 0u32,
+        )
     }
 }
