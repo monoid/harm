@@ -16,5 +16,6 @@ memmap2 = { version = "0.9.9", optional = true }
 thiserror = "2.0.18"
 
 [features]
-default = ["memmap2"]
+default = ["memmap2", "alloc"]
 memmap2 = ["dep:memmap2"]
+alloc = []

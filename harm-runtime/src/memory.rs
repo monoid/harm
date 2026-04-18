@@ -9,7 +9,12 @@ mod memmap2;
 #[cfg(feature = "memmap2")]
 pub use self::memmap2::{Mmap2Buffer, Mmap2FixedMemory};
 
-pub trait Memory<FM: FixedMemory> {
+#[cfg(feature = "alloc")]
+pub mod foreign_memory;
+#[cfg(feature = "alloc")]
+pub use self::foreign_memory::ForeignMemoryBuffer;
+
+pub trait Memory<FM> {
     type ExtendError;
     type FixedMemoryError;
 
