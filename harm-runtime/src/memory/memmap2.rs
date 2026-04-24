@@ -7,7 +7,7 @@ use std::convert::Infallible;
 
 use harm::reloc::Addr64;
 
-use super::{IntoPositionedMemory, Memory, PositionedMemory};
+use super::{IntoExecutableMemory, IntoPositionedMemory, Memory, PositionedMemory};
 
 #[derive(thiserror::Error, Debug)]
 pub enum MapBufferError {
@@ -107,12 +107,15 @@ impl PositionedMemory for MmapPositionedMemory {
     // TODO a wrapper type?
     type ExecutableMemory = memmap2::Mmap;
 
-    type ExecutableMemoryError = std::io::Error;
-
     // TODO makes sense only on AArch64.
     fn get_base_address(&self) -> Addr64 {
         self.0.as_ptr() as Addr64
     }
+}
+
+impl IntoExecutableMemory for MmapPositionedMemory {
+    type ExecutableMemory = memmap2::Mmap;
+    type ExecutableMemoryError = std::io::Error;
 
     #[inline]
     fn into_executable_memory(self) -> Result<Self::ExecutableMemory, Self::ExecutableMemoryError> {
