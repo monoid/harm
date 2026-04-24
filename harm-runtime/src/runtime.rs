@@ -5,12 +5,23 @@
 
 use std::collections::HashMap;
 
-use crate::builder::Builder;
+use crate::builder::{Builder, BuilderError};
 use crate::labels::LabelRegistry;
 use crate::memory::{IntoExecutableMemory, IntoPositionedMemory, Memory, PositionedMemory};
 use harm::instructions::InstructionSeq;
 use harm::reloc::{LabelId, Offset64, Rel64};
 
+#[derive(Debug, thiserror::Error)]
+pub enum AssemblerError<MemErr, PMErr, EMErr> {
+    #[error("builder error: {0}")]
+    Builder(#[from] BuilderError),
+    #[error("memory error: {0}")]
+    Memory(MemErr),
+    #[error("positioned memory error: {0}")]
+    PositionedMemory(PMErr),
+    #[error("executable memory error: {0}")]
+    ExecutableMemory(EMErr),
+}
 // N.B. we keep here internal relocation type, and convert it to external on serialization.
 #[derive(Default)]
 pub struct Assembler<Mem: Memory> {
@@ -29,30 +40,55 @@ impl<Mem: Memory> Assembler<Mem> {
         }
     }
 
-    pub fn build<FM>(self) -> Result<FM, BuilderError>
+    /// Build the program without making it executable.
+    pub fn build<FM, E>(
+        self,
+    ) -> Result<
+        FM,
+        AssemblerError<
+            Mem::ExtendError,
+            <Mem as IntoPositionedMemory<FM>>::PositionedMemoryError,
+            E,
+        >,
+    >
     where
         Mem: IntoPositionedMemory<FM>,
         FM: PositionedMemory,
     {
-        let mut fixed_memory = self.memory.into_positioned_memory()?;
+        let mut fixed_memory = self
+            .memory
+            .into_positioned_memory()
+            .map_err(AssemblerError::PositionedMemory)?;
         let base = fixed_memory.get_base_address();
         let builder = Builder::new(fixed_memory.as_mut(), base);
         builder.build(
             self.label_manager
-                .defined_labels()
+                .get_defined_labels()
                 .map(|(name, offset)| (name, offset as i64)),
             self.relocations.into_iter(),
         )?;
         Ok(fixed_memory)
     }
 
-    pub fn compile<FM>(self) -> Result<<FM as IntoExecutableMemory>::ExecutableMemory, BuilderError>
+    /// Build the program and make it executable.
+    pub fn compile<FM>(
+        self,
+    ) -> Result<
+        <FM as IntoExecutableMemory>::ExecutableMemory,
+        AssemblerError<
+            Mem::ExtendError,
+            <Mem as IntoPositionedMemory<FM>>::PositionedMemoryError,
+            <FM as IntoExecutableMemory>::ExecutableMemoryError,
+        >,
+    >
     where
         Mem: IntoPositionedMemory<FM>,
         FM: PositionedMemory + IntoExecutableMemory,
     {
         let fixed_memory = self.build()?;
-        fixed_memory.into_executable_memory()
+        fixed_memory
+            .into_executable_memory()
+            .map_err(AssemblerError::ExecutableMemory)
     }
 
     pub fn append<InstSeq: InstructionSeq>(&mut self, s: InstSeq) -> Result<(), Mem::ExtendError> {

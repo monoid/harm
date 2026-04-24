@@ -5,7 +5,7 @@
 
 use std::collections::HashMap;
 
-use harm::reloc::{Addr64, Rel64, Rel64Error};
+use harm::reloc::{Addr64, Offset64, Rel64, Rel64Error};
 
 #[derive(Debug, thiserror::Error)]
 pub enum BuilderError {
@@ -33,7 +33,7 @@ impl<'mem> Builder<'mem> {
 
     pub fn build(
         self,
-        _label_defs: impl Iterator<Item = (&'mem str, i64)>,
+        _label_defs: impl Iterator<Item = (&'mem str, Offset64)>,
         relocations: impl Iterator<Item = (usize, Rel64)>,
     ) -> Result<HashMap<&'mem str, u64>, BuilderError> {
         // Recalculate labels.

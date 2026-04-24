@@ -92,4 +92,13 @@ impl LabelRegistry {
         self.next_id += 1;
         id
     }
+
+    pub fn get_defined_labels(&self) -> impl Iterator<Item = (&str, Offset64)> {
+        self.named_labels.iter().filter_map(move |(name, id)| {
+            self.labels.get(id).and_then(|info| match info {
+                LabelInfo::Offset(offset) => Some((name.as_str(), *offset)),
+                LabelInfo::Forward => None,
+            })
+        })
+    }
 }
