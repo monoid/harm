@@ -5,7 +5,7 @@
 
 use std::collections::HashMap;
 
-use harm::reloc::{Addr64, LabelId, Offset64};
+use harm::reloc::{LabelId, Offset64};
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum LabelInfo {
@@ -93,12 +93,16 @@ impl LabelRegistry {
         id
     }
 
-    pub fn get_defined_labels(&self) -> impl Iterator<Item = (&str, Offset64)> {
-        self.named_labels.iter().filter_map(move |(name, id)| {
-            self.labels.get(id).and_then(|info| match info {
-                LabelInfo::Offset(offset) => Some((name.as_str(), *offset)),
-                LabelInfo::Forward => None,
-            })
+    pub fn get_named_labels(&self) -> impl Iterator<Item = (&str, LabelId)> {
+        self.named_labels
+            .iter()
+            .map(|(name, id)| (name.as_str(), *id))
+    }
+
+    pub fn get_defined_labels(&self) -> impl Iterator<Item = (LabelId, Offset64)> {
+        self.labels.iter().filter_map(|(id, info)| match info {
+            LabelInfo::Offset(offset) => Some((*id, *offset)),
+            LabelInfo::Forward => None,
         })
     }
 }

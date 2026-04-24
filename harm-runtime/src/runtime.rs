@@ -62,9 +62,8 @@ impl<Mem: Memory> Assembler<Mem> {
         let base = fixed_memory.get_base_address();
         let builder = Builder::new(fixed_memory.as_mut(), base);
         builder.build(
-            self.label_manager
-                .get_defined_labels()
-                .map(|(name, offset)| (name, offset as i64)),
+            self.label_manager.get_named_labels(),
+            self.label_manager.get_defined_labels(),
             self.relocations.into_iter(),
         )?;
         Ok(fixed_memory)
