@@ -7,24 +7,25 @@ use std::convert::Infallible;
 
 use harm::reloc::Addr64;
 
-use super::{FixedMemory, Memory};
+use super::{IntoPositionedMemory, Memory, PositionedMemory};
 
 #[derive(thiserror::Error, Debug)]
-pub enum Map2BufferError {
+pub enum MapBufferError {
     #[error("buffer overflow: {0}")]
     Overflow(usize),
 }
 
-pub struct Mmap2Buffer {
+pub struct MmapBuffer {
     pos: usize,
     memory: memmap2::MmapMut,
 }
 
-impl Mmap2Buffer {
+impl MmapBuffer {
     #[inline]
     pub fn new(mmap_mut: memmap2::MmapMut) -> Self {
         Self {
             pos: 0,
+            // N.B. We assume that memory is aligned.
             memory: mmap_mut,
         }
     }
@@ -36,10 +37,8 @@ impl Mmap2Buffer {
     }
 }
 
-impl Memory<Mmap2FixedMemory> for Mmap2Buffer {
-    type ExtendError = Map2BufferError;
-
-    type FixedMemoryError = Infallible;
+impl Memory for MmapBuffer {
+    type ExtendError = MapBufferError;
 
     #[inline]
     fn pos(&self) -> usize {
@@ -55,7 +54,7 @@ impl Memory<Mmap2FixedMemory> for Mmap2Buffer {
     fn try_extend<I: Iterator<Item = u8>>(&mut self, bytes: I) -> Result<(), Self::ExtendError> {
         for byte in bytes {
             if self.pos >= self.memory.len() {
-                return Err(Map2BufferError::Overflow(self.pos));
+                return Err(MapBufferError::Overflow(self.pos));
             }
 
             self.memory[self.pos] = byte;
@@ -63,16 +62,21 @@ impl Memory<Mmap2FixedMemory> for Mmap2Buffer {
         }
         Ok(())
     }
-
-    #[inline]
-    fn into_fixed_memory(self) -> Result<Mmap2FixedMemory, Self::FixedMemoryError> {
-        Ok(Mmap2FixedMemory::new(self.memory))
-    }
 }
 
-pub struct Mmap2FixedMemory(memmap2::MmapMut);
+impl IntoPositionedMemory<MmapPositionedMemory> for MmapBuffer {
+    type PositionedMemoryError = Infallible;
 
-impl Mmap2FixedMemory {
+    #[inline]
+    fn into_positioned_memory(self) -> Result<MmapPositionedMemory, Self::PositionedMemoryError> {
+        Ok(MmapPositionedMemory::new(self.memory))
+    }
+    
+}
+
+pub struct MmapPositionedMemory(memmap2::MmapMut);
+
+impl MmapPositionedMemory {
     #[inline]
     pub fn new(mmap_mut: memmap2::MmapMut) -> Self {
         Self(mmap_mut)
@@ -85,21 +89,21 @@ impl Mmap2FixedMemory {
     }
 }
 
-impl AsRef<[u8]> for Mmap2FixedMemory {
+impl AsRef<[u8]> for MmapPositionedMemory {
     #[inline]
     fn as_ref(&self) -> &[u8] {
         &self.0
     }
 }
 
-impl AsMut<[u8]> for Mmap2FixedMemory {
+impl AsMut<[u8]> for MmapPositionedMemory {
     #[inline]
     fn as_mut(&mut self) -> &mut [u8] {
         &mut self.0
     }
 }
 
-impl FixedMemory for Mmap2FixedMemory {
+impl PositionedMemory for MmapPositionedMemory {
     // TODO a wrapper type?
     type ExecutableMemory = memmap2::Mmap;
 
@@ -109,16 +113,15 @@ impl FixedMemory for Mmap2FixedMemory {
     fn get_base_address(&self) -> Addr64 {
         self.0.as_ptr() as Addr64
     }
-    
+
     #[inline]
     fn into_executable_memory(self) -> Result<Self::ExecutableMemory, Self::ExecutableMemoryError> {
         self.0.make_exec()
     }
 }
 
-impl Memory<Mmap2FixedMemory> for Vec<u8> {
+impl Memory for &mut Vec<u8> {
     type ExtendError = Infallible;
-    type FixedMemoryError = std::io::Error;
 
     #[inline]
     fn pos(&self) -> usize {
@@ -134,39 +137,15 @@ impl Memory<Mmap2FixedMemory> for Vec<u8> {
     fn try_extend<I: Iterator<Item = u8>>(&mut self, bytes: I) -> Result<(), Self::ExtendError> {
         self.extend(bytes);
         Ok(())
-    }
-
-    #[inline]
-    fn into_fixed_memory(self) -> Result<Mmap2FixedMemory, Self::FixedMemoryError> {
-        let mut mem = Mmap2FixedMemory::allocate(self.len())?;
-        mem.as_mut().copy_from_slice(&self);
-        Ok(mem)
     }
 }
 
-impl Memory<Mmap2FixedMemory> for &mut Vec<u8> {
-    type ExtendError = Infallible;
-    type FixedMemoryError = std::io::Error;
+impl IntoPositionedMemory<MmapPositionedMemory> for &mut Vec<u8> {
+    type PositionedMemoryError = std::io::Error;
 
     #[inline]
-    fn pos(&self) -> usize {
-        self.len()
-    }
-
-    #[inline]
-    fn capacity(&self) -> Option<usize> {
-        None
-    }
-
-    #[inline]
-    fn try_extend<I: Iterator<Item = u8>>(&mut self, bytes: I) -> Result<(), Self::ExtendError> {
-        self.extend(bytes);
-        Ok(())
-    }
-
-    #[inline]
-    fn into_fixed_memory(self) -> Result<Mmap2FixedMemory, Self::FixedMemoryError> {
-        let mut mem = Mmap2FixedMemory::allocate(self.len())?;
+    fn into_positioned_memory(self) -> Result<MmapPositionedMemory, Self::PositionedMemoryError> {
+        let mut mem = MmapPositionedMemory::allocate(self.len())?;
         // The memmap2 spec doesn't say that the length can be different...
         mem.as_mut().copy_from_slice(self);
         Ok(mem)
@@ -186,11 +165,11 @@ mod tests {
             instructions::{arith::add::add, control::ret},
             register::Reg64::*,
         };
-        let mut buf = Mmap2Buffer::allocate(8).expect("mmap failed, system problem");
+        let mut buf = MmapBuffer::allocate(8).expect("mmap failed, system problem");
         buf.try_extend(add(X0, X0, X1).bytes()).unwrap();
         buf.try_extend(ret().bytes()).unwrap();
 
-        let mem = buf.into_fixed_memory().unwrap();
+        let mem = buf.into_positioned_memory().unwrap();
         // Doing relocations...
 
         let exec = mem.into_executable_memory().unwrap();
@@ -207,25 +186,25 @@ mod tests {
 
     #[test]
     fn test_try_extend_1023() {
-        let mut buf = Mmap2Buffer::allocate(1024).expect("mmap failed, system problem");
+        let mut buf = MmapBuffer::allocate(1024).expect("mmap failed, system problem");
         buf.try_extend(vec![1; 1023].into_iter()).unwrap();
     }
 
     #[test]
     fn test_try_extend_1024() {
-        let mut buf = Mmap2Buffer::allocate(1024).expect("mmap failed, system problem");
+        let mut buf = MmapBuffer::allocate(1024).expect("mmap failed, system problem");
         buf.try_extend(vec![1; 1024].into_iter()).unwrap();
     }
 
     #[test]
     fn test_try_extend_1025() {
-        let mut buf = Mmap2Buffer::allocate(1024).expect("mmap failed, system problem");
+        let mut buf = MmapBuffer::allocate(1024).expect("mmap failed, system problem");
         assert!(buf.try_extend(vec![1; 1025].into_iter()).is_err());
     }
 
     #[test]
     fn test_try_extend_pair() {
-        let mut buf = Mmap2Buffer::allocate(1024).expect("mmap failed, system problem");
+        let mut buf = MmapBuffer::allocate(1024).expect("mmap failed, system problem");
         buf.try_extend(vec![1; 512].into_iter()).unwrap();
         buf.try_extend(vec![1; 512].into_iter()).unwrap();
         assert_eq!(buf.pos(), 1024);

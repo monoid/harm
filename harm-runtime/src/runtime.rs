@@ -7,38 +7,51 @@ use std::collections::HashMap;
 
 use crate::builder::Builder;
 use crate::labels::LabelRegistry;
-use crate::memory::{FixedMemory, Memory};
+use crate::memory::{IntoExecutableMemory, IntoPositionedMemory, Memory, PositionedMemory};
 use harm::instructions::InstructionSeq;
 use harm::reloc::{LabelId, Offset64, Rel64};
 
 // N.B. we keep here internal relocation type, and convert it to external on serialization.
 #[derive(Default)]
-pub struct Assembler<FM: FixedMemory, Mem: Memory<FM>> {
+pub struct Assembler<Mem: Memory> {
     label_manager: LabelRegistry,
     memory: Mem,
     relocations: HashMap<usize, Rel64>,
-    phantom: core::marker::PhantomData<FM>,
 }
 
-impl<FM: FixedMemory, Mem: Memory<FM>> Assembler<FM, Mem> {
+impl<Mem: Memory> Assembler<Mem> {
     #[inline]
     pub fn new(mem: Mem) -> Self {
         Self {
             label_manager: LabelRegistry::new(),
             memory: mem,
             relocations: HashMap::new(),
-            phantom: core::marker::PhantomData,
         }
     }
 
-    pub fn build(self) -> Result<FM::ExecutableMemory, BuilderError> {
-        let mut fixed_memory = self.memory.into_fixed_memory()?;
-        let base = fixed_memory.as_mut().as_ptr() as u64;
+    pub fn build<FM>(self) -> Result<FM, BuilderError>
+    where
+        Mem: IntoPositionedMemory<FM>,
+        FM: PositionedMemory,
+    {
+        let mut fixed_memory = self.memory.into_positioned_memory()?;
+        let base = fixed_memory.get_base_address();
         let builder = Builder::new(fixed_memory.as_mut(), base);
         builder.build(
-            self.label_manager.defined_labels().map(|(name, offset)| (name, offset as i64)),
+            self.label_manager
+                .defined_labels()
+                .map(|(name, offset)| (name, offset as i64)),
             self.relocations.into_iter(),
         )?;
+        Ok(fixed_memory)
+    }
+
+    pub fn compile<FM>(self) -> Result<<FM as IntoExecutableMemory>::ExecutableMemory, BuilderError>
+    where
+        Mem: IntoPositionedMemory<FM>,
+        FM: PositionedMemory + IntoExecutableMemory,
+    {
+        let fixed_memory = self.build()?;
         fixed_memory.into_executable_memory()
     }
 

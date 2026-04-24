@@ -5,7 +5,7 @@
 
 use harm::reloc::Addr64;
 
-use super::Memory;
+use super::{IntoPositionedMemory, Memory};
 
 /// Memory that is not intended to be executed immediately, but stored or transferred.
 pub struct ForeignMemoryBuffer {
@@ -39,9 +39,8 @@ impl AsRef<[u8]> for ForeignMemoryBuffer {
     }
 }
 
-impl Memory<ForeignMemory> for ForeignMemoryBuffer {
+impl Memory for ForeignMemoryBuffer {
     type ExtendError = core::convert::Infallible;
-    type FixedMemoryError = core::convert::Infallible;
 
     fn pos(&self) -> usize {
         self.mem.len()
@@ -55,8 +54,12 @@ impl Memory<ForeignMemory> for ForeignMemoryBuffer {
         self.mem.extend(bytes);
         Ok(())
     }
+}
 
-    fn into_fixed_memory(self) -> Result<ForeignMemory, Self::FixedMemoryError> {
+impl IntoPositionedMemory<ForeignMemory> for ForeignMemoryBuffer {
+    type PositionedMemoryError = core::convert::Infallible;
+
+    fn into_positioned_memory(self) -> Result<ForeignMemory, Self::PositionedMemoryError> {
         Ok(ForeignMemory {
             mem: self.mem,
             base_addr: self.base_addr,
