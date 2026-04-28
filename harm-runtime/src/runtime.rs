@@ -125,7 +125,7 @@ impl<Mem: Memory> Assembler<Mem> {
     }
 
     pub fn new_forward_named_label(&mut self, name: &str) -> LabelId {
-        self.label_manager.forward_named_label(name)
+        self.label_manager.get_forward_named_label(name)
     }
 
     pub fn assign_forward_label(&mut self, label_id: LabelId) {

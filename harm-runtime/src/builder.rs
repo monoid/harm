@@ -46,6 +46,17 @@ impl<'mem> Builder<'mem> {
             })
             .collect();
 
+        // Calculate label addresses.
+        let label_addresses = named_labels
+            .map(|(name, label_id)| {
+                let label_addr = labels
+                    .get(&label_id)
+                    .copied()
+                    .ok_or_else(|| BuilderError::UndefinedLabel(label_id))?;
+                Ok((name, label_addr))
+            })
+            .collect::<Result<_, BuilderError>>()?;
+        
         // Apply relocations to the self.mem.
         for (offset, rel) in relocations {
             let label_addr = labels
@@ -54,22 +65,12 @@ impl<'mem> Builder<'mem> {
                 .ok_or_else(|| BuilderError::UndefinedLabel(rel.label.id))?;
             // TODO is it wrapping?
             let label_ref_addr = label_addr.wrapping_add_signed(rel.label.addend);
+            
             rel.apply(self.base, label_ref_addr, self.mem, offset)
                 .map_err(|nested| BuilderError::Relocation { nested, offset })?;
         }
 
-        Ok(named_labels
-            .map(|(name, label_id)| {
-                let label_addr = labels
-                    .get(&label_id)
-                    .copied()
-                    .ok_or_else(|| BuilderError::UndefinedLabel(label_id))?;
-                // TODO is it wrapping?
-                let addend = 0;
-                let label_ref_addr = label_addr.wrapping_add_signed(addend);
-                Ok((name, label_ref_addr))
-            })
-            .collect::<Result<_, BuilderError>>()?)
+        Ok(label_addresses)
     }
 }
 

@@ -28,7 +28,7 @@ impl LabelRegistry {
     }
 
     #[inline]
-    pub fn forward_named_label(&mut self, name: &str) -> LabelId {
+    pub fn get_forward_named_label(&mut self, name: &str) -> LabelId {
         if let Some(id) = self.named_labels.get(name) {
             *id
         } else {
@@ -46,6 +46,7 @@ impl LabelRegistry {
         id
     }
 
+    /// Define the label to have its address to be base address plus `offset`.
     pub fn define_label(&mut self, label_id: LabelId, offset: Offset64) {
         if let Some(info) = self.labels.get_mut(&label_id) {
             match info {
@@ -61,6 +62,7 @@ impl LabelRegistry {
         }
     }
 
+    /// Define the label to have its address to be base address plus `offset`.
     #[inline]
     pub fn define_named_label(&mut self, name: &str, offset: Offset64) -> LabelId {
         if let Some(id) = self.named_labels.get(name).copied() {
@@ -74,6 +76,7 @@ impl LabelRegistry {
         }
     }
 
+    /// Turn the label into a named.
     pub fn name_label(&mut self, id: LabelId, name: &str) {
         if self.labels.contains_key(&id) {
             self.named_labels.insert(name.to_string(), id);
@@ -82,15 +85,10 @@ impl LabelRegistry {
         }
     }
 
+    /// Return current label info.
     #[inline]
     pub fn label_info(&self, id: LabelId) -> Option<&LabelInfo> {
         self.labels.get(&id)
-    }
-
-    fn next_label(&mut self) -> LabelId {
-        let id = LabelId(self.next_id);
-        self.next_id += 1;
-        id
     }
 
     pub fn get_named_labels(&self) -> impl Iterator<Item = (&str, LabelId)> {
@@ -104,5 +102,11 @@ impl LabelRegistry {
             LabelInfo::Offset(offset) => Some((*id, *offset)),
             LabelInfo::Forward => None,
         })
+    }
+    
+    fn next_label(&mut self) -> LabelId {
+        let id = LabelId(self.next_id);
+        self.next_id += 1;
+        id
     }
 }
