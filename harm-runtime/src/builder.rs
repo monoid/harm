@@ -36,7 +36,7 @@ impl<'mem> Builder<'mem> {
         named_labels: impl Iterator<Item = (&'mem str, LabelId)>,
         labels: impl Iterator<Item = (LabelId, Offset64)>,
         relocations: impl Iterator<Item = (usize, Rel64)>,
-    ) -> Result<HashMap<&'mem str, u64>, BuilderError> {
+    ) -> Result<HashMap<String, u64>, BuilderError> {
         // Recalculate labels.
         let labels: HashMap<_, _> = labels
             .map(|(label_id, offset)| {
@@ -53,7 +53,7 @@ impl<'mem> Builder<'mem> {
                     .get(&label_id)
                     .copied()
                     .ok_or_else(|| BuilderError::UndefinedLabel(label_id))?;
-                Ok((name, label_addr))
+                Ok((name.to_owned(), label_addr))
             })
             .collect::<Result<_, BuilderError>>()?;
         

@@ -9,7 +9,7 @@ use crate::builder::{Builder, BuilderError};
 use crate::labels::LabelRegistry;
 use crate::memory::{IntoExecutableMemory, IntoPositionedMemory, Memory, PositionedMemory};
 use harm::instructions::InstructionSeq;
-use harm::reloc::{LabelId, Offset64, Rel64};
+use harm::reloc::{Addr64, LabelId, Offset64, Rel64};
 
 #[derive(Debug, thiserror::Error)]
 pub enum AssemblerError<MemErr, PMErr, EMErr> {
@@ -44,7 +44,7 @@ impl<Mem: Memory> Assembler<Mem> {
     pub fn build<FM, E>(
         self,
     ) -> Result<
-        FM,
+        (FM, HashMap<String, Addr64>),
         AssemblerError<
             Mem::ExtendError,
             <Mem as IntoPositionedMemory<FM>>::PositionedMemoryError,
@@ -61,19 +61,22 @@ impl<Mem: Memory> Assembler<Mem> {
             .map_err(AssemblerError::PositionedMemory)?;
         let base = fixed_memory.get_base_address();
         let builder = Builder::new(fixed_memory.as_mut(), base);
-        builder.build(
+        let labels = builder.build(
             self.label_manager.get_named_labels(),
             self.label_manager.get_defined_labels(),
             self.relocations.into_iter(),
         )?;
-        Ok(fixed_memory)
+        Ok((fixed_memory, labels))
     }
 
     /// Build the program and make it executable.
     pub fn compile<FM>(
         self,
     ) -> Result<
-        <FM as IntoExecutableMemory>::ExecutableMemory,
+        (
+            <FM as IntoExecutableMemory>::ExecutableMemory,
+            HashMap<String, Addr64>,
+        ),
         AssemblerError<
             Mem::ExtendError,
             <Mem as IntoPositionedMemory<FM>>::PositionedMemoryError,
@@ -84,10 +87,11 @@ impl<Mem: Memory> Assembler<Mem> {
         Mem: IntoPositionedMemory<FM>,
         FM: PositionedMemory + IntoExecutableMemory,
     {
-        let fixed_memory = self.build()?;
-        fixed_memory
+        let (fixed_memory, labels) = self.build()?;
+        let exec_memory = fixed_memory
             .into_executable_memory()
-            .map_err(AssemblerError::ExecutableMemory)
+            .map_err(AssemblerError::ExecutableMemory)?;
+        Ok((exec_memory, labels))
     }
 
     pub fn append<InstSeq: InstructionSeq>(&mut self, s: InstSeq) -> Result<(), Mem::ExtendError> {
@@ -152,7 +156,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_assembler() {
+    fn test_assembler_build() {
         let mem = ForeignMemoryBuffer::new(0x1000);
         let mut asm = Assembler::new(mem);
 
@@ -163,20 +167,55 @@ mod tests {
             addend: 0,
         };
 
-        asm.append(add(Reg64::X3, Reg64::X0, Reg64::X1));
+        asm.append(add(Reg64::X0, Reg64::X0, Reg64::X1));
         asm.append(b(finish_ref));
-        asm.append(movz(Reg64::X3, 0));
+        asm.append(movz(Reg64::X0, 0));
         asm.assign_forward_label(finish_label);
         asm.append(ret());
 
-        let fm = asm.build::<ForeignMemory, ()>().unwrap();
+        let (fm, _) = asm.build::<ForeignMemory, ()>().unwrap();
 
         let mut expected = vec![];
-        expected.extend(add(Reg64::X3, Reg64::X0, Reg64::X1).bytes());
+        expected.extend(add(Reg64::X0, Reg64::X0, Reg64::X1).bytes());
         expected.extend(b(8).unwrap().bytes());
-        expected.extend(movz(Reg64::X3, 0).bytes());
+        expected.extend(movz(Reg64::X0, 0).bytes());
         expected.extend(ret().bytes());
 
         assert_eq!(fm.as_ref(), &*expected);
+    }
+
+    // Execute the code from the `test_assembler_build`.
+    #[cfg(all(target_arch = "aarch64", feature = "memmap2"))]
+    #[test]
+    fn test_assembler_aarch64_execute() {
+        use crate::memory::MmapBuffer;
+
+        let mem = MmapBuffer::allocate(16).unwrap();
+        let mut asm = Assembler::new(mem);
+
+        let finish_label = asm.new_forward_label();
+        // TODO constructor
+        let finish_ref = LabelRef {
+            id: finish_label,
+            addend: 0,
+        };
+
+        let _start = asm.current_named_label("_start");
+        asm.append(add(Reg64::X0, Reg64::X0, Reg64::X1)).unwrap();
+        asm.append(b(finish_ref)).unwrap();
+        asm.append(movz(Reg64::X0, 0)).unwrap();
+        asm.assign_forward_label(finish_label);
+        asm.append(ret()).unwrap();
+
+        let (fm, labels) = asm.compile().unwrap();
+        let start_addr = labels.get("_start").cloned().unwrap() as usize;
+
+        let res = unsafe {
+            clear_cache::clear_cache(fm.as_ptr(), fm.as_ptr().add(fm.len()));
+
+            let start: unsafe extern "C" fn(i64, i64) -> i64 = std::mem::transmute(start_addr);
+            start(42, 8)
+        };
+        assert_eq!(res, 50);
     }
 }
