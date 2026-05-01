@@ -134,3 +134,49 @@ impl<Mem: Memory> Assembler<Mem> {
         self.label_manager.define_label(label_id, pos as Offset64);
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use harm::{
+        instructions::{
+            arith::add::add,
+            control::{b, ret},
+            dpimm::movz,
+        },
+        register::Reg64,
+        reloc::LabelRef,
+    };
+
+    use crate::memory::{ForeignMemoryBuffer, foreign_memory::ForeignMemory};
+
+    use super::*;
+
+    #[test]
+    fn test_assembler() {
+        let mem = ForeignMemoryBuffer::new(0x1000);
+        let mut asm = Assembler::new(mem);
+
+        let finish_label = asm.new_forward_label();
+        // TODO constructor
+        let finish_ref = LabelRef {
+            id: finish_label,
+            addend: 0,
+        };
+
+        asm.append(add(Reg64::X3, Reg64::X0, Reg64::X1));
+        asm.append(b(finish_ref));
+        asm.append(movz(Reg64::X3, 0));
+        asm.assign_forward_label(finish_label);
+        asm.append(ret());
+
+        let fm = asm.build::<ForeignMemory, ()>().unwrap();
+
+        let mut expected = vec![];
+        expected.extend(add(Reg64::X3, Reg64::X0, Reg64::X1).bytes());
+        expected.extend(b(8).unwrap().bytes());
+        expected.extend(movz(Reg64::X3, 0).bytes());
+        expected.extend(ret().bytes());
+
+        assert_eq!(fm.as_ref(), &*expected);
+    }
+}

@@ -50,8 +50,6 @@ pub trait IntoPositionedMemory<PM> {
 
 /// Memory with fixed location that can be transformed to an executable one after relocations are applied.
 pub trait PositionedMemory: AsMut<[u8]> {
-    type ExecutableMemory;
-
     fn get_base_address(&self) -> Addr64;
 }
 

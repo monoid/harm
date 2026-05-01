@@ -104,9 +104,6 @@ impl AsMut<[u8]> for MmapPositionedMemory {
 }
 
 impl PositionedMemory for MmapPositionedMemory {
-    // TODO a wrapper type?
-    type ExecutableMemory = memmap2::Mmap;
-
     // TODO makes sense only on AArch64.
     fn get_base_address(&self) -> Addr64 {
         self.0.as_ptr() as Addr64

@@ -5,6 +5,8 @@
 
 use harm::reloc::Addr64;
 
+use crate::memory::PositionedMemory;
+
 use super::{IntoPositionedMemory, Memory};
 
 /// Memory that is not intended to be executed immediately, but stored or transferred.
@@ -91,5 +93,11 @@ impl AsRef<[u8]> for ForeignMemory {
 impl AsMut<[u8]> for ForeignMemory {
     fn as_mut(&mut self) -> &mut [u8] {
         &mut self.mem
+    }
+}
+
+impl PositionedMemory for ForeignMemory {
+    fn get_base_address(&self) -> Addr64 {
+        self.base_addr
     }
 }
