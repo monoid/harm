@@ -56,7 +56,7 @@ impl<'mem> Builder<'mem> {
                 Ok((name.to_owned(), label_addr))
             })
             .collect::<Result<_, BuilderError>>()?;
-        
+
         // Apply relocations to the self.mem.
         for (offset, rel) in relocations {
             let label_addr = labels
@@ -65,7 +65,7 @@ impl<'mem> Builder<'mem> {
                 .ok_or_else(|| BuilderError::UndefinedLabel(rel.label.id))?;
             // TODO is it wrapping?
             let label_ref_addr = label_addr.wrapping_add_signed(rel.label.addend);
-            
+
             rel.apply(self.base, label_ref_addr, self.mem, offset)
                 .map_err(|nested| BuilderError::Relocation { nested, offset })?;
         }

@@ -71,7 +71,6 @@ impl IntoPositionedMemory<MmapPositionedMemory> for MmapBuffer {
     fn into_positioned_memory(self) -> Result<MmapPositionedMemory, Self::PositionedMemoryError> {
         Ok(MmapPositionedMemory::new(self.memory))
     }
-    
 }
 
 pub struct MmapPositionedMemory(memmap2::MmapMut);

@@ -103,7 +103,7 @@ impl LabelRegistry {
             LabelInfo::Forward => None,
         })
     }
-    
+
     fn next_label(&mut self) -> LabelId {
         let id = LabelId(self.next_id);
         self.next_id += 1;
