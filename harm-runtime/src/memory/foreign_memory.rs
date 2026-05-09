@@ -11,11 +11,11 @@ use super::{IntoPositionedMemory, Memory};
 
 /// Memory that is not intended to be executed immediately, but stored or transferred.
 pub struct ForeignMemoryBuffer {
-    mem: alloc::vec::Vec<u8>,
+    mem: std::vec::Vec<u8>,
     base_addr: Addr64,
 }
 
-impl<'mem> ForeignMemoryBuffer {
+impl ForeignMemoryBuffer {
     pub fn new(base_addr: Addr64) -> Self {
         Self {
             mem: Vec::new(),
@@ -70,7 +70,7 @@ impl IntoPositionedMemory<ForeignMemory> for ForeignMemoryBuffer {
 }
 
 pub struct ForeignMemory {
-    mem: alloc::vec::Vec<u8>,
+    mem: std::vec::Vec<u8>,
     base_addr: Addr64,
 }
 
@@ -79,7 +79,7 @@ impl ForeignMemory {
         self.base_addr
     }
 
-    pub fn into_inner(self) -> (Addr64, alloc::vec::Vec<u8>) {
+    pub fn into_inner(self) -> (Addr64, std::vec::Vec<u8>) {
         (self.base_addr, self.mem)
     }
 }

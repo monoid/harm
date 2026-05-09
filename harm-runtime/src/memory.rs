@@ -11,9 +11,7 @@ use harm::reloc::Addr64;
 #[cfg(feature = "memmap2")]
 pub use self::memmap2::{MmapBuffer, MmapPositionedMemory};
 
-#[cfg(feature = "alloc")]
 pub mod foreign_memory;
-#[cfg(feature = "alloc")]
 pub use self::foreign_memory::ForeignMemoryBuffer;
 
 pub trait Memory {
@@ -32,10 +30,12 @@ pub trait Memory {
 
     /// Align position.
     fn align(&mut self, alignment: usize) -> Result<(), Self::ExtendError> {
-        let pos = self.pos();
-        let remn = pos % alignment;
-        if remn != 0 {
-            self.try_extend(core::iter::repeat(0).take(alignment - remn))?;
+        if alignment > 1 {
+            let pos = self.pos();
+            let remn = pos % alignment;
+            if remn != 0 {
+                self.try_extend(core::iter::repeat_n(0, alignment - remn))?;
+            }
         }
         Ok(())
     }
@@ -62,7 +62,6 @@ pub trait IntoExecutableMemory {
 
 #[cfg(test)]
 mod tests {
-    #[cfg(feature = "memmap2")]
     #[test]
     fn test_align() {
         use super::*;
@@ -82,5 +81,22 @@ mod tests {
         data.extend_from_slice(&[1, 2, 3, 4, 5, 6, 7]);
         Memory::align(&mut data, 8);
         assert_eq!(data.len(), 16);
+    }
+
+    #[test]
+    fn test_align_corner_case() {
+        use super::*;
+
+        let mut data = &mut Vec::<u8>::new();
+
+        Memory::align(&mut data, 0);
+        assert!(data.is_empty());
+
+        data.push(1);
+        Memory::align(&mut data, 0);
+        assert_eq!(data.len(), 1);
+
+        Memory::align(&mut data, 1);
+        assert_eq!(data.len(), 1);
     }
 }

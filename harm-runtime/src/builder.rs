@@ -9,9 +9,11 @@ use harm::reloc::{Addr64, LabelId, Offset64, Rel64, Rel64Error};
 
 #[derive(Debug, thiserror::Error)]
 pub enum BuilderError {
-    #[error("Address overflow: base {0}, offset {1}")]
+    #[error("Address overflow: base 0x{0:016x}, offset 0x{1:016x}")]
     AddressOverflow(u64, usize),
-    #[error("Relocation error: {nested:?} at offset {offset}")]
+    #[error("Offset overflow: base {0:016x}, offset {1:016x}")]
+    OffsetOverflow(u64, i64),
+    #[error("Relocation error: {nested:?} at offset {offset:016x}")]
     Relocation { nested: Rel64Error, offset: usize },
     #[error("Undefined label: {0:?}")]
     UndefinedLabel(LabelId),
@@ -40,11 +42,13 @@ impl<'mem> Builder<'mem> {
         // Recalculate labels.
         let labels: HashMap<_, _> = labels
             .map(|(label_id, offset)| {
-                // TODO is it wrapping?
-                let addr = self.base.wrapping_add_signed(offset);
-                (label_id, addr)
+                let addr = self
+                    .base
+                    .checked_add_signed(offset)
+                    .ok_or(BuilderError::OffsetOverflow(self.base, offset));
+                addr.map(|addr| (label_id, addr))
             })
-            .collect();
+            .collect::<Result<_, BuilderError>>()?;
 
         // Calculate label addresses.
         let label_addresses = named_labels
@@ -52,7 +56,7 @@ impl<'mem> Builder<'mem> {
                 let label_addr = labels
                     .get(&label_id)
                     .copied()
-                    .ok_or_else(|| BuilderError::UndefinedLabel(label_id))?;
+                    .ok_or(BuilderError::UndefinedLabel(label_id))?;
                 Ok((name.to_owned(), label_addr))
             })
             .collect::<Result<_, BuilderError>>()?;
@@ -62,7 +66,7 @@ impl<'mem> Builder<'mem> {
             let label_addr = labels
                 .get(&rel.label.id)
                 .copied()
-                .ok_or_else(|| BuilderError::UndefinedLabel(rel.label.id))?;
+                .ok_or(BuilderError::UndefinedLabel(rel.label.id))?;
             // TODO is it wrapping?
             let label_ref_addr = label_addr.wrapping_add_signed(rel.label.addend);
 
