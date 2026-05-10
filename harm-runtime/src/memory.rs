@@ -20,15 +20,18 @@ pub trait Memory {
     /// Current writing position.
     fn pos(&self) -> usize;
 
-    /// If memory has fixed capacity, return it.
+    /// If the memory has fixed capacity, return it.
     ///
     /// A `Vec` is not considered a memory of fixed capacity because it can grow indefinitely.
     fn capacity(&self) -> Option<usize>;
 
-    /// Append data to the memory.  Should fail when it reaches memory's capacity.
+    /// Append data to the memory.
+    ///
+    /// Should fail when it reaches memory's capacity. In this case, `self.pos()` must not change, but the memory behind
+    /// it till the end of the capacity may be modified.
     fn try_extend<I: Iterator<Item = u8>>(&mut self, bytes: I) -> Result<(), Self::ExtendError>;
 
-    /// Align position.
+    /// Align position.  Same guarantees as `try_extend` apply.
     fn align(&mut self, alignment: usize) -> Result<(), Self::ExtendError> {
         if alignment > 1 {
             let pos = self.pos();

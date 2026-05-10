@@ -52,14 +52,17 @@ impl Memory for MmapBuffer {
 
     #[inline]
     fn try_extend<I: Iterator<Item = u8>>(&mut self, bytes: I) -> Result<(), Self::ExtendError> {
+        let mut pos = self.pos;
         for byte in bytes {
-            if self.pos >= self.memory.len() {
+            if pos >= self.memory.len() {
                 return Err(MapBufferError::Overflow(self.pos));
             }
 
-            self.memory[self.pos] = byte;
-            self.pos += 1;
+            self.memory[pos] = byte;
+            pos += 1;
         }
+        // Success, update position.
+        self.pos = pos;
         Ok(())
     }
 }
@@ -199,6 +202,15 @@ mod tests {
     fn test_try_extend_1025() {
         let mut buf = MmapBuffer::allocate(1024).expect("mmap failed, system problem");
         assert!(buf.try_extend(vec![1; 1025].into_iter()).is_err());
+        assert_eq!(buf.pos(), 0);
+    }
+
+    #[test]
+    fn test_try_extend_1020_plus_5() {
+        let mut buf = MmapBuffer::allocate(1024).expect("mmap failed, system problem");
+        buf.try_extend(vec![1; 1020].into_iter()).unwrap();
+        assert!(buf.try_extend(vec![1; 5].into_iter()).is_err());
+        assert_eq!(buf.pos(), 1020);
     }
 
     #[test]
