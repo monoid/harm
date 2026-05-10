@@ -5,5 +5,9 @@
 
 pub mod builder;
 pub mod labels;
+#[macro_use]
+mod macros;
 pub mod memory;
 pub mod runtime;
+
+pub use self::runtime::{Assembler, AssemblerError};

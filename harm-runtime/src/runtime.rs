@@ -22,6 +22,7 @@ pub enum AssemblerError<MemErr, PMErr, EMErr> {
     #[error("executable memory error: {0}")]
     ExecutableMemory(EMErr),
 }
+
 // N.B. we keep here internal relocation type, and convert it to external on serialization.
 #[derive(Default)]
 pub struct Assembler<Mem: Memory> {
@@ -167,11 +168,19 @@ mod tests {
             addend: 0,
         };
 
-        asm.append(add(Reg64::X0, Reg64::X0, Reg64::X1));
-        asm.append(b(finish_ref));
-        asm.append(movz(Reg64::X0, 0));
+        harm! {
+            asm;
+            add(Reg64::X0, Reg64::X0, Reg64::X1),
+            b(finish_ref),
+            movz(Reg64::X0, 0),
+        }
+        .unwrap();
         asm.assign_forward_label(finish_label);
-        asm.append(ret());
+        harm! {
+            asm;
+            ret()
+        }
+        .unwrap();
 
         let (fm, _) = asm.build::<ForeignMemory, ()>().unwrap();
 
@@ -201,11 +210,19 @@ mod tests {
         };
 
         let _start = asm.current_named_label("_start");
-        asm.append(add(Reg64::X0, Reg64::X0, Reg64::X1)).unwrap();
-        asm.append(b(finish_ref)).unwrap();
-        asm.append(movz(Reg64::X0, 0)).unwrap();
+        harm! {
+            asm;
+            add(Reg64::X0, Reg64::X0, Reg64::X1),
+            b(finish_ref),
+            movz(Reg64::X0, 0),
+        }
+        .unwrap();
         asm.assign_forward_label(finish_label);
-        asm.append(ret()).unwrap();
+        harm! {
+            asm;
+            ret()
+        }
+        .unwrap();
 
         let (fm, labels) = asm.compile().unwrap();
         let start_addr = labels.get("_start").cloned().unwrap() as usize;
