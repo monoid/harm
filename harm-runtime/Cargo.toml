@@ -16,9 +16,8 @@ memmap2 = { version = "0.9.9", optional = true }
 thiserror = "2.0.18"
 
 [features]
-default = ["memmap2", "alloc"]
+default = ["memmap2"]
 memmap2 = ["dep:memmap2"]
-alloc = []
 
 [dev-dependencies]
 clear-cache = "0.1.3"

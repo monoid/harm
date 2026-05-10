@@ -68,18 +68,18 @@ mod tests {
 
         let mut data = &mut Vec::<u8>::new();
 
-        Memory::align(&mut data, 8);
+        Memory::align(&mut data, 8).unwrap();
         assert!(data.is_empty());
 
         data.push(1);
-        Memory::align(&mut data, 8);
+        Memory::align(&mut data, 8).unwrap();
         assert_eq!(data.len(), 8);
 
-        Memory::align(&mut data, 8);
+        Memory::align(&mut data, 8).unwrap();
         assert_eq!(data.len(), 8);
 
         data.extend_from_slice(&[1, 2, 3, 4, 5, 6, 7]);
-        Memory::align(&mut data, 8);
+        Memory::align(&mut data, 8).unwrap();
         assert_eq!(data.len(), 16);
     }
 
@@ -89,14 +89,14 @@ mod tests {
 
         let mut data = &mut Vec::<u8>::new();
 
-        Memory::align(&mut data, 0);
+        Memory::align(&mut data, 0).unwrap();
         assert!(data.is_empty());
 
         data.push(1);
-        Memory::align(&mut data, 0);
+        Memory::align(&mut data, 0).unwrap();
         assert_eq!(data.len(), 1);
 
-        Memory::align(&mut data, 1);
+        Memory::align(&mut data, 1).unwrap();
         assert_eq!(data.len(), 1);
     }
 }
