@@ -3,7 +3,7 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-use super::{Addr, Rel64Error, calc_delta, patch_instruction_bits};
+use super::{Addr64, Rel64Error, calc_delta, patch_instruction_bits};
 use crate::instructions::control::{BranchCondOffset, BranchOffset, TestBranchOffset};
 use crate::reloc::get_bytes_mut;
 
@@ -18,8 +18,8 @@ const COND_BR_IMM19_WIDTH: u32 = 19u32;
 
 #[inline]
 pub fn jump26_reloc(
-    base: Addr,
-    target: Addr,
+    base: Addr64,
+    target: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -32,8 +32,8 @@ pub fn jump26_reloc(
 
 #[inline]
 pub fn call26_reloc(
-    base: Addr,
-    target: Addr,
+    base: Addr64,
+    target: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -42,8 +42,8 @@ pub fn call26_reloc(
 
 #[inline]
 pub fn tst_br14_reloc(
-    base: Addr,
-    target: Addr,
+    base: Addr64,
+    target: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -56,8 +56,8 @@ pub fn tst_br14_reloc(
 
 #[inline]
 pub fn cond_br19_reloc(
-    base: Addr,
-    target: Addr,
+    base: Addr64,
+    target: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {

@@ -5,7 +5,7 @@
 
 use aarchmrs_types::InstructionCode;
 
-use super::{Addr, Rel64Error, cond_br19_reloc};
+use super::{Addr64, Rel64Error, cond_br19_reloc};
 use crate::instructions::dpimm::{AdrOffset, AdrpOffset};
 use crate::instructions::ldst::{ScaledOffset16, ScaledOffset32, ScaledOffset64, ScaledOffset128};
 use crate::reloc::{calc_delta, calc_page_offset};
@@ -41,8 +41,8 @@ const LDST128_IMM12_WIDTH: u32 = 12u32;
 
 #[inline]
 pub fn ld_prel_lo19_reloc(
-    base: Addr,
-    symbol: Addr,
+    base: Addr64,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -51,8 +51,8 @@ pub fn ld_prel_lo19_reloc(
 
 #[inline]
 pub fn adr_prel_lo21_reloc(
-    base: Addr,
-    symbol: Addr,
+    base: Addr64,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -67,8 +67,8 @@ pub fn adr_prel_lo21_reloc(
 
 #[inline]
 pub fn adr_prel_pg_hi21_reloc(
-    base: Addr,
-    symbol: Addr,
+    base: Addr64,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -85,8 +85,8 @@ pub fn adr_prel_pg_hi21_reloc(
 
 #[inline]
 pub fn adr_prel_pg_hi21_nc_reloc(
-    base: Addr,
-    symbol: Addr,
+    base: Addr64,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -102,7 +102,7 @@ pub fn adr_prel_pg_hi21_nc_reloc(
 
 #[inline]
 pub fn add_abs_lo12_nc_reloc(
-    symbol: Addr,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -128,7 +128,7 @@ fn patch_adr_adrp(mem: &mut [u8; 4], checked_value: u32) {
 
 #[inline]
 pub fn ldst8_abs_lo12_nc_reloc(
-    symbol: Addr,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -137,7 +137,7 @@ pub fn ldst8_abs_lo12_nc_reloc(
 
 #[inline]
 pub fn ldst16_abs_lo12_nc_reloc(
-    symbol: Addr,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -152,7 +152,7 @@ pub fn ldst16_abs_lo12_nc_reloc(
 
 #[inline]
 pub fn ldst32_abs_lo12_nc_reloc(
-    symbol: Addr,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -167,7 +167,7 @@ pub fn ldst32_abs_lo12_nc_reloc(
 
 #[inline]
 pub fn ldst64_abs_lo12_nc_reloc(
-    symbol: Addr,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -182,7 +182,7 @@ pub fn ldst64_abs_lo12_nc_reloc(
 
 #[inline]
 pub fn ldst128_abs_lo12_nc_reloc(
-    symbol: Addr,
+    symbol: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {

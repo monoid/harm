@@ -4,7 +4,7 @@
  */
 use aarchmrs_types::InstructionCode;
 
-use super::{Addr, Rel64Error, calc_delta, get_bytes_mut};
+use super::{Addr64, Rel64Error, calc_delta, get_bytes_mut};
 use crate::bits::SBitValue;
 
 const MOV_OPCODE_OFFSET: u32 = 29;
@@ -92,8 +92,8 @@ pub fn movw_sabs_g2_reloc(value: i64, mem: &mut [u8], offset: usize) -> Result<(
 
 #[inline]
 pub fn movw_prel_g0_reloc(
-    base: Addr,
-    value: Addr,
+    base: Addr64,
+    value: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -103,8 +103,8 @@ pub fn movw_prel_g0_reloc(
 
 #[inline]
 pub fn movw_prel_g0_nc_reloc(
-    base: Addr,
-    value: Addr,
+    base: Addr64,
+    value: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -114,8 +114,8 @@ pub fn movw_prel_g0_nc_reloc(
 
 #[inline]
 pub fn movw_prel_g1_reloc(
-    base: Addr,
-    value: Addr,
+    base: Addr64,
+    value: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -125,8 +125,8 @@ pub fn movw_prel_g1_reloc(
 
 #[inline]
 pub fn movw_prel_g1_nc_reloc(
-    base: Addr,
-    value: Addr,
+    base: Addr64,
+    value: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -136,8 +136,8 @@ pub fn movw_prel_g1_nc_reloc(
 
 #[inline]
 pub fn movw_prel_g2_reloc(
-    base: Addr,
-    value: Addr,
+    base: Addr64,
+    value: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -147,8 +147,8 @@ pub fn movw_prel_g2_reloc(
 
 #[inline]
 pub fn movw_prel_g2_nc_reloc(
-    base: Addr,
-    value: Addr,
+    base: Addr64,
+    value: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {
@@ -158,8 +158,8 @@ pub fn movw_prel_g2_nc_reloc(
 
 #[inline]
 pub fn movw_prel_g3_reloc(
-    base: Addr,
-    value: Addr,
+    base: Addr64,
+    value: Addr64,
     mem: &mut [u8],
     offset: usize,
 ) -> Result<(), Rel64Error> {

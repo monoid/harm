@@ -24,8 +24,6 @@ mod control;
 mod data;
 mod movs;
 
-use ::core::fmt;
-
 use aarchmrs_types::InstructionCode;
 
 pub use self::addr::*;
@@ -40,14 +38,44 @@ use crate::bits::BitError;
 #[repr(transparent)]
 pub struct LabelId(pub usize);
 
-pub type Offset = i64;
+// Every offset in an instruction does fit in i32.
+// But "[relocation] is sign-extended to 64 bits".
+pub type Offset64 = i64;
 
-pub type Addr = u64;
+pub type Addr64 = u64;
+
+#[derive(Debug)]
+pub enum RelocationError {
+    CheckedOverflow,
+    OffsetOverflow,
+}
+
+use ::core::fmt;
+
+impl fmt::Display for RelocationError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        use RelocationError::*;
+
+        match self {
+            CheckedOverflow => write!(f, "Checked relocation overflow"),
+            OffsetOverflow => write!(f, "Offset overflow"),
+        }
+    }
+}
+
+impl ::core::error::Error for RelocationError {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct LabelRef {
     pub id: LabelId,
-    pub addend: Offset,
+    pub addend: Offset64,
+}
+
+// TODO refactor in a separate commit
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct Relocation<Rel> {
+    pub rel: Rel,
+    pub label: LabelRef,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -251,6 +279,17 @@ impl Rel64 {
     pub const fn movw_prel_g3(label: LabelRef) -> Self {
         Self::new(Rel64Tag::MOVW_PREL_G3, label)
     }
+
+    #[inline]
+    pub fn apply(
+        self,
+        base: Addr64,
+        value: Addr64,
+        memory: &mut [u8],
+        offset: usize,
+    ) -> Result<(), Rel64Error> {
+        self.rel.apply(base, value, memory, offset)
+    }
 }
 
 #[derive(Debug, PartialEq, Eq, Clone)]
@@ -348,8 +387,8 @@ impl Rel64Tag {
     /// location for flexibility: the memory can be moved to real destination later).
     pub fn apply(
         self,
-        base: Addr,
-        value: Addr,
+        base: Addr64,
+        value: Addr64,
         memory: &mut [u8],
         offset: usize,
     ) -> Result<(), Rel64Error> {
@@ -421,7 +460,7 @@ fn get_bytes_mut<const N: usize>(
 
 /// A function for calculating PC-relative relocation signed difference S - P, where P is `base + offset` (checked)
 /// and S is `value`.
-pub fn calc_delta(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64Error> {
+pub fn calc_delta(base: u64, value: u64, offset: usize) -> Result<Offset64, Rel64Error> {
     let offset64 = offset
         .try_into()
         .map_err(|_e| Rel64Error::InvalidOffset { offset })?;
@@ -437,7 +476,7 @@ pub fn calc_delta(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64E
 /// (checked) and S is `value`.
 ///
 /// Please note that the difference is uses address offsets, i.e. the difference is not divided by page size (4096).
-pub fn calc_page_offset(base: u64, value: u64, offset: usize) -> Result<Offset, Rel64Error> {
+pub fn calc_page_offset(base: u64, value: u64, offset: usize) -> Result<Offset64, Rel64Error> {
     const PAGE_MASK: u64 = !0xfff;
     let offset64 = offset
         .try_into()
