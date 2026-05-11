@@ -46,7 +46,7 @@ mod tests {
             movz(Reg64::X0, 0),
             and(Reg64::X3, Reg64::X3, 8)?  // instruction-level error.
         }
-        .unwrap();  // memory buffer level error.
+        .unwrap(); // memory buffer level error.
 
         asm.build::<_, ()>().unwrap();
 
