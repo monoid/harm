@@ -6,6 +6,7 @@
 #[macro_use]
 pub(crate) mod macros;
 
+pub mod args;
 mod increment;
 mod shift_extend;
 

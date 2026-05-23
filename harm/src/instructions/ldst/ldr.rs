@@ -119,83 +119,221 @@ use aarchmrs_instructions::A64::ldst::{
     loadlit::{LDR_32_loadlit::LDR_32_loadlit, LDR_64_loadlit::LDR_64_loadlit},
 };
 
+use super::args::{LdStArgs, MakeLdStArgs};
 use super::shift_extend::*;
-use super::{Inc, LdStIncOffset, ScaledOffset32, ScaledOffset64};
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register};
+use super::{Inc, LdStIncOffset, LdStPcOffset, Pc, ScaledOffset32, ScaledOffset64};
+use crate::instructions::{RawInstruction, RelocatableInstruction};
+use crate::outcome::Outcome;
+use crate::register::{RegOrSp64, RegOrZero32, RegOrZero64, Register};
 use crate::sealed::Sealed;
 
 /// A `ldr` instruction with a destination and an address.
-pub struct Ldr<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+#[derive(Debug, Copy, Clone)]
+pub struct Ldr<Args>(pub Args);
 
-impl<Rt, Addr> Ldr<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldr<Rt, Addr> {}
-
-/// Defines possible was to construct a `ldr` instruction.
-pub trait MakeLdr<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-//
-// ## LDR (register offset)
-//
-define_reg_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero64, 64);
-define_reg_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero32, 32);
-
-//
-// ## LDR (immediate offset)
-//
-define_imm_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero64, 64, ScaledOffset64);
-define_imm_offset_rules!(Ldr, MakeLdr, LDR, RegOrZero32, 32, ScaledOffset32);
-
-//
-// ## LDR (PC-relative literal)
-//
-define_pc_offset_rules!(
-    Ldr,
-    MakeLdr,
-    LDR,
-    RegOrZero64,
-    64,
-    crate::reloc::Rel64::ld_prel_lo19
-);
-define_pc_offset_rules!(
-    Ldr,
-    MakeLdr,
-    LDR,
-    RegOrZero32,
-    32,
-    crate::reloc::Rel64::ld_prel_lo19
-);
-
-//
-// ## Faillible
-//
-define_fallible_rules!(LDR, Ldr, MakeLdr);
+impl<Args: Sealed> Sealed for Ldr<Args> {}
 
 /// ldr construction function.  See examples in the module documentation.
-pub fn ldr<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Ldr<TargetOut, AddrOut> as MakeLdr<TargetInp, AddrInp>>::Output
+pub fn ldr<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeLdStArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Ldr<LdStArgs<Rt, Addr>>,
+>
 where
-    Ldr<TargetOut, AddrOut>: MakeLdr<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeLdStArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeLdStArgs<RtIn, AddrIn>>::Outcome:
+        Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Ldr::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeLdStArgs<RtIn, AddrIn>>::new(dst, addr).map(Ldr)
+}
+
+// === LDR 64-bit: register offset ===
+
+impl RawInstruction
+    for Ldr<LdStArgs<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero64>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDR_64_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction
+    for Ldr<LdStArgs<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero32>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDR_64_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero64, (RegOrSp64, RegOrZero64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDR_64_ldst_regoff(
+            offset.index(),
+            (LdStExtendOption64::default() as u8).into(),
+            0b0.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+// === LDR 32-bit: register offset ===
+
+impl RawInstruction
+    for Ldr<LdStArgs<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDR_32_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction
+    for Ldr<LdStArgs<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero32>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDR_32_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero32, (RegOrSp64, RegOrZero64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDR_32_ldst_regoff(
+            offset.index(),
+            (LdStExtendOption64::default() as u8).into(),
+            0b0.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+// === LDR 64-bit: scaled immediate offset ===
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDR_64_ldst_pos(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero64, (Inc<LdStIncOffset>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        LDR_64_ldst_immpre(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero64, (RegOrSp64, Inc<LdStIncOffset>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        LDR_64_ldst_immpost(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+// === LDR 32-bit: scaled immediate offset ===
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero32, (RegOrSp64, ScaledOffset32)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDR_32_ldst_pos(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero32, (Inc<LdStIncOffset>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        LDR_32_ldst_immpre(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero32, (RegOrSp64, Inc<LdStIncOffset>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        LDR_32_ldst_immpost(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+// === LDR: PC-relative literal ===
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero64, (Pc, LdStPcOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (_pc, offset) = self.0.addr;
+        LDR_64_loadlit(offset.into(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldr<LdStArgs<RegOrZero32, (Pc, LdStPcOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (_pc, offset) = self.0.addr;
+        LDR_32_loadlit(offset.into(), self.0.rt.index())
+    }
+}
+
+impl RelocatableInstruction for Ldr<LdStArgs<RegOrZero64, crate::reloc::LabelRef>> {
+    #[inline]
+    fn to_code_with_reloc(
+        &self,
+    ) -> (aarchmrs_types::InstructionCode, Option<crate::reloc::Rel64>) {
+        let code = LDR_64_loadlit(0.into(), self.0.rt.index());
+        let rel = crate::reloc::Rel64::ld_prel_lo19(self.0.addr);
+        (code, Some(rel))
+    }
+}
+
+impl RelocatableInstruction for Ldr<LdStArgs<RegOrZero32, crate::reloc::LabelRef>> {
+    #[inline]
+    fn to_code_with_reloc(
+        &self,
+    ) -> (aarchmrs_types::InstructionCode, Option<crate::reloc::Rel64>) {
+        let code = LDR_32_loadlit(0.into(), self.0.rt.index());
+        let rel = crate::reloc::Rel64::ld_prel_lo19(self.0.addr);
+        (code, Some(rel))
+    }
 }
 
 #[cfg(test)]
