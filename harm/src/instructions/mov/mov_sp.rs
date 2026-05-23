@@ -7,12 +7,13 @@ use super::mov_reg::MovReg;
 use super::*;
 use crate::instructions::RawInstruction;
 use crate::instructions::arith::AddSubImm12;
-use crate::instructions::arith::add::{Add, add};
+use crate::instructions::arith::add::Add;
+use crate::instructions::arith::args::ArithArgs;
 use crate::register::{IntoReg, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64};
 
 pub enum MovRegSp<RZ, RSp> {
     Reg(MovReg<RZ>),
-    Sp(Add<RSp, RSp, AddSubImm12>),
+    Sp(Add<ArithArgs<RSp, RSp, AddSubImm12>>),
 }
 
 impl<RZ: Sealed, RSp: Sealed> Sealed for MovRegSp<RZ, RSp> {}
@@ -30,7 +31,11 @@ where
         let src = src.into_reg();
         match (dst, src) {
             (Reg(dst32), Reg(src32)) => MovRegSp::Reg(mov(dst32, src32)),
-            (dst, src) => MovRegSp::Sp(add(dst, src, AddSubImm12::Unshifted(<_>::default()))),
+            (dst, src) => MovRegSp::Sp(Add(ArithArgs {
+                dst,
+                src1: src,
+                src2: AddSubImm12::Unshifted(<_>::default()),
+            })),
         }
     }
 }
@@ -58,7 +63,11 @@ where
         let src = src.into_reg();
         match (dst, src) {
             (Reg(dst64), Reg(src64)) => MovRegSp::Reg(mov(dst64, src64)),
-            (dst, src) => MovRegSp::Sp(add(dst, src, AddSubImm12::Unshifted(<_>::default()))),
+            (dst, src) => MovRegSp::Sp(Add(ArithArgs {
+                dst,
+                src1: src,
+                src2: AddSubImm12::Unshifted(<_>::default()),
+            })),
         }
     }
 }

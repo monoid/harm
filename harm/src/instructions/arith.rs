@@ -10,9 +10,7 @@ use crate::{
     register::{Reg32, Reg64, RegOrZero32, RegOrZero64},
 };
 
-#[macro_use]
-pub(crate) mod macros;
-
+pub mod args;
 pub mod add;
 pub mod sub;
 

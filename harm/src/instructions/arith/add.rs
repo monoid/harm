@@ -15,69 +15,299 @@ use aarchmrs_instructions::A64::{
 };
 use aarchmrs_types::InstructionCode;
 
-use super::*;
+use super::args::{ArithArgs, MakeArithArgs};
+use super::{
+    AddSubImm12, ExtendMode, ExtendShiftAmount, ExtendedReg, ShiftAmount, ShiftMode, ShiftedReg,
+};
 use crate::{
     bits::BitError,
     instructions::RawInstruction,
-    register::{
-        IntoReg, Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Register as _,
-    },
+    outcome::Outcome,
+    register::{Reg32, Reg64, RegOrSp32, RegOrSp64, RegOrZero32, RegOrZero64, Register as _},
     sealed::Sealed,
 };
 
-pub fn add<T, RealT, S1, S2, RealS1, RealS2>(
-    dst: T,
-    src1: S1,
-    src2: S2,
-) -> <Add<RealT, RealS1, RealS2> as MakeAdd<T, S1, S2>>::Output
+#[derive(Debug, Copy, Clone)]
+pub struct Add<Args>(pub Args);
+
+impl<Args> Sealed for Add<Args> {}
+
+pub fn add<DstIn, T, Src1In, Src2In, S1, S2>(
+    dst: DstIn,
+    src1: Src1In,
+    src2: Src2In,
+) -> <<ArithArgs<T, S1, S2> as MakeArithArgs<DstIn, Src1In, Src2In>>::Outcome as Outcome>::Output<
+    Add<ArithArgs<T, S1, S2>>,
+>
 where
-    Add<RealT, RealS1, RealS2>: MakeAdd<T, S1, S2>,
+    ArithArgs<T, S1, S2>: MakeArithArgs<DstIn, Src1In, Src2In>,
+    <ArithArgs<T, S1, S2> as MakeArithArgs<DstIn, Src1In, Src2In>>::Outcome:
+        Outcome<Inner = ArithArgs<T, S1, S2>>,
 {
-    Add::<RealT, RealS1, RealS2>::new(dst, src1, src2)
+    <ArithArgs<T, S1, S2> as MakeArithArgs<DstIn, Src1In, Src2In>>::new(dst, src1, src2).map(Add)
 }
 
-pub trait MakeAdd<T, S1, S2>: Sealed {
-    type Output;
+// --- Shift/extend method forwarding ---
 
-    fn new(dst: T, src1: S1, src2: S2) -> Self::Output;
-}
-
-pub struct Add<T, S1, S2> {
-    pub dst: T,
-    pub src1: S1,
-    pub src2: S2,
-}
-
-impl<T, S1, S2> Sealed for Add<T, S1, S2> {}
-
-impl MakeAdd<Reg64, Reg64, Reg64> for Add<Reg64, Reg64, Reg64> {
-    type Output = Self;
+impl Add<ArithArgs<Reg64, Reg64, Reg64>> {
+    #[inline]
+    pub fn shift(
+        self,
+        mode: ShiftMode,
+        amount: ShiftAmount,
+    ) -> Add<ArithArgs<RegOrZero64, RegOrZero64, ShiftedReg<RegOrZero64>>> {
+        Add(self.0.shift(mode, amount))
+    }
 
     #[inline]
-    fn new(dst: Reg64, src1: Reg64, src2: Reg64) -> Self {
-        Self { dst, src1, src2 }
+    pub fn try_shift(
+        self,
+        mode: ShiftMode,
+        amount: u32,
+    ) -> Result<Add<ArithArgs<RegOrZero64, RegOrZero64, ShiftedReg<RegOrZero64>>>, BitError> {
+        self.0.try_shift(mode, amount).map(Add)
+    }
+
+    #[inline]
+    pub fn extend(
+        self,
+        mode: ExtendMode,
+        amount: ExtendShiftAmount,
+    ) -> Add<ArithArgs<RegOrSp64, RegOrSp64, ExtendedReg<RegOrZero64>>> {
+        Add(self.0.extend(mode, amount))
     }
 }
 
-impl MakeAdd<Reg32, Reg32, Reg32> for Add<Reg32, Reg32, Reg32> {
-    type Output = Self;
+impl Add<ArithArgs<Reg32, Reg32, Reg32>> {
+    #[inline]
+    pub fn shift(
+        self,
+        mode: ShiftMode,
+        amount: ShiftAmount,
+    ) -> Add<ArithArgs<RegOrZero32, RegOrZero32, ShiftedReg<RegOrZero32>>> {
+        Add(self.0.shift(mode, amount))
+    }
 
     #[inline]
-    fn new(dst: Reg32, src1: Reg32, src2: Reg32) -> Self {
-        Self { dst, src1, src2 }
+    pub fn try_shift(
+        self,
+        mode: ShiftMode,
+        amount: u32,
+    ) -> Result<Add<ArithArgs<RegOrZero32, RegOrZero32, ShiftedReg<RegOrZero32>>>, BitError> {
+        self.0.try_shift(mode, amount).map(Add)
+    }
+
+    #[inline]
+    pub fn extend(
+        self,
+        mode: ExtendMode,
+        amount: ExtendShiftAmount,
+    ) -> Add<ArithArgs<RegOrSp32, RegOrSp32, ExtendedReg<RegOrZero32>>> {
+        Add(self.0.extend(mode, amount))
     }
 }
 
-define_arith_faillible!(Add);
+impl Add<ArithArgs<RegOrZero64, RegOrZero64, RegOrZero64>> {
+    #[inline]
+    pub fn shift(
+        self,
+        mode: ShiftMode,
+        amount: ShiftAmount,
+    ) -> Add<ArithArgs<RegOrZero64, RegOrZero64, ShiftedReg<RegOrZero64>>> {
+        Add(self.0.shift(mode, amount))
+    }
 
-define_arith_shift!(Add, 32, addsub, Reg32, RegOrZero32);
-define_arith_shift!(Add, 64, addsub, Reg64, RegOrZero64);
+    #[inline]
+    pub fn try_shift(
+        self,
+        mode: ShiftMode,
+        amount: u32,
+    ) -> Result<Add<ArithArgs<RegOrZero64, RegOrZero64, ShiftedReg<RegOrZero64>>>, BitError> {
+        self.0.try_shift(mode, amount).map(Add)
+    }
+}
 
-define_arith_extend!(Add, 32, addsub, Reg32, RegOrSp32, RegOrZero32);
-define_arith_extend!(Add, 64, addsub, Reg64, RegOrSp64, RegOrZero64);
+impl Add<ArithArgs<RegOrZero32, RegOrZero32, RegOrZero32>> {
+    #[inline]
+    pub fn shift(
+        self,
+        mode: ShiftMode,
+        amount: ShiftAmount,
+    ) -> Add<ArithArgs<RegOrZero32, RegOrZero32, ShiftedReg<RegOrZero32>>> {
+        Add(self.0.shift(mode, amount))
+    }
 
-define_arith_imm12!(Add, 32, addsub, Reg32, RegOrSp32);
-define_arith_imm12!(Add, 64, addsub, Reg64, RegOrSp64);
+    #[inline]
+    pub fn try_shift(
+        self,
+        mode: ShiftMode,
+        amount: u32,
+    ) -> Result<Add<ArithArgs<RegOrZero32, RegOrZero32, ShiftedReg<RegOrZero32>>>, BitError> {
+        self.0.try_shift(mode, amount).map(Add)
+    }
+}
+
+impl Add<ArithArgs<RegOrZero64, RegOrZero64, ShiftedReg<RegOrZero64>>> {
+    #[inline]
+    pub fn shift(self, mode: ShiftMode, amount: ShiftAmount) -> Self {
+        Add(self.0.shift(mode, amount))
+    }
+
+    #[inline]
+    pub fn try_shift(self, mode: ShiftMode, amount: u32) -> Result<Self, BitError> {
+        self.0.try_shift(mode, amount).map(Add)
+    }
+}
+
+impl Add<ArithArgs<RegOrZero32, RegOrZero32, ShiftedReg<RegOrZero32>>> {
+    #[inline]
+    pub fn shift(self, mode: ShiftMode, amount: ShiftAmount) -> Self {
+        Add(self.0.shift(mode, amount))
+    }
+
+    #[inline]
+    pub fn try_shift(self, mode: ShiftMode, amount: u32) -> Result<Self, BitError> {
+        self.0.try_shift(mode, amount).map(Add)
+    }
+}
+
+impl Add<ArithArgs<RegOrSp64, RegOrSp64, RegOrZero64>> {
+    #[inline]
+    pub fn extend(
+        self,
+        mode: ExtendMode,
+        amount: ExtendShiftAmount,
+    ) -> Add<ArithArgs<RegOrSp64, RegOrSp64, ExtendedReg<RegOrZero64>>> {
+        Add(self.0.extend(mode, amount))
+    }
+}
+
+impl Add<ArithArgs<RegOrSp32, RegOrSp32, RegOrZero32>> {
+    #[inline]
+    pub fn extend(
+        self,
+        mode: ExtendMode,
+        amount: ExtendShiftAmount,
+    ) -> Add<ArithArgs<RegOrSp32, RegOrSp32, ExtendedReg<RegOrZero32>>> {
+        Add(self.0.extend(mode, amount))
+    }
+}
+
+impl Add<ArithArgs<RegOrSp64, RegOrSp64, ExtendedReg<RegOrZero64>>> {
+    #[inline]
+    pub fn extend(self, mode: ExtendMode, amount: ExtendShiftAmount) -> Self {
+        Add(self.0.extend(mode, amount))
+    }
+}
+
+impl Add<ArithArgs<RegOrSp32, RegOrSp32, ExtendedReg<RegOrZero32>>> {
+    #[inline]
+    pub fn extend(self, mode: ExtendMode, amount: ExtendShiftAmount) -> Self {
+        Add(self.0.extend(mode, amount))
+    }
+}
+
+// --- RawInstruction impls ---
+
+impl RawInstruction for Add<ArithArgs<Reg64, Reg64, Reg64>> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        Add(ArithArgs {
+            dst: RegOrZero64::Reg(self.0.dst),
+            src1: RegOrZero64::Reg(self.0.src1),
+            src2: ShiftedReg::new(RegOrZero64::Reg(self.0.src2)),
+        })
+        .to_code()
+    }
+}
+
+impl RawInstruction for Add<ArithArgs<RegOrZero64, RegOrZero64, ShiftedReg<RegOrZero64>>> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        let shift = self.0.src2.shift.mode as u8;
+        let rm = self.0.src2.reg.index();
+        let shift_amount = self.0.src2.shift.amount;
+        let rn = self.0.src1.index();
+        let rd = self.0.dst.index();
+        ADD_64_addsub_shift(shift.into(), rm.into(), shift_amount.into(), rn.into(), rd.into())
+    }
+}
+
+impl RawInstruction for Add<ArithArgs<Reg32, Reg32, Reg32>> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        Add(ArithArgs {
+            dst: RegOrZero32::Reg(self.0.dst),
+            src1: RegOrZero32::Reg(self.0.src1),
+            src2: ShiftedReg::new(RegOrZero32::Reg(self.0.src2)),
+        })
+        .to_code()
+    }
+}
+
+impl RawInstruction for Add<ArithArgs<RegOrZero32, RegOrZero32, ShiftedReg<RegOrZero32>>> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        let shift = self.0.src2.shift.mode as u8;
+        let rm = self.0.src2.reg.index();
+        let shift_amount = self.0.src2.shift.amount;
+        let rn = self.0.src1.index();
+        let rd = self.0.dst.index();
+        ADD_32_addsub_shift(shift.into(), rm.into(), shift_amount.into(), rn.into(), rd.into())
+    }
+}
+
+impl RawInstruction for Add<ArithArgs<RegOrSp64, RegOrSp64, ExtendedReg<RegOrZero64>>> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        let option = self.0.src2.extend.mode as u8;
+        let rm = self.0.src2.reg.index();
+        let imm3 = self.0.src2.extend.amount;
+        let rn = self.0.src1.index();
+        let rd = self.0.dst.index();
+        ADD_64_addsub_ext(rm.into(), option.into(), imm3.into(), rn.into(), rd.into())
+    }
+}
+
+impl RawInstruction for Add<ArithArgs<RegOrSp32, RegOrSp32, ExtendedReg<RegOrZero32>>> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        let option = self.0.src2.extend.mode as u8;
+        let rm = self.0.src2.reg.index();
+        let imm3 = self.0.src2.extend.amount;
+        let rn = self.0.src1.index();
+        let rd = self.0.dst.index();
+        ADD_32_addsub_ext(rm.into(), option.into(), imm3.into(), rn.into(), rd.into())
+    }
+}
+
+impl RawInstruction for Add<ArithArgs<RegOrSp64, RegOrSp64, AddSubImm12>> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        use AddSubImm12::*;
+        let (shifted, imm12) = match self.0.src2 {
+            Unshifted(value) => (false, value.into()),
+            Shifted(value) => (true, value.into()),
+        };
+        let rn = self.0.src1.index();
+        let rd = self.0.dst.index();
+        ADD_64_addsub_imm(shifted.into(), imm12, rn.into(), rd.into())
+    }
+}
+
+impl RawInstruction for Add<ArithArgs<RegOrSp32, RegOrSp32, AddSubImm12>> {
+    #[inline]
+    fn to_code(&self) -> InstructionCode {
+        use AddSubImm12::*;
+        let (shifted, imm12) = match self.0.src2 {
+            Unshifted(value) => (false, value.into()),
+            Shifted(value) => (true, value.into()),
+        };
+        let rn = self.0.src1.index();
+        let rd = self.0.dst.index();
+        ADD_32_addsub_imm(shifted.into(), imm12, rn.into(), rd.into())
+    }
+}
 
 #[cfg(test)]
 mod tests {
@@ -156,9 +386,9 @@ mod tests {
             "add x1, x2, wzr, uxth #3";
         test_add_64_const_1, add(X1, X2, 1u32).unwrap(), "add x1, x2, #1";
         test_add_64_const_1_1, add(X1, X2, AddSubImm12::try_from(1).unwrap()), "add x1, x2, #1";
-        test_add_64_const_0x1000, add(X1, X2, 0x1000).unwrap(), "add x1, x2, #0x1000";
-        test_add_sp_64_const_1, add(SP, SP, 1).unwrap(), "add sp, sp, #1";
-        test_add_sp_64_const_0x1000, add(SP, SP, 0x1000).unwrap(), "add sp, sp, #0x1000";
+        test_add_64_const_0x1000, add(X1, X2, 0x1000u32).unwrap(), "add x1, x2, #0x1000";
+        test_add_sp_64_const_1, add(SP, SP, 1u32).unwrap(), "add sp, sp, #1";
+        test_add_sp_64_const_0x1000, add(SP, SP, 0x1000u32).unwrap(), "add sp, sp, #0x1000";
         test_add_32, add(W1, W2, W12), "add w1, w2, w12";
         test_add_32_shift, add(W1, W2, W12).try_shift(ShiftMode::LSR, 4).unwrap(), "add w1, w2, w12, lsr #4";
         test_add_32_zero,
@@ -176,10 +406,10 @@ mod tests {
         test_add_32_extend_uxtw_wzr,
             add(Reg3S(W1), W2, WZR).extend(ExtendMode::UXTW, ExtendShiftAmount::try_new(3).unwrap()),
             "add w1, w2, wzr, uxtw #3";
-        test_add_32_const_0x123, add(W1, W2, 0x123).unwrap(), "add w1, w2, #0x123";
+        test_add_32_const_0x123, add(W1, W2, 0x123u32).unwrap(), "add w1, w2, #0x123";
         test_add_32_const_0x123_1, add(W1, W2, AddSubImm12::try_from(0x123)).unwrap(), "add w1, w2, #0x123";
-        test_add_wsp_32_const_0x123, add(WSP, WSP, 0x123).unwrap(), "add wsp, wsp, #0x123";
-        test_add_32_const_0x123000, add(W1, W2, 0x123000).unwrap(), "add w1, w2, #0x123000";
+        test_add_wsp_32_const_0x123, add(WSP, WSP, 0x123u32).unwrap(), "add wsp, wsp, #0x123";
+        test_add_32_const_0x123000, add(W1, W2, 0x123000u32).unwrap(), "add w1, w2, #0x123000";
         test_add_32_const_0x123000_1, add(W1, W2, AddSubImm12::try_from(0x123000).unwrap()), "add w1, w2, #0x123000";
         test_add_64_sp_extend_uxtx,
             add(SP, SP, X12).extend(ExtendMode::UXTX, ExtendShiftAmount::try_new(3).unwrap()),
@@ -194,13 +424,13 @@ mod tests {
 
     #[test]
     fn test_add_64_const_0x1001() {
-        let a = add(X1, X2, 0x1001);
+        let a = add(X1, X2, 0x1001u32);
         assert!(a.is_err());
     }
 
     #[test]
     fn test_add_32_const_0x1001() {
-        let a = add(W1, W2, 0x1001);
+        let a = add(W1, W2, 0x1001u32);
         assert!(a.is_err());
     }
 }
