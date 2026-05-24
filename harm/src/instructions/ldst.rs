@@ -3,9 +3,6 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-#[macro_use]
-pub(crate) mod macros;
-
 pub mod args;
 mod increment;
 mod shift_extend;

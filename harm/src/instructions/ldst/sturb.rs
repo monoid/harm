@@ -5,49 +5,39 @@
 
 use aarchmrs_instructions::A64::ldst::ldst_unscaled::STURB_32_ldst_unscaled::STURB_32_ldst_unscaled;
 
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, Register};
-use crate::sealed::Sealed;
-
+use super::args::{LdStArgs, MakeUrbArgs};
 use super::UnscaledOffset;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero32, Register},
+};
 
-/// A `STURB` instruction with a destination and an address.
-pub struct Sturb<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+/// A `sturb` instruction with a destination and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Sturb<Args>(pub Args);
 
-impl<Rt, Addr> Sturb<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Sturb<Rt, Addr> {}
-
-/// Defines possible was to construct a `sturb` instruction.
-pub trait MakeSturb<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-
-define_unscaled_imm_offset_rules!(Sturb, MakeSturb, STURB, RegOrZero32, 32);
-
-pub fn sturb<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Sturb<TargetOut, AddrOut> as MakeSturb<TargetInp, AddrInp>>::Output
+/// sturb construction function.  See examples in the module documentation.
+pub fn sturb<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeUrbArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Sturb<LdStArgs<Rt, Addr>>,
+>
 where
-    Sturb<TargetOut, AddrOut>: MakeSturb<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeUrbArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeUrbArgs<RtIn, AddrIn>>::Outcome:
+        Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Sturb::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeUrbArgs<RtIn, AddrIn>>::new(dst, addr).map(Sturb)
+}
+
+impl RawInstruction for Sturb<LdStArgs<RegOrZero32, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STURB_32_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]

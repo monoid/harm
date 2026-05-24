@@ -15,51 +15,81 @@ use aarchmrs_instructions::A64::ldst::{
     },
 };
 
+use super::args::{LdStPairArgs, MakeLdpStpArgs};
 use super::{Inc, LdpStpOffset32, LdpStpOffset64};
-use crate::bits::BitError;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register};
-use crate::sealed::Sealed;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero32, RegOrZero64, Register},
+};
 
-/// A `ldp` instruction with a destination and an address.
-pub struct Ldp<Rt, Addr> {
-    rt: (Rt, Rt),
-    addr: Addr,
-}
+/// A `ldp` instruction with a destination pair and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Ldp<Args>(pub Args);
 
-impl<Rt, Addr> Ldp<Rt, Addr> {
-    pub fn rt(&self) -> &(Rt, Rt) {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldp<Rt, Addr> {}
-
-/// Defines possible was to construct a `ldp` instruction.
-pub trait MakeLdp<Rt1, Rt2, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: (Rt1, Rt2), addr: Addr) -> Self::Output;
-}
-
-pub fn ldp<DestInp1, DestInp2, TargetOut, AddrInp, AddrOut>(
-    d1: DestInp1,
-    d2: DestInp2,
-    addr: AddrInp,
-) -> <Ldp<TargetOut, AddrOut> as MakeLdp<DestInp1, DestInp2, AddrInp>>::Output
+/// ldp construction function.  See examples in the module documentation.
+pub fn ldp<D1, D2, Rt, AddrIn, Addr>(
+    d1: D1,
+    d2: D2,
+    addr: AddrIn,
+) -> <<LdStPairArgs<Rt, Addr> as MakeLdpStpArgs<D1, D2, AddrIn>>::Outcome as Outcome>::Output<
+    Ldp<LdStPairArgs<Rt, Addr>>,
+>
 where
-    Ldp<TargetOut, AddrOut>: MakeLdp<DestInp1, DestInp2, AddrInp>,
+    LdStPairArgs<Rt, Addr>: MakeLdpStpArgs<D1, D2, AddrIn>,
+    <LdStPairArgs<Rt, Addr> as MakeLdpStpArgs<D1, D2, AddrIn>>::Outcome:
+        Outcome<Inner = LdStPairArgs<Rt, Addr>>,
 {
-    Ldp::new((d1, d2), addr)
+    <LdStPairArgs<Rt, Addr> as MakeLdpStpArgs<D1, D2, AddrIn>>::new(d1, d2, addr).map(Ldp)
 }
 
-define_pair_imm_offset_rules!(Ldp, MakeLdp, LDP, RegOrZero32, "32", LdpStpOffset32);
-define_pair_imm_offset_rules!(Ldp, MakeLdp, LDP, RegOrZero64, "64", LdpStpOffset64);
-define_pair_fallible_rules!(LDP, Ldp, MakeLdp);
+impl RawInstruction for Ldp<LdStPairArgs<RegOrZero32, (RegOrSp64, LdpStpOffset32)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDP_32_ldstpair_off(offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
+
+impl RawInstruction for Ldp<LdStPairArgs<RegOrZero32, (Inc<LdpStpOffset32>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        LDP_32_ldstpair_pre(inc.offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
+
+impl RawInstruction for Ldp<LdStPairArgs<RegOrZero32, (RegOrSp64, Inc<LdpStpOffset32>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        LDP_32_ldstpair_post(inc.offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
+
+impl RawInstruction for Ldp<LdStPairArgs<RegOrZero64, (RegOrSp64, LdpStpOffset64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDP_64_ldstpair_off(offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
+
+impl RawInstruction for Ldp<LdStPairArgs<RegOrZero64, (Inc<LdpStpOffset64>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        LDP_64_ldstpair_pre(inc.offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
+
+impl RawInstruction for Ldp<LdStPairArgs<RegOrZero64, (RegOrSp64, Inc<LdpStpOffset64>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        LDP_64_ldstpair_post(inc.offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
 
 #[cfg(test)]
 mod tests {

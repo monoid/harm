@@ -7,50 +7,46 @@ use aarchmrs_instructions::A64::ldst::ldst_unscaled::{
     LDUR_32_ldst_unscaled::LDUR_32_ldst_unscaled, LDUR_64_ldst_unscaled::LDUR_64_ldst_unscaled,
 };
 
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register};
-use crate::sealed::Sealed;
-
+use super::args::{LdStArgs, MakeUrArgs};
 use super::UnscaledOffset;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero32, RegOrZero64, Register},
+};
 
-/// A `LDUR` instruction with a destination and an address.
-pub struct Ldur<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+/// A `ldur` instruction with a destination and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Ldur<Args>(pub Args);
 
-impl<Rt, Addr> Ldur<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldur<Rt, Addr> {}
-
-/// Defines possible was to construct a `ldur` instruction.
-pub trait MakeLdur<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-
-define_unscaled_imm_offset_rules!(Ldur, MakeLdur, LDUR, RegOrZero64, 64);
-define_unscaled_imm_offset_rules!(Ldur, MakeLdur, LDUR, RegOrZero32, 32);
-
-pub fn ldur<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Ldur<TargetOut, AddrOut> as MakeLdur<TargetInp, AddrInp>>::Output
+/// ldur construction function.  See examples in the module documentation.
+pub fn ldur<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeUrArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Ldur<LdStArgs<Rt, Addr>>,
+>
 where
-    Ldur<TargetOut, AddrOut>: MakeLdur<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeUrArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeUrArgs<RtIn, AddrIn>>::Outcome: Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Ldur::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeUrArgs<RtIn, AddrIn>>::new(dst, addr).map(Ldur)
+}
+
+impl RawInstruction for Ldur<LdStArgs<RegOrZero64, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDUR_64_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldur<LdStArgs<RegOrZero32, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDUR_32_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]

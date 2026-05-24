@@ -5,14 +5,15 @@
 
 //! `LDRSW` and related commands.
 //!
-//! The `ldrsw` function returns an instance of `Instruction` for loading a 32-bit or 64-bit register from memory. While
-//! `LDRSW` instruction has different variants with various number of arguments, the `ldrsw` function has two arguments: a
-//! destination register and an "address" that encapsulates the rest of arguments: the base, offsets, extensions, etc.
-//! Tuples are often used for the second argument, see the pattern in the examples below.
+//! The `ldrsw` function returns an instance of `Instruction` for loading a sign-extended 32-bit
+//! value into a 64-bit register from memory. While `LDRSW` has different variants with various
+//! addressing modes, the `ldrsw` function takes two arguments: a destination register and an
+//! "address" that encapsulates the rest: the base, offsets, extensions, etc. Tuples are often
+//! used for the second argument, see the pattern in the examples below.
 //!
-//! The funciton is overloaded for various argument types. For some of them, and `Instruction` trait instance is
-//! returned, for others, a `Result` if the aguments need validation. Such arugment combinations have `.unwrap()` in
-//! examples.
+//! The function is overloaded for various argument types. For some of them an `Instruction` trait
+//! instance is returned; for others a `Result` if the arguments need validation. Such argument
+//! combinations have `.unwrap()` in examples.
 //!
 //! # `LDRSW`: Register base with register offset
 //!
@@ -23,46 +24,32 @@
 //! use harm::register::Reg64::*;
 //! use LdStExtendOption32::*;
 //!
-//! ldrsw(X1, X2);        // LDRSW W1, [X2]
-//! ldrsw(X1, (X2,));     // LDRSW W1, [X2]
-//! ldrsw(X1, (X2, X3));  // LDRSW W1, [X2, X3] ; n.b. a 32-bit register index requires an extend speicifer (sxtw or uxtw):
+//! ldrsw(X1, X2);        // LDRSW X1, [X2]
+//! ldrsw(X1, (X2,));     // LDRSW X1, [X2]
+//! ldrsw(X1, (X2, X3));  // LDRSW X1, [X2, X3]
 //! ldrsw(X1, (X2, ext((W3, UXTW)))); // ldrsw x1, [x2, w3, uxtw]
 //! ldrsw(X1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldrsw x1, [x2, w3, uxtw #2]
 //! ```
 //!
-//! Please note, that `uxtw` and `sxtw` can be used only with 32-bit register, and shift can be only either 0
-//! (unshifted) or 2 (shifted). The `lsl` and `sxtx` can be used only with 64-bit registers, and while they produce
-//! different bit patterns, they are equivalent; shift can be only either 0 (unshifted) or 3 (shifted).
+//! Please note that `uxtw` and `sxtw` can be used only with a 32-bit index register, and shift
+//! can be absent (unshifted, encodes `#0`) or 2 (shifted, encodes `#2`). The `lsl` and `sxtx`
+//! can be used only with 64-bit index registers; same shift rule applies.
 //!
 //! # `LDRSW`: Register base with immediate offset
 //!
-//! LDRSW with register base with immediate offset has an unsigned offset aligned by destination register size.
-//! For example, if the desination register is `W1`, the offset has be aligned by 4 bytes (two lower bits are clear),
-//! and if it is `X1`, the offset has to be aligned by 8 bytes (three lower bits are clear).  The offset has 12
-//! significan bits available.
+//! LDRSW with a register base and a 4-byte-aligned immediate unsigned offset. The offset has 12
+//! significant bits available.
 //!
-//! You may also a `u32` offset value, and a error is returned if the value doesn't fit the offset pattern.
-//!
-//! Examples:
-//! ```ignore
-//! let word_aligned_offset: UBitValue<12, 2> = ...;
-//! let dword_aligned_offset: UBitValue<12, 3> = ...;
-//!
-//! ldrsw(W1, (X2, offset as u32)).unwrap(),
-//! ldrsw(X1, (X2, offset as u32)).unwrap(),
-//! ldrsw(W1, (X2, word_aligned_offset)),
-//! ldrsw(X1, (X2, dword_aligned_offset)),
-//! ```
+//! You may also pass a `u32` or `i32` offset value; an error is returned if the value doesn't fit.
 //!
 //! Pre-increment and post-increment variants have the following syntax:
 //! ```
 //! # use harm::instructions::ldst::{ldrsw, inc, preinc, postinc, LdStIncOffset};
-//! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
 //! let offset = LdStIncOffset::new(4).unwrap();
 //! ldrsw(X1, (inc(offset), X2));       // preincrement, LDRSW X1, [X2, #4]!
 //! ldrsw(X1, (X2, inc(offset)));       // postincrement, LDRSW X1, [X2], #4
-//! // Equavalent to the lines above:
+//! // Equivalent to the lines above:
 //! ldrsw(X1, preinc(X2, offset));      // preincrement, LDRSW X1, [X2, #4]!
 //! ldrsw(X1, postinc(X2, offset));     // postincrement, LDRSW X1, [X2], #4
 //! // Fallible variants:
@@ -72,38 +59,7 @@
 //!
 //! # `LDRSW`: PC base with immediate offset
 //!
-//! An immediate signed offset of `SBitValue<12, 2>` is added to `PC`, i.e. the offset is relative to the instruction's
-//! address.  The 2-bit alignment is the same for both 32-bit and 64-bit variants.
-//!
-//! ```ignore
-//! let bit_offset: PcOffset = ...;
-//! let raw_offset: i32 = ...;
-//!
-//! ldrsw(W1, pc(bit_offset)),
-//! ldrsw(W1, (Pc, bit_offset)),
-//! ldrsw(W1, (Pc, raw_offset)).unwrap(),
-//! ```
-//!
-//! # `LDUR`: Register base with unaligned immediate offset
-//!
-//! `LDUR` is similar to `LDRSW` with register base with immediate offset, but its offset is **signed** 9 bit wide. For
-//! convenience, a `SBitValue<9>` value can be used with `ldrsw` as well, and both signed and unsigned raw values can be
-//! encoded as LDUR if they fit into the range and cannot be encoded with `LDRSW` with immediate offset (TODO it makes the
-//! code little bit more complex, unless we use an enum).
-//!
-//! ```ignore
-//! let bit_offset: SBitOffset<9> = ...;
-//! let raw_offset: i32 = ...;
-//!
-//! ldrsw(W1, (X2, bit_offset)),
-//! ldur(W1, (X2, bit_offset)),
-//! ldrsw(X1, (X2, bit_offset)),
-//! ldur(X1, (X2, bit_offset)),
-//! ldrsw(W1, (X2, raw_offset)).unwap(),
-//! ldur(W1, (X2, raw_offset)).unwap(),
-//! ldrsw(X1, (X2, raw_offset)).unwap(),
-//! ldur(X1, (X2, raw_offset)).unwap(),
-//! ```
+//! A signed 19-bit offset (shifted left by 2) is added to `PC`.
 
 use aarchmrs_instructions::A64::ldst::{
     ldst_immpost::LDRSW_64_ldst_immpost::LDRSW_64_ldst_immpost,
@@ -113,73 +69,366 @@ use aarchmrs_instructions::A64::ldst::{
     loadlit::LDRSW_64_loadlit::LDRSW_64_loadlit,
 };
 
+use super::args::LdStArgs;
 use super::shift_extend::*;
-use super::{Inc, LdStIncOffset, ScaledOffset32};
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register};
-use crate::sealed::Sealed;
+use super::{Inc, LdStIncOffset, LdStPcOffset, Pc, ScaledOffset32};
+use crate::{
+    bits::BitError,
+    instructions::{RawInstruction, RelocatableInstruction},
+    register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register},
+    sealed::Sealed,
+};
 
 /// A `ldrsw` instruction with a destination and an address.
-pub struct Ldrsw<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+#[derive(Debug, Copy, Clone)]
+pub struct Ldrsw<Args>(pub Args);
 
-impl<Rt, Addr> Ldrsw<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
+impl<Args: Sealed> Sealed for Ldrsw<Args> {}
 
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldrsw<Rt, Addr> {}
-
-/// Defines possible was to construct a `ldsrw` instruction.
-pub trait MakeLdrsw<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+/// Defines possible ways to construct a `ldrsw` instruction.
+pub trait MakeLdrsw<RtIn, AddrIn>: Sealed {
     type Output;
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
+    fn new(rt: RtIn, addr: AddrIn) -> Self::Output;
 }
-//
-// ## LDRSW (register offset)
-//
-define_reg_offset_rules!(Ldrsw, MakeLdrsw, LDRSW, RegOrZero64, 64, RegOrZero32);
 
-//
-// ## LDRSW (immediate offset)
-//
-define_imm_offset_rules!(Ldrsw, MakeLdrsw, LDRSW, RegOrZero64, 64, ScaledOffset32);
+// ── Register offset: extended 64-bit register ────────────────────────────────
 
-//
-// ## LDRSW (PC-relative literal)
-//
-define_pc_offset_rules!(
-    Ldrsw,
-    MakeLdrsw,
-    LDRSW,
-    RegOrZero64,
-    64,
-    crate::reloc::Rel64::ld_prel_lo19
-);
+impl<RtIn, Base, Ext> MakeLdrsw<RtIn, (Base, Ext)>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+    Ext: Into<Extended<RegOrZero32, RegOrZero64>>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, ext): (Base, Ext)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), ext.into()) })
+    }
+}
 
-//
-// ## Faillible
-//
-define_fallible_rules!(LDRSW, Ldrsw, MakeLdrsw);
+// ── Register offset: extended 32-bit register ────────────────────────────────
+
+impl<RtIn, Base, Ext> MakeLdrsw<RtIn, (Base, Ext)>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, Extended<RegOrZero32, RegOrZero32>)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+    Ext: Into<Extended<RegOrZero32, RegOrZero32>>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, ext): (Base, Ext)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), ext.into()) })
+    }
+}
+
+// ── Register offset: bare 64-bit register ────────────────────────────────────
+
+impl<RtIn, Base, OffsetReg> MakeLdrsw<RtIn, (Base, OffsetReg)>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, RegOrZero64)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+    OffsetReg: IntoReg<RegOrZero64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, OffsetReg)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset.into_reg()) })
+    }
+}
+
+// ── Scaled immediate offset: bare base ───────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsw<RtIn, Base>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset32)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, base: Base) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), Default::default()) })
+    }
+}
+
+// ── Scaled immediate offset: 1-tuple base ────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsw<RtIn, (Base,)>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset32)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base,): (Base,)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), Default::default()) })
+    }
+}
+
+// ── Scaled immediate offset: typed ───────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsw<RtIn, (Base, ScaledOffset32)>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset32)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, ScaledOffset32)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) })
+    }
+}
+
+// ── Scaled immediate offset: u32 (fallible) ──────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsw<RtIn, (Base, u32)>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset32)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, u32)) -> Self::Output {
+        ScaledOffset32::try_from(offset)
+            .map(|offset| Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) }))
+    }
+}
+
+// ── Scaled immediate offset: i32 (fallible) ──────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsw<RtIn, (Base, i32)>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset32)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, i32)) -> Self::Output {
+        ScaledOffset32::try_from(offset)
+            .map(|offset| Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) }))
+    }
+}
+
+// ── Pre-increment ─────────────────────────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsw<RtIn, (Inc<LdStIncOffset>, Base)>
+    for Ldrsw<LdStArgs<RegOrZero64, (Inc<LdStIncOffset>, RegOrSp64)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (inc, base): (Inc<LdStIncOffset>, Base)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (inc, base.into_reg()) })
+    }
+}
+
+// ── Post-increment ────────────────────────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsw<RtIn, (Base, Inc<LdStIncOffset>)>
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, Inc<LdStIncOffset>)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, inc): (Base, Inc<LdStIncOffset>)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), inc) })
+    }
+}
+
+// ── PC-relative: typed offset ─────────────────────────────────────────────────
+
+impl<RtIn> MakeLdrsw<RtIn, (Pc, LdStPcOffset)>
+    for Ldrsw<LdStArgs<RegOrZero64, (Pc, LdStPcOffset)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, addr: (Pc, LdStPcOffset)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr })
+    }
+}
+
+// ── PC-relative: i32 (fallible) ───────────────────────────────────────────────
+
+impl<RtIn> MakeLdrsw<RtIn, (Pc, i32)>
+    for Ldrsw<LdStArgs<RegOrZero64, (Pc, LdStPcOffset)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+{
+    type Output = Result<Self, BitError>;
+    #[inline]
+    fn new(rt: RtIn, (pc, offset): (Pc, i32)) -> Self::Output {
+        LdStPcOffset::new(offset)
+            .map(|offset| Self(LdStArgs { rt: rt.into_reg(), addr: (pc, offset) }))
+    }
+}
+
+// ── PC-relative: LabelRef ─────────────────────────────────────────────────────
+
+impl<RtIn> MakeLdrsw<RtIn, crate::reloc::LabelRef>
+    for Ldrsw<LdStArgs<RegOrZero64, crate::reloc::LabelRef>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, addr: crate::reloc::LabelRef) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr })
+    }
+}
+
+// ── Fallible wrappers ─────────────────────────────────────────────────────────
+
+impl<Rt, RtIn, BaseIn, Ext, Err> MakeLdrsw<RtIn, (BaseIn, Result<Ext, Err>)>
+    for Ldrsw<LdStArgs<Rt, (RegOrSp64, Ext)>>
+where
+    Ldrsw<LdStArgs<Rt, (RegOrSp64, Ext)>>: MakeLdrsw<RtIn, (BaseIn, Ext)>,
+    BaseIn: IntoReg<RegOrSp64>,
+{
+    type Output = Result<<Self as MakeLdrsw<RtIn, (BaseIn, Ext)>>::Output, Err>;
+    #[inline]
+    fn new(rt: RtIn, (base, ext_res): (BaseIn, Result<Ext, Err>)) -> Self::Output {
+        ext_res.map(|ext| <Self as MakeLdrsw<RtIn, (BaseIn, Ext)>>::new(rt, (base, ext)))
+    }
+}
+
+impl<Rt, RtIn, BaseIn, Ext, Err> MakeLdrsw<RtIn, (Result<Ext, Err>, BaseIn)>
+    for Ldrsw<LdStArgs<Rt, (Ext, RegOrSp64)>>
+where
+    Ldrsw<LdStArgs<Rt, (Ext, RegOrSp64)>>: MakeLdrsw<RtIn, (Ext, BaseIn)>,
+    BaseIn: IntoReg<RegOrSp64>,
+{
+    type Output = Result<<Self as MakeLdrsw<RtIn, (Ext, BaseIn)>>::Output, Err>;
+    #[inline]
+    fn new(rt: RtIn, (ext_res, base): (Result<Ext, Err>, BaseIn)) -> Self::Output {
+        ext_res.map(|ext| <Self as MakeLdrsw<RtIn, (Ext, BaseIn)>>::new(rt, (ext, base)))
+    }
+}
+
+impl<Rt, RtIn, Addr, Err> MakeLdrsw<RtIn, Result<Addr, Err>>
+    for Ldrsw<LdStArgs<Rt, Addr>>
+where
+    Ldrsw<LdStArgs<Rt, Addr>>: MakeLdrsw<RtIn, Addr>,
+{
+    type Output = Result<<Self as MakeLdrsw<RtIn, Addr>>::Output, Err>;
+    #[inline]
+    fn new(rt: RtIn, addr_res: Result<Addr, Err>) -> Self::Output {
+        addr_res.map(|addr| <Self as MakeLdrsw<RtIn, Addr>>::new(rt, addr))
+    }
+}
 
 /// ldrsw construction function.  See examples in the module documentation.
-pub fn ldrsw<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Ldrsw<TargetOut, AddrOut> as MakeLdrsw<TargetInp, AddrInp>>::Output
+pub fn ldrsw<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <Ldrsw<LdStArgs<Rt, Addr>> as MakeLdrsw<RtIn, AddrIn>>::Output
 where
-    Ldrsw<TargetOut, AddrOut>: MakeLdrsw<TargetInp, AddrInp>,
+    Ldrsw<LdStArgs<Rt, Addr>>: MakeLdrsw<RtIn, AddrIn>,
 {
-    Ldrsw::new(dst, addr)
+    <Ldrsw<LdStArgs<Rt, Addr>> as MakeLdrsw<RtIn, AddrIn>>::new(dst, addr)
+}
+
+// ══ RawInstruction ════════════════════════════════════════════════════════════
+
+impl RawInstruction
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSW_64_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction
+    for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, Extended<RegOrZero32, RegOrZero32>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSW_64_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, RegOrZero64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSW_64_ldst_regoff(
+            offset.index(),
+            (LdStExtendOption64::default() as u8).into(),
+            0b0.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset32)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSW_64_ldst_pos(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldrsw<LdStArgs<RegOrZero64, (Inc<LdStIncOffset>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        LDRSW_64_ldst_immpre(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldrsw<LdStArgs<RegOrZero64, (RegOrSp64, Inc<LdStIncOffset>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        LDRSW_64_ldst_immpost(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldrsw<LdStArgs<RegOrZero64, (Pc, LdStPcOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (_pc, offset) = self.0.addr;
+        LDRSW_64_loadlit(offset.into(), self.0.rt.index())
+    }
+}
+
+impl RelocatableInstruction for Ldrsw<LdStArgs<RegOrZero64, crate::reloc::LabelRef>> {
+    #[inline]
+    fn to_code_with_reloc(
+        &self,
+    ) -> (aarchmrs_types::InstructionCode, Option<crate::reloc::Rel64>) {
+        let code = LDRSW_64_loadlit(0.into(), self.0.rt.index());
+        let rel = crate::reloc::Rel64::ld_prel_lo19(self.0.addr);
+        (code, Some(rel))
+    }
 }
 
 #[cfg(test)]

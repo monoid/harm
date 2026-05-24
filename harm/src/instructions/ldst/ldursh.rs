@@ -8,50 +8,47 @@ use aarchmrs_instructions::A64::ldst::ldst_unscaled::{
     LDURSH_64_ldst_unscaled::LDURSH_64_ldst_unscaled,
 };
 
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register};
-use crate::sealed::Sealed;
-
+use super::args::{LdStArgs, MakeUrshArgs};
 use super::UnscaledOffset;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero32, RegOrZero64, Register},
+};
 
-/// A `LDURSH` instruction with a destination and an address.
-pub struct Ldursh<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+/// A `ldursh` instruction with a destination and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Ldursh<Args>(pub Args);
 
-impl<Rt, Addr> Ldursh<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldursh<Rt, Addr> {}
-
-/// Defines possible was to construct a `ldursh` instruction.
-pub trait MakeLdursh<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-
-define_unscaled_imm_offset_rules!(Ldursh, MakeLdursh, LDURSH, RegOrZero64, 64);
-define_unscaled_imm_offset_rules!(Ldursh, MakeLdursh, LDURSH, RegOrZero32, 32);
-
-pub fn ldursh<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Ldursh<TargetOut, AddrOut> as MakeLdursh<TargetInp, AddrInp>>::Output
+/// ldursh construction function.  See examples in the module documentation.
+pub fn ldursh<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeUrshArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Ldursh<LdStArgs<Rt, Addr>>,
+>
 where
-    Ldursh<TargetOut, AddrOut>: MakeLdursh<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeUrshArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeUrshArgs<RtIn, AddrIn>>::Outcome:
+        Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Ldursh::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeUrshArgs<RtIn, AddrIn>>::new(dst, addr).map(Ldursh)
+}
+
+impl RawInstruction for Ldursh<LdStArgs<RegOrZero64, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDURSH_64_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldursh<LdStArgs<RegOrZero32, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDURSH_32_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]
@@ -66,7 +63,6 @@ mod tests {
     use RegOrZero32::WZR;
     use RegOrZero64::XZR;
 
-    // 'ldursh (x1|w1|xzr|wzr), [(x2|sp), (-1|1|255|-256|0)]
     const LDURSH_DB: &str = "
 789ff041	ldursh x1, [x2, -1]
 78801041	ldursh x1, [x2, 1]

@@ -5,49 +5,39 @@
 
 use aarchmrs_instructions::A64::ldst::ldst_unscaled::STURH_32_ldst_unscaled::STURH_32_ldst_unscaled;
 
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, Register};
-use crate::sealed::Sealed;
-
+use super::args::{LdStArgs, MakeUrhArgs};
 use super::UnscaledOffset;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero32, Register},
+};
 
-/// A `STURH` instruction with a destination and an address.
-pub struct Sturh<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+/// A `sturh` instruction with a destination and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Sturh<Args>(pub Args);
 
-impl<Rt, Addr> Sturh<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Sturh<Rt, Addr> {}
-
-/// Defines possible was to construct a `sturh` instruction.
-pub trait MakeSturh<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-
-define_unscaled_imm_offset_rules!(Sturh, MakeSturh, STURH, RegOrZero32, 32);
-
-pub fn sturh<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Sturh<TargetOut, AddrOut> as MakeSturh<TargetInp, AddrInp>>::Output
+/// sturh construction function.  See examples in the module documentation.
+pub fn sturh<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeUrhArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Sturh<LdStArgs<Rt, Addr>>,
+>
 where
-    Sturh<TargetOut, AddrOut>: MakeSturh<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeUrhArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeUrhArgs<RtIn, AddrIn>>::Outcome:
+        Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Sturh::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeUrhArgs<RtIn, AddrIn>>::new(dst, addr).map(Sturh)
+}
+
+impl RawInstruction for Sturh<LdStArgs<RegOrZero32, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STURH_32_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]

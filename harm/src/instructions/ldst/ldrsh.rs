@@ -5,14 +5,15 @@
 
 //! `LDRSH` and related commands.
 //!
-//! The `ldrsh` function returns an instance of `Instruction` for loading a byte into a 32-bit or 64-bit register from
-//! memory. While `LDRSH` instruction has different variants with various number of arguments, the `ldrsh` function has
-//! two arguments: a destination register and an "address" that encapsulates the rest of arguments: the base, offsets,
-//! extensions, etc. Tuples are often used for the second argument, see the pattern in the examples below.
+//! The `ldrsh` function returns an instance of `Instruction` for loading a sign-extended halfword
+//! into a 32-bit or 64-bit register from memory. While `LDRSH` has different variants with
+//! various addressing modes, the `ldrsh` function takes two arguments: a destination register
+//! and an "address" that encapsulates the rest: the base, offsets, extensions, etc. Tuples are
+//! often used for the second argument, see the pattern in the examples below.
 //!
-//! The funciton is overloaded for various argument types. For some of them, and `Instruction` trait instance is
-//! returned, for others, a `Result` if the aguments need validation. Such arugment combinations have `.unwrap()` in
-//! examples.
+//! The function is overloaded for various argument types. For some of them an `Instruction` trait
+//! instance is returned; for others a `Result` if the arguments need validation. Such argument
+//! combinations have `.unwrap()` in examples.
 //!
 //! # `LDRSH`: Register base with register offset
 //!
@@ -25,36 +26,33 @@
 //!
 //! ldrsh(W1, X2);        // LDRSH W1, [X2]
 //! ldrsh(W1, (X2,));     // LDRSH W1, [X2]
-//! ldrsh(W1, (X2, X3));  // LDRSH W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend speicifer (sxtw or uxtw):
+//! ldrsh(W1, (X2, X3));  // LDRSH W1, [X2, X3]
 //! ldrsh(W1, (X2, ext((W3, UXTW)))); // ldrsh w1, [x2, w3, uxtw]
 //! ldrsh(W1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldrsh w1, [x2, w3, uxtw #0]
-//! ldrsh(W1, (X2, ext((W3, UXTW)))); // ldrsh w1, [x2, w3, uxtw]
 //! ldrsh(X1, (X2, ext((W3, UXTW)))); // ldrsh x1, [x2, w3, uxtw]
 //! ldrsh(X1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldrsh x1, [x2, w3, uxtw #0]
 //! ldrsh(X1, (X2, ext((W3, UXTW, 0)))).unwrap(); // ldrsh x1, [x2, w3, uxtw #0]
 //! ```
 //!
-//! Please note, that `uxtw` and `sxtw` can be used only with 32-bit register, and shift can be either omited
-//! (unshifted) or 0 (shifted), which is the same for this instruction. The `lsl` and `sxtx` can be used only with
-//! 64-bit registers, and while they produce different bit patterns, they are equivalent; shift can be either omited
-//! (unshifted) or 0 (shifted), which is the same for this instruction.
+//! Please note that `uxtw` and `sxtw` can be used only with a 32-bit index register, and shift
+//! can be absent (unshifted) or 0 (shifted) — both encode identically. The `lsl` and `sxtx` can
+//! be used only with 64-bit index registers; same shift rule applies.
 //!
 //! # `LDRSH`: Register base with immediate offset
 //!
-//! LDRSH with register base with immediate offset has an unsigned offset. The offset has 12
-//! significan bits available.
+//! LDRSH with a register base and a 2-byte-aligned immediate unsigned offset. The offset has 12
+//! significant bits available.
 //!
-//! You may also a `u32` offset value, and a error is returned if the value doesn't fit the offset pattern.
+//! You may also pass a `u32` offset value; an error is returned if the value doesn't fit.
 //!
 //! Examples:
 //! ```ignore
-//! let word_aligned_offset: UBitValue<12, 1> = ...;
-//! let dword_aligned_offset: UBitValue<12, 1> = ...;
+//! let halfword_offset: ScaledOffset16 = ...;
 //!
 //! ldrsh(W1, (X2, offset as u32)).unwrap(),
 //! ldrsh(X1, (X2, offset as u32)).unwrap(),
-//! ldrsh(W1, (X2, word_aligned_offset)),
-//! ldrsh(X1, (X2, dword_aligned_offset)),
+//! ldrsh(W1, (X2, halfword_offset)),
+//! ldrsh(X1, (X2, halfword_offset)),
 //! ```
 //!
 //! Pre-increment and post-increment variants have the following syntax:
@@ -65,28 +63,31 @@
 //! let offset = LdStIncOffset::new(4).unwrap();
 //! ldrsh(W1, (inc(offset), X2));       // preincrement, LDRSH W1, [X2, #4]!
 //! ldrsh(W1, (X2, inc(offset)));       // postincrement, LDRSH W1, [X2], #4
-//! // Equavalent to the lines above:
+//! // Equivalent to the lines above:
 //! ldrsh(W1, preinc(X2, offset));      // preincrement, LDRSH W1, [X2, #4]!
 //! ldrsh(W1, postinc(X2, offset));     // postincrement, LDRSH W1, [X2], #4
 //! // Fallible variants:
 //! ldrsh(W1, (inc(4), X2)).unwrap();   // preincrement, LDRSH W1, [X2, #4]!
 //! ldrsh(W1, postinc(X2, 4)).unwrap(); // postincrement, LDRSH W1, [X2], #4
 //! ```
-//!
 
 use aarchmrs_instructions::A64::ldst::{
     ldst_immpost::{
-        LDRSH_32_ldst_immpost::LDRSH_32_ldst_immpost, LDRSH_64_ldst_immpost::LDRSH_64_ldst_immpost,
+        LDRSH_32_ldst_immpost::LDRSH_32_ldst_immpost,
+        LDRSH_64_ldst_immpost::LDRSH_64_ldst_immpost,
     },
     ldst_immpre::{
-        LDRSH_32_ldst_immpre::LDRSH_32_ldst_immpre, LDRSH_64_ldst_immpre::LDRSH_64_ldst_immpre,
+        LDRSH_32_ldst_immpre::LDRSH_32_ldst_immpre,
+        LDRSH_64_ldst_immpre::LDRSH_64_ldst_immpre,
     },
     ldst_pos::{LDRSH_32_ldst_pos::LDRSH_32_ldst_pos, LDRSH_64_ldst_pos::LDRSH_64_ldst_pos},
     ldst_regoff::{
-        LDRSH_32_ldst_regoff::LDRSH_32_ldst_regoff, LDRSH_64_ldst_regoff::LDRSH_64_ldst_regoff,
+        LDRSH_32_ldst_regoff::LDRSH_32_ldst_regoff,
+        LDRSH_64_ldst_regoff::LDRSH_64_ldst_regoff,
     },
 };
 
+use super::args::LdStArgs;
 use super::shift_extend::*;
 use super::{HalfShift, Inc, LdStIncOffset, ScaledOffset16};
 use crate::{
@@ -96,56 +97,525 @@ use crate::{
     sealed::Sealed,
 };
 
-/// A `LDRSH` instruction with a destination and an address.
-pub struct Ldrsh<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+/// A `ldrsh` instruction with a destination and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Ldrsh<Args>(pub Args);
 
-impl<Rt, Addr> Ldrsh<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
+impl<Args: Sealed> Sealed for Ldrsh<Args> {}
 
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldrsh<Rt, Addr> {}
-
-/// Defines possible was to construct a `Ldrsh` instruction.
-pub trait MakeLdrsh<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+/// Defines possible ways to construct a `ldrsh` instruction.
+pub trait MakeLdrsh<RtIn, AddrIn>: Sealed {
     type Output;
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
+    fn new(rt: RtIn, addr: AddrIn) -> Self::Output;
 }
-//
-// ## LDRSH (register offset)
-//
-define_reg_offset_rules!(Ldrsh, MakeLdrsh, LDRSH, RegOrZero64, 64, HalfShift);
-define_reg_offset_rules!(Ldrsh, MakeLdrsh, LDRSH, RegOrZero32, 32, HalfShift);
 
-//
-// ## LDRSH (immediate offset)
-//
-define_imm_offset_rules!(Ldrsh, MakeLdrsh, LDRSH, RegOrZero64, 64, ScaledOffset16);
-define_imm_offset_rules!(Ldrsh, MakeLdrsh, LDRSH, RegOrZero32, 32, ScaledOffset16);
+// ══ 64-bit destination ═══════════════════════════════════════════════════════
 
-//
-// ## Faillible
-//
-define_fallible_rules!(LDRSH, Ldrsh, MakeLdrsh);
+// ── Register offset: extended 64-bit register ────────────────────────────────
+
+impl<RtIn, Base, Ext> MakeLdrsh<RtIn, (Base, Ext)>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, Extended<HalfShift, RegOrZero64>)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+    Ext: Into<Extended<HalfShift, RegOrZero64>>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, ext): (Base, Ext)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), ext.into()) })
+    }
+}
+
+// ── Register offset: extended 32-bit register ────────────────────────────────
+
+impl<RtIn, Base, Ext> MakeLdrsh<RtIn, (Base, Ext)>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, Extended<HalfShift, RegOrZero32>)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+    Ext: Into<Extended<HalfShift, RegOrZero32>>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, ext): (Base, Ext)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), ext.into()) })
+    }
+}
+
+// ── Register offset: bare 64-bit register ────────────────────────────────────
+
+impl<RtIn, Base, OffsetReg> MakeLdrsh<RtIn, (Base, OffsetReg)>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, RegOrZero64)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+    OffsetReg: IntoReg<RegOrZero64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, OffsetReg)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset.into_reg()) })
+    }
+}
+
+// ── Scaled immediate offset: bare base ───────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, Base>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, base: Base) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), Default::default()) })
+    }
+}
+
+// ── Scaled immediate offset: 1-tuple base ────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base,)>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base,): (Base,)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), Default::default()) })
+    }
+}
+
+// ── Scaled immediate offset: typed ───────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base, ScaledOffset16)>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, ScaledOffset16)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) })
+    }
+}
+
+// ── Scaled immediate offset: u32 (fallible) ──────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base, u32)>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, u32)) -> Self::Output {
+        ScaledOffset16::try_from(offset)
+            .map(|offset| Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) }))
+    }
+}
+
+// ── Scaled immediate offset: i32 (fallible) ──────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base, i32)>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, i32)) -> Self::Output {
+        ScaledOffset16::try_from(offset)
+            .map(|offset| Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) }))
+    }
+}
+
+// ── Pre-increment ─────────────────────────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Inc<LdStIncOffset>, Base)>
+    for Ldrsh<LdStArgs<RegOrZero64, (Inc<LdStIncOffset>, RegOrSp64)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (inc, base): (Inc<LdStIncOffset>, Base)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (inc, base.into_reg()) })
+    }
+}
+
+// ── Post-increment ────────────────────────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base, Inc<LdStIncOffset>)>
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, Inc<LdStIncOffset>)>>
+where
+    RtIn: IntoReg<RegOrZero64>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, inc): (Base, Inc<LdStIncOffset>)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), inc) })
+    }
+}
+
+// ══ 32-bit destination ═══════════════════════════════════════════════════════
+
+// ── Register offset: extended 64-bit register ────────────────────────────────
+
+impl<RtIn, Base, Ext> MakeLdrsh<RtIn, (Base, Ext)>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, Extended<HalfShift, RegOrZero64>)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+    Ext: Into<Extended<HalfShift, RegOrZero64>>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, ext): (Base, Ext)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), ext.into()) })
+    }
+}
+
+// ── Register offset: extended 32-bit register ────────────────────────────────
+
+impl<RtIn, Base, Ext> MakeLdrsh<RtIn, (Base, Ext)>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, Extended<HalfShift, RegOrZero32>)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+    Ext: Into<Extended<HalfShift, RegOrZero32>>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, ext): (Base, Ext)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), ext.into()) })
+    }
+}
+
+// ── Register offset: bare 64-bit register ────────────────────────────────────
+
+impl<RtIn, Base, OffsetReg> MakeLdrsh<RtIn, (Base, OffsetReg)>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, RegOrZero64)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+    OffsetReg: IntoReg<RegOrZero64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, OffsetReg)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset.into_reg()) })
+    }
+}
+
+// ── Scaled immediate offset: bare base ───────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, Base>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, base: Base) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), Default::default()) })
+    }
+}
+
+// ── Scaled immediate offset: 1-tuple base ────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base,)>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base,): (Base,)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), Default::default()) })
+    }
+}
+
+// ── Scaled immediate offset: typed ───────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base, ScaledOffset16)>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, ScaledOffset16)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) })
+    }
+}
+
+// ── Scaled immediate offset: u32 (fallible) ──────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base, u32)>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, u32)) -> Self::Output {
+        ScaledOffset16::try_from(offset)
+            .map(|offset| Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) }))
+    }
+}
+
+// ── Scaled immediate offset: i32 (fallible) ──────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base, i32)>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, ScaledOffset16)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Result<Self, BitError>;
+    #[inline]
+    fn new(rt: RtIn, (base, offset): (Base, i32)) -> Self::Output {
+        ScaledOffset16::try_from(offset)
+            .map(|offset| Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), offset) }))
+    }
+}
+
+// ── Pre-increment ─────────────────────────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Inc<LdStIncOffset>, Base)>
+    for Ldrsh<LdStArgs<RegOrZero32, (Inc<LdStIncOffset>, RegOrSp64)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (inc, base): (Inc<LdStIncOffset>, Base)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (inc, base.into_reg()) })
+    }
+}
+
+// ── Post-increment ────────────────────────────────────────────────────────────
+
+impl<RtIn, Base> MakeLdrsh<RtIn, (Base, Inc<LdStIncOffset>)>
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, Inc<LdStIncOffset>)>>
+where
+    RtIn: IntoReg<RegOrZero32>,
+    Base: IntoReg<RegOrSp64>,
+{
+    type Output = Self;
+    #[inline]
+    fn new(rt: RtIn, (base, inc): (Base, Inc<LdStIncOffset>)) -> Self {
+        Self(LdStArgs { rt: rt.into_reg(), addr: (base.into_reg(), inc) })
+    }
+}
+
+// ── Fallible wrappers (generic over Rt, cover both sizes) ────────────────────
+
+impl<Rt, RtIn, BaseIn, Ext, Err> MakeLdrsh<RtIn, (BaseIn, Result<Ext, Err>)>
+    for Ldrsh<LdStArgs<Rt, (RegOrSp64, Ext)>>
+where
+    Ldrsh<LdStArgs<Rt, (RegOrSp64, Ext)>>: MakeLdrsh<RtIn, (BaseIn, Ext)>,
+    BaseIn: IntoReg<RegOrSp64>,
+{
+    type Output = Result<<Self as MakeLdrsh<RtIn, (BaseIn, Ext)>>::Output, Err>;
+    #[inline]
+    fn new(rt: RtIn, (base, ext_res): (BaseIn, Result<Ext, Err>)) -> Self::Output {
+        ext_res.map(|ext| <Self as MakeLdrsh<RtIn, (BaseIn, Ext)>>::new(rt, (base, ext)))
+    }
+}
+
+impl<Rt, RtIn, BaseIn, Ext, Err> MakeLdrsh<RtIn, (Result<Ext, Err>, BaseIn)>
+    for Ldrsh<LdStArgs<Rt, (Ext, RegOrSp64)>>
+where
+    Ldrsh<LdStArgs<Rt, (Ext, RegOrSp64)>>: MakeLdrsh<RtIn, (Ext, BaseIn)>,
+    BaseIn: IntoReg<RegOrSp64>,
+{
+    type Output = Result<<Self as MakeLdrsh<RtIn, (Ext, BaseIn)>>::Output, Err>;
+    #[inline]
+    fn new(rt: RtIn, (ext_res, base): (Result<Ext, Err>, BaseIn)) -> Self::Output {
+        ext_res.map(|ext| <Self as MakeLdrsh<RtIn, (Ext, BaseIn)>>::new(rt, (ext, base)))
+    }
+}
+
+impl<Rt, RtIn, Addr, Err> MakeLdrsh<RtIn, Result<Addr, Err>>
+    for Ldrsh<LdStArgs<Rt, Addr>>
+where
+    Ldrsh<LdStArgs<Rt, Addr>>: MakeLdrsh<RtIn, Addr>,
+{
+    type Output = Result<<Self as MakeLdrsh<RtIn, Addr>>::Output, Err>;
+    #[inline]
+    fn new(rt: RtIn, addr_res: Result<Addr, Err>) -> Self::Output {
+        addr_res.map(|addr| <Self as MakeLdrsh<RtIn, Addr>>::new(rt, addr))
+    }
+}
 
 /// ldrsh construction function.  See examples in the module documentation.
-pub fn ldrsh<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Ldrsh<TargetOut, AddrOut> as MakeLdrsh<TargetInp, AddrInp>>::Output
+pub fn ldrsh<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <Ldrsh<LdStArgs<Rt, Addr>> as MakeLdrsh<RtIn, AddrIn>>::Output
 where
-    Ldrsh<TargetOut, AddrOut>: MakeLdrsh<TargetInp, AddrInp>,
+    Ldrsh<LdStArgs<Rt, Addr>>: MakeLdrsh<RtIn, AddrIn>,
 {
-    Ldrsh::new(dst, addr)
+    <Ldrsh<LdStArgs<Rt, Addr>> as MakeLdrsh<RtIn, AddrIn>>::new(dst, addr)
+}
+
+// ══ RawInstruction: 64-bit destination ═══════════════════════════════════════
+
+impl RawInstruction
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, Extended<HalfShift, RegOrZero64>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSH_64_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction
+    for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, Extended<HalfShift, RegOrZero32>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSH_64_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, RegOrZero64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSH_64_ldst_regoff(
+            offset.index(),
+            (LdStExtendOption64::default() as u8).into(),
+            0b0.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset16)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSH_64_ldst_pos(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldrsh<LdStArgs<RegOrZero64, (Inc<LdStIncOffset>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        LDRSH_64_ldst_immpre(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldrsh<LdStArgs<RegOrZero64, (RegOrSp64, Inc<LdStIncOffset>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        LDRSH_64_ldst_immpost(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+// ══ RawInstruction: 32-bit destination ═══════════════════════════════════════
+
+impl RawInstruction
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, Extended<HalfShift, RegOrZero64>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSH_32_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction
+    for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, Extended<HalfShift, RegOrZero32>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSH_32_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, RegOrZero64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSH_32_ldst_regoff(
+            offset.index(),
+            (LdStExtendOption64::default() as u8).into(),
+            0b0.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, ScaledOffset16)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDRSH_32_ldst_pos(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldrsh<LdStArgs<RegOrZero32, (Inc<LdStIncOffset>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        LDRSH_32_ldst_immpre(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Ldrsh<LdStArgs<RegOrZero32, (RegOrSp64, Inc<LdStIncOffset>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        LDRSH_32_ldst_immpost(inc.offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]

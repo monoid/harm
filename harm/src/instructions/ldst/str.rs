@@ -3,110 +3,69 @@
  * This document is licensed under the BSD 3-clause license.
  */
 
-//! `LDR` and related commands.
+//! `STR` and related commands.
 //!
-//! The `ldr` function returns an instance of `Instruction` for loading a 32-bit or 64-bit register from memory. While
-//! `LDR` instruction has different variants with various number of arguments, the `ldr` function has two arguments: a
-//! destination register and an "address" that encapsulates the rest of arguments: the base, offsets, extensions, etc.
+//! The `str` function returns an instance of `Instruction` for storing a 32-bit or 64-bit register to memory.
+//! `STR` has different variants with various addressing modes; the `str` function takes two arguments: a source
+//! register and an "address" that encapsulates the rest of arguments: the base, offsets, extensions, etc.
 //! Tuples are often used for the second argument, see the pattern in the examples below.
 //!
-//! The funciton is overloaded for various argument types. For some of them, and `Instruction` trait instance is
-//! returned, for others, a `Result` if the aguments need validation. Such arugment combinations have `.unwrap()` in
+//! The function is overloaded for various argument types. For some of them, an `Instruction` trait instance is
+//! returned, for others, a `Result` if the arguments need validation. Such argument combinations have `.unwrap()` in
 //! examples.
 //!
-//! # `LDR`: Register base with register offset
+//! # `STR`: Register base with register offset
 //!
 //! # Examples:
 //! ```
-//! # use harm::instructions::ldst::{ldr, ext, LdStExtendOption32, LdStShift};
+//! # use harm::instructions::ldst::{str, ext, LdStExtendOption32, LdStShift};
 //! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
 //! use LdStExtendOption32::*;
 //!
-//! ldr(W1, X2);        // LDR W1, [X2]
-//! ldr(W1, (X2,));     // LDR W1, [X2]
-//! ldr(W1, (X2, X3));  // LDR W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend speicifer (sxtw or uxtw):
-//! ldr(W1, (X2, ext((W3, UXTW)))); // ldr w1, [x2, w3, uxtw]
-//! ldr(W1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldr w1, [x2, w3, uxtw #2]
-//! ldr(W1, (X2, ext((W3, UXTW)))); // ldr w1, [x2, w3, uxtw]
-//! ldr(X1, (X2, ext((W3, UXTW)))); // ldr x1, [x2, w3, uxtw]
-//! ldr(X1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // ldr x1, [x2, w3, uxtw #3]
-//! ldr(X1, (X2, ext((W3, UXTW, 3)))).unwrap(); // ldr x1, [x2, w3, uxtw #3]
+//! str(W1, X2);        // STR W1, [X2]
+//! str(W1, (X2,));     // STR W1, [X2]
+//! str(W1, (X2, X3));  // STR W1, [X2, X3] ; n.b. a 32-bit register offset requires an extend specifier (sxtw or uxtw):
+//! str(W1, (X2, ext((W3, UXTW)))); // str w1, [x2, w3, uxtw]
+//! str(W1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // str w1, [x2, w3, uxtw #2]
+//! str(X1, (X2, ext((W3, UXTW)))); // str x1, [x2, w3, uxtw]
+//! str(X1, (X2, ext((W3, UXTW, LdStShift::Shifted)))); // str x1, [x2, w3, uxtw #3]
+//! str(X1, (X2, ext((W3, UXTW, 3)))).unwrap(); // str x1, [x2, w3, uxtw #3]
 //! ```
 //!
-//! Please note, that `uxtw` and `sxtw` can be used only with 32-bit register, and shift can be only either 0
-//! (unshifted) or 2 (shifted). The `lsl` and `sxtx` can be used only with 64-bit registers, and while they produce
-//! different bit patterns, they are equivalent; shift can be only either 0 (unshifted) or 3 (shifted).
+//! # `STR`: Register base with immediate offset
 //!
-//! # `LDR`: Register base with immediate offset
+//! STR with register base with immediate offset has an unsigned offset aligned by source register size.
+//! For example, if the source register is `W1`, the offset must be aligned by 4 bytes (two lower bits are clear),
+//! and if it is `X1`, the offset must be aligned by 8 bytes (three lower bits are clear).
 //!
-//! LDR with register base with immediate offset has an unsigned offset aligned by destination register size.
-//! For example, if the desination register is `W1`, the offset has be aligned by 4 bytes (two lower bits are clear),
-//! and if it is `X1`, the offset has to be aligned by 8 bytes (three lower bits are clear).  The offset has 12
-//! significan bits available.
-//!
-//! You may also a `u32` offset value, and a error is returned if the value doesn't fit the offset pattern.
+//! You may also pass a `u32` offset value, and an error is returned if the value doesn't fit the offset pattern.
 //!
 //! Examples:
 //! ```ignore
 //! let word_aligned_offset: UBitValue<12, 2> = ...;
 //! let dword_aligned_offset: UBitValue<12, 3> = ...;
 //!
-//! ldr(W1, (X2, offset as u32)).unwrap(),
-//! ldr(X1, (X2, offset as u32)).unwrap(),
-//! ldr(W1, (X2, word_aligned_offset)),
-//! ldr(X1, (X2, dword_aligned_offset)),
+//! str(W1, (X2, offset as u32)).unwrap(),
+//! str(X1, (X2, offset as u32)).unwrap(),
+//! str(W1, (X2, word_aligned_offset)),
+//! str(X1, (X2, dword_aligned_offset)),
 //! ```
 //!
 //! Pre-increment and post-increment variants have the following syntax:
 //! ```
-//! # use harm::instructions::ldst::{ldr, inc, preinc, postinc, LdStIncOffset};
+//! # use harm::instructions::ldst::{str, inc, preinc, postinc, LdStIncOffset};
 //! use harm::register::Reg32::*;
 //! use harm::register::Reg64::*;
 //! let offset = LdStIncOffset::new(4).unwrap();
-//! ldr(W1, (inc(offset), X2));       // preincrement, LDR W1, [X2, #4]!
-//! ldr(W1, (X2, inc(offset)));       // postincrement, LDR W1, [X2], #4
-//! // Equavalent to the lines above:
-//! ldr(W1, preinc(X2, offset));      // preincrement, LDR W1, [X2, #4]!
-//! ldr(W1, postinc(X2, offset));     // postincrement, LDR W1, [X2], #4
+//! str(W1, (inc(offset), X2));       // preincrement, STR W1, [X2, #4]!
+//! str(W1, (X2, inc(offset)));       // postincrement, STR W1, [X2], #4
+//! // Equivalent to the lines above:
+//! str(W1, preinc(X2, offset));      // preincrement, STR W1, [X2, #4]!
+//! str(W1, postinc(X2, offset));     // postincrement, STR W1, [X2], #4
 //! // Fallible variants:
-//! ldr(W1, (inc(4), X2)).unwrap();   // preincrement, LDR W1, [X2, #4]!
-//! ldr(W1, postinc(X2, 4)).unwrap(); // postincrement, LDR W1, [X2], #4
-//! ```
-//!
-//! # `LDR`: PC base with immediate offset
-//!
-//! An immediate signed offset of `SBitValue<12, 2>` is added to `PC`, i.e. the offset is relative to the instruction's
-//! address.  The 2-bit alignment is the same for both 32-bit and 64-bit variants.
-//!
-//! ```ignore
-//! let bit_offset: PcOffset = ...;
-//! let raw_offset: i32 = ...;
-//!
-//! ldr(W1, pc(bit_offset)),
-//! ldr(W1, (Pc, bit_offset)),
-//! ldr(W1, (Pc, raw_offset)).unwrap(),
-//! ```
-//!
-//! # `LDUR`: Register base with unaligned immediate offset
-//!
-//! `LDUR` is similar to `LDR` with register base with immediate offset, but its offset is **signed** 9 bit wide. For
-//! convenience, a `SBitValue<9>` value can be used with `ldr` as well, and both signed and unsigned raw values can be
-//! encoded as LDUR if they fit into the range and cannot be encoded with `LDR` with immediate offset (TODO it makes the
-//! code little bit more complex, unless we use an enum).
-//!
-//! ```ignore
-//! let bit_offset: SBitOffset<9> = ...;
-//! let raw_offset: i32 = ...;
-//!
-//! ldr(W1, (X2, bit_offset)),
-//! ldur(W1, (X2, bit_offset)),
-//! ldr(X1, (X2, bit_offset)),
-//! ldur(X1, (X2, bit_offset)),
-//! ldr(W1, (X2, raw_offset)).unwap(),
-//! ldur(W1, (X2, raw_offset)).unwap(),
-//! ldr(X1, (X2, raw_offset)).unwap(),
-//! ldur(X1, (X2, raw_offset)).unwap(),
+//! str(W1, (inc(4), X2)).unwrap();   // preincrement, STR W1, [X2, #4]!
+//! str(W1, postinc(X2, 4)).unwrap(); // postincrement, STR W1, [X2], #4
 //! ```
 
 use aarchmrs_instructions::A64::ldst::{
@@ -118,65 +77,181 @@ use aarchmrs_instructions::A64::ldst::{
     ldst_regoff::{STR_32_ldst_regoff::STR_32_ldst_regoff, STR_64_ldst_regoff::STR_64_ldst_regoff},
 };
 
+use super::args::{LdStArgs, MakeLdStArgs};
 use super::shift_extend::*;
 use super::{Inc, LdStIncOffset, ScaledOffset32, ScaledOffset64};
-use crate::{
-    bits::BitError,
-    instructions::RawInstruction,
-    register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register},
-    sealed::Sealed,
-};
+use crate::instructions::RawInstruction;
+use crate::outcome::Outcome;
+use crate::register::{RegOrSp64, RegOrZero32, RegOrZero64, Register};
+use crate::sealed::Sealed;
 
-/// A `STR` instruction with a destination and an address.
-pub struct Str<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+/// A `str` instruction with a source register and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Str<Args>(pub Args);
 
-impl<Rt, Addr> Str<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
+impl<Args: Sealed> Sealed for Str<Args> {}
 
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Str<Rt, Addr> {}
-
-/// Defines possible was to construct a `STR` instruction.
-pub trait MakeStr<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-//
-// ## LDR (register offset)
-//
-define_reg_offset_rules!(Str, MakeStr, Str, RegOrZero64, 64);
-define_reg_offset_rules!(Str, MakeStr, Str, RegOrZero32, 32);
-
-//
-// ## LDR (immediate offset)
-//
-define_imm_offset_rules!(Str, MakeStr, Str, RegOrZero64, 64, ScaledOffset64);
-define_imm_offset_rules!(Str, MakeStr, Str, RegOrZero32, 32, ScaledOffset32);
-
-//
-// ## Faillible
-//
-define_fallible_rules!(STR, Str, MakeStr);
-
-/// ldr construction function.  See examples in the module documentation.
-pub fn str<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Str<TargetOut, AddrOut> as MakeStr<TargetInp, AddrInp>>::Output
+/// str construction function. See examples in the module documentation.
+pub fn str<RtIn, Rt, AddrIn, Addr>(
+    src: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeLdStArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Str<LdStArgs<Rt, Addr>>,
+>
 where
-    Str<TargetOut, AddrOut>: MakeStr<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeLdStArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeLdStArgs<RtIn, AddrIn>>::Outcome:
+        Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Str::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeLdStArgs<RtIn, AddrIn>>::new(src, addr).map(Str)
+}
+
+// === STR 64-bit: register offset ===
+
+impl RawInstruction
+    for Str<LdStArgs<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero64>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STR_64_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction
+    for Str<LdStArgs<RegOrZero64, (RegOrSp64, Extended<RegOrZero64, RegOrZero32>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STR_64_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Str<LdStArgs<RegOrZero64, (RegOrSp64, RegOrZero64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STR_64_ldst_regoff(
+            offset.index(),
+            (LdStExtendOption64::default() as u8).into(),
+            0b0.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+// === STR 32-bit: register offset ===
+
+impl RawInstruction
+    for Str<LdStArgs<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero64>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STR_32_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction
+    for Str<LdStArgs<RegOrZero32, (RegOrSp64, Extended<RegOrZero32, RegOrZero32>)>>
+{
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STR_32_ldst_regoff(
+            offset.offset.index(),
+            (offset.extend as u8).into(),
+            offset.shifted.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+impl RawInstruction for Str<LdStArgs<RegOrZero32, (RegOrSp64, RegOrZero64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STR_32_ldst_regoff(
+            offset.index(),
+            (LdStExtendOption64::default() as u8).into(),
+            0b0.into(),
+            base.index(),
+            self.0.rt.index(),
+        )
+    }
+}
+
+// === STR 64-bit: scaled immediate offset ===
+
+impl RawInstruction for Str<LdStArgs<RegOrZero64, (RegOrSp64, ScaledOffset64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STR_64_ldst_pos(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Str<LdStArgs<RegOrZero64, (Inc<LdStIncOffset>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        STR_64_ldst_immpre(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Str<LdStArgs<RegOrZero64, (RegOrSp64, Inc<LdStIncOffset>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        STR_64_ldst_immpost(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+// === STR 32-bit: scaled immediate offset ===
+
+impl RawInstruction for Str<LdStArgs<RegOrZero32, (RegOrSp64, ScaledOffset32)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STR_32_ldst_pos(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Str<LdStArgs<RegOrZero32, (Inc<LdStIncOffset>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        STR_32_ldst_immpre(inc.offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Str<LdStArgs<RegOrZero32, (RegOrSp64, Inc<LdStIncOffset>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        STR_32_ldst_immpost(inc.offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]

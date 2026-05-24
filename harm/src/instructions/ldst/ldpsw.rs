@@ -9,50 +9,57 @@ use aarchmrs_instructions::A64::ldst::{
     ldstpair_pre::LDPSW_64_ldstpair_pre::LDPSW_64_ldstpair_pre,
 };
 
+use super::args::{LdStPairArgs, MakeLdpswArgs};
 use super::{Inc, LdpStpOffset32};
-use crate::bits::BitError;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero64, Register as _};
-use crate::sealed::Sealed;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero64, Register},
+};
 
-/// A `ldpsw` instruction with a destination and an address.
-pub struct Ldpsw<Rt, Addr> {
-    rt: (Rt, Rt),
-    addr: Addr,
-}
+/// A `ldpsw` instruction with a destination pair and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Ldpsw<Args>(pub Args);
 
-impl<Rt, Addr> Ldpsw<Rt, Addr> {
-    pub fn rt(&self) -> &(Rt, Rt) {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldpsw<Rt, Addr> {}
-
-/// Defines possible was to construct a `ldpsw` instruction.
-pub trait MakeLdpsw<Rt1, Rt2, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: (Rt1, Rt2), addr: Addr) -> Self::Output;
-}
-
-pub fn ldpsw<DestInp1, DestInp2, TargetOut, AddrInp, AddrOut>(
-    d1: DestInp1,
-    d2: DestInp2,
-    addr: AddrInp,
-) -> <Ldpsw<TargetOut, AddrOut> as MakeLdpsw<DestInp1, DestInp2, AddrInp>>::Output
+/// ldpsw construction function.  See examples in the module documentation.
+pub fn ldpsw<D1, D2, Rt, AddrIn, Addr>(
+    d1: D1,
+    d2: D2,
+    addr: AddrIn,
+) -> <<LdStPairArgs<Rt, Addr> as MakeLdpswArgs<D1, D2, AddrIn>>::Outcome as Outcome>::Output<
+    Ldpsw<LdStPairArgs<Rt, Addr>>,
+>
 where
-    Ldpsw<TargetOut, AddrOut>: MakeLdpsw<DestInp1, DestInp2, AddrInp>,
+    LdStPairArgs<Rt, Addr>: MakeLdpswArgs<D1, D2, AddrIn>,
+    <LdStPairArgs<Rt, Addr> as MakeLdpswArgs<D1, D2, AddrIn>>::Outcome:
+        Outcome<Inner = LdStPairArgs<Rt, Addr>>,
 {
-    Ldpsw::new((d1, d2), addr)
+    <LdStPairArgs<Rt, Addr> as MakeLdpswArgs<D1, D2, AddrIn>>::new(d1, d2, addr).map(Ldpsw)
 }
 
-define_pair_imm_offset_rules!(Ldpsw, MakeLdpsw, LDPSW, RegOrZero64, "64", LdpStpOffset32);
-define_pair_fallible_rules!(LDPSW, Ldpsw, MakeLdpsw);
+impl RawInstruction for Ldpsw<LdStPairArgs<RegOrZero64, (RegOrSp64, LdpStpOffset32)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDPSW_64_ldstpair_off(offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
+
+impl RawInstruction for Ldpsw<LdStPairArgs<RegOrZero64, (Inc<LdpStpOffset32>, RegOrSp64)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (inc, base) = self.0.addr;
+        LDPSW_64_ldstpair_pre(inc.offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
+
+impl RawInstruction for Ldpsw<LdStPairArgs<RegOrZero64, (RegOrSp64, Inc<LdpStpOffset32>)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, inc) = self.0.addr;
+        LDPSW_64_ldstpair_post(inc.offset.into(), self.0.rt.1.index(), base.index(), self.0.rt.0.index())
+    }
+}
 
 #[cfg(test)]
 mod tests {

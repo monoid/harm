@@ -5,49 +5,39 @@
 
 use aarchmrs_instructions::A64::ldst::ldst_unscaled::LDURH_32_ldst_unscaled::LDURH_32_ldst_unscaled;
 
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, Register};
-use crate::sealed::Sealed;
-
+use super::args::{LdStArgs, MakeUrhArgs};
 use super::UnscaledOffset;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero32, Register},
+};
 
-/// A `LDURH` instruction with a destination and an address.
-pub struct Ldurh<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+/// A `ldurh` instruction with a destination and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Ldurh<Args>(pub Args);
 
-impl<Rt, Addr> Ldurh<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldurh<Rt, Addr> {}
-
-/// Defines possible was to construct a `ldurh` instruction.
-pub trait MakeLdurh<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-
-define_unscaled_imm_offset_rules!(Ldurh, MakeLdurh, LDURH, RegOrZero32, 32);
-
-pub fn ldurh<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Ldurh<TargetOut, AddrOut> as MakeLdurh<TargetInp, AddrInp>>::Output
+/// ldurh construction function.  See examples in the module documentation.
+pub fn ldurh<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeUrhArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Ldurh<LdStArgs<Rt, Addr>>,
+>
 where
-    Ldurh<TargetOut, AddrOut>: MakeLdurh<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeUrhArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeUrhArgs<RtIn, AddrIn>>::Outcome:
+        Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Ldurh::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeUrhArgs<RtIn, AddrIn>>::new(dst, addr).map(Ldurh)
+}
+
+impl RawInstruction for Ldurh<LdStArgs<RegOrZero32, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDURH_32_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]

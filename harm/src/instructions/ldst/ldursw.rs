@@ -5,49 +5,39 @@
 
 use aarchmrs_instructions::A64::ldst::ldst_unscaled::LDURSW_64_ldst_unscaled::LDURSW_64_ldst_unscaled;
 
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero64, Register};
-use crate::sealed::Sealed;
-
+use super::args::{LdStArgs, MakeUrswArgs};
 use super::UnscaledOffset;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero64, Register},
+};
 
-/// A `LDURSW` instruction with a destination and an address.
-pub struct Ldursw<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+/// A `ldursw` instruction with a destination and an address.
+#[derive(Debug, Copy, Clone)]
+pub struct Ldursw<Args>(pub Args);
 
-impl<Rt, Addr> Ldursw<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Ldursw<Rt, Addr> {}
-
-/// Defines possible was to construct a `ldursw` instruction.
-pub trait MakeLdursw<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-
-define_unscaled_imm_offset_rules!(Ldursw, MakeLdursw, LDURSW, RegOrZero64, 64);
-
-pub fn ldursw<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Ldursw<TargetOut, AddrOut> as MakeLdursw<TargetInp, AddrInp>>::Output
+/// ldursw construction function.  See examples in the module documentation.
+pub fn ldursw<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeUrswArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Ldursw<LdStArgs<Rt, Addr>>,
+>
 where
-    Ldursw<TargetOut, AddrOut>: MakeLdursw<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeUrswArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeUrswArgs<RtIn, AddrIn>>::Outcome:
+        Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Ldursw::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeUrswArgs<RtIn, AddrIn>>::new(dst, addr).map(Ldursw)
+}
+
+impl RawInstruction for Ldursw<LdStArgs<RegOrZero64, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        LDURSW_64_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]
@@ -60,7 +50,6 @@ mod tests {
     use RegOrSp64::SP;
     use RegOrZero64::XZR;
 
-    // 'ldursw (x1|w1|xzr|wzr), [(x2|sp), (-1|1|255|-256|0)]
     const LDURSW_DB: &str = "
 b89ff041	ldursw x1, [x2, -1]
 b8801041	ldursw x1, [x2, 1]

@@ -7,50 +7,46 @@ use aarchmrs_instructions::A64::ldst::ldst_unscaled::{
     STUR_32_ldst_unscaled::STUR_32_ldst_unscaled, STUR_64_ldst_unscaled::STUR_64_ldst_unscaled,
 };
 
-use crate::bits::BitError;
-use crate::instructions::RawInstruction;
-use crate::register::{IntoReg, RegOrSp64, RegOrZero32, RegOrZero64, Register};
-use crate::sealed::Sealed;
-
+use super::args::{LdStArgs, MakeUrArgs};
 use super::UnscaledOffset;
+use crate::{
+    instructions::RawInstruction,
+    outcome::Outcome,
+    register::{RegOrSp64, RegOrZero32, RegOrZero64, Register},
+};
 
 /// A `stur` instruction with a destination and an address.
-pub struct Stur<Rt, Addr> {
-    rt: Rt,
-    addr: Addr,
-}
+#[derive(Debug, Copy, Clone)]
+pub struct Stur<Args>(pub Args);
 
-impl<Rt, Addr> Stur<Rt, Addr> {
-    pub fn rt(&self) -> &Rt {
-        &self.rt
-    }
-
-    pub fn addr(&self) -> &Addr {
-        &self.addr
-    }
-}
-
-impl<Rt, Addr> Sealed for Stur<Rt, Addr> {}
-
-/// Defines possible was to construct a `stur` instruction.
-pub trait MakeStur<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
-    type Output;
-
-    fn new(rt: Rt, addr: Addr) -> Self::Output;
-}
-
-define_unscaled_imm_offset_rules!(Stur, MakeStur, STUR, RegOrZero64, 64);
-define_unscaled_imm_offset_rules!(Stur, MakeStur, STUR, RegOrZero32, 32);
-
-pub fn stur<TargetInp, TargetOut, AddrInp, AddrOut>(
-    dst: TargetInp,
-    addr: AddrInp,
-) -> <Stur<TargetOut, AddrOut> as MakeStur<TargetInp, AddrInp>>::Output
+/// stur construction function.  See examples in the module documentation.
+pub fn stur<RtIn, Rt, AddrIn, Addr>(
+    dst: RtIn,
+    addr: AddrIn,
+) -> <<LdStArgs<Rt, Addr> as MakeUrArgs<RtIn, AddrIn>>::Outcome as Outcome>::Output<
+    Stur<LdStArgs<Rt, Addr>>,
+>
 where
-    Stur<TargetOut, AddrOut>: MakeStur<TargetInp, AddrInp>,
+    LdStArgs<Rt, Addr>: MakeUrArgs<RtIn, AddrIn>,
+    <LdStArgs<Rt, Addr> as MakeUrArgs<RtIn, AddrIn>>::Outcome: Outcome<Inner = LdStArgs<Rt, Addr>>,
 {
-    Stur::new(dst, addr)
+    <LdStArgs<Rt, Addr> as MakeUrArgs<RtIn, AddrIn>>::new(dst, addr).map(Stur)
+}
+
+impl RawInstruction for Stur<LdStArgs<RegOrZero64, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STUR_64_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
+}
+
+impl RawInstruction for Stur<LdStArgs<RegOrZero32, (RegOrSp64, UnscaledOffset)>> {
+    #[inline]
+    fn to_code(&self) -> aarchmrs_types::InstructionCode {
+        let (base, offset) = self.0.addr;
+        STUR_32_ldst_unscaled(offset.into(), base.index(), self.0.rt.index())
+    }
 }
 
 #[cfg(test)]
