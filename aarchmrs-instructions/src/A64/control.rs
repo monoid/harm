@@ -12,6 +12,7 @@ pub mod compbranch_regs;
 pub mod compbranch_regs2;
 pub mod condbranch;
 pub mod exception;
+pub mod extendedhints;
 pub mod hints;
 pub mod miscbranch;
 pub mod pstate;
