@@ -14,7 +14,9 @@ use crate::{
 pub(crate) mod macros;
 
 pub mod add;
+pub mod adds;
 pub mod sub;
+pub mod subs;
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub struct ShiftedReg<T> {

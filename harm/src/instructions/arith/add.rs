@@ -73,11 +73,11 @@ define_arith_faillible!(Add);
 define_arith_shift!(Add, 32, addsub, Reg32, RegOrZero32);
 define_arith_shift!(Add, 64, addsub, Reg64, RegOrZero64);
 
-define_arith_extend!(Add, 32, addsub, Reg32, RegOrSp32, RegOrZero32);
-define_arith_extend!(Add, 64, addsub, Reg64, RegOrSp64, RegOrZero64);
+define_arith_extend!(Add, 32, addsub, Reg32, RegOrSp32, RegOrSp32, RegOrZero32);
+define_arith_extend!(Add, 64, addsub, Reg64, RegOrSp64, RegOrSp64, RegOrZero64);
 
-define_arith_imm12!(Add, 32, addsub, Reg32, RegOrSp32);
-define_arith_imm12!(Add, 64, addsub, Reg64, RegOrSp64);
+define_arith_imm12!(Add, 32, addsub, Reg32, RegOrSp32, RegOrSp32);
+define_arith_imm12!(Add, 64, addsub, Reg64, RegOrSp64, RegOrSp64);
 
 #[cfg(test)]
 mod tests {
