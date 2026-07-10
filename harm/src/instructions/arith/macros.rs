@@ -21,7 +21,7 @@ macro_rules! define_arith_faillible {
 }
 
 macro_rules! define_arith_shift {
-    ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $ztype:ty) => {
+    ($name:ident, $bits:expr, $cmd:ident, $ztype:ty, $reg:ty) => {
         ::paste::paste! {
             impl $name<$reg, $reg, $reg> {
                 #[inline]
@@ -175,10 +175,9 @@ macro_rules! define_arith_shift {
     }
 }
 
-
 // TODO instead of u32, use Or<UBitValue<12>, UBitValue<12, 12>>.
 macro_rules! define_arith_imm12 {
-    ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $dtype:ty, $etype:ty) => {
+    ($name:ident, $bits:expr, $cmd:ident, $dtype:ty, $etype:ty) => {
         ::paste::paste! {
             impl<Dst, Src> [<Make $name>]<Dst, Src, u32>
                 for $name<$dtype, $etype, $crate::instructions::arith::AddSubImm12>
@@ -237,7 +236,7 @@ macro_rules! define_arith_imm12 {
 }
 
 macro_rules! define_arith_extend {
-    ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $stype:ty, $dtype:ty, $ztype:ty) => {
+    ($name:ident, $bits:expr, $cmd:ident, $dtype:ty, $stype:ty, $ztype:ty, $reg:ty) => {
         ::paste::paste! {
             impl $name<$reg, $reg, $reg> {
                 #[inline]

@@ -73,30 +73,32 @@ impl MakeSubs<Reg32, Reg32, Reg32> for Subs<Reg32, Reg32, Reg32> {
 
 define_arith_faillible!(Subs);
 
-define_arith_shift!(Subs, 32, addsub, Reg32, RegOrZero32);
-define_arith_shift!(Subs, 64, addsub, Reg64, RegOrZero64);
+define_arith_shift!(Subs, 32, addsub, RegOrZero32, Reg32);
+define_arith_shift!(Subs, 64, addsub, RegOrZero64, Reg64);
 
+// N.B.: `add`/`sub` use `RegOrSp{N}, RegOrSp{N}, RegOrZero{N}`
 define_arith_extend!(
     Subs,
     32S,
     addsub,
-    Reg32,
+    RegOrZero32,
     RegOrSp32,
     RegOrZero32,
-    RegOrZero32
+    Reg32
 );
 define_arith_extend!(
     Subs,
     64S,
     addsub,
-    Reg64,
+    RegOrZero64,
     RegOrSp64,
     RegOrZero64,
-    RegOrZero64
+    Reg64
 );
 
-define_arith_imm12!(Subs, 32S, addsub, Reg32, RegOrZero32, RegOrSp32);
-define_arith_imm12!(Subs, 64S, addsub, Reg64, RegOrZero64, RegOrSp64);
+// N.B.: `add`/`sub` use `RegOrSp{N}, RegOrSp{N}`
+define_arith_imm12!(Subs, 32S, addsub, RegOrZero32, RegOrSp32);
+define_arith_imm12!(Subs, 64S, addsub, RegOrZero64, RegOrSp64);
 
 #[cfg(test)]
 mod tests {
