@@ -13,8 +13,10 @@ use crate::{
 #[macro_use]
 pub(crate) mod macros;
 
+pub mod adc;
 pub mod add;
 pub mod adds;
+pub mod sbc;
 pub mod sub;
 pub mod subs;
 

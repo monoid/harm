@@ -385,3 +385,49 @@ macro_rules! define_arith_extend {
         }
     };
 }
+
+macro_rules! define_arith_carry {
+    ($name:ident, $bits:expr, $cmd:ident, $ztype:ty, $reg:ty) => {
+        ::paste::paste! {
+            impl RawInstruction for $name<$reg, $reg, $reg> {
+                #[inline]
+                fn to_code(&self) -> InstructionCode {
+                    $name {
+                        dst: $ztype::Reg(self.dst),
+                        src1: $ztype::Reg(self.src1),
+                        src2: $ztype::Reg(self.src2),
+                    }
+                    .to_code()
+                }
+            }
+
+            impl<Src1, Src2> [<Make $name>]<$ztype, Src1, Src2> for $name<$ztype, $ztype, $ztype>
+            where
+                Src1: IntoReg<$ztype>,
+                Src2: IntoReg<$ztype>,
+            {
+                type Output = Self;
+
+                #[inline]
+                fn new(dst: $ztype, src1: Src1, src2: Src2) -> Self {
+                    Self { dst, src1: src1.into_reg(), src2: src2.into_reg() }
+                }
+            }
+
+            impl RawInstruction for $name<$ztype, $ztype, $ztype> {
+                #[inline]
+                fn to_code(&self) -> InstructionCode {
+                    let rm = self.src2.index();
+                    let rn = self.src1.index();
+                    let rd = self.dst.index();
+
+                    [<$name:upper _ $bits _ $cmd _carry>](
+                        rm.into(),
+                        rn.into(),
+                        rd.into(),
+                    )
+                }
+            }
+        }
+    };
+}
