@@ -139,7 +139,7 @@ f1400441	subs x1, x2, #0x1000
 ";
 
     test_cases! {
-        SUBS_DB, untested_adds_db;
+        SUBS_DB, untested_subs_db;
         test_subs_64, subs(X1, X2, X12), "subs x1, x2, x12";
         test_subs_64_shift, subs(X1, X2, X12).try_shift(ShiftMode::LSR, 4).unwrap(), "subs x1, x2, x12, lsr #4";
         test_subs_64_zero,
