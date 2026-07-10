@@ -14,9 +14,11 @@ use crate::{
 pub(crate) mod macros;
 
 pub mod adc;
+pub mod adcs;
 pub mod add;
 pub mod adds;
 pub mod sbc;
+pub mod sbcs;
 pub mod sub;
 pub mod subs;
 
