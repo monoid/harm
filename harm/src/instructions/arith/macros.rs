@@ -21,7 +21,7 @@ macro_rules! define_arith_faillible {
 }
 
 macro_rules! define_arith_shift {
-    ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $ztype:ty) => {
+    ($name:ident, $bits:expr, $cmd:ident, $ztype:ty, $reg:ty) => {
         ::paste::paste! {
             impl $name<$reg, $reg, $reg> {
                 #[inline]
@@ -177,12 +177,12 @@ macro_rules! define_arith_shift {
 
 // TODO instead of u32, use Or<UBitValue<12>, UBitValue<12, 12>>.
 macro_rules! define_arith_imm12 {
-    ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $etype:ty) => {
+    ($name:ident, $bits:expr, $cmd:ident, $dtype:ty, $etype:ty) => {
         ::paste::paste! {
             impl<Dst, Src> [<Make $name>]<Dst, Src, u32>
-                for $name<$etype, $etype, $crate::instructions::arith::AddSubImm12>
+                for $name<$dtype, $etype, $crate::instructions::arith::AddSubImm12>
             where
-                Dst: IntoReg<$etype>,
+                Dst: IntoReg<$dtype>,
                 Src: IntoReg<$etype>,
             {
                 type Output = Result<Self, (BitError, BitError)>;
@@ -199,9 +199,9 @@ macro_rules! define_arith_imm12 {
             }
 
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, Src2>
-                for $name<$etype, $etype, $crate::instructions::arith::AddSubImm12>
+                for $name<$dtype, $etype, $crate::instructions::arith::AddSubImm12>
             where
-                Dst: IntoReg<$etype>,
+                Dst: IntoReg<$dtype>,
                 Src1: IntoReg<$etype>,
                 Src2: Into<$crate::instructions::arith::AddSubImm12>,
             {
@@ -217,7 +217,7 @@ macro_rules! define_arith_imm12 {
                 }
             }
 
-            impl RawInstruction for $name<$etype, $etype, $crate::instructions::arith::AddSubImm12> {
+            impl RawInstruction for $name<$dtype, $etype, $crate::instructions::arith::AddSubImm12> {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     use $crate::instructions::arith::AddSubImm12::*;
@@ -236,7 +236,7 @@ macro_rules! define_arith_imm12 {
 }
 
 macro_rules! define_arith_extend {
-    ($name:ident, $bits:expr, $cmd:ident, $reg:ty, $stype:ty, $ztype:ty) => {
+    ($name:ident, $bits:expr, $cmd:ident, $dtype:ty, $stype:ty, $ztype:ty, $reg:ty) => {
         ::paste::paste! {
             impl $name<$reg, $reg, $reg> {
                 #[inline]
@@ -244,9 +244,9 @@ macro_rules! define_arith_extend {
                     self,
                     mode: ExtendMode,
                     amount: ExtendShiftAmount,
-                ) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
+                ) -> $name<$dtype, $stype, ExtendedReg<$ztype>> {
                     $name::new(
-                        <$stype>::Reg(self.dst),
+                        <$dtype>::Reg(self.dst),
                         <$stype>::Reg(self.src1),
                         ExtendedReg::new(<$ztype>::Reg(self.src2)),
                     )
@@ -254,38 +254,38 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl<Src1, Src2> [<Make $name>]<$stype, Src1, Src2> for $name<$stype, $stype, $ztype>
+            impl<Src1, Src2> [<Make $name>]<$dtype, Src1, Src2> for $name<$dtype, $stype, $ztype>
             where Src1: IntoReg<$stype>,
                   Src2: IntoReg<$ztype>
             {
                 type Output = Self;
 
                 #[inline]
-                fn new(dst: $stype, src1: Src1, src2: Src2) -> Self {
+                fn new(dst: $dtype, src1: Src1, src2: Src2) -> Self {
                     Self { dst, src1: src1.into_reg(), src2: src2.into_reg() }
                 }
             }
 
-            impl $name<$stype, $stype, $reg> {
+            impl $name<$dtype, $stype, $reg> {
                 #[inline]
                 pub fn extend(
                     self,
                     mode: ExtendMode,
                     amount: ExtendShiftAmount,
-                ) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
+                ) -> $name<$dtype, $stype, ExtendedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ExtendedReg::new(self.src2.into()))
                         .extend(mode, amount)
                 }
             }
 
-            impl [<Make $name>]<$stype, $stype, ExtendedReg<$ztype>>
-                for $name<$stype, $stype, ExtendedReg<$ztype>>
+            impl [<Make $name>]<$dtype, $stype, ExtendedReg<$ztype>>
+                for $name<$dtype, $stype, ExtendedReg<$ztype>>
             {
                 type Output = Self;
 
                 #[inline]
                 fn new(
-                    dst: $stype,
+                    dst: $dtype,
                     src1: $stype,
                     src2: ExtendedReg<$ztype>,
                 ) -> Self {
@@ -293,7 +293,7 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl $name<$stype, $stype, ExtendedReg<$ztype>> {
+            impl $name<$dtype, $stype, ExtendedReg<$ztype>> {
                 #[inline]
                 pub fn extend(mut self, mode: ExtendMode, amount: ExtendShiftAmount) -> Self {
                     self.src2.extend = Extend { mode, amount };
@@ -301,15 +301,15 @@ macro_rules! define_arith_extend {
                 }
             }
 
-            impl $name<$stype, $stype, $ztype> {
+            impl $name<$dtype, $stype, $ztype> {
                 #[inline]
-                pub fn extend(self, mode: ExtendMode, amount: ExtendShiftAmount) -> $name<$stype, $stype, ExtendedReg<$ztype>> {
+                pub fn extend(self, mode: ExtendMode, amount: ExtendShiftAmount) -> $name<$dtype, $stype, ExtendedReg<$ztype>> {
                     $name::new(self.dst, self.src1, ExtendedReg::new(self.src2))
                         .extend(mode, amount)
                 }
             }
 
-            impl RawInstruction for $name<$stype, $stype, ExtendedReg<$ztype>> {
+            impl RawInstruction for $name<$dtype, $stype, ExtendedReg<$ztype>> {
                 #[inline]
                 fn to_code(&self) -> InstructionCode {
                     let option = self.src2.extend.mode as u8;
@@ -325,9 +325,9 @@ macro_rules! define_arith_extend {
             }
 
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode)>
-                for $name<$stype, $stype, ExtendedReg<$ztype>>
+                for $name<$dtype, $stype, ExtendedReg<$ztype>>
                 where
-                    Dst: IntoReg<$stype>,
+                    Dst: IntoReg<$dtype>,
                     Src1: IntoReg<$stype>,
                     Src2: IntoReg<$ztype>,
             {
@@ -345,9 +345,9 @@ macro_rules! define_arith_extend {
             }
 
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode, ExtendShiftAmount)>
-                for $name<$stype, $stype, ExtendedReg<$ztype>>
+                for $name<$dtype, $stype, ExtendedReg<$ztype>>
                 where
-                    Dst: IntoReg<$stype>,
+                    Dst: IntoReg<$dtype>,
                     Src1: IntoReg<$stype>,
                     Src2: IntoReg<$ztype>,
             {
@@ -365,9 +365,9 @@ macro_rules! define_arith_extend {
             }
 
             impl<Dst, Src1, Src2> [<Make $name>]<Dst, Src1, (Src2, ExtendMode, u8)>
-                for $name<$stype, $stype, ExtendedReg<$ztype>>
+                for $name<$dtype, $stype, ExtendedReg<$ztype>>
                 where
-                    Dst: IntoReg<$stype>,
+                    Dst: IntoReg<$dtype>,
                     Src1: IntoReg<$stype>,
                     Src2: IntoReg<$ztype>,
             {

@@ -66,14 +66,14 @@ impl MakeSub<Reg32, Reg32, Reg32> for Sub<Reg32, Reg32, Reg32> {
 
 define_arith_faillible!(Sub);
 
-define_arith_shift!(Sub, 32, addsub, Reg32, RegOrZero32);
-define_arith_shift!(Sub, 64, addsub, Reg64, RegOrZero64);
+define_arith_shift!(Sub, 32, addsub, RegOrZero32, Reg32);
+define_arith_shift!(Sub, 64, addsub, RegOrZero64, Reg64);
 
-define_arith_extend!(Sub, 32, addsub, Reg32, RegOrSp32, RegOrZero32);
-define_arith_extend!(Sub, 64, addsub, Reg64, RegOrSp64, RegOrZero64);
+define_arith_extend!(Sub, 32, addsub, RegOrSp32, RegOrSp32, RegOrZero32, Reg32);
+define_arith_extend!(Sub, 64, addsub, RegOrSp64, RegOrSp64, RegOrZero64, Reg64);
 
-define_arith_imm12!(Sub, 32, addsub, Reg32, RegOrSp32);
-define_arith_imm12!(Sub, 64, addsub, Reg64, RegOrSp64);
+define_arith_imm12!(Sub, 32, addsub, RegOrSp32, RegOrSp32);
+define_arith_imm12!(Sub, 64, addsub, RegOrSp64, RegOrSp64);
 
 #[cfg(test)]
 mod tests {
