@@ -1,4 +1,4 @@
-/* Copyright (C) 2025 Ivan Boldyrev
+/* Copyright (C) 2026 Ivan Boldyrev
  *
  * This document is licensed under the BSD 3-clause license.
  */
@@ -32,6 +32,7 @@ mod strh;
 mod stur;
 mod sturb;
 mod sturh;
+mod unprivileged;
 
 pub use self::increment::*;
 pub use self::ldnp::*;
@@ -58,6 +59,7 @@ pub use self::strh::*;
 pub use self::stur::*;
 pub use self::sturb::*;
 pub use self::sturh::*;
+pub use self::unprivileged::*;
 use crate::bits::{SBitValue, UBitValue};
 use crate::sealed::Sealed;
 

@@ -41,8 +41,8 @@ pub trait MakeLdursb<Rt, Addr>: Sealed {
     fn new(rt: Rt, addr: Addr) -> Self::Output;
 }
 
-define_unscaled_imm_offset_rules!(Ldursb, MakeLdursb, LDURSB, RegOrZero64, 64);
-define_unscaled_imm_offset_rules!(Ldursb, MakeLdursb, LDURSB, RegOrZero32, 32);
+define_unscaled_imm_offset_rules!(Ldursb, MakeLdursb, LDURSB, RegOrZero64, 64, "ldst_unscaled");
+define_unscaled_imm_offset_rules!(Ldursb, MakeLdursb, LDURSB, RegOrZero32, 32, "ldst_unscaled");
 
 pub fn ldursb<TargetInp, TargetOut, AddrInp, AddrOut>(
     dst: TargetInp,

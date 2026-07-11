@@ -38,7 +38,7 @@ pub trait MakeSturb<Rt, Addr>: Sealed {
     fn new(rt: Rt, addr: Addr) -> Self::Output;
 }
 
-define_unscaled_imm_offset_rules!(Sturb, MakeSturb, STURB, RegOrZero32, 32);
+define_unscaled_imm_offset_rules!(Sturb, MakeSturb, STURB, RegOrZero32, 32, "ldst_unscaled");
 
 pub fn sturb<TargetInp, TargetOut, AddrInp, AddrOut>(
     dst: TargetInp,
