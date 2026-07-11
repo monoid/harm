@@ -33,9 +33,9 @@ impl<Rt, Addr> Ldursb<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Ldursb<Rt, Addr> {}
 
-/// Defines possible was to construct a `ldursb` instruction.
+/// Defines possible ways to construct a `ldursb` instruction.
 pub trait MakeLdursb<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
 
     fn new(rt: Rt, addr: Addr) -> Self::Output;

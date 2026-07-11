@@ -1,4 +1,4 @@
-macro_rules! define_arith_faillible {
+macro_rules! define_arith_fallible {
     ($name:ident) => {
         ::paste::paste! {
             impl<Dst, RealDst, Src1, RealSrc1, Src2, Err> [<Make $name>]<Dst, Src1, Result<Src2, Err>>

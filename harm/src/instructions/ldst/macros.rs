@@ -8,7 +8,9 @@ macro_rules! define_reg_offset_rules {
         define_reg_offset_rules!($name, $trait_name, $mnem, $rt, $bitness, $rt);
     };
     ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $shift:ty) => {
-        /// `LDR` with 64-bit destination, base register with extended 64-bit register offset with scale.
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, base register with extended 64-bit register offset with scale."]
         impl<Rt, Base, Ext> $trait_name<Rt, (Base, Ext)>
             for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero64>)>
         where
@@ -27,7 +29,9 @@ macro_rules! define_reg_offset_rules {
             }
         }
 
-        /// `LDR` with 64-bit destination, base register with extended 32-bit register offset with scale.
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, base register with extended 32-bit register offset with scale."]
         impl<Rt, Base, Ext> $trait_name<Rt, (Base, Ext)>
             for $name<$rt, (RegOrSp64, Extended<$shift, RegOrZero32>)>
         where
@@ -46,7 +50,9 @@ macro_rules! define_reg_offset_rules {
             }
         }
 
-        /// `LDR` with 64-bit destination, base register with 64-bit offset without scaling.
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, base register with 64-bit offset without scaling."]
         impl<Rt, Base, OffsetReg> $trait_name<Rt, (Base, OffsetReg)>
             for $name<$rt, (RegOrSp64, RegOrZero64)>
         where
@@ -113,7 +119,9 @@ macro_rules! define_reg_offset_rules {
 
 macro_rules! define_imm_offset_rules {
     ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty) => {
-        /// `LDR` with 64-bit destination, bare base register.
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, bare base register."]
         impl<Rt, Base> $trait_name<Rt, Base> for $name<$rt, (RegOrSp64, $offset_type)>
         where
             Rt: IntoReg<$rt>,
@@ -130,7 +138,9 @@ macro_rules! define_imm_offset_rules {
             }
         }
 
-        /// `LDR` with 64-bit destination, bare base register as a tuple.
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, bare base register as a tuple."]
         impl<Rt, Base> $trait_name<Rt, (Base,)> for $name<$rt, (RegOrSp64, $offset_type)>
         where
             Rt: IntoReg<$rt>,
@@ -147,7 +157,9 @@ macro_rules! define_imm_offset_rules {
             }
         }
 
-        /// `LDR` with 64-bit destination, base register with aligned immediate offset.
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, base register with aligned immediate offset."]
         impl<Rt, B> $trait_name<Rt, (B, $offset_type)>
             for $name<$rt, (RegOrSp64, $offset_type)>
         where
@@ -165,8 +177,10 @@ macro_rules! define_imm_offset_rules {
             }
         }
 
-        /// `LDR` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have
-        /// specific range and alignment.
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have
+specific range and alignment."]
         impl<Rt, B> $trait_name<Rt, (B, u32)> for $name<$rt, (RegOrSp64, $offset_type)>
         where
             Rt: IntoReg<$rt>,
@@ -184,8 +198,10 @@ macro_rules! define_imm_offset_rules {
             }
         }
 
-        /// `LDR` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have
-        /// specific range and alignment.
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have
+specific range and alignment."]
         impl<Rt, B> $trait_name<Rt, (B, i32)> for $name<$rt, (RegOrSp64, $offset_type)>
         where
             Rt: IntoReg<$rt>,
@@ -428,7 +444,7 @@ macro_rules! define_fallible_rules {
     ($mnem: ident, $name:ident, $trait_name:ident) => {
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        #[doc = "` with fallible offset that delegates to non-fallible variants."]
         impl<RtInp, RtOut, BaseInp, Ext, Err> $trait_name<RtInp, (BaseInp, Result<Ext, Err>)>
             for $name<RtOut, ($crate::register::RegOrSp64, Ext)>
         where
@@ -449,7 +465,7 @@ macro_rules! define_fallible_rules {
 
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        #[doc = "` with fallible offset that delegates to non-fallible variants."]
         impl<RtInp, RtOut, BaseInp, Ext, Err>
             $trait_name<RtInp, (::core::result::Result<Ext, Err>, BaseInp)>
             for $name<RtOut, (Ext, $crate::register::RegOrSp64)>
@@ -471,7 +487,7 @@ macro_rules! define_fallible_rules {
 
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible address that delegates to non-faillible variants."]
+        #[doc = "` with fallible address that delegates to non-fallible variants."]
         impl<RtInp, RtOut, Addr, Err> $trait_name<RtInp, ::core::result::Result<Addr, Err>>
             for $name<RtOut, Addr>
         where
@@ -488,9 +504,11 @@ macro_rules! define_fallible_rules {
 }
 
 #[macro_export]
-macro_rules! define_pair_imm_offset_rules {
-    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty) => {
-        #[doc = r" `LDP` with 64-bit destination, base register with aligned immediate offset."]
+macro_rules! define_simple_pair_imm_offset_rules {
+    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty, $suffix:expr) => {
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = r"` with 64-bit destination, base register with aligned immediate offset."]
         impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B, $offset_type)>
             for $name<$rt, (RegOrSp64, $offset_type)>
         where
@@ -508,7 +526,9 @@ macro_rules! define_pair_imm_offset_rules {
             }
         }
 
-        #[doc = r" `LDP` with 64-bit destination and base register."]
+        #[doc = r" `"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination and base register."]
         impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, B>
             for $name<$rt, (RegOrSp64, $offset_type)>
         where
@@ -526,7 +546,9 @@ macro_rules! define_pair_imm_offset_rules {
             }
         }
 
-        #[doc = r" `LDP` with 64-bit destination and base register."]
+        #[doc = r" `"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination and base register."]
         impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B,)>
             for $name<$rt, (RegOrSp64, $offset_type)>
         where
@@ -544,7 +566,9 @@ macro_rules! define_pair_imm_offset_rules {
             }
         }
 
-        #[doc = r" `LDP` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have"]
+        #[doc = r"`"]
+        #[doc = stringify!($mnem)]
+        #[doc = "` with 64-bit destination, base register with immediate offset. It is fallible, as the offset has to have"]
         #[doc = r" specific range and alignment."]
         impl<Rt1, Rt2, B> $trait_name<Rt1, Rt2, (B, i32)> for $name<$rt, (RegOrSp64, $offset_type)>
         where
@@ -562,6 +586,37 @@ macro_rules! define_pair_imm_offset_rules {
                 })
             }
         }
+
+        ::paste::paste! {
+            impl $crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, $offset_type)> {
+                #[inline]
+                fn to_code(&self) -> $crate::InstructionCode {
+                    let (base, offset) = self.addr;
+                    let code = [<$mnem _ $bitness _ $suffix>](
+                        offset.into(),
+                        self.rt.1.index(),
+                        base.index(),
+                        self.rt.0.index(),
+                    );
+                    code
+                }
+            }
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! define_pair_imm_offset_rules {
+    ($name:ident, $trait_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $offset_type:ty) => {
+        define_simple_pair_imm_offset_rules!(
+            $name,
+            $trait_name,
+            $mnem,
+            $rt,
+            $bitness,
+            $offset_type,
+            ldstpair_off
+        );
         impl<Rt1: IntoReg<$rt>, Rt2: IntoReg<$rt>, Base: IntoReg<RegOrSp64>>
             $trait_name<Rt1, Rt2, (Inc<$offset_type>, Base)>
             for $name<$rt, (Inc<$offset_type>, RegOrSp64)>
@@ -588,19 +643,6 @@ macro_rules! define_pair_imm_offset_rules {
         }
 
         ::paste::paste! {
-            impl $crate::instructions::RawInstruction for $name<$rt, (RegOrSp64, $offset_type)> {
-                #[inline]
-                fn to_code(&self) -> $crate::InstructionCode {
-                    let (base, offset) = self.addr;
-                    let code = [<$mnem _ $bitness _ldstpair_off>](
-                        offset.into(),
-                        self.rt.1.index(),
-                        base.index(),
-                        self.rt.0.index(),
-                    );
-                    code
-                }
-            }
             impl $crate::instructions::RawInstruction for $name<$rt, (Inc<$offset_type>, RegOrSp64)> {
                 #[inline]
                 fn to_code(&self) -> $crate::InstructionCode {
@@ -636,7 +678,7 @@ macro_rules! define_pair_fallible_rules {
     ($mnem: ident, $name:ident, $trait_name:ident) => {
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        #[doc = "` with fallible offset that delegates to non-fallible variants."]
         impl<RtInp1, RtInp2, RtOut, BaseInp, Ext, Err>
             $trait_name<RtInp1, RtInp2, (BaseInp, Result<Ext, Err>)>
             for $name<RtOut, ($crate::register::RegOrSp64, Ext)>
@@ -661,7 +703,7 @@ macro_rules! define_pair_fallible_rules {
 
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        #[doc = "` with fallible offset that delegates to non-fallible variants."]
         impl<RtInp1, RtInp2, RtOut, BaseInp, Ext, Err>
             $trait_name<RtInp1, RtInp2, (::core::result::Result<Ext, Err>, BaseInp)>
             for $name<RtOut, (Ext, $crate::register::RegOrSp64)>
@@ -686,7 +728,7 @@ macro_rules! define_pair_fallible_rules {
 
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible address that delegates to non-faillible variants."]
+        #[doc = "` with fallible address that delegates to non-fallible variants."]
         impl<RtInp1, RtInp2, RtOut, Addr, Err>
             $trait_name<RtInp1, RtInp2, ::core::result::Result<Addr, Err>> for $name<RtOut, Addr>
         where

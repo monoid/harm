@@ -32,9 +32,9 @@ impl<Rt, Addr> Stur<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Stur<Rt, Addr> {}
 
-/// Defines possible was to construct a `stur` instruction.
+/// Defines possible ways to construct a `stur` instruction.
 pub trait MakeStur<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
 
     fn new(rt: Rt, addr: Addr) -> Self::Output;

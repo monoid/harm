@@ -32,9 +32,9 @@ impl<Rt, Addr> Ldpsw<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Ldpsw<Rt, Addr> {}
 
-/// Defines possible was to construct a `ldpsw` instruction.
+/// Defines possible ways to construct a `ldpsw` instruction.
 pub trait MakeLdpsw<Rt1, Rt2, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
 
     fn new(rt: (Rt1, Rt2), addr: Addr) -> Self::Output;
