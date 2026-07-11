@@ -278,7 +278,7 @@ specific range and alignment."]
 }
 
 macro_rules! define_unscaled_imm_offset_rules {
-    ($name:ident, $make_name:ident, $mnem:ident, $rt:ty, $bitness:expr) => {
+    ($name:ident, $make_name:ident, $mnem:ident, $rt:ty, $bitness:expr, $suffix:expr) => {
         impl<Rt, Base> $make_name<Rt, (Base, UnscaledOffset)>
             for $name<$rt, (RegOrSp64, UnscaledOffset)>
         where
@@ -348,7 +348,7 @@ macro_rules! define_unscaled_imm_offset_rules {
                 #[inline]
                 fn to_code(&self) -> $crate::InstructionCode {
                     let (base, offset) = self.addr;
-                    [<$mnem:upper _ $bitness _ldst_unscaled>](offset.into(), base.index(), self.rt.index())
+                    [<$mnem:upper _ $bitness _ $suffix>](offset.into(), base.index(), self.rt.index())
                 }
             }
         }
