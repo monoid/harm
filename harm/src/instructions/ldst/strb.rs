@@ -100,9 +100,9 @@ impl<Rt, Addr> Strb<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Strb<Rt, Addr> {}
 
-/// Defines possible was to construct a `STRB` instruction.
+/// Defines possible ways to construct a `STRB` instruction.
 pub trait MakeStrb<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;
 }
@@ -118,7 +118,7 @@ define_reg_offset_rules!(Strb, MakeStrb, STRB, RegOrZero32, "32B", ByteShift);
 define_imm_offset_rules!(Strb, MakeStrb, STRB, RegOrZero32, "32", ScaledOffset8);
 
 //
-// ## Faillible
+// ## Fallible
 //
 define_fallible_rules!(STRB, Strb, MakeStrb);
 

@@ -32,9 +32,9 @@ impl<Rt, Addr> Ldur<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Ldur<Rt, Addr> {}
 
-/// Defines possible was to construct a `ldur` instruction.
+/// Defines possible ways to construct a `ldur` instruction.
 pub trait MakeLdur<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
 
     fn new(rt: Rt, addr: Addr) -> Self::Output;

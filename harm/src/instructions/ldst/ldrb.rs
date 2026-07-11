@@ -100,9 +100,9 @@ impl<Rt, Addr> Ldrb<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Ldrb<Rt, Addr> {}
 
-/// Defines possible was to construct a `ldrb` instruction.
+/// Defines possible ways to construct a `ldrb` instruction.
 pub trait MakeLdrb<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;
 }
@@ -118,7 +118,7 @@ define_reg_offset_rules!(Ldrb, MakeLdrb, LDRB, RegOrZero32, "32B", ByteShift);
 define_imm_offset_rules!(Ldrb, MakeLdrb, LDRB, RegOrZero32, "32", ScaledOffset8);
 
 //
-// ## Faillible
+// ## Fallible
 //
 define_fallible_rules!(LDRB, Ldrb, MakeLdrb);
 

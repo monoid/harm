@@ -71,7 +71,7 @@ impl MakeAdds<Reg32, Reg32, Reg32> for Adds<Reg32, Reg32, Reg32> {
     }
 }
 
-define_arith_faillible!(Adds);
+define_arith_fallible!(Adds);
 
 define_arith_shift!(Adds, 32, addsub, RegOrZero32, Reg32);
 define_arith_shift!(Adds, 64, addsub, RegOrZero64, Reg64);

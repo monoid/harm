@@ -444,7 +444,7 @@ macro_rules! define_fallible_rules {
     ($mnem: ident, $name:ident, $trait_name:ident) => {
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        #[doc = "` with fallible offset that delegates to non-fallible variants."]
         impl<RtInp, RtOut, BaseInp, Ext, Err> $trait_name<RtInp, (BaseInp, Result<Ext, Err>)>
             for $name<RtOut, ($crate::register::RegOrSp64, Ext)>
         where
@@ -465,7 +465,7 @@ macro_rules! define_fallible_rules {
 
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        #[doc = "` with fallible offset that delegates to non-fallible variants."]
         impl<RtInp, RtOut, BaseInp, Ext, Err>
             $trait_name<RtInp, (::core::result::Result<Ext, Err>, BaseInp)>
             for $name<RtOut, (Ext, $crate::register::RegOrSp64)>
@@ -487,7 +487,7 @@ macro_rules! define_fallible_rules {
 
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible address that delegates to non-faillible variants."]
+        #[doc = "` with fallible address that delegates to non-fallible variants."]
         impl<RtInp, RtOut, Addr, Err> $trait_name<RtInp, ::core::result::Result<Addr, Err>>
             for $name<RtOut, Addr>
         where
@@ -678,7 +678,7 @@ macro_rules! define_pair_fallible_rules {
     ($mnem: ident, $name:ident, $trait_name:ident) => {
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        #[doc = "` with fallible offset that delegates to non-fallible variants."]
         impl<RtInp1, RtInp2, RtOut, BaseInp, Ext, Err>
             $trait_name<RtInp1, RtInp2, (BaseInp, Result<Ext, Err>)>
             for $name<RtOut, ($crate::register::RegOrSp64, Ext)>
@@ -703,7 +703,7 @@ macro_rules! define_pair_fallible_rules {
 
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible offset that delegates to non-faillible variants."]
+        #[doc = "` with fallible offset that delegates to non-fallible variants."]
         impl<RtInp1, RtInp2, RtOut, BaseInp, Ext, Err>
             $trait_name<RtInp1, RtInp2, (::core::result::Result<Ext, Err>, BaseInp)>
             for $name<RtOut, (Ext, $crate::register::RegOrSp64)>
@@ -728,7 +728,7 @@ macro_rules! define_pair_fallible_rules {
 
         #[doc = "`"]
         #[doc = stringify!($mnem)]
-        #[doc = "` with fallible address that delegates to non-faillible variants."]
+        #[doc = "` with fallible address that delegates to non-fallible variants."]
         impl<RtInp1, RtInp2, RtOut, Addr, Err>
             $trait_name<RtInp1, RtInp2, ::core::result::Result<Addr, Err>> for $name<RtOut, Addr>
         where

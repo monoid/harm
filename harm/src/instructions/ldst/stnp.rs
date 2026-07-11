@@ -32,9 +32,9 @@ impl<Rt, Addr> Stnp<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Stnp<Rt, Addr> {}
 
-/// Defines possible was to construct a `stnp` instruction.
+/// Defines possible ways to construct a `stnp` instruction.
 pub trait MakeStnp<Rt1, Rt2, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
 
     fn new(rt: (Rt1, Rt2), addr: Addr) -> Self::Output;

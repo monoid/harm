@@ -144,9 +144,9 @@ impl<Rt, Addr> Ldr<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Ldr<Rt, Addr> {}
 
-/// Defines possible was to construct a `ldr` instruction.
+/// Defines possible ways to construct a `ldr` instruction.
 pub trait MakeLdr<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
     fn new(rt: Rt, addr: Addr) -> Self::Output;
 }
@@ -183,7 +183,7 @@ define_pc_offset_rules!(
 );
 
 //
-// ## Faillible
+// ## Fallible
 //
 define_fallible_rules!(LDR, Ldr, MakeLdr);
 

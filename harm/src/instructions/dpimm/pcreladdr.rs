@@ -172,7 +172,7 @@ b0800007	adrp x7, .-0xfffff000
         test_adrp_plus_max, adrp(X8, SBitValue::new_i64(MAX_ADRP_OFFSET).unwrap()), "adrp x8, .+0xfffff000";
         test_adrp_minus_max, adrp(X7, SBitValue::new_i64(-MAX_ADRP_OFFSET).unwrap()), "adrp x7, .-0xfffff000";
 
-        test_adr_0x12345_faillible, adr(X28, 0x12345).unwrap(), "adr x28, .+0x12345";
+        test_adr_0x12345_fallible, adr(X28, 0x12345).unwrap(), "adr x28, .+0x12345";
         test_adrp_0x12345_fallible, adrp(X9, 0x12345 << 12).unwrap(), "adrp x9, .+0x12345000";
     }
 }

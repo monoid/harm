@@ -38,9 +38,9 @@ impl<Rt, Addr> Ldp<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Ldp<Rt, Addr> {}
 
-/// Defines possible was to construct a `ldp` instruction.
+/// Defines possible ways to construct a `ldp` instruction.
 pub trait MakeLdp<Rt1, Rt2, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
 
     fn new(rt: (Rt1, Rt2), addr: Addr) -> Self::Output;

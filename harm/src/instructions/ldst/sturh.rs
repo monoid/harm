@@ -30,9 +30,9 @@ impl<Rt, Addr> Sturh<Rt, Addr> {
 
 impl<Rt, Addr> Sealed for Sturh<Rt, Addr> {}
 
-/// Defines possible was to construct a `sturh` instruction.
+/// Defines possible ways to construct a `sturh` instruction.
 pub trait MakeSturh<Rt, Addr>: Sealed {
-    /// Allows defining both faillible and infallible constructors.
+    /// Allows defining both fallible and infallible constructors.
     type Output;
 
     fn new(rt: Rt, addr: Addr) -> Self::Output;

@@ -29,7 +29,7 @@
  * or representable as logical immediate of particular register size (`orr` immedate argument).  For `SP`/`WSP` only
  * logical immediate variant is available.
  *
- * This is always a faillible variant, and it is defined for both `u32` and `i32` for 32-bit registers, and both `u64`
+ * This is always a fallible variant, and it is defined for both `u32` and `i32` for 32-bit registers, and both `u64`
  * and `i64` for 64-bit registers.  For this reason, the compiler cannot deduce type for immediate untyped argument,
  * you have to explicitely provide the type.  Signed integer variants simply cast the value to unsigned.
  *
