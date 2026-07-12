@@ -75,34 +75,6 @@ where
     }
 }
 
-pub struct ExclusiveStore64Args {
-    pub status: RegOrZero32,
-    pub reg: RegOrZero64,
-    pub addr: RegOrSp64,
-}
-
-impl Sealed for ExclusiveStore64Args {}
-
-pub trait MakeExclusiveStore64Args<StatusInp, RegInp, AddrRegInp>: Sealed {
-    fn new(status: StatusInp, reg: RegInp, addr: AddrRegInp) -> Self;
-}
-
-impl<StatusInp, RegInp, AddrRegInp> MakeExclusiveStore64Args<StatusInp, RegInp, AddrRegInp>
-    for ExclusiveStore64Args
-where
-    StatusInp: IntoReg<RegOrZero32>,
-    RegInp: IntoReg<RegOrZero64>,
-    AddrRegInp: IntoReg<RegOrSp64>,
-{
-    fn new(status: StatusInp, reg: RegInp, addr: AddrRegInp) -> Self {
-        Self {
-            status: status.into_reg(),
-            reg: reg.into_reg(),
-            addr: addr.into_reg(),
-        }
-    }
-}
-
 pub struct ExclusivePairLoadArgs<Reg> {
     pub reg1: Reg,
     pub reg2: Reg,
