@@ -9,6 +9,8 @@ pub(crate) mod macros;
 mod increment;
 mod shift_extend;
 
+mod args;
+mod exclusive;
 mod ldnp;
 mod ldp;
 mod ldpsw;
@@ -34,6 +36,7 @@ mod sturb;
 mod sturh;
 mod unprivileged;
 
+pub use self::exclusive::*;
 pub use self::increment::*;
 pub use self::ldnp::*;
 pub use self::ldp::*;
