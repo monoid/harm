@@ -381,6 +381,258 @@ pub mod FNMUL_S_floatdp2 {
         )
     }
 }
+pub mod FMAXINM_S_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110001000001010100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXINM_S_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXINM_S_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110001u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMININM_S_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110001000001011100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMININM_S_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMININM_S_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110001u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMAXMG_S_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110001000001100100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXMG_S_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXMG_S_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110001u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b110010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMINMG_S_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110001000001101100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMINMG_S_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMINMG_S_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110001u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b110110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMAXMGINM_S_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110001000001110100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXMGINM_S_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXMGINM_S_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110001u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMINMGINM_S_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110001000001111100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMINMGINM_S_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMINMGINM_S_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110001u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
 pub mod FMUL_D_floatdp2 {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
@@ -759,6 +1011,258 @@ pub mod FNMUL_D_floatdp2 {
         )
     }
 }
+pub mod FMAXINM_D_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110011000001010100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXINM_D_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXINM_D_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110011u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMININM_D_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110011000001011100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMININM_D_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMININM_D_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110011u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMAXMG_D_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110011000001100100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXMG_D_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXMG_D_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110011u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b110010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMINMG_D_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110011000001101100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMINMG_D_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMINMG_D_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110011u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b110110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMAXMGINM_D_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110011000001110100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXMGINM_D_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXMGINM_D_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110011u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMINMGINM_D_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110011000001111100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMINMGINM_D_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMINMGINM_D_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110011u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
 pub mod FMUL_H_floatdp2 {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
@@ -1132,6 +1636,258 @@ pub mod FNMUL_H_floatdp2 {
             0b00011110111u32 << 21u32
                 | Rm.into_inner() << 16u32
                 | 0b100010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMAXINM_H_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110111000001010100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXINM_H_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXINM_H_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110111u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMININM_H_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110111000001011100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMININM_H_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMININM_H_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110111u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMAXMG_H_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110111000001100100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXMG_H_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXMG_H_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110111u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b110010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMINMG_H_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110111000001101100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMINMG_H_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMINMG_H_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110111u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b110110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMAXMGINM_H_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110111000001110100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMAXMGINM_H_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMAXMGINM_H_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110111u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111010u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod FMINMGINM_H_floatdp2 {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110111000001111100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FMINMGINM_H_floatdp2";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FMINMGINM_H_floatdp2(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110111u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b111110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rd.into_inner() << 0u32,
         )

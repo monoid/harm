@@ -36,6 +36,7 @@ pub mod mortlach_multi_sve_4;
 pub mod mortlach_multi_sve_5a;
 pub mod mortlach_multi_sve_5b;
 pub mod mortlach_multi_sve_6;
+pub mod mortlach_multivec_scaled_idx;
 pub mod mortlach_multizero;
 pub mod mortlach_zero;
 pub mod mortlach_zero_zt;

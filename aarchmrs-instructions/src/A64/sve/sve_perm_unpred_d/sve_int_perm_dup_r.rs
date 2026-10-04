@@ -3,7 +3,7 @@
  * This document is Non-confidential and licensed under the BSD 3-clause license.
  */
 
-pub mod dup_z_r_ {
+pub mod dup_z_r_bhs_ {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111001111111111110000000000u32;
     #[cfg(feature = "meta")]
@@ -11,7 +11,7 @@ pub mod dup_z_r_ {
     #[cfg(feature = "meta")]
     pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
     #[cfg(feature = "meta")]
-    pub const NAME: &str = "dup_z_r_";
+    pub const NAME: &str = "dup_z_r_bhs_";
     #[cfg(feature = "meta_field")]
     #[allow(nonstandard_style)]
     pub const FIELD_Zd_OFFSET: u32 = 0u32;
@@ -31,7 +31,7 @@ pub mod dup_z_r_ {
     #[allow(nonstandard_style)]
     pub const FIELD_size_WIDTH: u32 = 2u32;
     #[inline]
-    pub const fn dup_z_r_(
+    pub const fn dup_z_r_bhs_(
         size: ::aarchmrs_types::BitValue<2>,
         Rn: ::aarchmrs_types::BitValue<5>,
         Zd: ::aarchmrs_types::BitValue<5>,
@@ -40,6 +40,39 @@ pub mod dup_z_r_ {
             0b00000101u32 << 24u32
                 | size.into_inner() << 22u32
                 | 0b100000001110u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Zd.into_inner() << 0u32,
+        )
+    }
+}
+pub mod dup_z_r_d_ {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00000101111000000011100000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "dup_z_r_d_";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zd_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Zd_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn dup_z_r_d_(
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Zd: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b0000010111100000001110u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Zd.into_inner() << 0u32,
         )

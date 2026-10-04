@@ -121,6 +121,76 @@ pub mod FCMPE_SZ_floatcmp {
         )
     }
 }
+pub mod FCMTL_S_floatcmp {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110001000001010000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FCMTL_S_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FCMTL_S_floatcmp(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110001u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101000u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | 0b00000u32 << 0u32,
+        )
+    }
+}
+pub mod FCMTLMG_S_floatcmp {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110001000001010000000001000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FCMTLMG_S_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FCMTLMG_S_floatcmp(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110001u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101000u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | 0b01000u32 << 0u32,
+        )
+    }
+}
 pub mod FCMP_D_floatcmp {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001111110000011111u32;
@@ -239,6 +309,76 @@ pub mod FCMPE_DZ_floatcmp {
         )
     }
 }
+pub mod FCMTL_D_floatcmp {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110011000001010000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FCMTL_D_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FCMTL_D_floatcmp(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110011u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101000u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | 0b00000u32 << 0u32,
+        )
+    }
+}
+pub mod FCMTLMG_D_floatcmp {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110011000001010000000001000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FCMTLMG_D_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FCMTLMG_D_floatcmp(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110011u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101000u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | 0b01000u32 << 0u32,
+        )
+    }
+}
 pub mod FCMP_H_floatcmp {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000001111110000011111u32;
@@ -354,6 +494,76 @@ pub mod FCMPE_HZ_floatcmp {
     ) -> ::aarchmrs_types::InstructionCode {
         ::aarchmrs_types::InstructionCode::from_u32(
             0b0001111011100000001000u32 << 10u32 | Rn.into_inner() << 5u32 | 0b11000u32 << 0u32,
+        )
+    }
+}
+pub mod FCMTL_H_floatcmp {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110111000001010000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FCMTL_H_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FCMTL_H_floatcmp(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110111u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101000u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | 0b00000u32 << 0u32,
+        )
+    }
+}
+pub mod FCMTLMG_H_floatcmp {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000011111u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b00011110111000001010000000001000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FCMTLMG_H_floatcmp";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rm_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn FCMTLMG_H_floatcmp(
+        Rm: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b00011110111u32 << 21u32
+                | Rm.into_inner() << 16u32
+                | 0b101000u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | 0b01000u32 << 0u32,
         )
     }
 }
