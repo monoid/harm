@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [0.5.0-2026-09]
+
+Upgraded to AARCHMRS-2026-09.
+
+## [0.4.0-2026-06]
+
+Upgraded to AARCHMRS-2026-06.
+
+## [0.3.0-2025-09]
+
+Upgraded to AARCHMRS-2025-09.
+
 ### Added
 - README.md is module docstring. 
 - `meta_field` feature flag that adds field offsets and size constants.

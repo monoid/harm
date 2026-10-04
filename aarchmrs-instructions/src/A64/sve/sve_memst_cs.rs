@@ -7,4 +7,5 @@ pub mod sve_mem_cst_ss;
 pub mod sve_mem_estq_si;
 pub mod sve_mem_estq_ss;
 pub mod sve_mem_pspill;
+pub mod sve_mem_relspill;
 pub mod sve_mem_spill;

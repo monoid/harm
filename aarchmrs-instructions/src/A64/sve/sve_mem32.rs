@@ -3,6 +3,7 @@
  * This document is Non-confidential and licensed under the BSD 3-clause license.
  */
 
+pub mod sve_mem_32b_acqfill;
 pub mod sve_mem_32b_fill;
 pub mod sve_mem_32b_gld_sv_a;
 pub mod sve_mem_32b_gld_sv_b;

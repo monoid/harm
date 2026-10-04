@@ -99,6 +99,40 @@ pub mod BRK_EX_exception {
         )
     }
 }
+pub mod FLT_EX_exception {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000000000000000010000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11010100001000000000000000010000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "FLT_EX_exception";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_cond_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_cond_WIDTH: u32 = 4u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_imm16_WIDTH: u32 = 16u32;
+    #[inline]
+    pub const fn FLT_EX_exception(
+        imm16: ::aarchmrs_types::BitValue<16>,
+        cond: ::aarchmrs_types::BitValue<4>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11010100001u32 << 21u32
+                | imm16.into_inner() << 5u32
+                | 0b1u32 << 4u32
+                | cond.into_inner() << 0u32,
+        )
+    }
+}
 pub mod HLT_EX_exception {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111000000000000000011111u32;

@@ -6141,6 +6141,39 @@ pub mod ST64B_64L_memop {
         )
     }
 }
+pub mod LDA64B_64L_memop {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11111000101111111101000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "LDA64B_64L_memop";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn LDA64B_64L_memop(
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b1111100010111111110100u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rt.into_inner() << 0u32,
+        )
+    }
+}
 pub mod LD64B_64L_memop {
     #[cfg(feature = "meta")]
     pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
@@ -6547,6 +6580,123 @@ pub mod SWPL_64_memop {
             0b11111000011u32 << 21u32
                 | Rs.into_inner() << 16u32
                 | 0b100000u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rt.into_inner() << 0u32,
+        )
+    }
+}
+pub mod STL64BV0_64_memop {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11111000011000001010000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "STL64BV0_64_memop";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn STL64BV0_64_memop(
+        Rs: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11111000011u32 << 21u32
+                | Rs.into_inner() << 16u32
+                | 0b101000u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rt.into_inner() << 0u32,
+        )
+    }
+}
+pub mod STL64BV_64_memop {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111000001111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11111000011000001011000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "STL64BV_64_memop";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_OFFSET: u32 = 16u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rs_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn STL64BV_64_memop(
+        Rs: ::aarchmrs_types::BitValue<5>,
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b11111000011u32 << 21u32
+                | Rs.into_inner() << 16u32
+                | 0b101100u32 << 10u32
+                | Rn.into_inner() << 5u32
+                | Rt.into_inner() << 0u32,
+        )
+    }
+}
+pub mod STL64B_64L_memop {
+    #[cfg(feature = "meta")]
+    pub const OPCODE_MASK: u32 = 0b11111111111111111111110000000000u32;
+    #[cfg(feature = "meta")]
+    pub const OPCODE: u32 = 0b11111000011111111001000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const SHOULD_BE_MASK: u32 = 0b00000000000000000000000000000000u32;
+    #[cfg(feature = "meta")]
+    pub const NAME: &str = "STL64B_64L_memop";
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_OFFSET: u32 = 0u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rt_WIDTH: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_OFFSET: u32 = 5u32;
+    #[cfg(feature = "meta_field")]
+    #[allow(nonstandard_style)]
+    pub const FIELD_Rn_WIDTH: u32 = 5u32;
+    #[inline]
+    pub const fn STL64B_64L_memop(
+        Rn: ::aarchmrs_types::BitValue<5>,
+        Rt: ::aarchmrs_types::BitValue<5>,
+    ) -> ::aarchmrs_types::InstructionCode {
+        ::aarchmrs_types::InstructionCode::from_u32(
+            0b1111100001111111100100u32 << 10u32
                 | Rn.into_inner() << 5u32
                 | Rt.into_inner() << 0u32,
         )
